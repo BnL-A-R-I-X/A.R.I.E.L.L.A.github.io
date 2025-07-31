@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>USS Axiom // Character Rankings</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+<header class="site-header">
+    <div class="header-inner">
+        <!-- BNL Logo -->
+        <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered" title="Buy n Large Corporation">
+        <div>
+            <h1>USS AXIOM // CHARACTER RANKINGS</h1>
+            <p class="subtext">BNL Passenger Preference Evaluation System</p>
+            <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-bar nav-right">
+    <a href="../index.html" class="nav-btn">HOME</a>
+    <a href="ocs.html" class="nav-btn">OC DATABASE</a>
+    <a href="rankings.html" class="nav-btn active">RANKINGS</a>
+    <a href="socials.html" class="nav-btn">SOCIALS</a>
+    <a href="bio.html" class="nav-btn">BIO</a>
+</nav>
+
+<section class="terminal-intro">
+  <p>
+    Welcome to the <strong>BNL Character Preference Evaluation System</strong>—a secure passenger feedback terminal monitored by A.R.I.E.L.L.A.  
+    Rate your favorite USS Axiom crew members and passengers to help improve the onboard experience. 
+    All ratings comply with BNL Passenger Satisfaction Protocol XR-42.
+    <em>Hint: Your preferences are stored locally and will persist across sessions.</em>
+  </p>
+</section>
+
+<main class="ranking-main">
+  <!-- The ranking system will be injected here -->
+  <div id="character-rankings"></div>
+
+  <!-- Management Tools -->
+  <section class="ranking-management">
+    <h3>Rating Management</h3>
+    <div class="management-tools">
+      <button id="export-rankings" class="management-btn">
+        📊 Export Rankings
+      </button>
+      <button id="clear-rankings" class="management-btn danger">
+        🗑️ Clear All Ratings
+      </button>
+      <div class="management-info">
+        <p><strong>Data Storage:</strong> All ratings are stored locally in your browser.</p>
+        <p><strong>Privacy:</strong> No data is transmitted to external servers.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="system-footer">
+  <p>© 2025 Ariella Fawnbrook // USS Axiom Character Rankings</p>
+  <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+  <marquee behavior="scroll" direction="left">
+    SYSTEM MESSAGE: Character preference evaluation active. — SECURITY LEVEL: GREEN — NETWORK SYNC: 100%
+  </marquee>
+</div>
+
+<script src="../js/shiptime.js"></script>
+<script src="../js/theme-toggle.js"></script>
+<script src="../js/firebase-ranking-system.js"></script>
+
+<script>
+// Add management button functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const exportBtn = document.getElementById('export-rankings');
+  const clearBtn = document.getElementById('clear-rankings');
+  
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      if (window.characterRanking) {
+        window.characterRanking.exportRatings();
+      }
+    });
+  }
+  
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (window.characterRanking) {
+        window.characterRanking.clearAllRatings();
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>USS Axiom // Crew Social Links</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bsky-widget@latest/dist/bsky-widget.es.js" async></script>
 </head>
 <body>
   
@@ -28,6 +29,7 @@
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
     <a href="ocs.html" class="nav-btn">OC DATABASE</a>
+    <a href="rankings.html" class="nav-btn">RANKINGS</a>
     <a href="socials.html" class="nav-btn active">SOCIALS</a>
     <a href="bio.html" class="nav-btn">BIO</a>
 </nav>
@@ -44,12 +46,8 @@
   <div class="social-card">
     <h2>BlueSky</h2>
     <p><a href="https://bsky.app/profile/angelmommaari.bsky.social" target="_blank">@AngelMommaAri</a></p>
-    <div class="social-preview">
-      <p>Latest posts and updates from BlueSky</p>
-      <small>Visit profile for full timeline and interactions</small>
-      <div class="embed-note">
-        <em>Note: BlueSky embeds require special implementation - visit profile directly</em>
-      </div>
+    <div class="social-embed">
+      <bsky-widget handle="angelmommaari.bsky.social"></bsky-widget>
     </div>
   </div>
 
@@ -103,9 +101,8 @@
 </div>
 
 <script src="../js/shiptime.js"></script>
+<script src="../js/theme-toggle.js"></script>
 
-</body>
-</html>
 </body>
 </html>
 
