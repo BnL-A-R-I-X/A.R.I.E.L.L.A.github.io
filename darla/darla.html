@@ -9,17 +9,25 @@
 <body>
 
 <header class="site-header">
-    <h1>AXIOM // DARLA</h1>
-    <p>Passenger Character Records Terminal</p>
+    <div class="header-inner">
+        <!-- BNL Logo -->
+        <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered" title="Buy n Large Corporation">
+        <div>
+            <h1>USS AXIOM // OC DATABASE</h1>
+            <p class="subtext">BNL Passenger Character Records Terminal</p>
+            <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+        </div>
+    </div>
 </header>
 
-<nav class="nav-bar">
+<nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
+    <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
 </nav>
 
 <main class="character-profile">
     <section class="character-info">
-        <img src="images/refs/Reference.png" alt="Darla Reference" class="character-main-img">
+        <img src="images/refs/ref1.jpg" alt="Darla Reference" class="character-main-img" onerror="this.style.display='none'">
         <div class="character-bio">
             <h2>Darla</h2>
             <p><strong>Role:</strong> Ranger of the Forest</p>
@@ -30,17 +38,13 @@
         </div>
     </section>
 
-    <section>
+    <section class="character-gallery">
         <h2>Reference Sheets</h2>
         <div id="refs-gallery" class="gallery-grid"></div>
-    </section>
-
-    <section>
+        
         <h2>SFW Gallery</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
-    </section>
-
-    <section>
+        
         <h2>NSFW Gallery</h2>
         <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
@@ -56,8 +60,12 @@
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
 <script>
-    loadCharacterGalleries('/darla/images', galleryData);
+    // Load gallery if data exists
+    if (typeof galleryData !== 'undefined') {
+        loadCharacterGalleries('/darla/images', galleryData);
+    }
 </script>
 
 </body>
+</html>
 </html>

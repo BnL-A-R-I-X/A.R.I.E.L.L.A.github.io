@@ -38,6 +38,10 @@ body {
     text-align: left;
 }
 
+.nav-bar.nav-right {
+    text-align: right;
+}
+
 .nav-btn {
     display: inline-block;
     color: #a0c8ff;
@@ -80,6 +84,10 @@ body {
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
+}
+
+.character-grid.centered {
+    justify-content: center;
 }
 
 .character-card {
@@ -399,20 +407,93 @@ main {
     border-top: 1px solid rgba(0, 200, 255, 0.2);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .character-info, .bio {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .character-main-img, .bio-image {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-    
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
+/* Logo styling */
+.bnl-logo.small-centered {
+    width: 50px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+/* Basic styling for the site */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0a0a0a;
+    color: #00ff00;
+    margin: 0;
+    padding: 0;
+}
+
+.site-header {
+    background-color: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #00ff00;
+}
+
+.site-header h1 {
+    font-family: 'Orbitron', monospace;
+    margin: 0;
+    color: #00ff00;
+}
+
+/* Navigation */
+.nav-bar {
+    padding: 10px 20px;
+    background-color: #111;
+    text-align: left;
+}
+
+.nav-bar.nav-right {
+    text-align: right;
+}
+
+.nav-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    margin-right: 10px;
+    font-family: 'Orbitron', monospace;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background-color: #00ff00;
+    color: #000;
+}
+
+/* Character grid */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.character-grid.centered {
+    justify-content: center;
+}
+
+.character-card {
+    background-color: #1a1a1a;
+    border: 1px solid #00ff00;
+    padding: 20px;
+    text-decoration: none;
+    color: #00ff00;
+    transition: all 0.3s ease;
+}
+
+.character-card:hover {
+    background-color: #333;
+    border-color: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.character-card h2 {
+    margin-top: 0;
+    font-family: 'Orbitron', monospace;
 }
