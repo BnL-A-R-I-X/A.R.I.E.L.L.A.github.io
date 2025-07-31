@@ -434,13 +434,26 @@ main {
     border-top: 1px solid rgba(0, 200, 255, 0.2);
 }
 
-/* Logo styling - updated size */
+/* BNL Logo Styling */
+.bnl-logo {
+    height: 60px;
+    width: auto;
+    margin-right: 20px;
+    filter: drop-shadow(0 0 8px rgba(102, 224, 255, 0.6));
+    transition: filter 0.3s ease;
+}
+
+.bnl-logo:hover {
+    filter: drop-shadow(0 0 12px rgba(102, 224, 255, 0.8));
+}
+
 .bnl-logo.small-centered {
-    width: 350px !important;
-    height: 350px !important;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 10px auto;
+    height: 50px;
+    filter: drop-shadow(0 0 6px rgba(102, 224, 255, 0.5));
+}
+
+.bnl-logo.small-centered:hover {
+    filter: drop-shadow(0 0 10px rgba(102, 224, 255, 0.7));
 }
 
 /* Terminal-style paragraph formatting */
