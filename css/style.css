@@ -244,6 +244,84 @@ body {
     color: #000;
 }
 
+/* NSFW Toggle Button Styling */
+#nsfw-toggle-btn,
+#human-nsfw-toggle-btn,
+#anthro-nsfw-toggle-btn {
+    background: rgba(20, 30, 45, 0.8);
+    color: #66e0ff;
+    border: 2px solid rgba(0, 180, 255, 0.5);
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.2);
+    text-shadow: 0 0 4px rgba(102, 224, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+#nsfw-toggle-btn:hover,
+#human-nsfw-toggle-btn:hover,
+#anthro-nsfw-toggle-btn:hover {
+    background: rgba(0, 180, 255, 0.2);
+    color: #ffffff;
+    border-color: rgba(0, 180, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+#nsfw-toggle-btn:active,
+#human-nsfw-toggle-btn:active,
+#anthro-nsfw-toggle-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+}
+
+/* Button animation effect */
+#nsfw-toggle-btn::before,
+#human-nsfw-toggle-btn::before,
+#anthro-nsfw-toggle-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+#nsfw-toggle-btn:hover::before,
+#human-nsfw-toggle-btn:hover::before,
+#anthro-nsfw-toggle-btn:hover::before {
+    left: 100%;
+}
+
+/* Button state indicator */
+#nsfw-toggle-btn[data-state="revealed"],
+#human-nsfw-toggle-btn[data-state="revealed"],
+#anthro-nsfw-toggle-btn[data-state="revealed"] {
+    background: rgba(255, 70, 70, 0.2);
+    border-color: rgba(255, 70, 70, 0.6);
+    color: #ff6666;
+    text-shadow: 0 0 4px rgba(255, 102, 102, 0.5);
+}
+
+#nsfw-toggle-btn[data-state="revealed"]:hover,
+#human-nsfw-toggle-btn[data-state="revealed"]:hover,
+#anthro-nsfw-toggle-btn[data-state="revealed"]:hover {
+    background: rgba(255, 70, 70, 0.3);
+    border-color: rgba(255, 70, 70, 0.8);
+    box-shadow: 0 0 20px rgba(255, 70, 70, 0.4);
+}
+
 /* Character sections */
 .character-sections {
     padding: 20px;
@@ -816,6 +894,90 @@ main {
     text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
     border-bottom: 1px solid rgba(0, 180, 255, 0.3);
     padding-bottom: 8px;
+}
+
+/* Most Recent Art Section */
+.most-recent-section {
+    background: rgba(20, 30, 45, 0.8);
+    border: 2px solid rgba(0, 180, 255, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+}
+
+.most-recent-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #66e0ff;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.recent-art-display {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.recent-art-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 180, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.recent-art-image:hover {
+    border-color: rgba(0, 180, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.recent-art-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.recent-art-date {
+    color: #66e0ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+}
+
+.recent-art-filename {
+    color: #a0c8ff;
+    font-size: 0.9rem;
+    margin: 0;
+    font-family: monospace;
+}
+
+.no-recent-art {
+    text-align: center;
+    color: #a0c8ff;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+/* Mobile adjustments for recent art */
+@media (max-width: 768px) {
+    .recent-art-display {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .recent-art-image {
+        max-width: 150px;
+        max-height: 150px;
+    }
 }
 
 /* Mobile and Responsive Design */

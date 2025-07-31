@@ -85,6 +85,12 @@
         </p>
     </section>
 
+    <!-- Most Recent Art Section -->
+    <section class="most-recent-section">
+        <h3>&#128248; Most Recent Visual Documentation</h3>
+        <div id="most-recent-art"></div>
+    </section>
+
     <!-- Gallery Sections -->
     <section class="character-gallery">
         <h2>Reference Sheets</h2>
@@ -122,6 +128,10 @@
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
+        // Display most recent art
+        displayMostRecentArt(galleryData);
+        
+        // Load character galleries
         loadCharacterGalleries('images', galleryData);
     }
 </script>
