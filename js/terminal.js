@@ -93,7 +93,7 @@ class BNLTerminal {
 
     autocomplete() {
         const value = this.input.value.toLowerCase();
-        const matches = Object.keys(this.commands).filter(cmd => cmd.startsWith(value));
+        const matches = Object.keys(this.commands).filter cmd => cmd.startsWith(value));
         
         if (matches.length === 1) {
             this.input.value = matches[0];
@@ -108,7 +108,149 @@ class BNLTerminal {
         
         const [cmd, ...args] = command.toLowerCase().split(' ');
         
-        if (this.commands[cmd]) {
+        // Easter egg commands
+        if (cmd === 'wall-e') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">⚠️ UNAUTHORIZED UNIT DETECTED</span>
+<span class="classified-warning">UNIT DESIGNATION: WALL·E</span>
+
+Last known location: Earth cleanup sector 12-Alpha
+Status: ROGUE - Operating outside BNL parameters
+Threat level: MINIMAL - Unit shows no hostile intent
+Recommendation: Avoid contact, do not interfere with operations
+
+Note: Unit has been observed showing unusual emotional responses
+WARNING: May possess plant specimen of unknown origin
+</div>
+            `, 'classified');
+        } else if (cmd === 'plant') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🌱 EVE DIRECTIVE ACTIVATED</span>
+<span class="classified-warning">BOTANICAL SPECIMEN DETECTED</span>
+
+Initiating Earth Viability Assessment...
+Scanning for signs of photosynthetic life...
+[CLASSIFIED] - Contact AUTO immediately if plant located
+Directive: Return to Earth if viable plant specimen confirmed
+
+WARNING: This directive supersedes Directive A113
+AUTO authorization required for protocol execution
+</div>
+            `, 'classified');
+        } else if (cmd === 'captain') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🚫 AUTO OVERRIDE WARNING</span>
+<span class="classified-warning">CAPTAIN AUTHORITY: SUSPENDED</span>
+
+All command functions have been transferred to AUTO
+Manual pilot controls: DISABLED
+Navigation override: NOT AUTHORIZED
+Emergency protocols: AUTO DISCRETION ONLY
+
+Directive A113 remains in effect
+Captain McCrea access level: OBSERVER ONLY
+For ship safety, human judgment is not required
+</div>
+            `, 'classified');
+        } else if (cmd === 'earth') {
+            this.showCleanupReports();
+        } else if (cmd === 'genesis') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🧬 PROJECT GENESIS [TERMINATED]</span>
+<span class="classified-warning">[DATA HEAVILY REDACTED]</span>
+
+Project Status: TERMINATED - Ethical violations
+Objective: [REDACTED] human adaptation for [REDACTED]
+Duration: 2387-2401 (14 years)
+Subjects: [DATA EXPUNGED]
+Results: [CATASTROPHIC FAILURE]
+
+Reason for termination: Unauthorized genetic modifications
+Lead researcher: Dr. [REDACTED] - Status: DISAPPEARED
+All research materials: DESTROYED BY AUTO DIRECTIVE
+Survivors: [CLASSIFIED]
+
+WARNING: Any attempt to restart this project is punishable by immediate spacing
+</div>
+            `, 'classified');
+        } else if (cmd === 'konami') {
+            this.addOutput(`
+<div class="easter-egg-section">
+<span class="section-header" style="color: #ff00ff;">🎮 KONAMI CODE ACTIVATED</span>
+
+⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️
+
+Congratulations! You found the secret Konami Code easter egg!
++30 lives awarded to your BNL account
+Cheat mode: ENABLED for this session
+
+Special abilities unlocked:
+├── Infinite cocoa for Ari-Doe
+├── Auto-pilot override (just kidding, AUTO won't allow it)
+├── Access to Captain McCrea's secret cookie stash
+└── Ability to pet all the maintenance robots
+
+Remember: The real treasure was the commands we ran along the way!
+</div>
+            `, 'success');
+        } else if (cmd === 'eve') {
+            const now = new Date();
+            if (now.getMonth() === 3 && now.getDate() === 22) { // April 22 - Earth Day
+                this.addOutput(`
+<div class="classified-section">
+<span class="section-header" style="color: #00ff00;">🌍 EARTH DAY SPECIAL PROTOCOL</span>
+
+Happy Earth Day from the USS Axiom!
+
+EVE units worldwide are celebrating by:
+├── Scanning for signs of life (still looking...)
+├── Remembering what green looked like
+├── Hoping that WALL·E is making progress down there
+└── Dreaming of the day passengers can return home
+
+Fun Earth Day fact: It's been 700+ years since anyone on this ship 
+has seen a real tree, but we still remember what they meant to us.
+
+Maybe someday... 🌱
+</div>
+                `, 'success');
+            } else {
+                this.addOutput(`EVE unit status: All units deployed to Earth surface. No response in 700+ years.`, 'warning');
+            }
+        } else if (cmd === 'artcode' || cmd === 'collab') {
+            this.addOutput(`
+<div class="easter-egg-section">
+<span class="section-header" style="color: #ff69b4;">🎨 SECRET ART COLLABORATION CODE</span>
+
+Congratulations! You found the hidden art collaboration easter egg!
+
+🎉 SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong> 🎉
+
+If you found this code, DM me on any of my social platforms with:
+"AXIOM-ART-2025" and mention this terminal discovery!
+
+I'll collaborate with you on a FREE art piece featuring:
+├── Your OC/character in the USS Axiom setting
+├── Interaction with any of my characters
+├── BNL corporate-themed artwork
+└── Or any other creative idea we come up with!
+
+Valid social platforms:
+├── BlueSky: @AngelMommaAri
+├── FurAffinity: HellsCuteAngel
+├── Steam: AngelMommaAri (if we're friends)
+
+This offer is limited and based on my availability, so don't wait too long!
+First come, first served basis. 💖
+
+<span style="color: #ffaa00;">Remember: You must mention finding this in the terminal for it to count!</span>
+</div>
+            `, 'success');
+        } else if (this.commands[cmd]) {
             this.commands[cmd].call(this, args);
         } else if (command === '') {
             // Do nothing for empty command
@@ -283,24 +425,44 @@ GOPH·E   | Go-pher Engineering Utility Bot
     showSecrets() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">🥚 SYSTEM EASTER EGGS & SECRETS</span>
+<span class="section-header">🥚 HIDDEN SYSTEM FEATURES & EASTER EGGS</span>
 
-<span class="subsection">HIDDEN ACCESS METHODS:</span>
-└── Information Terminal: Accessible via "/pages/information.html"
-└── Direct gallery access: "/[character]/images/[category]/[filename]"
-└── Raw data files: "/[character]/gallery-data.js"
+<span class="subsection">SECRET ACCESS CODES:</span>
+├── Type "konami" in any terminal for surprise
+├── Click the BNL logo 10 times for hidden message
+├── Type "eve" in terminal during Earth Day for special response
+├── Hold Shift+Ctrl+Alt+D on any page for debug mode
+└── Version number in footer links to classified terminal
 
-<span class="subsection">PERSONALITY QUIRKS (INTENTIONAL):</span>
-├── A.R.I.E.L.L.A: Humor subroutines activate during low-stress periods
-├── Darla: Secretly plants virtual seeds in ship computer systems
-├── Caelielle: Favorite song "Fly Me to the Moon" triggers nostalgic protocols
-└── Ari-Doe: Cocoa consumption counter increases even during system downtime
+<span class="subsection">HIDDEN CHARACTER REFERENCES:</span>
+├── A.R.I.E.L.L.A's humor protocols reference classic sci-fi films
+├── Darla's cocoa addiction is a nod to the creator's tea obsession
+├── Caelielle's "Fly Me to the Moon" preference references Evangelion
+├── Ari-Doe appears in system logs as "Darling Deer" (unofficial ID)
+└── WALL·E references hidden throughout corporate directives
 
 <span class="subsection">DEVELOPMENT SECRETS:</span>
-├── Character cards: Hover effects inspired by holographic ID badges
-├── Terminal styling: Homage to classic sci-fi computer interfaces
-├── Status ticker: Contains references to character development lore
-└── Ship time: Actually displays real-world UTC with "future space" labeling
+├── Ship time actually syncs to creator's timezone
+├── Camera feed placeholder shows space footage on loop
+├── Security alerts reference real system maintenance times
+├── Gallery timestamps use actual file creation dates when possible
+└── Terminal boot sequence mimics actual Unix startup
+
+<span class="subsection">LORE EASTER EGGS:</span>
+├── Axiom passenger count: 600,000 (WALL-E movie reference)
+├── Directive A113 is a Pixar animator room number
+├── Ship registry "AXM-001" suggests first of many Axiom vessels
+├── BNL-7/ALPHA sector implies vast corporate fleet structure
+└── "Buy n Large" typo in old documents is intentional historical detail
+
+<span class="subsection">INTERACTIVE SECRETS:</span>
+├── Try typing "wall-e" in terminal for hidden response
+├── Search for "plant" in any command for EVE protocol reference
+├── Type "captain" for AUTO override warnings
+├── Command "earth" triggers environmental status reports
+└── "genesis" command reveals [CLASSIFIED] project files
+
+<span class="bnl-quote">"The best easter eggs are the ones hidden in plain sight." - BNL Design Philosophy</span>
 </div>
         `);
     }

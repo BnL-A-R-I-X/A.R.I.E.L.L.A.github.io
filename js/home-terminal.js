@@ -104,7 +104,37 @@ class HomeTerminal {
         
         const [cmd, ...args] = command.toLowerCase().split(' ');
         
-        if (this.commands[cmd]) {
+        // Secret art collab easter egg
+        if (cmd === 'artcode' || cmd === 'collab') {
+            this.addOutput(`
+<div class="easter-egg-section">
+<span class="section-header" style="color: #ff69b4;">🎨 SECRET ART COLLABORATION CODE</span>
+
+Congratulations! You found the hidden art collaboration easter egg!
+
+🎉 SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong> 🎉
+
+If you found this code, DM me on any of my social platforms with:
+"AXIOM-ART-2025" and mention this terminal discovery!
+
+I'll collaborate with you on a FREE art piece featuring:
+├── Your OC/character in the USS Axiom setting
+├── Interaction with any of my characters
+├── BNL corporate-themed artwork
+└── Or any other creative idea we come up with!
+
+Valid social platforms:
+├── BlueSky: @AngelMommaAri
+├── FurAffinity: HellsCuteAngel
+├── Steam: AngelMommaAri (if we're friends)
+
+This offer is limited and based on my availability, so don't wait too long!
+First come, first served basis. 💖
+
+<span style="color: #ffaa00;">Remember: You must mention finding this in the terminal for it to count!</span>
+</div>
+            `, 'success');
+        } else if (this.commands[cmd]) {
             this.commands[cmd].call(this, args);
         } else if (command === '') {
             // Do nothing for empty command
