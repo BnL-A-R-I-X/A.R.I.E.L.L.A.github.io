@@ -4,17 +4,17 @@
  */
 const galleryData = {
     // General galleries (original)
-    refs: ["general_reference1.png", "general_reference2.png"],
-    sfw: ["general_sfw1.png", "general_sfw2.png"],
-    nsfw: ["general_nsfw1.png", "general_nsfw2.png"],
+    refs: ["reference_sheet_2024-01-15.png", "character_design_2024-02-01.png"],
+    sfw: ["portrait_2024-01-20.png", "action_pose_2024-02-05.png"],
+    nsfw: ["private_art_2024-01-25.png"],
     
     // Humanoid Form galleries
-    humanRefs: ["human_reference1.png", "human_reference2.png"],
-    humanSfw: ["human_sfw1.png", "human_sfw2.png", "human_sfw3.png"],
-    humanNsfw: ["human_nsfw1.png", "human_nsfw2.png"],
+    humanRefs: ["human_ref_2024-02-10.png", "human_design_2024-02-15.png"],
+    humanSfw: ["human_portrait_2024-02-12.png", "human_casual_2024-02-18.png"],
+    humanNsfw: ["human_private_2024-02-20.png"],
     
     // Anthro Form galleries
-    anthroRefs: ["anthro_reference1.png", "anthro_reference2.png"],
-    anthroSfw: ["anthro_sfw1.png", "anthro_sfw2.png", "anthro_sfw3.png"],
-    anthroNsfw: ["anthro_nsfw1.png", "anthro_nsfw2.png"]
+    anthroRefs: ["anthro_ref_2024-03-01.png", "anthro_design_2024-03-05.png"],
+    anthroSfw: ["anthro_action_2024-03-03.png", "anthro_smile_2024-03-08.png"],
+    anthroNsfw: ["anthro_private_2024-03-10.png"]
 };

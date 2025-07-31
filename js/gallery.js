@@ -1,78 +1,56 @@
 /**
- * Loads a gallery from a given list of filenames.
- * @param {string} path - Path to the folder containing images.
- * @param {string} containerId - ID of the div where images will be loaded.
- * @param {string[]} files - Array of image file names.
+ * Loads a single gallery with images
+ * @param {string} imagePath - Base path to images
+ * @param {string} containerId - ID of the gallery container
+ * @param {array} imageList - Array of image filenames
  */
-function loadGallery(path, containerId, files) {
+function loadGallery(imagePath, containerId, imageList) {
     const container = document.getElementById(containerId);
-
     if (!container) {
-        console.warn(`Gallery container "${containerId}" not found.`);
+        console.log(`Container ${containerId} not found`);
         return;
     }
-    if (!Array.isArray(files) || files.length === 0) {
-        container.innerHTML = `<p class="empty-gallery">No images available.</p>`;
+    
+    if (!imageList || imageList.length === 0) {
+        container.innerHTML = '<div class="empty-gallery">No images available in this gallery.</div>';
         return;
     }
-
-    files.forEach(file => {
+    
+    container.innerHTML = '';
+    
+    imageList.forEach(filename => {
+        const fullPath = `${imagePath}/${filename}`;
         const img = document.createElement('img');
-        img.src = `${path}/${file}`.replace(/\/+/g, '/');
-        img.alt = file;
-        img.loading = "lazy";
-        img.classList.add("gallery-image");
-
-        // Click-to-lightbox
-        img.addEventListener("click", () => openLightbox(img.src, file));
-
+        img.src = fullPath;
+        img.alt = filename;
+        img.className = 'gallery-image';
+        img.onclick = () => openLightbox(fullPath, filename);
+        
+        // Handle image load errors
+        img.onerror = () => {
+            console.log(`Failed to load image: ${fullPath}`);
+            img.style.display = 'none';
+        };
+        
         container.appendChild(img);
     });
 }
 
 /**
- * Loads all three galleries for a character page.
- * @param {string} basePath - Base path to the character's images folder.
- * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
+ * Loads character galleries using the standard structure
+ * @param {string} basePath - Base path for character images
+ * @param {object} galleryData - Gallery data object
  */
-function loadCharacterGalleries(basePath, imageLists) {
-    loadGallery(`${basePath}/refs`, 'refs-gallery', imageLists.refs || []);
-    loadGallery(`${basePath}/sfw`, 'sfw-gallery', imageLists.sfw || []);
-    loadGallery(`${basePath}/nsfw`, 'nsfw-gallery', imageLists.nsfw || []);
-}
-
-/**
- * Opens a simple lightbox viewer for clicked images.
- */
-function openLightbox(src, alt) {
-    let lightbox = document.getElementById("lightbox");
-    if (!lightbox) {
-        lightbox = document.createElement("div");
-        lightbox.id = "lightbox";
-        lightbox.innerHTML = `
-            <div class="lightbox-content">
-                <img>
-                <span id="close-lightbox">&times;</span>
-            </div>
-        `;
-        document.body.appendChild(lightbox);
-
-        document.getElementById("close-lightbox").addEventListener("click", () => {
-            lightbox.classList.remove("active");
-        });
-        
-        // Close on click outside image
-        lightbox.addEventListener("click", (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.remove("active");
-            }
-        });
+function loadCharacterGalleries(basePath, galleryData) {
+    if (!galleryData) {
+        console.log('No gallery data provided');
+        return;
     }
-
-    const img = lightbox.querySelector("img");
-    img.src = src;
-    img.alt = alt;
-    lightbox.classList.add("active");
+    
+    // Load standard galleries
+    loadGallery(`${basePath}/refs`, 'refs-gallery', galleryData.refs || []);
+    loadGallery(`${basePath}/sfw`, 'sfw-gallery', galleryData.sfw || []);
+    loadGallery(`${basePath}/nsfw`, 'nsfw-gallery', galleryData.nsfw || []);
 }
 
 /**
@@ -164,3 +142,40 @@ function displayMostRecentArt(galleryData) {
         container.innerHTML = '<p class="no-recent-art">No recent artwork found.</p>';
     }
 }
+
+/**
+ * Opens lightbox with image
+ * @param {string} imageSrc - Source path of the image
+ * @param {string} altText - Alt text for the image
+ */
+function openLightbox(imageSrc, altText) {
+    let lightbox = document.getElementById('lightbox');
+    
+    if (!lightbox) {
+        // Create lightbox if it doesn't exist
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.onclick = () => closeLightbox();
+        document.body.appendChild(lightbox);
+    }
+    
+    lightbox.innerHTML = `<img src="${imageSrc}" alt="${altText}">`;
+    lightbox.classList.add('active');
+}
+
+/**
+ * Closes the lightbox
+ */
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+    }
+}
+
+// Initialize lightbox close on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    }
+});
