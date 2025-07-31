@@ -23,6 +23,12 @@ function loadGallery(path, containerId, files) {
         img.loading = "lazy"; // Lazy-load images
         img.classList.add("gallery-image");
 
+        // Add error handling to prevent broken image displays
+        img.onerror = function() {
+            this.style.display = 'none';
+            console.warn(`Failed to load image: ${this.src}`);
+        };
+
         // Click-to-lightbox
         img.addEventListener("click", () => openLightbox(img.src, file));
 
@@ -31,14 +37,15 @@ function loadGallery(path, containerId, files) {
 }
 
 /**
- * Loads all three galleries for a character page.
+ * Loads all galleries for a character page - simplified to use single images folder
  * @param {string} basePath - Base path to the character's images folder.
  * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
  */
 function loadCharacterGalleries(basePath, imageLists) {
-    loadGallery(`${basePath}/refs`, 'refs-gallery', imageLists.refs || []);
-    loadGallery(`${basePath}/sfw`, 'sfw-gallery', imageLists.sfw || []);
-    loadGallery(`${basePath}/nsfw`, 'nsfw-gallery', imageLists.nsfw || []);
+    // Load from single images directory instead of subdirectories
+    loadGallery(basePath, 'refs-gallery', imageLists.refs || []);
+    loadGallery(basePath, 'sfw-gallery', imageLists.sfw || []);
+    loadGallery(basePath, 'nsfw-gallery', imageLists.nsfw || []);
 }
 
 /**

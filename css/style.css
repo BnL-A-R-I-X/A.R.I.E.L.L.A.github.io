@@ -216,14 +216,19 @@ body {
 .gallery-image {
     width: 100%;
     height: auto;
-    border: 1px solid #00ff00;
+    border: 1px solid rgba(0, 200, 255, 0.2);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.gallery-image.loaded {
+    opacity: 1;
 }
 
 .gallery-image:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
 
 /* NSFW blur effect */
@@ -1078,4 +1083,32 @@ main {
         min-height: 44px;
         padding: 12px 20px;
     }
+}
+
+/* Gallery improvements */
+.empty-gallery {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.gallery-image.loaded {
+    opacity: 1;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
