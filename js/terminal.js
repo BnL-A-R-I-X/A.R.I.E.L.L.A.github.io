@@ -7,47 +7,57 @@ class BNLTerminal {
         this.historyIndex = -1;
         
         this.commands = {
-            'help': this.showHelp,
-            'clear': this.clearTerminal,
-            'directives': this.showDirectives,
-            'automation': this.showAutomation,
-            'robotics': this.showRobotics,
-            'technical': this.showTechnical,
-            'secrets': this.showSecrets,
-            'status': this.showStatus,
-            'exit': this.exitTerminal,
-            'ls': this.listCommands,
-            'cat': this.catCommand,
-            'home': this.goHome,
-            'cleanup': this.showCleanupReports,
-            'a113': this.showDirectiveA113,
-            'contingency': this.showContingencyProtocols,
-            'schematics': this.showSchematics,
-            'surveillance': this.showSurveillance,
-            'incidents': this.showIncidents,
-            'corporate': this.showCorporateData,
-            'blacklist': this.showBlacklist
+            'help': this.showHelp.bind(this),
+            'clear': this.clearTerminal.bind(this),
+            'directives': this.showDirectives.bind(this),
+            'automation': this.showAutomation.bind(this),
+            'robotics': this.showRobotics.bind(this),
+            'technical': this.showTechnical.bind(this),
+            'secrets': this.showSecrets.bind(this),
+            'status': this.showStatus.bind(this),
+            'exit': this.exitTerminal.bind(this),
+            'ls': this.listCommands.bind(this),
+            'cat': this.catCommand.bind(this),
+            'home': this.goHome.bind(this),
+            'cleanup': this.showCleanupReports.bind(this),
+            'a113': this.showDirectiveA113.bind(this),
+            'contingency': this.showContingencyProtocols.bind(this),
+            'schematics': this.showSchematics.bind(this),
+            'surveillance': this.showSurveillance.bind(this),
+            'incidents': this.showIncidents.bind(this),
+            'corporate': this.showCorporateData.bind(this),
+            'blacklist': this.showBlacklist.bind(this)
         };
 
         this.init();
     }
 
     init() {
+        console.log('Initializing terminal...');
+        
         if (!this.input || !this.output) {
-            console.error('Terminal elements not found');
+            console.error('Terminal elements not found:', { 
+                input: this.input, 
+                output: this.output 
+            });
             return;
         }
         
-        // Remove any existing event listeners
-        this.input.removeEventListener('keydown', this.handleKeydown);
-        this.input.removeEventListener('input', this.handleInput);
+        console.log('Terminal elements found, setting up events...');
         
-        // Add event listeners with proper binding
-        this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
-        this.input.addEventListener('input', (e) => this.handleInput(e));
+        // Use a single keydown event listener
+        this.input.addEventListener('keydown', (e) => {
+            console.log('Keydown event:', e.key, e.code);
+            this.handleKeydown(e);
+        });
+        
+        this.input.addEventListener('input', (e) => {
+            this.handleInput(e);
+        });
         
         // Focus on the input field
         this.input.focus();
+        console.log('Input focused');
         
         // Blinking cursor
         setInterval(() => {
@@ -56,21 +66,29 @@ class BNLTerminal {
                 cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
             }
         }, 500);
+        
+        console.log('Terminal initialization complete');
     }
 
     handleKeydown(e) {
-        console.log('Key pressed:', e.key); // Debug log
+        console.log('handleKeydown called with key:', e.key);
         
         if (e.key === 'Enter') {
+            console.log('Enter key detected, preventing default and executing command');
             e.preventDefault();
             e.stopPropagation();
+            
             const command = this.input.value.trim();
-            console.log('Executing command:', command); // Debug log
+            console.log('Command to execute:', command);
+            
             this.executeCommand(command);
             this.input.value = '';
+            
             if (this.suggestions) {
                 this.suggestions.innerHTML = '';
             }
+            
+            return false;
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             this.navigateHistory(-1);
@@ -129,7 +147,12 @@ class BNLTerminal {
     }
 
     executeCommand(command) {
-        if (!this.output) return;
+        console.log('executeCommand called with:', command);
+        
+        if (!this.output) {
+            console.error('Output element not found');
+            return;
+        }
         
         this.commandHistory.push(command);
         this.historyIndex = this.commandHistory.length;
@@ -154,103 +177,6 @@ Note: Unit has been observed showing unusual emotional responses
 WARNING: May possess plant specimen of unknown origin
 </div>
             `, 'classified');
-        } else if (cmd === 'plant') {
-            this.addOutput(`
-<div class="classified-section">
-<span class="section-header classified-red">🌱 EVE DIRECTIVE ACTIVATED</span>
-<span class="classified-warning">BOTANICAL SPECIMEN DETECTED</span>
-
-Initiating Earth Viability Assessment...
-Scanning for signs of photosynthetic life...
-[CLASSIFIED] - Contact AUTO immediately if plant located
-Directive: Return to Earth if viable plant specimen confirmed
-
-WARNING: This directive supersedes Directive A113
-AUTO authorization required for protocol execution
-</div>
-            `, 'classified');
-        } else if (cmd === 'captain') {
-            this.addOutput(`
-<div class="classified-section">
-<span class="section-header classified-red">🚫 AUTO OVERRIDE WARNING</span>
-<span class="classified-warning">CAPTAIN AUTHORITY: SUSPENDED</span>
-
-All command functions have been transferred to AUTO
-Manual pilot controls: DISABLED
-Navigation override: NOT AUTHORIZED
-Emergency protocols: AUTO DISCRETION ONLY
-
-Directive A113 remains in effect
-Captain McCrea access level: OBSERVER ONLY
-For ship safety, human judgment is not required
-</div>
-            `, 'classified');
-        } else if (cmd === 'earth') {
-            this.showCleanupReports();
-        } else if (cmd === 'genesis') {
-            this.addOutput(`
-<div class="classified-section">
-<span class="section-header classified-red">🧬 PROJECT GENESIS [TERMINATED]</span>
-<span class="classified-warning">[DATA HEAVILY REDACTED]</span>
-
-Project Status: TERMINATED - Ethical violations
-Objective: [REDACTED] human adaptation for [REDACTED]
-Duration: 2387-2401 (14 years)
-Subjects: [DATA EXPUNGED]
-Results: [CATASTROPHIC FAILURE]
-
-Reason for termination: Unauthorized genetic modifications
-Lead researcher: Dr. [REDACTED] - Status: DISAPPEARED
-All research materials: DESTROYED BY AUTO DIRECTIVE
-Survivors: [CLASSIFIED]
-
-WARNING: Any attempt to restart this project is punishable by immediate spacing
-</div>
-            `, 'classified');
-        } else if (cmd === 'konami') {
-            this.addOutput(`
-<div class="easter-egg-section">
-<span class="section-header" style="color: #ff00ff;">🎮 KONAMI CODE ACTIVATED</span>
-
-⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️
-
-Congratulations! You found the secret Konami Code easter egg!
-+30 lives awarded to your BNL account
-Cheat mode: ENABLED for this session
-
-Special abilities unlocked:
-├── Infinite cocoa for Ari-Doe
-├── Auto-pilot override (just kidding, AUTO won't allow it)
-├── Access to Captain McCrea's secret cookie stash
-└── Ability to pet all the maintenance robots
-
-Remember: The real treasure was the commands we ran along the way!
-</div>
-            `, 'success');
-        } else if (cmd === 'eve') {
-            const now = new Date();
-            if (now.getMonth() === 3 && now.getDate() === 22) { // April 22 - Earth Day
-                this.addOutput(`
-<div class="classified-section">
-<span class="section-header" style="color: #00ff00;">🌍 EARTH DAY SPECIAL PROTOCOL</span>
-
-Happy Earth Day from the USS Axiom!
-
-EVE units worldwide are celebrating by:
-├── Scanning for signs of life (still looking...)
-├── Remembering what green looked like
-├── Hoping that WALL·E is making progress down there
-└── Dreaming of the day passengers can return home
-
-Fun Earth Day fact: It's been 700+ years since anyone on this ship 
-has seen a real tree, but we still remember what they meant to us.
-
-Maybe someday... 🌱
-</div>
-                `, 'success');
-            } else {
-                this.addOutput(`EVE unit status: All units deployed to Earth surface. No response in 700+ years.`, 'warning');
-            }
         } else if (cmd === 'artcode' || cmd === 'collab') {
             this.addOutput(`
 <div class="easter-egg-section">
@@ -281,7 +207,8 @@ First come, first served basis. 💖
 </div>
             `, 'success');
         } else if (this.commands[cmd]) {
-            this.commands[cmd].call(this, args);
+            console.log('Executing command:', cmd);
+            this.commands[cmd](args);
         } else if (command === '') {
             // Do nothing for empty command
         } else {
@@ -292,6 +219,8 @@ First come, first served basis. 💖
     }
 
     addOutput(text, className = '') {
+        if (!this.output) return;
+        
         const div = document.createElement('div');
         div.className = `output-line ${className}`;
         div.innerHTML = text;
@@ -299,13 +228,84 @@ First come, first served basis. 💖
     }
 
     scrollToBottom() {
-        this.output.scrollTop = this.output.scrollHeight;
+        if (this.output) {
+            this.output.scrollTop = this.output.scrollHeight;
+        }
     }
 
     // Command implementations
     showHelp() {
         this.addOutput(`
 <div class="help-section">
+<span class="help-title">Available Commands:</span>
+
+<span class="help-cmd">help</span>          - Show this help message
+<span class="help-cmd">status</span>        - Show system status
+<span class="help-cmd">directives</span>    - View BNL corporate directives
+<span class="help-cmd">automation</span>    - View automation naming conventions
+<span class="help-cmd">robotics</span>      - View BNL robotics naming protocol
+<span class="help-cmd">technical</span>     - View technical specifications
+<span class="help-cmd">secrets</span>       - View system easter eggs
+
+<span class="classified-header">CLASSIFIED OPERATIONS:</span>
+<span class="help-cmd">cleanup</span>       - Operation Cleanup status reports
+<span class="help-cmd">a113</span>          - Directive A113 details
+<span class="help-cmd">contingency</span>   - Emergency protocols
+<span class="help-cmd">schematics</span>    - Ship infrastructure data
+<span class="help-cmd">surveillance</span> - Security & monitoring systems
+<span class="help-cmd">incidents</span>     - Ship incident reports
+<span class="help-cmd">corporate</span>     - BnL corporate data
+<span class="help-cmd">blacklist</span>     - [REDACTED] incident records
+
+<span class="help-cmd">clear</span>         - Clear terminal output
+<span class="help-cmd">ls</span>            - List available commands
+<span class="help-cmd">cat [file]</span>    - Display file contents
+<span class="help-cmd">home</span>          - Return to main terminal
+<span class="help-cmd">exit</span>          - Exit terminal
+
+<span class="help-tip">Tip: Use Tab for autocomplete, ↑/↓ for command history</span>
+</div>
+        `);
+    }
+
+    clearTerminal() {
+        if (this.output) {
+            this.output.innerHTML = '';
+            this.addOutput('Terminal cleared.', 'success');
+        }
+    }
+    
+    // Add placeholder methods for other commands to prevent errors
+    showDirectives() { this.addOutput('Directives command placeholder'); }
+    showAutomation() { this.addOutput('Automation command placeholder'); }
+    showRobotics() { this.addOutput('Robotics command placeholder'); }
+    showTechnical() { this.addOutput('Technical command placeholder'); }
+    showSecrets() { this.addOutput('Secrets command placeholder'); }
+    showStatus() { this.addOutput('Status command placeholder'); }
+    exitTerminal() { this.addOutput('Exiting...'); }
+    listCommands() { this.addOutput(Object.keys(this.commands).join('  ')); }
+    catCommand() { this.addOutput('Cat command placeholder'); }
+    goHome() { window.location.href = '../index.html'; }
+    showCleanupReports() { this.addOutput('Cleanup reports placeholder'); }
+    showDirectiveA113() { this.addOutput('A113 directive placeholder'); }
+    showContingencyProtocols() { this.addOutput('Contingency protocols placeholder'); }
+    showSchematics() { this.addOutput('Schematics placeholder'); }
+    showSurveillance() { this.addOutput('Surveillance placeholder'); }
+    showIncidents() { this.addOutput('Incidents placeholder'); }
+    showCorporateData() { this.addOutput('Corporate data placeholder'); }
+    showBlacklist() { this.addOutput('Blacklist placeholder'); }
+    
+    // ...other existing methods...
+}
+
+// Initialize terminal when page loads
+let terminal;
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, creating terminal instance...');
+    setTimeout(() => {
+        terminal = new BNLTerminal();
+    }, 100); // Small delay to ensure everything is loaded
+});
 <span class="help-title">Available Commands:</span>
 
 <span class="help-cmd">help</span>          - Show this help message

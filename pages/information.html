@@ -38,12 +38,36 @@
 
     <div class="terminal-input-line">
         <span class="terminal-prompt">BNL-EXEC:~$ </span>
-        <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" autofocus>
+        <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" autofocus tabindex="1">
         <span class="cursor">█</span>
     </div>
 
     <div class="terminal-suggestions" id="suggestions"></div>
 </div>
+
+<script>
+// Ensure proper focus and event handling
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up terminal...');
+    
+    const input = document.getElementById('terminalInput');
+    const output = document.getElementById('terminalOutput');
+    
+    if (input && output) {
+        // Force focus on the input
+        input.focus();
+        
+        // Add click handler to focus input when clicking anywhere on terminal
+        document.querySelector('.full-terminal-container').addEventListener('click', function() {
+            input.focus();
+        });
+        
+        console.log('Terminal elements found and focused');
+    } else {
+        console.error('Terminal elements not found:', { input, output });
+    }
+});
+</script>
 
 <script src="../js/terminal.js"></script>
 <script src="../js/shiptime.js"></script>
