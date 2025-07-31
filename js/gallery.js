@@ -18,7 +18,7 @@ function loadGallery(path, containerId, files) {
 
     files.forEach(file => {
         const img = document.createElement('img');
-        img.src = `${path}${file}`.replace(/([^:]\/)\/+/g, "$1"); // Clean double slashes
+        img.src = `${path}/${file}`.replace(/\/+/g, '/'); // Fix path construction
         img.alt = file;
         img.loading = "lazy"; // Lazy-load images
         img.classList.add("gallery-image");
@@ -36,9 +36,9 @@ function loadGallery(path, containerId, files) {
  * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
  */
 function loadCharacterGalleries(basePath, imageLists) {
-    loadGallery(`${basePath}/refs/`, 'refs-gallery', imageLists.refs || []);
-    loadGallery(`${basePath}/sfw/`, 'sfw-gallery', imageLists.sfw || []);
-    loadGallery(`${basePath}/nsfw/`, 'nsfw-gallery', imageLists.nsfw || []);
+    loadGallery(`${basePath}/refs`, 'refs-gallery', imageLists.refs || []);
+    loadGallery(`${basePath}/sfw`, 'sfw-gallery', imageLists.sfw || []);
+    loadGallery(`${basePath}/nsfw`, 'nsfw-gallery', imageLists.nsfw || []);
 }
 
 /**

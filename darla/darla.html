@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BNL Asset File: Darla [Forest Ranger Unit]</title>
+    <title>Darla // Forest Ranger</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body class="bnl-terminal">
+<body>
 
 <header class="site-header">
     <div class="header-inner">
@@ -26,75 +26,65 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main>
-    <!-- Asset Identification -->
-    <section class="bnl-section">
-        <h3>Asset Identification</h3>
-        <table class="bnl-data">
-            <tr><th>Designation</th><td>Forest Ranger Unit</td></tr>
-            <tr><th>Operational Role</th><td>Environmental Protection & Wildlife Conservation</td></tr>
-            <tr><th>Species Classification</th><td>Cervid Anthropomorph</td></tr>
-            <tr><th>Assignment</th><td>Natural Habitat Preservation Division</td></tr>
-            <tr><th>Status</th><td>ACTIVE // Field Operations</td></tr>
-        </table>
+<main class="character-profile">
+    <!-- Character Information -->
+    <section class="character-info">
+        <div class="character-bio">
+            <h2>Darla</h2>
+            <p><strong>Species:</strong> Cervid Anthropomorph (Deer)</p>
+            <p><strong>Role:</strong> Forest Ranger & Wildlife Protector</p>
+            <p><strong>Gender:</strong> Female</p>
+            <p><strong>Occupation:</strong> National Park Ranger</p>
+            <p><strong>Environment:</strong> Forest ecosystems and wilderness areas</p>
+            
+            <p>Darla is a vigilant and compassionate forest ranger, dedicated to the preservation of natural habitats and the creatures that dwell within them. She is known for her sharp instincts, calm demeanor, and deep bond with the wilderness she protects. Whether navigating dense woodland trails or patrolling remote park areas, she stands as a steadfast guardian against environmental threats.</p>
+        </div>
     </section>
 
-    <!-- Physical Specifications -->
-    <section class="bnl-section">
-        <h3>Physical Specifications</h3>
-        <table class="bnl-data">
-            <tr><th>Form Factor</th><td>Cervid Anthropomorphic Platform</td></tr>
-            <tr><th>Gender</th><td>Female</td></tr>
-            <tr><th>Primary Function</th><td>National Park Ranger & Wildlife Protector</td></tr>
-            <tr><th>Specialized Equipment</th><td>Environmental monitoring gear, tracking devices</td></tr>
-            <tr><th>Operational Environment</th><td>Forest ecosystems, wilderness areas</td></tr>
-        </table>
-    </section>
-
-    <!-- Operational Profile -->
-    <section class="bnl-section">
-        <h3>Operational Profile</h3>
-        <p>
-            Darla operates as a vigilant and compassionate forest ranger, dedicated to the preservation of natural habitats and the creatures that dwell within them. 
-            She is known for her sharp instincts, calm demeanor, and deep bond with the wilderness she protects. 
-            Whether navigating dense woodland trails or patrolling remote park areas, she stands as a steadfast guardian against environmental threats.
-        </p>
-    </section>
-
-    <!-- Core Capabilities -->
-    <section class="bnl-section">
-        <h3>Core Capabilities</h3>
+    <!-- Ranger Skills -->
+    <section class="character-abilities">
+        <h2>&#127795; Ranger Skills & Expertise</h2>
         <ul>
-            <li>Advanced environmental threat detection and assessment</li>
-            <li>Wildlife behavior analysis and protection protocols</li>
-            <li>Wilderness navigation and survival expertise</li>
-            <li>Conservation enforcement and education initiatives</li>
-            <li>Emergency response in natural disaster scenarios</li>
+            <li><strong>Environmental Assessment:</strong> Expert at identifying threats to natural habitats</li>
+            <li><strong>Wildlife Behavior Analysis:</strong> Deep understanding of forest creatures and their needs</li>
+            <li><strong>Wilderness Navigation:</strong> Can traverse any terrain with ease</li>
+            <li><strong>Conservation Knowledge:</strong> Extensive training in environmental protection</li>
+            <li><strong>Emergency Response:</strong> Skilled in wilderness rescue and disaster response</li>
+            <li><strong>Education & Outreach:</strong> Passionate about teaching conservation to others</li>
         </ul>
     </section>
 
-    <!-- Reference Gallery -->
-    <section class="bnl-section">
-        <h3>Reference Sheets</h3>
+    <!-- Equipment -->
+    <section class="character-equipment">
+        <h2>&#127897; Ranger Equipment</h2>
+        <ul>
+            <li><strong>Environmental Monitoring Gear:</strong> Tools for tracking ecosystem health</li>
+            <li><strong>Wildlife Tracking Devices:</strong> Equipment for monitoring animal populations</li>
+            <li><strong>Emergency Rescue Kit:</strong> First aid and wilderness survival supplies</li>
+            <li><strong>Communication Devices:</strong> Radios and GPS for remote area coordination</li>
+        </ul>
+    </section>
+
+    <!-- Gallery Sections -->
+    <section class="character-gallery">
+        <h2>Reference Sheets</h2>
         <div id="refs-gallery" class="gallery-grid"></div>
     </section>
 
-    <!-- SFW Gallery -->
-    <section class="bnl-section">
-        <h3>Visual Records (SFW)</h3>
+    <section class="character-gallery">
+        <h2>SFW Gallery</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
     </section>
 
-    <!-- NSFW Gallery -->
-    <section class="bnl-section">
-        <h3>Restricted Visual Records (NSFW)</h3>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
+    <section class="character-gallery">
+        <h2>NSFW Gallery</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>
 
-<footer class="bnl-footer">
-    <p>© Buy n Large Corporation // Environmental Division // Forest Ranger Asset Record</p>
+<footer class="site-footer">
+    <p>© 2025 Ariella Fawnbrook // Character Archives</p>
 </footer>
 
 <!-- JS -->
@@ -104,8 +94,29 @@
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('/darla/images', galleryData);
+        loadCharacterGalleries('images', galleryData);
     }
+</script>
+
+</body>
+</html>
+    <p>© 2025 Ariella Fawnbrook // Character Archives</p>
+</footer>
+
+<!-- Simple NSFW toggle script -->
+<script>
+function toggleNSFW() {
+    const gallery = document.getElementById('nsfw-gallery');
+    const btn = document.getElementById('nsfw-toggle-btn');
+    
+    if (gallery.classList.contains('nsfw-blur')) {
+        gallery.classList.remove('nsfw-blur');
+        btn.textContent = 'Hide NSFW';
+    } else {
+        gallery.classList.add('nsfw-blur');
+        btn.textContent = 'Reveal NSFW';
+    }
+}
 </script>
 
 </body>

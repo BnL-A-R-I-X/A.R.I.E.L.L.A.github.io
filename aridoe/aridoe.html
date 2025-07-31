@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BNL Asset File: Ari-Doe [Deersona Unit]</title>
+    <title>Ari-Doe // Deersona</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body class="bnl-terminal">
+<body>
 
 <header class="site-header">
     <div class="header-inner">
@@ -26,67 +26,67 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main>
-    <!-- Asset Identification -->
-    <section class="bnl-section">
-        <h3>Asset Identification</h3>
-        <table class="bnl-data">
-            <tr><th>Designation</th><td>Deersona Unit</td></tr>
-            <tr><th>Classification</th><td>Personal Avatar Construct</td></tr>
-            <tr><th>Species Type</th><td>Cervid Anthropomorph</td></tr>
-            <tr><th>Assignment</th><td>Personal Expression & Identity Matrix</td></tr>
-            <tr><th>Status</th><td>ACTIVE // Personal Use</td></tr>
-        </table>
+<main class="character-profile">
+    <!-- Character Information -->
+    <section class="character-info">
+        <div class="character-bio">
+            <h2>Ari-Doe</h2>
+            <p><strong>Species:</strong> Cervid Anthropomorph (Deer)</p>
+            <p><strong>Role:</strong> Personal Avatar & Creative Expression</p>
+            <p><strong>Personality:</strong> Gentle, Approachable, Creative</p>
+            <p><strong>Interests:</strong> Art, Nature, Social Connection</p>
+            
+            <p>Ari-Doe represents the softer, more approachable side of personal identity. This gentle deer character embodies comfort, creativity, and warmth in social interactions. Known for being accessible and friendly, Ari-Doe serves as a bridge for comfortable self-expression and meaningful connections with others.</p>
+        </div>
     </section>
 
-    <!-- Physical Specifications -->
-    <section class="bnl-section">
-        <h3>Physical Specifications</h3>
-        <table class="bnl-data">
-            <tr><th>Form Factor</th><td>Anthropomorphic Deer Platform</td></tr>
-            <tr><th>Primary Function</th><td>Personal Identity Representation</td></tr>
-            <tr><th>Design Philosophy</th><td>Comfort & Self-Expression</td></tr>
-            <tr><th>Operational Mode</th><td>Social Interaction & Creative Expression</td></tr>
-        </table>
+    <!-- Character Traits -->
+    <section class="character-traits">
+        <h2>&#127807; Character Traits</h2>
+        <ul>
+            <li><strong>Gentle Nature:</strong> Naturally calm and soothing presence</li>
+            <li><strong>Creative Spirit:</strong> Enjoys artistic expression and creative projects</li>
+            <li><strong>Social Connector:</strong> Helps facilitate comfortable interactions</li>
+            <li><strong>Nature Lover:</strong> Deep appreciation for natural environments</li>
+            <li><strong>Empathetic:</strong> Understanding and compassionate toward others</li>
+        </ul>
     </section>
 
-    <!-- Operational Profile -->
-    <section class="bnl-section">
-        <h3>Operational Profile</h3>
-        <p>
-            Ari-Doe serves as a personal avatar construct, representing the softer, more approachable aspects of identity expression. 
-            This deersona unit facilitates comfortable social interactions and creative self-expression within digital and social environments. 
-            Designed for accessibility and warmth in interpersonal connections.
-        </p>
-    </section>
-
-    <!-- Reference Gallery -->
-    <section class="bnl-section">
-        <h3>Reference Sheets</h3>
+    <!-- Gallery Sections -->
+    <section class="character-gallery">
+        <h2>Reference Sheets</h2>
         <div id="refs-gallery" class="gallery-grid"></div>
     </section>
 
-    <!-- SFW Gallery -->
-    <section class="bnl-section">
-        <h3>Visual Records (SFW)</h3>
+    <section class="character-gallery">
+        <h2>SFW Gallery</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
     </section>
 
-    <!-- NSFW Gallery -->
-    <section class="bnl-section">
-        <h3>Restricted Visual Records (NSFW)</h3>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
+    <section class="character-gallery">
+        <h2>NSFW Gallery</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>
 
-<footer class="bnl-footer">
-    <p>© Buy n Large Corporation // Personal Identity Division // Deersona Asset Record</p>
+<footer class="site-footer">
+    <p>© 2025 Ariella Fawnbrook // Character Archives</p>
 </footer>
 
 <!-- JS -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
+<script src="../js/lightbox.js"></script>
+<script src="gallery-data.js"></script>
+<script>
+    if (typeof galleryData !== 'undefined') {
+        loadCharacterGalleries('/aridoe/images', galleryData);
+    }
+</script>
+
+</body>
+</html>
 <script src="../js/lightbox.js"></script>
 <script src="gallery-data.js"></script>
 <script>
