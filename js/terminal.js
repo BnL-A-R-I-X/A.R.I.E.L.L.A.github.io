@@ -17,7 +17,8 @@ class BNLTerminal {
             'status': this.showStatus,
             'exit': this.exitTerminal,
             'ls': this.listCommands,
-            'cat': this.catCommand
+            'cat': this.catCommand,
+            'home': this.goHome
         };
 
         this.init();
@@ -128,13 +129,16 @@ class BNLTerminal {
 <span class="help-title">Available Commands:</span>
 
 <span class="help-cmd">help</span>          - Show this help message
+<span class="help-cmd">status</span>        - Show system status
 <span class="help-cmd">directives</span>    - View BNL corporate directives
 <span class="help-cmd">automation</span>    - View automation naming conventions
 <span class="help-cmd">robotics</span>      - View BNL robotics naming protocol
 <span class="help-cmd">technical</span>     - View technical specifications
 <span class="help-cmd">secrets</span>       - View system easter eggs
-<span class="help-cmd">status</span>        - Show system status
 <span class="help-cmd">clear</span>         - Clear terminal output
+<span class="help-cmd">ls</span>            - List available commands
+<span class="help-cmd">cat [file]</span>    - Display file contents
+<span class="help-cmd">home</span>          - Return to main terminal
 <span class="help-cmd">exit</span>          - Exit terminal
 
 <span class="help-tip">Tip: Use Tab for autocomplete, ↑/↓ for command history</span>
@@ -309,6 +313,13 @@ GOPH·E   | Go-pher Engineering Utility Bot
 
     exitTerminal() {
         this.addOutput('Logging out...', 'warning');
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 1000);
+    }
+
+    goHome() {
+        this.addOutput('Returning to main terminal...', 'success');
         setTimeout(() => {
             window.location.href = '../index.html';
         }, 1000);

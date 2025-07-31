@@ -1263,9 +1263,9 @@ main {
     }
 }
 
-/* Information Terminal Styling */
+/* Full Terminal Interface Styling */
 .info-terminal {
-    background: #000;
+    background: #0b0e12;
     font-family: 'Roboto Mono', monospace;
     margin: 0;
     padding: 20px;
@@ -1273,29 +1273,30 @@ main {
     overflow: hidden;
 }
 
-.terminal-container {
-    background: #1a1a1a;
-    border: 2px solid #00ff00;
+.full-terminal-container {
+    background: #141c24;
+    border: 2px solid rgba(0, 180, 255, 0.5);
     border-radius: 8px;
-    width: 90%;
+    width: 95%;
     max-width: 1200px;
-    height: 80vh;
+    height: 85vh;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
 }
 
 .terminal-header {
-    background: #333;
-    color: #00ff00;
-    padding: 8px 15px;
+    background: linear-gradient(to right, #0f1a27, #142433);
+    color: #66e0ff;
+    padding: 10px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #00ff00;
+    border-bottom: 2px solid rgba(0, 180, 255, 0.5);
     font-size: 0.9rem;
     font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .terminal-logo {
@@ -1304,8 +1305,11 @@ main {
 }
 
 .terminal-status {
-    color: #ffff00;
+    color: #00ff00;
     font-size: 0.8rem;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 .terminal-controls {
@@ -1314,55 +1318,63 @@ main {
 }
 
 .control-btn {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #555;
-    color: #fff;
+    background: rgba(0, 180, 255, 0.2);
+    color: #66e0ff;
     border-radius: 3px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    transition: all 0.3s ease;
 }
 
 .control-btn:hover {
-    background: #777;
+    background: rgba(0, 180, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.3);
 }
 
 .control-btn.close:hover {
-    background: #ff4444;
+    background: rgba(255, 68, 68, 0.4);
+    color: #ff4444;
+    border-color: #ff4444;
 }
 
 .terminal-output {
     flex: 1;
-    background: #000;
-    color: #00ff00;
+    background: #0b0e12;
+    color: #66e0ff;
     padding: 15px;
     overflow-y: auto;
     font-size: 0.9rem;
     line-height: 1.4;
+    border-left: 3px solid rgba(0, 180, 255, 0.2);
 }
 
 .terminal-input-line {
-    background: #000;
-    color: #00ff00;
+    background: #0b0e12;
+    color: #66e0ff;
     padding: 15px;
     display: flex;
     align-items: center;
-    border-top: 1px solid #333;
+    border-top: 1px solid rgba(0, 180, 255, 0.3);
+    border-left: 3px solid rgba(0, 180, 255, 0.2);
 }
 
 .terminal-prompt {
     color: #00ffff;
-    margin-right: 5px;
+    margin-right: 8px;
     font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .terminal-input {
     background: transparent;
     border: none;
-    color: #00ff00;
+    color: #66e0ff;
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     outline: none;
@@ -1370,14 +1382,15 @@ main {
 }
 
 .cursor {
-    color: #00ff00;
+    color: #66e0ff;
     margin-left: 2px;
 }
 
 .terminal-suggestions {
-    background: #222;
-    border-top: 1px solid #333;
-    padding: 5px 15px;
+    background: #0f1a27;
+    border-top: 1px solid rgba(0, 180, 255, 0.3);
+    border-left: 3px solid rgba(0, 180, 255, 0.2);
+    padding: 8px 15px;
     min-height: 25px;
     display: flex;
     gap: 10px;
@@ -1385,25 +1398,28 @@ main {
 }
 
 .suggestion {
-    background: #333;
-    color: #00ff00;
-    padding: 2px 8px;
-    border-radius: 3px;
+    background: rgba(0, 180, 255, 0.2);
+    color: #66e0ff;
+    padding: 4px 12px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 0.8rem;
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    transition: all 0.3s ease;
 }
 
 .suggestion:hover {
-    background: #555;
+    background: rgba(0, 180, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.3);
 }
 
-/* Terminal Output Styling */
+/* Terminal Output Styling - Updated Colors */
 .boot-sequence {
     margin-bottom: 20px;
 }
 
 .boot-line {
-    color: #888;
+    color: #a0c8ff;
     margin: 2px 0;
 }
 
@@ -1416,7 +1432,7 @@ main {
 }
 
 .boot-line.help {
-    color: #00ffff;
+    color: #66e0ff;
     margin-top: 10px;
 }
 
@@ -1444,24 +1460,25 @@ main {
 }
 
 .section-header {
-    color: #00ffff;
+    color: #66e0ff;
     font-weight: bold;
     font-size: 1.1rem;
     display: block;
     margin-bottom: 10px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
     padding-bottom: 5px;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
 }
 
 .directive, .subsection {
-    color: #ffff00;
+    color: #00ffff;
     font-weight: bold;
     display: block;
     margin: 8px 0 3px 0;
 }
 
 .bnl-quote {
-    color: #ff8888;
+    color: #a0c8ff;
     font-style: italic;
     display: block;
     margin-top: 10px;
@@ -1473,22 +1490,23 @@ main {
 }
 
 .help-title {
-    color: #00ffff;
+    color: #66e0ff;
     font-weight: bold;
     display: block;
     margin-bottom: 15px;
     font-size: 1.1rem;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
 }
 
 .help-cmd {
-    color: #ffff00;
+    color: #00ffff;
     font-weight: bold;
     display: inline-block;
-    width: 120px;
+    width: 150px;
 }
 
 .help-tip {
-    color: #888;
+    color: #a0c8ff;
     font-style: italic;
     display: block;
     margin-top: 15px;
@@ -1511,20 +1529,20 @@ main {
 }
 
 .status-info {
-    color: #888;
+    color: #a0c8ff;
     display: block;
     margin-top: 5px;
 }
 
-/* Mobile adjustments */
+/* Mobile adjustments for full terminal */
 @media (max-width: 768px) {
     .info-terminal {
         padding: 10px;
     }
     
-    .terminal-container {
-        width: 95%;
-        height: 85vh;
+    .full-terminal-container {
+        width: 98%;
+        height: 90vh;
     }
     
     .terminal-output, .terminal-input-line {
@@ -1533,32 +1551,14 @@ main {
     }
     
     .terminal-header {
-        padding: 5px 10px;
+        padding: 8px 10px;
         font-size: 0.8rem;
     }
+    
+    .help-cmd {
+        width: 120px;
+    }
 }
-
-/* Security Camera Feed Styling */
-.security-feed {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.camera-frame {
-    position: relative;
-    display: inline-block;
-    border: 2px solid rgba(0, 180, 255, 0.5);
-    border-radius: 8px;
-    background: rgba(20, 30, 45, 0.8);
-    padding: 10px;
-    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
-}
-
-.camera-video {
-    width: 100%;
-    max-width: 600px;
     height: auto;
     border-radius: 4px;
     display: block;
