@@ -18,9 +18,9 @@ function loadGallery(path, containerId, files) {
 
     files.forEach(file => {
         const img = document.createElement('img');
-        img.src = `${path}/${file}`.replace(/\/+/g, '/'); // Fix path construction
+        img.src = `${path}/${file}`.replace(/\/+/g, '/');
         img.alt = file;
-        img.loading = "lazy"; // Lazy-load images
+        img.loading = "lazy";
         img.classList.add("gallery-image");
 
         // Click-to-lightbox
@@ -59,5 +59,36 @@ function openLightbox(src, alt) {
 
     lightbox.querySelector("img").src = src;
     lightbox.querySelector("img").alt = alt;
+    lightbox.classList.add("active");
+}
+ */
+function openLightbox(src, alt) {
+    let lightbox = document.getElementById("lightbox");
+    if (!lightbox) {
+        lightbox = document.createElement("div");
+        lightbox.id = "lightbox";
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <img>
+                <span id="close-lightbox">&times;</span>
+            </div>
+        `;
+        document.body.appendChild(lightbox);
+
+        document.getElementById("close-lightbox").addEventListener("click", () => {
+            lightbox.classList.remove("active");
+        });
+        
+        // Close on click outside image
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove("active");
+            }
+        });
+    }
+
+    const img = lightbox.querySelector("img");
+    img.src = src;
+    img.alt = alt;
     lightbox.classList.add("active");
 }

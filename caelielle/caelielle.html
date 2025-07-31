@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caelielle // Celestial Guardian</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
@@ -16,6 +17,11 @@
             <h1>USS AXIOM // OC DATABASE</h1>
             <p class="subtext">BNL Passenger Character Records Terminal</p>
             <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
         </div>
     </div>
 </header>
@@ -25,6 +31,13 @@
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
+
+<section class="terminal-intro">
+    <p>
+        <strong>BNL CELESTIAL AFFAIRS:</strong> The following contains operational data for celestial guardian unit Caelielle. 
+        Neutral-Seraphim classification with authority over inter-dimensional mediation and celestial accord.
+    </p>
+</section>
 
 <main class="character-profile">
     <!-- Character Information -->
@@ -91,14 +104,22 @@
     </section>
 </main>
 
-<footer class="site-footer">
+<section class="system-footer">
     <p>© 2025 Ariella Fawnbrook // Celestial Records Archive</p>
-</footer>
+    <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+        SYSTEM MESSAGE: Celestial guardian Caelielle maintaining dimensional balance. — SECURITY LEVEL: GREEN — NETWORK SYNC: 100%
+    </marquee>
+</div>
 
 <!-- JS Scripts -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
+<script src="../js/shiptime.js"></script>
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
@@ -108,91 +129,5 @@
 
 </body>
 </html>
-<footer class="bnl-footer">
-    <p>© Buy n Large Corporation // Celestial Affairs Division // Guardian Asset Record</p>
-</footer>
 
-<!-- JS -->
-<script src="../js/gallery.js"></script>
-<script src="../js/nsfw-toggle.js"></script>
-<script src="../js/lightbox.js"></script>
-<script src="gallery-data.js"></script>
-<script>
-    if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('/caelielle/images', galleryData);
-    }
-</script>
 
-</body>
-</html>
-<!-- Confronting Sera -->
-<section>
-    <h2>☽♣ Confronting Sera ♣☾</h2>
-    <p>
-        When Caelielle confronts Sera, the leading Seraphim of Heaven, the atmosphere crackles with tension...
-    </p>
-</section>
-
-<hr>
-
-<!-- Magic & Fighting -->
-<section>
-    <h2>☽♦ Magic / Fighting ♦☾</h2>
-    <h3>Powers</h3>
-    <ul>
-        <li>Heavenly Light Manipulation</li>
-        <li>Divine Communication</li>
-        <li>Enhanced Physical & Spiritual Strength</li>
-        <li>Wings Manifestation</li>
-        <li>Aura of Protection</li>
-        <li>Divine Judgment</li>
-        <li>Teleportation</li>
-        <li>Immortality</li>
-    </ul>
-    <h3>Tools</h3>
-    <ul>
-        <li><strong>Aetheric Rod:</strong> Symbol of cosmic authority, channels celestial energies.</li>
-        <li><strong>Celestial Shield:</strong> Radiates divine power, deflects darkness, protects allies.</li>
-    </ul>
-</section>
-
-<hr>
-
-<!-- Reference Sheets -->
-<section>
-    <h2>Reference Sheets</h2>
-    <div id="refs-gallery" class="gallery-grid"></div>
-</section>
-
-<!-- SFW Gallery -->
-<section>
-    <h2>SFW Gallery</h2>
-    <div id="sfw-gallery" class="gallery-grid"></div>
-</section>
-
-<!-- NSFW Gallery -->
-<section>
-    <h2>NSFW Gallery</h2>
-    <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
-    <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
-</section>
-
-</main>
-
-<footer class="oc-footer">
-    <p>© 2025 Ariella Fawnbrook // OC Gallery Archive</p>
-</footer>
-
-<!-- JS Scripts -->
-<script src="../js/gallery.js"></script>
-<script src="../js/nsfw-toggle.js"></script>
-<script src="../js/lightbox.js"></script>
-<script src="gallery-data.js"></script>
-<script>
-    if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('/caelielle/images', galleryData);
-    }
-</script>
-
-</body>
-</html>

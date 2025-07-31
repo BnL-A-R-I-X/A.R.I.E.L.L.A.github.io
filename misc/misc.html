@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <title>Miscellaneous Characters // OC Gallery</title>
     <link rel="stylesheet" href="../css/style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body class="oc-page">
+<body>
 
 <header class="site-header">
     <div class="header-inner">
@@ -17,6 +16,11 @@
             <h1>USS AXIOM // OC DATABASE</h1>
             <p class="subtext">BNL Passenger Character Records Terminal</p>
             <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
         </div>
     </div>
 </header>
@@ -27,26 +31,33 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main>
-    <h2>Reference Sheets</h2>
-    <div id="refs-gallery" class="gallery-grid"></div>
+<main class="character-profile">
+    <section class="character-gallery">
+        <h2>Reference Sheets</h2>
+        <div id="refs-gallery" class="gallery-grid"></div>
+    </section>
 
-    <h2>SFW Gallery</h2>
-    <div id="sfw-gallery" class="gallery-grid"></div>
+    <section class="character-gallery">
+        <h2>SFW Gallery</h2>
+        <div id="sfw-gallery" class="gallery-grid"></div>
+    </section>
 
-    <h2>NSFW Gallery</h2>
-    <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
-    <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    <section class="character-gallery">
+        <h2>NSFW Gallery</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+        <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
 </main>
 
-<footer class="oc-footer">
-    <p>© 2025 Ariella Fawnbrook // OC Gallery Archive</p>
+<footer class="site-footer">
+    <p>© 2025 Ariella Fawnbrook // Character Archives</p>
 </footer>
 
-<!-- Scripts -->
+<!-- JS -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
+<script src="../js/shiptime.js"></script>
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
