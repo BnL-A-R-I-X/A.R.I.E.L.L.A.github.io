@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>USS Axiom // Crew Social Links</title>
   <link rel="stylesheet" href="../css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/bsky-widget@latest/dist/bsky-widget.es.js" async></script>
+  <script type="module" src="https://unpkg.com/bsky-embed@latest/dist/index.js"></script>
 </head>
 <body>
   
@@ -47,7 +47,11 @@
     <h2>BlueSky</h2>
     <p><a href="https://bsky.app/profile/angelmommaari.bsky.social" target="_blank">@AngelMommaAri</a></p>
     <div class="social-embed">
-      <bsky-widget handle="angelmommaari.bsky.social"></bsky-widget>
+      <bsky-embed 
+        handle="angelmommaari.bsky.social" 
+        theme="dark"
+        style="max-width: 100%; border-radius: 12px;">
+      </bsky-embed>
     </div>
   </div>
 
@@ -71,11 +75,11 @@
 
   <div class="social-card">
     <h2>Spotify</h2>
-    <p><a href="https://open.spotify.com/user/31ld2zmrhqdgiplii5dm65edtypi?si=e5bce32d47904fee" target="_blank">Ari's Playlist Archive</a></p>
+    <p><a href="https://open.spotify.com/user/31ld2zmrhqdgiplii5dm65edtypi?si=7a5107062fc1499f" target="_blank">Ari's Music Profile</a></p>
     <div class="social-embed">
       <iframe 
         style="border-radius:12px" 
-        src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
+        src="https://open.spotify.com/embed/playlist/4ek9kmQbpE7EXp1Ogi49lO?utm_source=generator&theme=0" 
         width="100%" 
         height="352" 
         frameBorder="0" 

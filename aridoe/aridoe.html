@@ -29,8 +29,10 @@
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
     <a href="../pages/ocs.html" class="nav-btn">OC DATABASE</a>
+    <a href="../pages/rankings.html" class="nav-btn">RANKINGS</a>
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
+    <button id="theme-toggle" class="nav-btn theme-toggle" title="Toggle Light/Dark Mode">🌙</button>
 </nav>
 
 <section class="terminal-intro">
@@ -109,10 +111,12 @@
 </div>
 
 <!-- JS -->
+<script src="../js/theme-toggle.js"></script>
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
 <script src="../js/shiptime.js"></script>
+<script src="../js/comment-system.js"></script>
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
