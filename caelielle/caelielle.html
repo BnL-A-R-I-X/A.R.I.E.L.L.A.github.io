@@ -24,13 +24,14 @@
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
+    <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
 <main>
 
 <!-- General Information -->
 <section>
-    <h2>☽♥ General Information ♥☾</h2>
+    <h2>&#9790;&#9829; General Information &#9829;&#9790;</h2>
     <ul>
         <li><strong>Name:</strong> Caelielle</li>
         <li><strong>Age:</strong> Older than Earth (Chronological), 23 (Physical)</li>
@@ -50,7 +51,7 @@
 
 <!-- Appearance -->
 <section>
-    <h2>☽♠ General Appearance ♠☾</h2>
+    <h2>&#9790;&#9824; General Appearance &#9824;&#9790;</h2>
     <p>Elegant, towering, and otherworldly — Caelielle’s physical form radiates serene authority and celestial beauty. Her ram horns, wings, and luminous eyes give her an unmistakable presence among any gathering of beings.</p>
 </section>
 
@@ -183,12 +184,14 @@
 </footer>
 
 <!-- JS Scripts -->
-<script src="/js/gallery.js"></script>
-<script src="/js/nsfw-toggle.js"></script>
-<script src="/js/lightbox.js"></script>
+<script src="../js/gallery.js"></script>
+<script src="../js/nsfw-toggle.js"></script>
+<script src="../js/lightbox.js"></script>
 <script src="gallery-data.js"></script>
 <script>
-    loadCharacterGalleries('/caelielle/images', galleryData);
+    if (typeof galleryData !== 'undefined') {
+        loadCharacterGalleries('/caelielle/images', galleryData);
+    }
 </script>
 
 </body>

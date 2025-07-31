@@ -407,43 +407,43 @@ main {
     border-top: 1px solid rgba(0, 200, 255, 0.2);
 }
 
-/* Logo styling */
+/* Logo styling - force specific size */
 .bnl-logo.small-centered {
-    width: 50px;
-    height: auto;
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: contain;
     display: block;
     margin: 0 auto 10px auto;
 }
 
-/* Basic styling for the site */
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #0a0a0a;
-    color: #00ff00;
-    margin: 0;
-    padding: 0;
+/* Terminal-style paragraph formatting */
+.terminal-intro p, 
+.character-bio p,
+.bnl-section p {
+    background: rgba(0, 180, 255, 0.05);
+    border-left: 3px solid #66e0ff;
+    padding: 12px 15px;
+    margin: 10px 0;
+    font-family: 'Roboto', monospace;
+    line-height: 1.6;
+    border-radius: 4px;
 }
 
-.site-header {
-    background-color: #1a1a1a;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 2px solid #00ff00;
-}
-
-.site-header h1 {
+/* Section titles styling */
+.character-sections .section-title {
+    color: #66e0ff;
     font-family: 'Orbitron', monospace;
-    margin: 0;
-    color: #00ff00;
+    font-size: 1.5rem;
+    margin: 30px 0 20px 0;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(102, 224, 255, 0.6);
+    border-bottom: 2px solid rgba(102, 224, 255, 0.3);
+    padding-bottom: 10px;
 }
 
-/* Navigation */
-.nav-bar {
-    padding: 10px 20px;
-    background-color: #111;
-    text-align: left;
+.character-section {
+    margin: 40px 0;
 }
-
 .nav-bar.nav-right {
     text-align: right;
 }

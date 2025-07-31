@@ -24,11 +24,12 @@
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
+    <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
 <main class="character-profile">
     <div class="character-info">
-        <img src="images/refs/SFW.jpg" alt="Ari-Doe Main Reference" class="character-main-img">
+        <img src="images/refs/SFW.jpg" alt="Ari-Doe Main Reference" class="character-main-img" onerror="this.style.display='none'">
         <div class="character-bio">
             <h2>Ari-Doe</h2>
             <p>Character description goes here...</p>
@@ -61,11 +62,14 @@
 <!-- Gallery Functions -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
+<script src="../js/lightbox.js"></script>
 
 <script>
 // Load galleries when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    loadCharacterGalleries('images', galleryData);
+    if (typeof galleryData !== 'undefined') {
+        loadCharacterGalleries('/aridoe/images', galleryData);
+    }
 });
 </script>
 

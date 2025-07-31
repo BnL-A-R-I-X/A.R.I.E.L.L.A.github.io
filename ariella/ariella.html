@@ -24,6 +24,7 @@
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
+    <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
 <main>
@@ -109,12 +110,14 @@
 </footer>
 
 <!-- JS -->
-<script src="/js/gallery.js"></script>
-<script src="/js/nsfw-toggle.js"></script>
-<script src="/js/lightbox.js"></script>
+<script src="../js/gallery.js"></script>
+<script src="../js/nsfw-toggle.js"></script>
+<script src="../js/lightbox.js"></script>
 <script src="gallery-data.js"></script>
 <script>
-    loadCharacterGalleries('/ariella/images', galleryData);
+    if (typeof galleryData !== 'undefined') {
+        loadCharacterGalleries('/ariella/images', galleryData);
+    }
 </script>
 
 </body>
