@@ -17,6 +17,11 @@
             <h1>USS AXIOM // OC DATABASE</h1>
             <p class="subtext">BNL Passenger Character Records Terminal</p>
             <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
         </div>
     </div>
 </header>
@@ -27,7 +32,14 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main>
+<section class="terminal-intro">
+    <p>
+        <strong>BNL CLASSIFIED:</strong> The following contains technical specifications for prototype enforcement unit A.R.I.E.L.L.A. 
+        Access restricted to Level 5 clearance personnel only. Unauthorized viewing is punishable under BNL Security Protocol 7729-X.
+    </p>
+</section>
+
+<main class="character-profile">
     <!-- Asset Identification -->
     <section class="bnl-section">
         <h3>Asset Identification</h3>
@@ -86,33 +98,41 @@
     </section>
 
     <!-- Reference Gallery -->
-    <section class="bnl-section">
-        <h3>Reference Sheets</h3>
+    <section class="character-gallery">
+        <h2>Reference Sheets</h2>
         <div id="refs-gallery" class="gallery-grid"></div>
     </section>
 
     <!-- SFW Gallery -->
-    <section class="bnl-section">
-        <h3>Visual Records (SFW)</h3>
+    <section class="character-gallery">
+        <h2>Visual Records (SFW)</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
     </section>
 
     <!-- NSFW Gallery -->
-    <section class="bnl-section">
-        <h3>Restricted Visual Records (NSFW)</h3>
+    <section class="character-gallery">
+        <h2>Restricted Visual Records (NSFW)</h2>
         <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>
 
-<footer class="bnl-footer">
+<section class="system-footer">
     <p>© Buy n Large Corporation // Security Robotics Division // Confidential Asset Record</p>
-</footer>
+    <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+        SYSTEM MESSAGE: Asset A.R.I.E.L.L.A monitoring protocols active. — SECURITY LEVEL: MAXIMUM — NETWORK SYNC: 100%
+    </marquee>
+</div>
 
 <!-- JS -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
+<script src="../js/shiptime.js"></script>
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {

@@ -701,59 +701,304 @@ main {
     color: #00f7ff;
 }
 
-/* Responsive adjustments */
+/* BNL Terminal Styling */
+.bnl-terminal {
+    background: #0a0d10;
+    font-family: 'Orbitron', monospace;
+}
+
+.bnl-section {
+    background: rgba(20, 30, 45, 0.8);
+    border: 2px solid rgba(0, 180, 255, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+}
+
+.bnl-section h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #66e0ff;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+.bnl-data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.bnl-data th {
+    background: rgba(0, 180, 255, 0.1);
+    color: #66e0ff;
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.bnl-data td {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    color: #e6f0ff;
+    background: rgba(0, 10, 15, 0.4);
+}
+
+.bnl-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bnl-section li {
+    background: rgba(0, 10, 15, 0.4);
+    border-left: 3px solid #66e0ff;
+    padding: 8px 12px;
+    margin: 5px 0;
+    color: #e6f0ff;
+    border-radius: 0 4px 4px 0;
+}
+
+.bnl-section p {
+    background: rgba(0, 180, 255, 0.05);
+    border-left: 3px solid #66e0ff;
+    padding: 12px 15px;
+    margin: 10px 0;
+    line-height: 1.6;
+    border-radius: 4px;
+    color: #e6f0ff;
+}
+
+/* Mobile and Responsive Design */
 @media (max-width: 768px) {
+    /* Header adjustments */
+    .site-header {
+        padding: 10px;
+    }
+    
+    .header-inner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .bnl-logo.small-centered {
+        width: 200px !important;
+        height: 200px !important;
+    }
+    
+    .site-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .status-widgets {
+        font-size: 0.7rem;
+    }
+    
+    /* Navigation adjustments */
+    .nav-bar {
+        padding: 10px;
+        text-align: center !important;
+    }
+    
+    .nav-btn {
+        padding: 8px 12px;
+        margin: 2px;
+        font-size: 0.8rem;
+    }
+    
+    /* Content adjustments */
+    main {
+        padding: 0 10px;
+    }
+    
+    .character-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .character-card {
+        padding: 15px;
+    }
+    
+    /* Bio page adjustments */
     .personnel-badge {
         flex-direction: column;
         text-align: center;
+        padding: 15px;
+    }
+    
+    .badge-photo {
+        width: 120px;
+        height: 120px;
     }
     
     .likes-dislikes {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+    
+    /* Social grid adjustments */
+    .social-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .social-card {
+        padding: 15px;
+    }
+    
+    /* Character profile adjustments */
+    .character-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .character-main-img {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* BNL sections adjustments */
+    .bnl-section {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .bnl-data {
+        font-size: 0.9rem;
+    }
+    
+    .bnl-data th,
+    .bnl-data td {
+        padding: 6px 8px;
+    }
+    
+    /* Gallery adjustments */
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    
+    /* Camera feed adjustments */
+    .camera-video {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .camera-overlay {
+        font-size: 0.7rem;
+        padding: 0 5px;
+    }
+    
+    /* Terminal intro adjustments */
+    .terminal-intro {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    /* System logs adjustments */
+    .system-logs, .easter-eggs {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .system-logs li, .easter-eggs li {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    /* Footer adjustments */
+    .system-footer {
+        padding: 15px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .status-ticker {
+        font-size: 0.7rem;
+    }
 }
 
-/* ===== Security Camera Feed ===== */
-.security-feed {
-    margin: 2rem auto;
-    text-align: center;
-    color: #00ffcc;
+@media (max-width: 480px) {
+    /* Extra small screens */
+    .bnl-logo.small-centered {
+        width: 150px !important;
+        height: 150px !important;
+    }
+    
+    .site-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .character-card h2 {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .bnl-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .camera-video {
+        max-width: 300px;
+    }
 }
 
-.camera-frame {
-    position: relative;
-    display: inline-block;
-    border: 3px solid #00ffcc;
-    box-shadow: 0 0 15px rgba(0,255,204,0.5);
-    background: black;
+/* Landscape mobile adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .bnl-logo.small-centered {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .site-header {
+        padding: 5px;
+    }
+    
+    .site-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-inner {
+        flex-direction: row;
+        align-items: center;
+    }
 }
 
-.camera-video {
-    width: 500px;
-    height: auto;
-    display: block;
-    filter: contrast(1.2) brightness(0.9) saturate(1.1);
-}
-
-/* Overlay text */
-.camera-overlay {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    font-family: 'Orbitron', sans-serif;
-    text-shadow: 0 0 5px #000;
-}
-
-.cam-status {
-    color: #ff5555;
-    font-weight: bold;
-}
-
-.cam-location {
-    color: #00ffcc;
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .nav-btn,
+    .character-card,
+    .social-card a,
+    .gallery-image {
+        min-height: 44px; /* iOS recommendation for touch targets */
+    }
+    
+    .nav-btn {
+        padding: 12px 16px;
+    }
+    
+    #nsfw-toggle-btn {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
 }
