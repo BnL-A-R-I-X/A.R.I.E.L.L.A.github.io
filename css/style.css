@@ -1823,6 +1823,16 @@ main {
     background: linear-gradient(90deg, #ffaa00, #ff6600);
 }
 
+.status-fill.special {
+    background: linear-gradient(90deg, #ff69b4, #66e0ff);
+    animation: special-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes special-glow {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.3); }
+}
+
 .status-value {
     color: #66e0ff;
     font-size: 0.8rem;
