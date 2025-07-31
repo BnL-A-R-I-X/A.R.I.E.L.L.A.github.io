@@ -5,7 +5,7 @@ function toggleNSFW() {
     const nsfwGallery = document.getElementById('nsfw-gallery');
     const button = document.getElementById('nsfw-toggle-btn');
 
-    if (!nsfwGallery) return;
+    if (!nsfwGallery || !button) return;
 
     nsfwGallery.classList.toggle('revealed');
 

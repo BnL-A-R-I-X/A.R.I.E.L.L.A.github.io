@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Darla // Axiom OC Database</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+    <h1>AXIOM // DARLA</h1>
+    <p>Passenger Character Records Terminal</p>
+</header>
+
+<nav class="nav-bar">
+    <a href="../index.html" class="nav-btn">HOME</a>
+    <a href="../search.html" class="nav-btn">SEARCH</a>
+    <a href="../logs.html" class="nav-btn">ACTIVITY LOGS</a>
+    <a href="../help.html" class="nav-btn">HELP</a>
+</nav>
+
+<main class="character-profile">
+    <section class="character-info">
+        <img src="images/refs/Reference.png" alt="Darla Reference" class="character-main-img">
+        <div class="character-bio">
+            <h2>Darla</h2>
+            <p><strong>Role:</strong> Ranger of the Forest</p>
+            <p><strong>Species:</strong> Cervid Anthro</p>
+            <p><strong>Gender:</strong> Female</p>
+            <p><strong>Occupation:</strong> National Park Ranger & Wildlife Protector</p>
+            <p>Darla is a vigilant and compassionate forest ranger, dedicated to the preservation of natural habitats and the creatures that dwell within them. She is known for her sharp instincts, calm demeanor, and deep bond with the wilderness she protects. Whether navigating dense woodland trails or patrolling remote park areas, she stands as a steadfast guardian against environmental threats.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Reference Sheets</h2>
+        <div id="refs-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section>
+        <h2>SFW Gallery</h2>
+        <div id="sfw-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section>
+        <h2>NSFW Gallery</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+        <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© 2025 Ariella Fawnbrook // Axiom OC Terminal</p>
+</footer>
+
+<script src="gallery-data.js"></script>
+<script src="../js/gallery.js"></script>
+<script src="../js/nsfw-toggle.js"></script>
+<script src="../js/lightbox.js"></script>
+<script>
+    loadCharacterGalleries('/darla/images', galleryData);
+</script>
+
+</body>
+</html>
