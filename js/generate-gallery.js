@@ -1,19 +1,11 @@
-/**
- * generate-gallery.js
- * Run with: node generate-gallery.js
- * 
- * Automatically generates `gallery-data.js` for each OC.
- */
-
 const fs = require('fs');
 const path = require('path');
 
 const ocFolders = ['ariella', 'aridoe', 'darla', 'caelielle', 'misc']; // OC directories
 
 ocFolders.forEach(oc => {
-    const basePath = path.join(__dirname, oc, 'images');
+    const basePath = path.join(__dirname, '..', oc, 'images'); // FIXED: go up one folder
 
-    // Ensure base path exists
     if (!fs.existsSync(basePath)) {
         console.warn(`Skipping ${oc} - no images folder found.`);
         return;
@@ -35,13 +27,10 @@ const galleryData = {
 };
     `.trim();
 
-    fs.writeFileSync(path.join(__dirname, oc, 'gallery-data.js'), output, 'utf8');
+    fs.writeFileSync(path.join(__dirname, '..', oc, 'gallery-data.js'), output, 'utf8');
     console.log(`✅ Generated gallery-data.js for ${oc}`);
 });
 
-/**
- * Returns a sorted list of files in a directory (images only).
- */
 function getFiles(dir) {
     if (!fs.existsSync(dir)) return [];
     return fs.readdirSync(dir)
