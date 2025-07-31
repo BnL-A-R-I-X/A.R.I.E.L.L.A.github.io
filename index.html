@@ -94,24 +94,21 @@
 </div>
 
 <!-- ===== Security Camera Feed ===== -->
+<!-- ===== Security Camera Feed ===== -->
 <section class="security-feed">
     <h2 class="section-title">&#128249; Live Ship Feed — Deck 07</h2>
     <div class="camera-frame">
-        <!-- YouTube Embed -->
-        <iframe class="camera-video" 
-            src="https://www.youtube.com/watch?v=ZxCMErtQuUg&pp=ygUgYnVybi1lIHBpeGFyIHNob3J0IGZpbG0gb3JpZ2luYWw%3D?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&modestbranding=1&showinfo=0&rel=0"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen>
-        </iframe>
-
-        <!-- Overlay UI -->
+        <video autoplay muted loop playsinline class="camera-video">
+            <source src="assets/video/deck07_feed.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="camera-overlay">
             <span class="cam-status">LIVE — SECURE LINK</span>
             <span class="cam-location">BNL AXIOM // OBSERVATION BAY</span>
         </div>
     </div>
 </section>
+
 
 
 <!-- ===== Footer ===== -->

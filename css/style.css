@@ -731,8 +731,9 @@ main {
 
 .camera-video {
     width: 500px;
-    height: 281px; /* 16:9 Aspect Ratio */
+    height: auto;
     display: block;
+    filter: contrast(1.2) brightness(0.9) saturate(1.1);
 }
 
 /* Overlay text */
@@ -751,11 +752,6 @@ main {
 .cam-status {
     color: #ff5555;
     font-weight: bold;
-}
-
-.cam-location {
-    color: #00ffcc;
-}
 }
 
 .cam-location {
