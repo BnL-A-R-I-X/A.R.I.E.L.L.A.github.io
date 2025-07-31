@@ -2,86 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ari‑Doe // OC Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ari-Doe // Character Profile</title>
     <link rel="stylesheet" href="../css/style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body class="oc-page">
+<body>
 
-<header class="oc-header">
-    <h1>Ari‑Doe</h1>
-    <p>Transfemme White‑Tailed Deer ✧ Meadowverse Resident</p>
+<header class="site-header">
+    <div class="header-inner">
+        <h1>AXIOM // CHARACTER PROFILE</h1>
+        <p class="subtext">Ari-Doe Personnel Record</p>
+    </div>
 </header>
 
-<main>
-    <!-- Character Bio -->
-    <section class="bio">
-        <img src="/aridoe/images/refs/ref1.jpg" alt="Ari‑Doe Reference" class="bio-image">
-        <div>
-            <h2>Overview</h2>
-            <p>
-                Ari‑Doe is a gentle, warm‑hearted cervine who calls the cozy town of Pinebarrow home.  
-                She blends soft elegance with playful energy, always eager to welcome a friend with a steaming mug of coffee  
-                and an ear for stories. She’s deeply connected to the forest and finds peace in its seasonal changes.
-            </p>
-            <ul>
-                <li><strong>Pronouns:</strong> she/her</li>
-                <li><strong>Species:</strong> White‑Tailed Deer</li>
-                <li><strong>Identity:</strong> Transfemme ✧ Demiromantic‑Aegofluff</li>
-                <li><strong>Home:</strong> Pinebarrow, Meadowverse</li>
-                <li><strong>Occupation:</strong> Barista at the Hollow Mug Café</li>
-            </ul>
+<nav class="nav-bar">
+    <a href="../index.html" class="nav-btn">HOME</a>
+</nav>
+
+<main class="character-profile">
+    <div class="character-info">
+        <img src="images/refs/SFW.jpg" alt="Ari-Doe Main Reference" class="character-main-img">
+        <div class="character-bio">
+            <h2>Ari-Doe</h2>
+            <p>Character description goes here...</p>
         </div>
-    </section>
+    </div>
 
-    <hr>
-
-    <!-- Personality -->
-    <section>
-        <h2>Personality</h2>
-        <p>
-            Ari‑Doe embodies the heart of a hearth — warm, inviting, and deeply rooted in empathy.  
-            She’s a dreamer who often slips into moments of quiet contemplation, drawing inspiration from  
-            the rustle of leaves or the dance of morning sunlight through her café’s windows.  
-            Friends know her as a calm presence in turbulent times,  
-            but she also has a playful streak that comes alive in close company.
-        </p>
-    </section>
-
-    <hr>
-
-    <!-- Reference Sheets -->
-    <section>
-        <h2>Reference Sheets</h2>
+    <div class="gallery-section">
+        <h3>Reference Sheets</h3>
         <div id="refs-gallery" class="gallery-grid"></div>
-    </section>
+    </div>
 
-    <!-- SFW Gallery -->
-    <section>
-        <h2>SFW Gallery</h2>
+    <div class="gallery-section">
+        <h3>SFW Gallery</h3>
         <div id="sfw-gallery" class="gallery-grid"></div>
-    </section>
+    </div>
 
-    <!-- NSFW Gallery -->
-    <section>
-        <h2>NSFW Gallery</h2>
+    <div class="gallery-section">
+        <h3>NSFW Gallery</h3>
         <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
-    </section>
+    </div>
 </main>
 
-<footer class="oc-footer">
-    <p>© 2025 Ariella Fawnbrook // Meadowverse OC Database</p>
-</footer>
+<section class="system-footer">
+    <p>© 2025 Ariella Fawnbrook // Axiom OC Terminal</p>
+</section>
 
-<!-- JS Scripts -->
-<script src="/js/gallery.js"></script>
-<script src="/js/nsfw-toggle.js"></script>
-<script src="/js/lightbox.js"></script>
+<!-- Gallery Data -->
 <script src="gallery-data.js"></script>
+<!-- Gallery Functions -->
+<script src="../js/gallery.js"></script>
+<script src="../js/nsfw-toggle.js"></script>
+
 <script>
-    loadCharacterGalleries('/aridoe/images', galleryData);
+// Load galleries when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadCharacterGalleries('images', galleryData);
+});
 </script>
 
 </body>
