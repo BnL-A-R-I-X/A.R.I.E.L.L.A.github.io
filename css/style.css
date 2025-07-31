@@ -773,6 +773,83 @@ main {
     color: #e6f0ff;
 }
 
+/* Universal Character Section Styling */
+.character-abilities, .character-equipment, .character-traits, .character-lore {
+    background: rgba(20, 30, 45, 0.6);
+    border-left: 4px solid #66e0ff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.character-abilities h2, .character-equipment h2, .character-traits h2, .character-lore h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #66e0ff;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+.character-abilities h3, .character-equipment h3, .character-traits h3, .character-lore h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #a0c8ff;
+    margin: 15px 0 10px 0;
+    font-size: 1.1rem;
+}
+
+.character-abilities ul, .character-equipment ul, .character-traits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.character-abilities li, .character-equipment li, .character-traits li {
+    background: rgba(0, 10, 15, 0.4);
+    border-left: 3px solid #66e0ff;
+    padding: 8px 12px;
+    margin: 5px 0;
+    color: #e6f0ff;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.5;
+}
+
+.character-abilities li strong, .character-equipment li strong, .character-traits li strong {
+    color: #a0c8ff;
+}
+
+.character-lore p {
+    background: rgba(0, 180, 255, 0.05);
+    border-left: 3px solid #66e0ff;
+    padding: 12px 15px;
+    margin: 10px 0;
+    line-height: 1.6;
+    border-radius: 4px;
+    color: #e6f0ff;
+}
+
+/* Gallery section styling */
+.character-gallery {
+    background: rgba(20, 30, 45, 0.4);
+    border-left: 4px solid #66e0ff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.character-gallery h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #66e0ff;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    padding-bottom: 8px;
+}
+
 /* Mobile and Responsive Design */
 @media (max-width: 768px) {
     /* Header adjustments */
