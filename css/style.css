@@ -2009,22 +2009,106 @@ main {
     font-family: 'Roboto Mono', monospace;
 }
 
-/* Mobile adjustments */
+/* Multi-Column Layouts */
+.two-column-layout {
+    display: flex;
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.three-column-layout {
+    display: flex;
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.half-width {
+    flex: 1;
+    min-width: 300px;
+}
+
+.third-width {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Compact Weather Grid */
+.weather-grid-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Adjust existing sections for column layouts */
+.active-passengers.half-width,
+.weather-report.half-width,
+.system-logs.third-width,
+.news-feed.third-width,
+.easter-eggs.third-width {
+    background: rgba(20, 30, 45, 0.8);
+    border: 2px solid rgba(0, 180, 255, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0;
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+}
+
+.active-passengers.half-width h3,
+.weather-report.half-width h3,
+.system-logs.third-width h3,
+.news-feed.third-width h3,
+.easter-eggs.third-width h3 {
+    color: #66e0ff;
+    font-family: 'Orbitron', sans-serif;
+    margin: 0 0 15px 0;
+    text-align: center;
+    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+    font-size: 1.1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+    .three-column-layout {
+        flex-direction: column;
+    }
+    
+    .third-width {
+        min-width: unset;
+    }
+}
+
 @media (max-width: 768px) {
-    .status-grid {
-        grid-template-columns: 1fr;
+    .two-column-layout {
+        flex-direction: column;
+        padding: 0 15px;
     }
     
-    .weather-grid {
-        grid-template-columns: 1fr;
+    .three-column-layout {
+        flex-direction: column;
+        padding: 0 15px;
     }
     
-    .passenger-entry {
-        padding: 10px;
+    .half-width,
+    .third-width {
+        min-width: unset;
     }
-    
-    .news-item {
-        font-size: 0.8rem;
-        padding: 10px;
-    }
+}
+
+/* Remove original standalone section styles to avoid duplication */
+.active-passengers:not(.half-width),
+.weather-report:not(.half-width),
+.system-logs:not(.third-width),
+.news-feed:not(.third-width),
+.easter-eggs:not(.third-width) {
+    background: rgba(20, 30, 45, 0.8);
+    border: 2px solid rgba(0, 180, 255, 0.5);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 1000px;
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
 }
