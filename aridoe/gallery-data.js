@@ -1,8 +1,9 @@
 /**
  * Auto-generated gallery data for aridoe.
+ * Generated: 2025-07-31T04:14:20.577Z
  */
 const galleryData = {
-    refs: ["reference1.png","reference2.png"],
-    sfw: ["sfw1.png","sfw2.png","sfw3.png"],
-    nsfw: ["nsfw1.png","nsfw2.png"]
+    refs: ["NSFW-Futa.jpg","SFW-Fem.jpg","SFW.jpg"],
+    sfw: ["150725_comm_lines1.png","67.jpg","IMG_9933.webp"],
+    nsfw: ["1223232123.jpg","5vcJCH8a1752418059.jpg"]
 };
