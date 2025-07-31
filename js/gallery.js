@@ -24,6 +24,8 @@ function loadGallery(imagePath, containerId, imageList) {
         img.src = fullPath;
         img.alt = filename;
         img.className = 'gallery-image';
+        
+        // Add click handler that will remove filters when opened in lightbox
         img.onclick = () => openLightbox(fullPath, filename);
         
         // Handle image load errors
@@ -118,9 +120,9 @@ function findMostRecentArt(galleryData) {
 function displayMostRecentArt(galleryData) {
     const container = document.getElementById('most-recent-art');
     if (!container) return;
-    
+
     const recentArt = findMostRecentArt(galleryData);
-    
+
     if (recentArt) {
         const fullPath = `${recentArt.path}/${recentArt.filename}`;
         const dateString = recentArt.date.toLocaleDateString('en-US', {
@@ -128,13 +130,21 @@ function displayMostRecentArt(galleryData) {
             month: 'long',
             day: 'numeric'
         });
-        
+        const timeString = recentArt.date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
         container.innerHTML = `
             <div class="recent-art-display">
-                <img src="${fullPath}" alt="${recentArt.filename}" class="recent-art-image" onclick="openLightbox('${fullPath}', '${recentArt.filename}')">
+                <img src="${fullPath}" alt="${recentArt.filename}" class="recent-art-image" onclick="openLightbox('${fullPath}', '${recentArt.filename}', true)">
                 <div class="recent-art-info">
-                    <p class="recent-art-date">Created: ${dateString}</p>
-                    <p class="recent-art-filename">${recentArt.filename}</p>
+                    <span class="blinking-warning">&#9888;</span>
+                    <span class="recent-art-date">Timestamp: ${dateString} ${timeString}</span>
+                    <div class="recent-art-timestamp">File: ${recentArt.filename}</div>
+                    <p class="recent-art-filename">Location: <span>${recentArt.path}</span></p>
+                    <p style="color:#ff4444;font-size:0.95em;margin-top:10px;">SECURITY ALERT: Most Recent Visual Documentation Captured By Ship Monitoring Systems</p>
                 </div>
             </div>
         `;
@@ -147,8 +157,9 @@ function displayMostRecentArt(galleryData) {
  * Opens lightbox with image
  * @param {string} imageSrc - Source path of the image
  * @param {string} altText - Alt text for the image
+ * @param {boolean} removeFilter - Whether to remove sepia filter for lightbox
  */
-function openLightbox(imageSrc, altText) {
+function openLightbox(imageSrc, altText, removeFilter = false) {
     let lightbox = document.getElementById('lightbox');
     
     if (!lightbox) {
@@ -159,7 +170,8 @@ function openLightbox(imageSrc, altText) {
         document.body.appendChild(lightbox);
     }
     
-    lightbox.innerHTML = `<img src="${imageSrc}" alt="${altText}">`;
+    const filterStyle = removeFilter ? 'filter: none;' : '';
+    lightbox.innerHTML = `<img src="${imageSrc}" alt="${altText}" style="${filterStyle}">`;
     lightbox.classList.add('active');
 }
 

@@ -39,7 +39,14 @@
     </p>
 </section>
 
+<!-- Most Recent Art Section -->
+<section class="most-recent-section">
+    <h3>&#128248; Most Recent Visual Documentation</h3>
+    <div id="most-recent-art"></div>
+</section>
+
 <main class="character-profile">
+    <!-- Gallery Sections -->
     <section class="character-gallery">
         <h2>Reference Sheets</h2>
         <div id="refs-gallery" class="gallery-grid"></div>
@@ -76,6 +83,10 @@
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
+        // Display most recent art
+        displayMostRecentArt(galleryData);
+        
+        // Load character galleries
         loadCharacterGalleries('images', galleryData);
     }
 </script>
