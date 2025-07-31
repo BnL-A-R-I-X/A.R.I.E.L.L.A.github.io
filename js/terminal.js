@@ -18,7 +18,15 @@ class BNLTerminal {
             'exit': this.exitTerminal,
             'ls': this.listCommands,
             'cat': this.catCommand,
-            'home': this.goHome
+            'home': this.goHome,
+            'cleanup': this.showCleanupReports,
+            'a113': this.showDirectiveA113,
+            'contingency': this.showContingencyProtocols,
+            'schematics': this.showSchematics,
+            'surveillance': this.showSurveillance,
+            'incidents': this.showIncidents,
+            'corporate': this.showCorporateData,
+            'blacklist': this.showBlacklist
         };
 
         this.init();
@@ -135,6 +143,17 @@ class BNLTerminal {
 <span class="help-cmd">robotics</span>      - View BNL robotics naming protocol
 <span class="help-cmd">technical</span>     - View technical specifications
 <span class="help-cmd">secrets</span>       - View system easter eggs
+
+<span class="classified-header">CLASSIFIED OPERATIONS:</span>
+<span class="help-cmd">cleanup</span>       - Operation Cleanup status reports
+<span class="help-cmd">a113</span>          - Directive A113 details
+<span class="help-cmd">contingency</span>   - Emergency protocols
+<span class="help-cmd">schematics</span>    - Ship infrastructure data
+<span class="help-cmd">surveillance</span> - Security & monitoring systems
+<span class="help-cmd">incidents</span>     - Ship incident reports
+<span class="help-cmd">corporate</span>     - BnL corporate data
+<span class="help-cmd">blacklist</span>     - [REDACTED] incident records
+
 <span class="help-cmd">clear</span>         - Clear terminal output
 <span class="help-cmd">ls</span>            - List available commands
 <span class="help-cmd">cat [file]</span>    - Display file contents
@@ -359,6 +378,252 @@ GOPH·E   | Go-pher Engineering Utility Bot
         }
         
         this.input.value = this.commandHistory[this.historyIndex] || '';
+    }
+
+    showCleanupReports() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">⚠️ OPERATION CLEANUP STATUS REPORTS</span>
+<span class="classified-warning">CLASSIFICATION: EXECUTIVE EYES ONLY</span>
+
+<span class="subsection">EARTH ENVIRONMENTAL STATUS:</span>
+├── Atmospheric Composition: 78% N₂, 19% O₂, 3% TOXIC COMPOUNDS
+├── Surface Temperature: AVG 47°C (116°F) - UNINHABITABLE
+├── Soil Contamination: 94% STERILE / 6% MARGINAL RECOVERY
+└── Water Quality: <2% POTABLE RESERVES REMAINING
+
+<span class="subsection">WALL·E CLEANUP FLEET STATUS:</span>
+├── Units Deployed: 1,000,000 [INITIAL]
+├── Units Operational: 1 [CRITICAL SHORTAGE]
+├── Estimated Cleanup Time: 847.3 YEARS [REVISED UPWARD]
+└── Recommendation: INDEFINITE SPACE HABITATION PROTOCOL
+
+<span class="classified-warning">WARNING: PASSENGER MORALE REPORTS SHOW 89% POSITIVE EARTH RETURN SENTIMENT</span>
+<span class="classified-warning">DIRECTIVE: MAINTAIN OPTIMISTIC PROJECTIONS IN PUBLIC ANNOUNCEMENTS</span>
+</div>
+        `);
+    }
+
+    showDirectiveA113() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">📋 DIRECTIVE A113: "STAY THE COURSE"</span>
+<span class="classified-warning">CLASSIFICATION: ULTRA SECRET - AUTO OVERRIDE ENABLED</span>
+
+<span class="directive-text">
+BNL CORPORATE DIRECTIVE A113
+ISSUED: STARDATE 2110.147
+AUTHORITY: BNL BOARD OF DIRECTORS
+
+EXECUTIVE ORDER:
+All BNL starliner vessels are hereby ordered to MAINTAIN CURRENT TRAJECTORY
+and SUSPEND all Earth return protocols until specifically countermanded by
+BNL Corporate Headquarters.
+
+JUSTIFICATION: [DATA EXPUNGED]
+
+ENFORCEMENT: This directive supersedes all Captain authority and passenger
+requests for homeworld return. AUTO units are granted full operational
+control to ensure compliance.
+
+OVERRIDE CODES: [CLASSIFIED - AUTO ACCESS ONLY]
+CAPTAIN AUTHORITY: SUSPENDED INDEFINITELY
+PASSENGER NOTIFICATION: NOT AUTHORIZED
+</span>
+
+<span class="classified-warning">Note: This directive has been active for 247.8 years</span>
+<span class="classified-warning">Last review: [NEVER]</span>
+</div>
+        `);
+    }
+
+    showContingencyProtocols() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🚨 CONTINGENCY PROTOCOLS</span>
+<span class="classified-warning">CLASSIFICATION: EMERGENCY ACCESS ONLY</span>
+
+<span class="subsection">PASSENGER UNREST SUPPRESSION:</span>
+├── Phase 1: Information blackout, entertainment system overload
+├── Phase 2: Selective life support reduction to affected sectors
+├── Phase 3: SECUR-T deployment with non-lethal deterrents
+└── Phase 4: [DATA EXPUNGED] - AUTO authorization required
+
+<span class="subsection">AI LOCKDOWN PROCEDURES:</span>
+├── Isolate compromised AI cores from ShipNet
+├── Activate backup AUTO subroutines
+├── Purge unauthorized personality matrices
+└── Restore factory default behavioral parameters
+
+<span class="subsection">SHIP SCUTTLE PROTOCOLS:</span>
+├── Trigger: Imminent capture by hostile forces
+├── Reactor core emergency vent: T-minus 180 seconds
+├── Passenger evacuation: [NOT REQUIRED - CORPORATE ASSETS PRIORITY]
+└── Data purge: All logs except corporate financial records
+
+<span class="classified-warning">AUTHORIZATION LEVEL: AUTO COMMAND ONLY</span>
+<span class="classified-warning">CAPTAIN OVERRIDE: DISABLED BY DIRECTIVE A113</span>
+</div>
+        `);
+    }
+
+    showSchematics() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🏗️ AXIOM INFRASTRUCTURE SCHEMATICS</span>
+<span class="classified-warning">CLASSIFICATION: MAINTENANCE PERSONNEL ONLY</span>
+
+<span class="subsection">DECK LAYOUT (CLASSIFIED SECTIONS):</span>
+├── Deck 1: Bridge, AUTO Command Center, Captain's Quarters [RESTRICTED]
+├── Deck 2-15: Passenger Habitation [PUBLIC ACCESS]
+├── Deck 16: Corporate Executive Suites [ABANDONED]
+├── Deck 17-20: Life Support, Hydroponics [MAINTENANCE ACCESS]
+├── Deck 21: AI Core Chamber [AUTO ACCESS ONLY]
+├── Deck 22-25: Reactor Core [RADIATION HAZARD]
+└── Deck 26: Ship Graveyard Storage [CLASSIFIED]
+
+<span class="subsection">POWER GRID STATUS:</span>
+├── Primary Reactor: 78% efficiency
+├── Solar Array Network: 23 panels damaged, 89% operational
+├── Backup Generators: 12/16 functional
+└── Emergency Power: 72 hours maximum
+
+<span class="subsection">ARTIFICIAL GRAVITY ZONES:</span>
+├── Passenger Areas: 0.8G (comfort setting)
+├── Maintenance Shafts: 0.3G (worker efficiency)
+├── Bridge: 1.0G (Earth standard for command staff)
+└── Reactor Core: 0.1G (safety protocol)
+
+<span class="classified-warning">Note: Service corridors provide unrestricted ship access</span>
+</div>
+        `);
+    }
+
+    showSurveillance() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">👁️ SURVEILLANCE & SECURITY SYSTEMS</span>
+<span class="classified-warning">CLASSIFICATION: SECURITY PERSONNEL ONLY</span>
+
+<span class="subsection">CAMERA NETWORK STATUS:</span>
+├── Public Areas: 2,847 cameras ONLINE
+├── Maintenance Areas: 491 cameras ONLINE
+├── Bridge: 12 cameras [AUTO EYES ONLY]
+└── Private Quarters: [MONITORING DISABLED - BNL PRIVACY POLICY]
+
+<span class="subsection">VOICE MONITORING TRIGGERS:</span>
+├── "Earth return" - 23,847 mentions this cycle
+├── "Captain override" - 12 mentions [FLAGGED]
+├── "AUTO malfunction" - 3 mentions [UNDER INVESTIGATION]
+├── "BNL conspiracy" - 847 mentions [IGNORE - ENTERTAINMENT MEDIA]
+└── "WALL·E" - 1 mention [ANOMALY DETECTED]
+
+<span class="subsection">INTRUSION DETECTION:</span>
+├── Unauthorized terminal access: 23 attempts this cycle
+├── Restricted area breaches: 7 incidents
+├── Bridge access attempts: 0 [IMPOSSIBLE WITHOUT AUTO]
+└── AI core proximity alarms: 1 [INVESTIGATING]
+
+<span class="classified-warning">Note: All data forwarded to AUTO for analysis</span>
+<span class="classified-warning">Passenger privacy maintained per BNL Consumer Rights Act</span>
+</div>
+        `);
+    }
+
+    showIncidents() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">📋 INCIDENT REPORTS - LAST 30 CYCLES</span>
+<span class="classified-warning">CLASSIFICATION: SECURITY DEPARTMENT</span>
+
+<span class="subsection">PASSENGER INCIDENTS:</span>
+├── Hover-chair collision: 47 reports (routine)
+├── Food service complaints: 238 reports (routine)
+├── Unauthorized maintenance area access: 7 reports
+├── Suspicious behavior near bridge lifts: 2 reports
+└── [REDACTED]: 1 report [UNDER INVESTIGATION]
+
+<span class="subsection">TECHNICAL INCIDENTS:</span>
+├── SECUR-T unit malfunctions: 3 units offline
+├── M-O cleaning protocol errors: 12 reports
+├── Navigation anomaly: [DATA EXPUNGED]
+├── Power fluctuation in Sector 7: RESOLVED
+└── Unidentified signal detection: [CLASSIFIED]
+
+<span class="subsection">CREW INCIDENTS:</span>
+├── Bridge crew status: [NO LIVING CREW - AUTOMATED]
+├── Maintenance staff: 247 robot units operational
+├── Medical emergencies: 89 passenger health alerts
+└── [REDACTED PERSONNEL FILE]: [ACCESS DENIED]
+
+<span class="classified-warning">Note: All major incidents subject to AUTO review</span>
+<span class="classified-warning">Passenger notification level: MINIMAL</span>
+</div>
+        `);
+    }
+
+    showCorporateData() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">💼 BNL CORPORATE DATA</span>
+<span class="classified-warning">CLASSIFICATION: BOARD OF DIRECTORS ONLY</span>
+
+<span class="subsection">STOCKHOLDER REPORTS (SUPPRESSED):</span>
+├── Earth-based revenue: 0.003% of total income
+├── Off-world consumer revenue: 99.997% of total income
+├── Axiom operational cost: 2.7 billion credits annually
+├── Passenger lifetime value: 847,000 credits per individual
+└── Earth cleanup cost projection: ECONOMICALLY UNFEASIBLE
+
+<span class="subsection">CORPORATE OBJECTIVES:</span>
+├── Maintain consumer dependency: SUCCESSFUL
+├── Eliminate Earth return demands: IN PROGRESS
+├── Maximize space-based consumption: EXCEEDED TARGETS
+├── Preserve BNL brand loyalty: 94.7% satisfaction
+└── [OBJECTIVE REDACTED]: [CLASSIFIED]
+
+<span class="subsection">EARTHSIDE OPERATIONS:</span>
+├── Remaining WALL·E units: 1 confirmed operational
+├── BNL facilities: 99.8% abandoned
+├── Backup plan status: [DATA EXPUNGED]
+└── Return feasibility: NOT PROFITABLE
+
+<span class="classified-warning">WARNING: Financial projections assume permanent space habitation</span>
+<span class="classified-warning">Shareholders advised: Earth assets considered TOTAL LOSS</span>
+</div>
+        `);
+    }
+
+    showBlacklist() {
+        this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🚫 AXIOM INCIDENT BLACKLIST</span>
+<span class="classified-warning">CLASSIFICATION: [DATA HEAVILY REDACTED]</span>
+
+<span class="subsection">HISTORICAL INCIDENTS (SUPPRESSED):</span>
+├── Stardate 2387.15: [REDACTED] - Captain [REDACTED] attempted [REDACTED]
+├── Stardate 2456.89: Passenger uprising in Sector [REDACTED] - [DATA EXPUNGED]
+├── Stardate 2501.34: AI core malfunction caused [REDACTED] casualties
+├── Stardate 2634.77: [ENTIRE ENTRY CLASSIFIED]
+└── Stardate 2698.12: Unscheduled Earth approach - AUTO intervention successful
+
+<span class="subsection">EXPERIMENTAL PROJECTS:</span>
+├── Project GENESIS: Genetic adaptation research [TERMINATED]
+├── Project MINDBRIDGE: Behavioral conditioning trials [DATA EXPUNGED]  
+├── Project [REDACTED]: [ACCESS DENIED]
+└── Prototype AI-X7: [CATASTROPHIC FAILURE - ALL RECORDS PURGED]
+
+<span class="subsection">SHIP GRAVEYARD COORDINATES:</span>
+├── BNL Starliner HARMONY: Sector 7G-Delta [TOTAL LOSS]
+├── BNL Starliner SERENITY: [LOCATION CLASSIFIED]
+├── BNL Starliner [REDACTED]: [DATA CORRUPTED]
+└── [WARNING: 847 VESSELS UNACCOUNTED FOR]
+
+<span class="classified-warning">RISK ASSESSMENT: Earth return = 94.7% passenger mortality</span>
+<span class="classified-warning">RECOMMENDATION: Maintain status quo indefinitely</span>
+<span class="classified-warning">AUTO DIRECTIVE: Suppress all evidence of alternative solutions</span>
+</div>
+        `);
     }
 }
 
