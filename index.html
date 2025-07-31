@@ -34,54 +34,72 @@
 <!-- ===== Nav ===== -->
 <nav class="nav-bar">
     <a href="index.html" class="nav-btn active">HOME</a>
+    <a href="pages/ocs.html" class="nav-btn">OC DATABASE</a>
     <a href="pages/socials.html" class="nav-btn">SOCIALS</a>
     <a href="pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
 <!-- ===== Intro ===== -->
 <section class="terminal-intro">
-    <p>Welcome to the <strong>BNL Passenger Character Records Terminal</strong> for the <em>USS Axiom</em>.  
-    This system archives official biographies, likenesses, and incident reports of all registered passengers and crew.  
-    Managed and maintained by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> in accordance with BNL Passenger Safety Directive 1024-B.</p>
+    <p>Welcome to the <strong>BNL USS Axiom Terminal Hub</strong>.  
+    Access passenger character records, crew social networks, personnel files, and ship systems through the navigation above.  
+    All operations managed by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> security protocols.</p>
 </section>
 
-<!-- ===== Characters ===== -->
+<!-- ===== Quick Access ===== -->
 <main class="character-sections">
     <section class="character-section">
-        <h2 class="section-title">&#9881; Robots/Androids/Machines</h2>
-        <div class="character-grid">
-            <a href="ariella/ariella.html" class="character-card">
-                <h2>A.R.I.E.L.L.A</h2>
-                <p>Automated Regulation Interface, Enforcement & Logistics Android</p>
+        <h2 class="section-title">&#128240; Quick Access Menu</h2>
+        <div class="character-grid centered">
+            <a href="pages/ocs.html" class="character-card">
+                <h2>OC Database</h2>
+                <p>Browse All Character Records</p>
+            </a>
+            <a href="pages/socials.html" class="character-card">
+                <h2>Social Networks</h2>
+                <p>Crew Communication Links</p>
+            </a>
+            <a href="pages/bio.html" class="character-card">
+                <h2>Personnel File</h2>
+                <p>Creator Information</p>
             </a>
         </div>
     </section>
 
+    <!-- ===== BNL Information Terminal ===== -->
     <section class="character-section">
-        <h2 class="section-title">&#128059; Anthropomorphs</h2>
-        <div class="character-grid">
-            <a href="aridoe/aridoe.html" class="character-card">
-                <h2>Ari-Doe</h2>
-                <p>Deersona</p>
-            </a>
-            <a href="darla/darla.html" class="character-card">
-                <h2>Darla</h2>
-                <p>Ranger Of The Forest</p>
-            </a>
-            <a href="caelielle/caelielle.html" class="character-card">
-                <h2>Caelielle</h2>
-                <p>Angellic Guardian</p>
-            </a>
-        </div>
-    </section>
+        <h2 class="section-title">&#128187; BNL Information Terminal</h2>
+        <div class="home-terminal-container">
+            <div class="home-terminal-header">
+                <div class="terminal-title">
+                    <span class="terminal-logo">████</span>
+                    BNL CLASSIFIED INFORMATION ACCESS
+                    <span class="terminal-status">LEVEL 7 READY</span>
+                </div>
+                <div class="terminal-controls">
+                    <span class="control-btn minimize">–</span>
+                    <span class="control-btn maximize">□</span>
+                    <span class="control-btn close" onclick="clearHomeTerminal()">×</span>
+                </div>
+            </div>
 
-    <section class="character-section">
-        <h2 class="section-title">&#128269; Miscellaneous</h2>
-        <div class="character-grid">
-            <a href="misc/misc.html" class="character-card">
-                <h2>Misc</h2>
-                <p>Others</p>
-            </a>
+            <div class="home-terminal-output" id="homeTerminalOutput">
+                <div class="boot-sequence">
+                    <div class="boot-line">BNL CORPORATE NETWORK v7.4.EXEC</div>
+                    <div class="boot-line">Initializing secure connection...</div>
+                    <div class="boot-line success">Connection established.</div>
+                    <div class="boot-line">Ready for input.</div>
+                    <div class="boot-line help">Type 'help' for available commands or click <a href="pages/information.html" class="terminal-link">here</a> for full terminal.</div>
+                </div>
+            </div>
+
+            <div class="home-terminal-input-line">
+                <span class="terminal-prompt">BNL-EXEC:~$ </span>
+                <input type="text" id="homeTerminalInput" class="terminal-input" autocomplete="off" placeholder="Type 'help' or 'status'...">
+                <span class="cursor">█</span>
+            </div>
+
+            <div class="home-terminal-suggestions" id="homeSuggestions"></div>
         </div>
     </section>
 </main>
@@ -139,6 +157,7 @@
 
 <!-- ===== Live Ship Time Script ===== -->
 <script src="js/shiptime.js"></script>
+<script src="js/home-terminal.js"></script>
 
 </body>
 </html>
