@@ -116,6 +116,61 @@
         <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
+
+    <!-- Form Categories Section Divider -->
+    <section class="bnl-section form-category-divider">
+        <h3>Asset Configuration Variants</h3>
+        <p>
+            A.R.I.E.L.L.A. prototype features adaptive form configuration capabilities for operational versatility. 
+            Documentation categorized by primary operational forms below.
+        </p>
+    </section>
+
+    <!-- Humanoid Form Category Header -->
+    <section class="form-category-header">
+        <h2 class="category-title">&#129302; Humanoid Enforcement Configuration</h2>
+        <p class="category-description">Standard patrol and diplomatic interface form factor</p>
+    </section>
+
+    <!-- Humanoid Form Galleries -->
+    <section class="character-gallery">
+        <h3>Reference Documentation</h3>
+        <div id="human-refs-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section class="character-gallery">
+        <h3>Operational Visual Records (SFW)</h3>
+        <div id="human-sfw-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section class="character-gallery">
+        <h3>Classified Visual Records (NSFW)</h3>
+        <button id="human-nsfw-toggle-btn" onclick="toggleNSFW('human')">Reveal Classified Records</button>
+        <div id="human-nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
+
+    <!-- Anthro Form Category Header -->
+    <section class="form-category-header">
+        <h2 class="category-title">&#128021; Anthropomorphic Combat Configuration</h2>
+        <p class="category-description">Enhanced mobility and tactical engagement form factor</p>
+    </section>
+
+    <!-- Anthro Form Galleries -->
+    <section class="character-gallery">
+        <h3>Reference Documentation</h3>
+        <div id="anthro-refs-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section class="character-gallery">
+        <h3>Operational Visual Records (SFW)</h3>
+        <div id="anthro-sfw-gallery" class="gallery-grid"></div>
+    </section>
+
+    <section class="character-gallery">
+        <h3>Classified Visual Records (NSFW)</h3>
+        <button id="anthro-nsfw-toggle-btn" onclick="toggleNSFW('anthro')">Reveal Classified Records</button>
+        <div id="anthro-nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
 </main>
 
 <section class="system-footer">
@@ -137,7 +192,20 @@
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('images', galleryData);
+        // Load original galleries
+        loadGallery('images/refs', 'refs-gallery', galleryData.refs || []);
+        loadGallery('images/sfw', 'sfw-gallery', galleryData.sfw || []);
+        loadGallery('images/nsfw', 'nsfw-gallery', galleryData.nsfw || []);
+        
+        // Load Humanoid Form galleries
+        loadGallery('images/human/refs', 'human-refs-gallery', galleryData.humanRefs || []);
+        loadGallery('images/human/sfw', 'human-sfw-gallery', galleryData.humanSfw || []);
+        loadGallery('images/human/nsfw', 'human-nsfw-gallery', galleryData.humanNsfw || []);
+        
+        // Load Anthro Form galleries
+        loadGallery('images/anthro/refs', 'anthro-refs-gallery', galleryData.anthroRefs || []);
+        loadGallery('images/anthro/sfw', 'anthro-sfw-gallery', galleryData.anthroSfw || []);
+        loadGallery('images/anthro/nsfw', 'anthro-nsfw-gallery', galleryData.anthroNsfw || []);
     }
 </script>
 
