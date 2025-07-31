@@ -1,0 +1,338 @@
+/**
+ * Firebase-powered Commission Tracking System
+ * Integrates with existing AxiomOCDatabase Firebase setup
+ * Provides persistent commission data storage and real-time sync
+ */
+
+class FirebaseCommissionSystem {
+    constructor() {
+        this.firebaseReady = false;
+        this.commissions = [];
+        this.listeners = [];
+        
+        this.initFirebase();
+    }
+
+    async initFirebase() {
+        try {
+            // Import Firebase modules
+            const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+            const { getFirestore, collection, doc, setDoc, getDoc, getDocs, onSnapshot, deleteDoc, updateDoc, addDoc, query, orderBy } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+            
+            // Use the same Firebase config as the ranking system
+            const firebaseConfig = {
+                apiKey: "AIzaSyB-dsFpr790H-m020Ojubbr5I_qAMEIwiY",
+                authDomain: "axiomocdatabase.firebaseapp.com",
+                projectId: "axiomocdatabase",
+                storageBucket: "axiomocdatabase.appspot.com",
+                messagingSenderId: "849872728406",
+                appId: "1:849872728406:web:cac277d51263cce20126f7",
+                measurementId: "G-H2DQJGWTKQ"
+            };
+
+            // Initialize Firebase
+            this.app = initializeApp(firebaseConfig);
+            this.db = getFirestore(this.app);
+            this.firebaseReady = true;
+
+            // Store Firebase functions for later use
+            this.firestore = {
+                collection,
+                doc,
+                setDoc,
+                getDoc,
+                getDocs,
+                onSnapshot,
+                deleteDoc,
+                updateDoc,
+                addDoc,
+                query,
+                orderBy
+            };
+
+            console.log('🔥 Firebase Commission System connected successfully!');
+            
+            // Load existing commissions
+            await this.loadCommissions();
+            
+            // Set up real-time listener
+            this.setupRealtimeListener();
+            
+        } catch (error) {
+            console.warn('❌ Firebase failed to load for commission system:', error);
+            this.firebaseReady = false;
+            this.fallbackToLocalStorage();
+        }
+    }
+
+    async loadCommissions() {
+        if (!this.firebaseReady) return;
+
+        try {
+            const commissionsRef = this.firestore.collection(this.db, 'commissions');
+            const q = this.firestore.query(commissionsRef, this.firestore.orderBy('dateCommissioned', 'desc'));
+            const querySnapshot = await this.firestore.getDocs(q);
+            
+            this.commissions = [];
+            querySnapshot.forEach((doc) => {
+                this.commissions.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+
+            console.log(`📋 Loaded ${this.commissions.length} commissions from Firebase`);
+            this.notifyListeners('load');
+            
+        } catch (error) {
+            console.error('❌ Error loading commissions:', error);
+            this.fallbackToLocalStorage();
+        }
+    }
+
+    setupRealtimeListener() {
+        if (!this.firebaseReady) return;
+
+        const commissionsRef = this.firestore.collection(this.db, 'commissions');
+        const q = this.firestore.query(commissionsRef, this.firestore.orderBy('dateCommissioned', 'desc'));
+        
+        const unsubscribe = this.firestore.onSnapshot(q, (snapshot) => {
+            this.commissions = [];
+            snapshot.forEach((doc) => {
+                this.commissions.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            
+            console.log('🔄 Real-time commission update received');
+            this.notifyListeners('update');
+        });
+
+        // Store unsubscribe function for cleanup
+        this.unsubscribe = unsubscribe;
+    }
+
+    async addCommission(commissionData) {
+        if (!this.firebaseReady) {
+            return this.addCommissionLocal(commissionData);
+        }
+
+        try {
+            // Add timestamps
+            const timestamp = new Date().toISOString();
+            const commission = {
+                ...commissionData,
+                dateCommissioned: commissionData.dateCommissioned || timestamp.split('T')[0],
+                lastUpdate: timestamp.split('T')[0],
+                createdAt: timestamp,
+                updatedAt: timestamp
+            };
+
+            const docRef = await this.firestore.addDoc(
+                this.firestore.collection(this.db, 'commissions'),
+                commission
+            );
+
+            console.log('✅ Commission added to Firebase:', docRef.id);
+            return docRef.id;
+            
+        } catch (error) {
+            console.error('❌ Error adding commission:', error);
+            return this.addCommissionLocal(commissionData);
+        }
+    }
+
+    async updateCommission(commissionId, updates) {
+        if (!this.firebaseReady) {
+            return this.updateCommissionLocal(commissionId, updates);
+        }
+
+        try {
+            const commissionRef = this.firestore.doc(this.db, 'commissions', commissionId);
+            const updateData = {
+                ...updates,
+                lastUpdate: new Date().toISOString().split('T')[0],
+                updatedAt: new Date().toISOString()
+            };
+
+            await this.firestore.updateDoc(commissionRef, updateData);
+            console.log('✅ Commission updated in Firebase:', commissionId);
+            return true;
+            
+        } catch (error) {
+            console.error('❌ Error updating commission:', error);
+            return this.updateCommissionLocal(commissionId, updates);
+        }
+    }
+
+    async deleteCommission(commissionId) {
+        if (!this.firebaseReady) {
+            return this.deleteCommissionLocal(commissionId);
+        }
+
+        try {
+            await this.firestore.deleteDoc(this.firestore.doc(this.db, 'commissions', commissionId));
+            console.log('🗑️ Commission deleted from Firebase:', commissionId);
+            return true;
+            
+        } catch (error) {
+            console.error('❌ Error deleting commission:', error);
+            return this.deleteCommissionLocal(commissionId);
+        }
+    }
+
+    // Local storage fallback methods
+    fallbackToLocalStorage() {
+        console.log('📦 Using localStorage fallback for commissions');
+        const stored = localStorage.getItem('axiom-commissions');
+        if (stored) {
+            try {
+                this.commissions = JSON.parse(stored);
+            } catch (e) {
+                this.commissions = [];
+            }
+        }
+        this.notifyListeners('load');
+    }
+
+    addCommissionLocal(commissionData) {
+        const commission = {
+            id: 'COMM-' + Date.now(),
+            ...commissionData,
+            dateCommissioned: commissionData.dateCommissioned || new Date().toISOString().split('T')[0],
+            lastUpdate: new Date().toISOString().split('T')[0]
+        };
+        
+        this.commissions.unshift(commission);
+        this.saveToLocalStorage();
+        this.notifyListeners('add');
+        return commission.id;
+    }
+
+    updateCommissionLocal(commissionId, updates) {
+        const index = this.commissions.findIndex(c => c.id === commissionId);
+        if (index !== -1) {
+            this.commissions[index] = {
+                ...this.commissions[index],
+                ...updates,
+                lastUpdate: new Date().toISOString().split('T')[0]
+            };
+            this.saveToLocalStorage();
+            this.notifyListeners('update');
+            return true;
+        }
+        return false;
+    }
+
+    deleteCommissionLocal(commissionId) {
+        const index = this.commissions.findIndex(c => c.id === commissionId);
+        if (index !== -1) {
+            this.commissions.splice(index, 1);
+            this.saveToLocalStorage();
+            this.notifyListeners('delete');
+            return true;
+        }
+        return false;
+    }
+
+    saveToLocalStorage() {
+        localStorage.setItem('axiom-commissions', JSON.stringify(this.commissions));
+    }
+
+    // Event system for UI updates
+    addListener(callback) {
+        this.listeners.push(callback);
+    }
+
+    removeListener(callback) {
+        this.listeners = this.listeners.filter(l => l !== callback);
+    }
+
+    notifyListeners(action) {
+        this.listeners.forEach(callback => {
+            try {
+                callback(action, this.commissions);
+            } catch (error) {
+                console.error('❌ Listener error:', error);
+            }
+        });
+    }
+
+    // Utility methods
+    getCommissions() {
+        return this.commissions;
+    }
+
+    getPublicCommissions() {
+        return this.commissions.filter(c => c.isPublic !== false);
+    }
+
+    getCommissionById(id) {
+        return this.commissions.find(c => c.id === id);
+    }
+
+    generateCommissionId() {
+        const timestamp = Date.now();
+        const random = Math.floor(Math.random() * 1000);
+        return `COMM-${timestamp}-${random}`;
+    }
+
+    // Status management
+    getStatusCounts() {
+        const counts = {
+            total: this.commissions.length,
+            planning: 0,
+            queued: 0,
+            'in-progress': 0,
+            review: 0,
+            revisions: 0,
+            completed: 0,
+            delivered: 0,
+            'on-hold': 0,
+            cancelled: 0
+        };
+
+        this.commissions.forEach(commission => {
+            if (counts.hasOwnProperty(commission.status)) {
+                counts[commission.status]++;
+            }
+        });
+
+        return counts;
+    }
+
+    getPublicStatusCounts() {
+        const publicCommissions = this.getPublicCommissions();
+        return {
+            total: publicCommissions.length,
+            inProgress: publicCommissions.filter(c => ['in-progress', 'review', 'revisions'].includes(c.status)).length,
+            waiting: publicCommissions.filter(c => ['planning', 'queued'].includes(c.status)).length,
+            completed: publicCommissions.filter(c => ['completed', 'delivered'].includes(c.status)).length
+        };
+    }
+
+    // Cleanup
+    destroy() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
+        this.listeners = [];
+    }
+}
+
+// Global instance
+let firebaseCommissionSystem;
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    if (!firebaseCommissionSystem) {
+        firebaseCommissionSystem = new FirebaseCommissionSystem();
+    }
+});
+
+// Export for use in other scripts
+if (typeof window !== 'undefined') {
+    window.FirebaseCommissionSystem = FirebaseCommissionSystem;
+    window.firebaseCommissionSystem = firebaseCommissionSystem;
+}

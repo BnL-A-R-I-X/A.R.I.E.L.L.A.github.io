@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BNL / USS Axiom Commission Queue — Upcoming Commissions">
+  <title>BNL Commission Queue // USS Axiom</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered">
+    <div>
+      <h1>USS AXIOM // COMMISSION QUEUE</h1>
+      <p class="subtext">Active Commission Status Terminal</p>
+      <p class="status">STATUS: TRACKING — CLEARANCE: <strong>PUBLIC ACCESS</strong> — QUEUE ID: <strong>COMM-AXM-2025</strong></p>
+      <div class="status-widgets">
+        SHIP TIME: <strong id="shipTime"></strong> |
+        SECTOR: <strong>BNL-7 / ALPHA</strong> |
+        UPLINK: <strong>STABLE</strong>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar nav-right">
+  <a href="../index.html" class="nav-btn">HOME</a>
+  <a href="ocs.html" class="nav-btn">OC DATABASE</a>
+  <a href="rankings.html" class="nav-btn">RANKINGS</a>
+  <a href="socials.html" class="nav-btn">SOCIALS</a>
+  <a href="bio.html" class="nav-btn">BIO</a>
+  <a href="upcoming-commissions.html" class="nav-btn active">QUEUE</a>
+  <a href="commissions.html" class="nav-btn classified-link" title="Classified Access Required">🔒</a>
+</nav>
+
+<section class="terminal-intro">
+  <p>
+    <strong>BNL COMMISSION TRACKING:</strong> Real-time status updates for active and upcoming commission projects. 
+    This terminal displays publicly available information about commissioned artwork, including estimated completion dates and current progress. 
+    <em>Detailed project management is handled through classified systems.</em>
+  </p>
+</section>
+
+<main class="commission-queue">
+  
+  <!-- Queue Statistics -->
+  <section class="queue-stats">
+    <div class="stat-card">
+      <h3>📋 Total Queue</h3>
+      <span class="stat-number" id="total-queue">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>🎨 In Progress</h3>
+      <span class="stat-number" id="in-progress">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>⏳ Waiting</h3>
+      <span class="stat-number" id="waiting">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>✅ Completed</h3>
+      <span class="stat-number" id="completed">0</span>
+    </div>
+  </section>
+
+  <!-- Commission Status Table -->
+  <section class="commission-table-section">
+    <h2 class="table-header">🎨 Active Commission Queue</h2>
+    
+    <div class="table-container">
+      <table class="commission-table" id="commission-table">
+        <thead>
+          <tr>
+            <th>Queue #</th>
+            <th>Commission Title</th>
+            <th>Character(s)</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Est. Completion</th>
+            <th>Artist</th>
+          </tr>
+        </thead>
+        <tbody id="commission-table-body">
+          <!-- Commissions will be loaded here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-queue" class="empty-state hidden">
+      <div class="empty-content">
+        <h3>📭 Queue Empty</h3>
+        <p>No active commissions in the queue at this time.</p>
+        <p class="empty-subtitle">Check back later for updates!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Updates -->
+  <section class="recent-updates">
+    <h3>📢 Recent Updates</h3>
+    <div class="updates-list" id="updates-list">
+      <!-- Updates will be loaded here -->
+    </div>
+  </section>
+
+</main>
+
+<section class="system-footer">
+  <p>© 2025 Ariella Fawnbrook // USS Axiom Commission Terminal</p>
+  <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+  <marquee behavior="scroll" direction="left">
+    COMMISSION QUEUE ACTIVE — Real-time tracking enabled — NETWORK SYNC: 100% — Next update check in 30 seconds
+  </marquee>
+</div>
+
+<script src="../js/shiptime.js"></script>
+<script src="../js/firebase-commission-system.js"></script>
+<script src="../js/commission-queue.js"></script>
+
+</body>
+</html>
