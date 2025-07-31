@@ -22,45 +22,45 @@ function loadGallery(path, containerId, files) {
         img.alt = file;
         img.loading = "lazy";
         img.classList.add("gallery-image");
-        
-        // Set initial opacity to 0 for fade-in effect
-        img.style.opacity = '0';
 
-        img.onload = function() {
-            this.style.opacity = '1';
-            this.classList.add('loaded');
-            console.log(`Successfully loaded: ${this.src}`);
-        };
-
-        img.onerror = function() {
-            console.warn(`Failed to load image: ${this.src}`);
-            // Try alternative path
-            const altSrc = this.src.replace('/images/', '/');
-            if (this.src !== altSrc) {
-                this.src = altSrc;
-            } else {
-                this.style.display = 'none';
-            }
-        };
-
+        // Click-to-lightbox
         img.addEventListener("click", () => openLightbox(img.src, file));
+
         container.appendChild(img);
     });
 }
 
 /**
- * Loads all galleries for a character page
+ * Loads all three galleries for a character page.
  * @param {string} basePath - Base path to the character's images folder.
  * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
  */
 function loadCharacterGalleries(basePath, imageLists) {
-    loadGallery(basePath, 'refs-gallery', imageLists.refs || []);
-    loadGallery(basePath, 'sfw-gallery', imageLists.sfw || []);
-    loadGallery(basePath, 'nsfw-gallery', imageLists.nsfw || []);
+    loadGallery(`${basePath}/refs`, 'refs-gallery', imageLists.refs || []);
+    loadGallery(`${basePath}/sfw`, 'sfw-gallery', imageLists.sfw || []);
+    loadGallery(`${basePath}/nsfw`, 'nsfw-gallery', imageLists.nsfw || []);
 }
 
 /**
  * Opens a simple lightbox viewer for clicked images.
+ */
+function openLightbox(src, alt) {
+    let lightbox = document.getElementById("lightbox");
+    if (!lightbox) {
+        lightbox = document.createElement("div");
+        lightbox.id = "lightbox";
+        lightbox.innerHTML = `<img><span id="close-lightbox">&times;</span>`;
+        document.body.appendChild(lightbox);
+
+        document.getElementById("close-lightbox").addEventListener("click", () => {
+            lightbox.classList.remove("active");
+        });
+    }
+
+    lightbox.querySelector("img").src = src;
+    lightbox.querySelector("img").alt = alt;
+    lightbox.classList.add("active");
+}
  */
 function openLightbox(src, alt) {
     let lightbox = document.getElementById("lightbox");

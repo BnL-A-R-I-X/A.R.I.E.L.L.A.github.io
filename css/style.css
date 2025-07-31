@@ -242,7 +242,32 @@ body {
     border-top: 1px solid rgba(0, 200, 255, 0.2);
 }
 
-/* Gallery Grid - Fixed */
+/* NSFW Toggle Button Styling */
+#nsfw-toggle-btn {
+    background: rgba(0, 180, 255, 0.1);
+    color: #66e0ff;
+    border: 2px solid rgba(0, 180, 255, 0.3);
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#nsfw-toggle-btn:hover {
+    background: rgba(0, 180, 255, 0.2);
+    color: #00e6ff;
+    border-color: rgba(0, 180, 255, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 180, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Gallery Grid - Fixed and Simplified */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -256,9 +281,8 @@ body {
     border: 1px solid rgba(0, 200, 255, 0.2);
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-    opacity: 1; /* Ensure images are visible by default */
-    display: block; /* Ensure images display as block elements */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
 }
 
 .gallery-image:hover {
@@ -266,17 +290,12 @@ body {
     box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
 
-/* NSFW blur effect - Fixed */
+/* NSFW blur effect - Simplified */
 .nsfw-blur .gallery-image {
     filter: blur(20px);
-    transition: filter 0.3s ease;
 }
 
-.nsfw-blur.revealed .gallery-image {
-    filter: none;
-}
-
-/* Lightbox - Fixed */
+/* Lightbox - Simplified */
 #lightbox {
     position: fixed;
     z-index: 9999;
@@ -291,7 +310,6 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
-    cursor: pointer;
 }
 
 #lightbox.active {
@@ -299,24 +317,22 @@ body {
     opacity: 1;
 }
 
-.lightbox-content {
-    position: relative;
+#lightbox img {
     max-width: 90%;
     max-height: 90%;
-}
-
-#lightbox img {
-    max-width: 100%;
-    max-height: 100%;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 230, 255, 0.7);
-    display: block;
+    transition: transform 0.2s ease;
+}
+
+#lightbox img:hover {
+    transform: scale(1.02);
 }
 
 #close-lightbox {
     position: absolute;
-    top: -40px;
-    right: -10px;
+    top: 20px;
+    right: 30px;
     font-size: 2rem;
     color: #66e0ff;
     cursor: pointer;
