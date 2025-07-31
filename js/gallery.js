@@ -22,10 +22,25 @@ function loadGallery(path, containerId, files) {
         img.alt = file;
         img.loading = "lazy";
         img.classList.add("gallery-image");
+        
+        // Set initial opacity to 0 for fade-in effect
+        img.style.opacity = '0';
+
+        img.onload = function() {
+            this.style.opacity = '1';
+            this.classList.add('loaded');
+            console.log(`Successfully loaded: ${this.src}`);
+        };
 
         img.onerror = function() {
-            this.style.display = 'none';
             console.warn(`Failed to load image: ${this.src}`);
+            // Try alternative path
+            const altSrc = this.src.replace('/images/', '/');
+            if (this.src !== altSrc) {
+                this.src = altSrc;
+            } else {
+                this.style.display = 'none';
+            }
         };
 
         img.addEventListener("click", () => openLightbox(img.src, file));
@@ -34,12 +49,11 @@ function loadGallery(path, containerId, files) {
 }
 
 /**
- * Loads all galleries for a character page - all images in single directory
+ * Loads all galleries for a character page
  * @param {string} basePath - Base path to the character's images folder.
  * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
  */
 function loadCharacterGalleries(basePath, imageLists) {
-    // Load all from single images directory
     loadGallery(basePath, 'refs-gallery', imageLists.refs || []);
     loadGallery(basePath, 'sfw-gallery', imageLists.sfw || []);
     loadGallery(basePath, 'nsfw-gallery', imageLists.nsfw || []);
@@ -53,7 +67,12 @@ function openLightbox(src, alt) {
     if (!lightbox) {
         lightbox = document.createElement("div");
         lightbox.id = "lightbox";
-        lightbox.innerHTML = `<img><span id="close-lightbox">&times;</span>`;
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <img>
+                <span id="close-lightbox">&times;</span>
+            </div>
+        `;
         document.body.appendChild(lightbox);
 
         document.getElementById("close-lightbox").addEventListener("click", () => {
@@ -68,7 +87,8 @@ function openLightbox(src, alt) {
         });
     }
 
-    lightbox.querySelector("img").src = src;
-    lightbox.querySelector("img").alt = alt;
+    const img = lightbox.querySelector("img");
+    img.src = src;
+    img.alt = alt;
     lightbox.classList.add("active");
 }
