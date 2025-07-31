@@ -18,31 +18,28 @@ function loadGallery(path, containerId, files) {
 
     files.forEach(file => {
         const img = document.createElement('img');
-        img.src = `${path}/${file}`.replace(/\/+/g, '/'); // Fix path construction
+        img.src = `${path}/${file}`.replace(/\/+/g, '/');
         img.alt = file;
-        img.loading = "lazy"; // Lazy-load images
+        img.loading = "lazy";
         img.classList.add("gallery-image");
 
-        // Add error handling to prevent broken image displays
         img.onerror = function() {
             this.style.display = 'none';
             console.warn(`Failed to load image: ${this.src}`);
         };
 
-        // Click-to-lightbox
         img.addEventListener("click", () => openLightbox(img.src, file));
-
         container.appendChild(img);
     });
 }
 
 /**
- * Loads all galleries for a character page - simplified to use single images folder
+ * Loads all galleries for a character page - all images in single directory
  * @param {string} basePath - Base path to the character's images folder.
  * @param {object} imageLists - Object containing refs, sfw, nsfw arrays.
  */
 function loadCharacterGalleries(basePath, imageLists) {
-    // Load from single images directory instead of subdirectories
+    // Load all from single images directory
     loadGallery(basePath, 'refs-gallery', imageLists.refs || []);
     loadGallery(basePath, 'sfw-gallery', imageLists.sfw || []);
     loadGallery(basePath, 'nsfw-gallery', imageLists.nsfw || []);
@@ -61,6 +58,13 @@ function openLightbox(src, alt) {
 
         document.getElementById("close-lightbox").addEventListener("click", () => {
             lightbox.classList.remove("active");
+        });
+        
+        // Close on click outside image
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove("active");
+            }
         });
     }
 

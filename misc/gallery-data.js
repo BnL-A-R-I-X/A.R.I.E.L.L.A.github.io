@@ -1,9 +1,8 @@
 /**
  * Auto-generated gallery data for misc.
- * Generated: 2025-07-31T02:15:58.483Z
  */
 const galleryData = {
-    refs: ["Lyra Dual Ref.png"],
-    sfw: ["FB1.jpeg","Ray 1 - Ash Headshot.png"],
-    nsfw: []
+    refs: ["reference1.png","reference2.png"],
+    sfw: ["sfw1.png","sfw2.png","sfw3.png"],
+    nsfw: ["nsfw1.png","nsfw2.png"]
 };

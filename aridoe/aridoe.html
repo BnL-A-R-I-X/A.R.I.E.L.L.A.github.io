@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ari-Doe // Deersona</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
@@ -16,6 +17,11 @@
             <h1>USS AXIOM // OC DATABASE</h1>
             <p class="subtext">BNL Passenger Character Records Terminal</p>
             <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
         </div>
     </div>
 </header>
@@ -25,6 +31,13 @@
     <a href="../pages/socials.html" class="nav-btn">SOCIALS</a>
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
+
+<section class="terminal-intro">
+    <p>
+        <strong>BNL PERSONNEL RECORD:</strong> The following contains data for personal avatar construct Ari-Doe. 
+        This deersona unit facilitates comfortable social interactions and creative self-expression.
+    </p>
+</section>
 
 <main class="character-profile">
     <!-- Character Information -->
@@ -70,9 +83,16 @@
     </section>
 </main>
 
-<footer class="site-footer">
+<section class="system-footer">
     <p>© 2025 Ariella Fawnbrook // Character Archives</p>
-</footer>
+    <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+        SYSTEM MESSAGE: Personal avatar construct Ari-Doe operational. — SECURITY LEVEL: GREEN — NETWORK SYNC: 100%
+    </marquee>
+</div>
 
 <!-- JS -->
 <script src="../js/gallery.js"></script>
@@ -83,15 +103,6 @@
 <script>
     if (typeof galleryData !== 'undefined') {
         loadCharacterGalleries('images', galleryData);
-    }
-</script>
-
-</body>
-</html>
-<script src="gallery-data.js"></script>
-<script>
-    if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('/aridoe/images', galleryData);
     }
 </script>
 

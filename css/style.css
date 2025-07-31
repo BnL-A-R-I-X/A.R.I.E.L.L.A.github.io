@@ -294,11 +294,12 @@ body {
     border: 2px solid rgba(0, 200, 255, 0.3);
 }
 
-/* Lightbox Overlay */
+/* Lightbox Overlay - Updated */
 #lightbox {
     position: fixed;
     z-index: 9999;
-    top: 0; left: 0;
+    top: 0; 
+    left: 0;
     width: 100%;
     height: 100%;
     background: rgba(10, 14, 20, 0.95);
@@ -308,126 +309,64 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
+    cursor: pointer;
 }
+
 #lightbox.active {
     visibility: visible;
     opacity: 1;
 }
+
 #lightbox img {
     max-width: 90%;
     max-height: 90%;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 230, 255, 0.7);
     transition: transform 0.2s ease;
+    cursor: default;
 }
+
 #lightbox img:hover {
     transform: scale(1.02);
 }
 
-/* NSFW Blur Styling */
-.nsfw-blur img {
-    filter: blur(15px) brightness(0.4);
-    transition: filter 0.3s;
-    pointer-events: none;
-}
-.nsfw-blur.revealed img {
-    filter: none;
-    pointer-events: auto;
-}
-
-/* Center main content areas */
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 20px;
+#close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #66e0ff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-/* System footer centering */
-.system-footer {
+#close-lightbox:hover {
+    color: #00e6ff;
+}
+
+/* Empty gallery styling */
+.empty-gallery {
     text-align: center;
+    color: #a0c8ff;
+    font-style: italic;
     padding: 20px;
-    font-size: 0.8rem;
-    background: #0f1a27;
-    margin-top: auto;
-    color: #88aaff;
-    border-top: 1px solid rgba(0, 200, 255, 0.2);
-}
-
-/* Logo styling - updated size */
-.bnl-logo.small-centered {
-    width: 350px !important;
-    height: 350px !important;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 10px auto;
-}
-
-/* Terminal-style paragraph formatting */
-.terminal-intro p, 
-.character-bio p,
-.bnl-section p {
     background: rgba(0, 180, 255, 0.05);
-    border-left: 3px solid #66e0ff;
-    padding: 12px 15px;
-    margin: 10px 0;
-    font-family: 'Roboto', monospace;
-    line-height: 1.6;
+    border: 1px dashed rgba(0, 180, 255, 0.3);
     border-radius: 4px;
 }
 
-/* Section titles styling */
-.character-sections .section-title {
-    color: #66e0ff;
-    font-family: 'Orbitron', monospace;
-    font-size: 1.5rem;
-    margin: 30px 0 20px 0;
-    text-align: center;
-    text-shadow: 0 0 8px rgba(102, 224, 255, 0.6);
-    border-bottom: 2px solid rgba(102, 224, 255, 0.3);
-    padding-bottom: 10px;
-}
-
-.character-section {
-    margin: 40px 0;
-}
-.nav-bar.nav-right {
-    text-align: right;
-}
-
-.nav-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #00ff00;
-    text-decoration: none;
-    border: 1px solid #00ff00;
-    margin-right: 10px;
-    font-family: 'Orbitron', monospace;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-    background-color: #00ff00;
-    color: #000;
-}
-
-/* Character grid */
-.character-grid {
+/* OC Page Specific Styles */
+.oc-character-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
 }
 
-.character-grid.centered {
-    justify-content: center;
-}
-
-.character-card {
-    background-color: #1a1a1a;
+.oc-character-card {
+    background: #1a1a1a;
     border: 1px solid #00ff00;
     padding: 20px;
     text-decoration: none;
@@ -435,214 +374,275 @@ main {
     transition: all 0.3s ease;
 }
 
-.character-card:hover {
-    background-color: #333;
+.oc-character-card:hover {
+    background: #333;
     border-color: rgba(0, 180, 255, 0.6);
     box-shadow: 0 0 18px rgba(0, 230, 255, 0.5);
 }
 
-.character-card h2 {
+.oc-character-card h2 {
     margin-top: 0;
     font-family: 'Orbitron', monospace;
     color: #66e0ff;
 }
 
-/* Bio Page Styling */
-.creator-profile {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+/* Mobile and Responsive Design */
+@media (max-width: 768px) {
+    /* Header adjustments */
+    .site-header {
+        padding: 10px;
+    }
+    
+    .header-inner {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .bnl-logo.small-centered {
+        width: 200px !important;
+        height: 200px !important;
+    }
+    
+    .site-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .status-widgets {
+        font-size: 0.7rem;
+    }
+    
+    /* Navigation adjustments */
+    .nav-bar {
+        padding: 10px;
+        text-align: center !important;
+    }
+    
+    .nav-btn {
+        padding: 8px 12px;
+        margin: 2px;
+        font-size: 0.8rem;
+    }
+    
+    /* Content adjustments */
+    main {
+        padding: 0 10px;
+    }
+    
+    .character-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .character-card {
+        padding: 15px;
+    }
+    
+    /* Bio page adjustments */
+    .personnel-badge {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .badge-photo {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .likes-dislikes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Social grid adjustments */
+    .social-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .social-card {
+        padding: 15px;
+    }
+    
+    /* Character profile adjustments */
+    .character-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .character-main-img {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* BNL sections adjustments */
+    .bnl-section {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .bnl-data {
+        font-size: 0.9rem;
+    }
+    
+    .bnl-data th,
+    .bnl-data td {
+        padding: 6px 8px;
+    }
+    
+    /* Gallery adjustments */
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    
+    /* Camera feed adjustments */
+    .camera-video {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .camera-overlay {
+        font-size: 0.7rem;
+        padding: 0 5px;
+    }
+    
+    /* Terminal intro adjustments */
+    .terminal-intro {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    /* System logs adjustments */
+    .system-logs, .easter-eggs {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .system-logs li, .easter-eggs li {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    /* Footer adjustments */
+    .system-footer {
+        padding: 15px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .status-ticker {
+        font-size: 0.7rem;
+    }
 }
 
-.personnel-badge {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    background: rgba(20, 30, 45, 0.8);
-    border: 2px solid rgba(0, 180, 255, 0.5);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+@media (max-width: 480px) {
+    /* Extra small screens */
+    .bnl-logo.small-centered {
+        width: 150px !important;
+        height: 150px !important;
+    }
+    
+    .site-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .character-card h2 {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+    
+    .bnl-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .camera-video {
+        max-width: 300px;
+    }
 }
 
-.badge-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #66e0ff;
-    object-fit: cover;
+/* Landscape mobile adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .bnl-logo.small-centered {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .site-header {
+        padding: 5px;
+    }
+    
+    .site-header h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-inner {
+        flex-direction: row;
+        align-items: center;
+    }
 }
 
-.badge-info h2 {
-    font-family: 'Orbitron', sans-serif;
-    color: #66e0ff;
-    margin: 0 0 10px 0;
-    font-size: 1.8rem;
-    text-shadow: 0 0 8px rgba(102, 224, 255, 0.6);
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .nav-btn,
+    .character-card,
+    .social-card a,
+    .gallery-image {
+        min-height: 44px; /* iOS recommendation for touch targets */
+    }
+    
+    .nav-btn {
+        padding: 12px 16px;
+    }
+    
+    #nsfw-toggle-btn {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
 }
 
-.badge-info p {
-    margin: 5px 0;
-    color: #a0c8ff;
-    font-size: 1rem;
-}
-
-.bio-block, .likes-dislikes, .about-section, .fun-facts {
-    background: rgba(20, 30, 45, 0.6);
-    border-left: 4px solid #66e0ff;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.bio-block h3, .likes-dislikes h3, .about-section h3, .fun-facts h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: #66e0ff;
-    margin: 0 0 15px 0;
-    font-size: 1.3rem;
-    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
-}
-
-.bio-block p {
-    margin: 8px 0;
-    color: #e6f0ff;
-    line-height: 1.6;
-}
-
-.bio-block strong {
-    color: #a0c8ff;
-    font-weight: 600;
-}
-
-.likes-dislikes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-.likes-dislikes ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.likes-dislikes li {
-    padding: 8px 0;
-    color: #e6f0ff;
-    border-bottom: 1px solid rgba(0, 180, 255, 0.2);
-    transition: color 0.3s ease;
-}
-
-.likes-dislikes li:hover {
-    color: #66e0ff;
-}
-
-.likes-dislikes li:before {
-    content: "• ";
-    color: #66e0ff;
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.about-section p, .fun-facts li {
-    color: #e6f0ff;
-    line-height: 1.7;
-    font-size: 1.05rem;
-}
-
-.fun-facts ul {
-    list-style: none;
-    padding: 0;
-}
-
-.fun-facts li {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(0, 180, 255, 0.2);
-}
-
-.fun-facts li:before {
-    content: "⭐ ";
-    margin-right: 8px;
-}
-
-/* Social Media Grid */
-.social-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.social-card {
-    background: rgba(20, 30, 45, 0.8);
-    border: 2px solid rgba(0, 180, 255, 0.4);
-    border-radius: 12px;
-    padding: 20px;
+/* Gallery improvements */
+.empty-gallery {
     text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
 }
 
-.social-card:hover {
-    border-color: rgba(0, 180, 255, 0.8);
-    box-shadow: 0 6px 20px rgba(0, 180, 255, 0.4);
-    transform: translateY(-3px);
+.gallery-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
 }
 
-.social-card h2 {
-    font-family: 'Orbitron', sans-serif;
-    color: #66e0ff;
-    margin: 0 0 15px 0;
-    font-size: 1.3rem;
-    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
+.gallery-image.loaded {
+    opacity: 1;
 }
 
-.social-card a {
-    display: inline-block;
-    color: #a0c8ff;
-    text-decoration: none;
-    background: rgba(0, 180, 255, 0.1);
-    border: 1px solid rgba(0, 180, 255, 0.3);
-    border-radius: 6px;
-    padding: 12px 20px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    min-width: 200px;
-}
-
-.social-card a:hover {
-    background: rgba(0, 180, 255, 0.2);
-    color: #66e0ff;
-    border-color: rgba(0, 180, 255, 0.6);
-    box-shadow: 0 2px 8px rgba(0, 180, 255, 0.3);
+.gallery-image:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
-
-/* Header Frame Styling */
-.header-frame {
-    border: 2px solid rgba(0, 255, 255, 0.5);
-    padding: 5px;
-    position: relative;
-    animation: header-glow 2s infinite alternate;
-    background: rgba(0, 10, 15, 0.7);
-    box-shadow: inset 0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(0,255,255,0.2);
-}
-
-@keyframes header-glow {
-    from { box-shadow: inset 0 0 10px rgba(0,255,255,0.4), 0 0 20px rgba(0,255,255,0.2); }
-    to   { box-shadow: inset 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.4); }
-}
-
-.header-frame::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
     background: repeating-linear-gradient(
         to bottom,
         rgba(255,255,255,0.03),

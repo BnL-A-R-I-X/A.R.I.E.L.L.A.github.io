@@ -1,9 +1,8 @@
 /**
  * Auto-generated gallery data for ariella.
- * Generated: 2025-07-31T02:15:58.458Z
  */
 const galleryData = {
-    refs: [],
-    sfw: [],
-    nsfw: []
+    refs: ["reference1.png","reference2.png"],
+    sfw: ["sfw1.png","sfw2.png","sfw3.png"],
+    nsfw: ["nsfw1.png","nsfw2.png"]
 };
