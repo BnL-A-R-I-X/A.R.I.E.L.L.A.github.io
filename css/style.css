@@ -99,6 +99,8 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
     padding-bottom: 10px;
     border: 1px solid rgba(0, 200, 255, 0.2);
+    text-decoration: none;
+    color: #66e0ff;
 }
 
 .character-card img {
@@ -407,10 +409,10 @@ main {
     border-top: 1px solid rgba(0, 200, 255, 0.2);
 }
 
-/* Logo styling - force specific size */
+/* Logo styling - updated size */
 .bnl-logo.small-centered {
-    width: 200px !important;
-    height: 200px !important;
+    width: 500px !important;
+    height: 500px !important;
     object-fit: contain;
     display: block;
     margin: 0 auto 10px auto;

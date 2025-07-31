@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Darla // Axiom OC Database</title>
+    <title>BNL Asset File: Darla [Forest Ranger Unit]</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bnl-terminal">
 
 <header class="site-header">
     <div class="header-inner">
@@ -26,42 +26,83 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main class="character-profile">
-    <section class="character-info">
-        <img src="images/refs/ref1.jpg" alt="Darla Reference" class="character-main-img" onerror="this.style.display='none'">
-        <div class="character-bio">
-            <h2>Darla</h2>
-            <p><strong>Role:</strong> Ranger of the Forest</p>
-            <p><strong>Species:</strong> Cervid Anthro</p>
-            <p><strong>Gender:</strong> Female</p>
-            <p><strong>Occupation:</strong> National Park Ranger & Wildlife Protector</p>
-            <p>Darla is a vigilant and compassionate forest ranger, dedicated to the preservation of natural habitats and the creatures that dwell within them. She is known for her sharp instincts, calm demeanor, and deep bond with the wilderness she protects. Whether navigating dense woodland trails or patrolling remote park areas, she stands as a steadfast guardian against environmental threats.</p>
-        </div>
+<main>
+    <!-- Asset Identification -->
+    <section class="bnl-section">
+        <h3>Asset Identification</h3>
+        <table class="bnl-data">
+            <tr><th>Designation</th><td>Forest Ranger Unit</td></tr>
+            <tr><th>Operational Role</th><td>Environmental Protection & Wildlife Conservation</td></tr>
+            <tr><th>Species Classification</th><td>Cervid Anthropomorph</td></tr>
+            <tr><th>Assignment</th><td>Natural Habitat Preservation Division</td></tr>
+            <tr><th>Status</th><td>ACTIVE // Field Operations</td></tr>
+        </table>
     </section>
 
-    <section class="character-gallery">
-        <h2>Reference Sheets</h2>
+    <!-- Physical Specifications -->
+    <section class="bnl-section">
+        <h3>Physical Specifications</h3>
+        <table class="bnl-data">
+            <tr><th>Form Factor</th><td>Cervid Anthropomorphic Platform</td></tr>
+            <tr><th>Gender</th><td>Female</td></tr>
+            <tr><th>Primary Function</th><td>National Park Ranger & Wildlife Protector</td></tr>
+            <tr><th>Specialized Equipment</th><td>Environmental monitoring gear, tracking devices</td></tr>
+            <tr><th>Operational Environment</th><td>Forest ecosystems, wilderness areas</td></tr>
+        </table>
+    </section>
+
+    <!-- Operational Profile -->
+    <section class="bnl-section">
+        <h3>Operational Profile</h3>
+        <p>
+            Darla operates as a vigilant and compassionate forest ranger, dedicated to the preservation of natural habitats and the creatures that dwell within them. 
+            She is known for her sharp instincts, calm demeanor, and deep bond with the wilderness she protects. 
+            Whether navigating dense woodland trails or patrolling remote park areas, she stands as a steadfast guardian against environmental threats.
+        </p>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section class="bnl-section">
+        <h3>Core Capabilities</h3>
+        <ul>
+            <li>Advanced environmental threat detection and assessment</li>
+            <li>Wildlife behavior analysis and protection protocols</li>
+            <li>Wilderness navigation and survival expertise</li>
+            <li>Conservation enforcement and education initiatives</li>
+            <li>Emergency response in natural disaster scenarios</li>
+        </ul>
+    </section>
+
+    <!-- Reference Gallery -->
+    <section class="bnl-section">
+        <h3>Reference Sheets</h3>
         <div id="refs-gallery" class="gallery-grid"></div>
-        
-        <h2>SFW Gallery</h2>
+    </section>
+
+    <!-- SFW Gallery -->
+    <section class="bnl-section">
+        <h3>Visual Records (SFW)</h3>
         <div id="sfw-gallery" class="gallery-grid"></div>
-        
-        <h2>NSFW Gallery</h2>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+    </section>
+
+    <!-- NSFW Gallery -->
+    <section class="bnl-section">
+        <h3>Restricted Visual Records (NSFW)</h3>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>
 
-<footer class="site-footer">
-    <p>© 2025 Ariella Fawnbrook // Axiom OC Terminal</p>
+<footer class="bnl-footer">
+    <p>© Buy n Large Corporation // Environmental Division // Forest Ranger Asset Record</p>
 </footer>
 
-<script src="gallery-data.js"></script>
+<!-- JS -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
+<script src="gallery-data.js"></script>
 <script>
-    // Load gallery if data exists
     if (typeof galleryData !== 'undefined') {
         loadCharacterGalleries('/darla/images', galleryData);
     }

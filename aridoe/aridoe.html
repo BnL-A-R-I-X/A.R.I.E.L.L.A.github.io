@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ari-Doe // Character Profile</title>
+    <title>BNL Asset File: Ari-Doe [Deersona Unit]</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bnl-terminal">
 
 <header class="site-header">
     <div class="header-inner">
@@ -27,50 +26,73 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
-<main class="character-profile">
-    <div class="character-info">
-        <img src="images/refs/SFW.jpg" alt="Ari-Doe Main Reference" class="character-main-img" onerror="this.style.display='none'">
-        <div class="character-bio">
-            <h2>Ari-Doe</h2>
-            <p>Character description goes here...</p>
-        </div>
-    </div>
+<main>
+    <!-- Asset Identification -->
+    <section class="bnl-section">
+        <h3>Asset Identification</h3>
+        <table class="bnl-data">
+            <tr><th>Designation</th><td>Deersona Unit</td></tr>
+            <tr><th>Classification</th><td>Personal Avatar Construct</td></tr>
+            <tr><th>Species Type</th><td>Cervid Anthropomorph</td></tr>
+            <tr><th>Assignment</th><td>Personal Expression & Identity Matrix</td></tr>
+            <tr><th>Status</th><td>ACTIVE // Personal Use</td></tr>
+        </table>
+    </section>
 
-    <div class="gallery-section">
+    <!-- Physical Specifications -->
+    <section class="bnl-section">
+        <h3>Physical Specifications</h3>
+        <table class="bnl-data">
+            <tr><th>Form Factor</th><td>Anthropomorphic Deer Platform</td></tr>
+            <tr><th>Primary Function</th><td>Personal Identity Representation</td></tr>
+            <tr><th>Design Philosophy</th><td>Comfort & Self-Expression</td></tr>
+            <tr><th>Operational Mode</th><td>Social Interaction & Creative Expression</td></tr>
+        </table>
+    </section>
+
+    <!-- Operational Profile -->
+    <section class="bnl-section">
+        <h3>Operational Profile</h3>
+        <p>
+            Ari-Doe serves as a personal avatar construct, representing the softer, more approachable aspects of identity expression. 
+            This deersona unit facilitates comfortable social interactions and creative self-expression within digital and social environments. 
+            Designed for accessibility and warmth in interpersonal connections.
+        </p>
+    </section>
+
+    <!-- Reference Gallery -->
+    <section class="bnl-section">
         <h3>Reference Sheets</h3>
         <div id="refs-gallery" class="gallery-grid"></div>
-    </div>
+    </section>
 
-    <div class="gallery-section">
-        <h3>SFW Gallery</h3>
+    <!-- SFW Gallery -->
+    <section class="bnl-section">
+        <h3>Visual Records (SFW)</h3>
         <div id="sfw-gallery" class="gallery-grid"></div>
-    </div>
+    </section>
 
-    <div class="gallery-section">
-        <h3>NSFW Gallery</h3>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+    <!-- NSFW Gallery -->
+    <section class="bnl-section">
+        <h3>Restricted Visual Records (NSFW)</h3>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
-    </div>
+    </section>
 </main>
 
-<section class="system-footer">
-    <p>© 2025 Ariella Fawnbrook // Axiom OC Terminal</p>
-</section>
+<footer class="bnl-footer">
+    <p>© Buy n Large Corporation // Personal Identity Division // Deersona Asset Record</p>
+</footer>
 
-<!-- Gallery Data -->
-<script src="gallery-data.js"></script>
-<!-- Gallery Functions -->
+<!-- JS -->
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
-
+<script src="gallery-data.js"></script>
 <script>
-// Load galleries when page loads
-document.addEventListener('DOMContentLoaded', function() {
     if (typeof galleryData !== 'undefined') {
         loadCharacterGalleries('/aridoe/images', galleryData);
     }
-});
 </script>
 
 </body>
