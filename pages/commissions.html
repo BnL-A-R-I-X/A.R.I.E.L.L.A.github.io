@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BNL CLASSIFIED // Commission Archive</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Security Access Screen -->
+<div id="security-screen" class="security-overlay">
+  <div class="security-panel">
+    <div class="security-header">
+      <img src="../assets/logos/axiom.png" alt="BNL Logo" class="security-logo">
+      <h1>🔒 BNL SECURITY CHECKPOINT</h1>
+      <p class="security-warning">CLASSIFIED COMMISSION ARCHIVE</p>
+      <p class="security-subtitle">Level 6 Clearance Required</p>
+    </div>
+    
+    <div class="access-form">
+      <label for="pincode" class="pin-label">Enter Security Code:</label>
+      <input type="password" id="pincode" class="pin-input" maxlength="4" placeholder="••••">
+      <button id="access-btn" class="access-button">GRANT ACCESS</button>
+      <button id="cancel-btn" class="cancel-button">CANCEL</button>
+    </div>
+    
+    <div class="security-notice">
+      <p>⚠️ UNAUTHORIZED ACCESS ATTEMPT WILL BE LOGGED</p>
+      <p>BNL Security Protocol 7729-X Active</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content (Hidden by default) -->
+<div id="main-content" class="hidden">
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered">
+      <div>
+        <h1>🔒 USS AXIOM // COMMISSION ARCHIVE</h1>
+        <p class="subtext">Private Creative Development Terminal</p>
+        <p class="status">STATUS: SECURED — CLEARANCE: <strong>LEVEL 6 (CLASSIFIED)</strong> — USER: <strong>ARIELLA.FAWNBROOK</strong></p>
+        <div class="status-widgets">
+          SHIP TIME: <strong id="shipTime"></strong> |
+          SECTOR: <strong>BNL-7 / ALPHA</strong> |
+          UPLINK: <strong>ENCRYPTED</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar nav-right">
+    <a href="../index.html" class="nav-btn">HOME</a>
+    <a href="ocs.html" class="nav-btn">OC DATABASE</a>
+    <a href="rankings.html" class="nav-btn">RANKINGS</a>
+    <a href="socials.html" class="nav-btn">SOCIALS</a>
+    <a href="bio.html" class="nav-btn">BIO</a>
+    <button id="logout-btn" class="nav-btn security-btn">🔒 LOGOUT</button>
+  </nav>
+
+  <section class="terminal-intro security-intro">
+    <p>
+      <strong>🔒 BNL CLASSIFIED TERMINAL:</strong> Welcome to the secure commission development archive. 
+      This terminal contains private creative concepts, commission ideas, and work-in-progress materials for character development. 
+      <em>All content within this system is confidential and protected under BNL Creative Development Protocol CDP-94.</em>
+    </p>
+  </section>
+
+  <main class="commission-archive">
+    
+    <!-- Ariella Commission Ideas -->
+    <section class="character-commission-section" data-character="ariella">
+      <h2 class="commission-header">A.R.I.E.L.L.A Commission Ideas</h2>
+      <div class="commission-gallery" id="ariella-commissions">
+        <div class="commission-placeholder">
+          <div class="placeholder-content">
+            <h3>Commission Ideas Gallery</h3>
+            <p>Upload commission concept art, reference sheets, and inspiration images here.</p>
+            <div class="upload-instructions">
+              <p><strong>Instructions:</strong></p>
+              <ul>
+                <li>Add images to <code>assets/commissions/ariella/</code></li>
+                <li>Update gallery data in commission-data.js</li>
+                <li>Refresh page to see new content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aridoe Commission Ideas -->
+    <section class="character-commission-section" data-character="aridoe">
+      <h2 class="commission-header">Ari-Doe Commission Ideas</h2>
+      <div class="commission-gallery" id="aridoe-commissions">
+        <div class="commission-placeholder">
+          <div class="placeholder-content">
+            <h3>Commission Ideas Gallery</h3>
+            <p>Upload commission concept art, reference sheets, and inspiration images here.</p>
+            <div class="upload-instructions">
+              <p><strong>Instructions:</strong></p>
+              <ul>
+                <li>Add images to <code>assets/commissions/aridoe/</code></li>
+                <li>Update gallery data in commission-data.js</li>
+                <li>Refresh page to see new content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Darla Commission Ideas -->
+    <section class="character-commission-section" data-character="darla">
+      <h2 class="commission-header">Darla Commission Ideas</h2>
+      <div class="commission-gallery" id="darla-commissions">
+        <div class="commission-placeholder">
+          <div class="placeholder-content">
+            <h3>Commission Ideas Gallery</h3>
+            <p>Upload commission concept art, reference sheets, and inspiration images here.</p>
+            <div class="upload-instructions">
+              <p><strong>Instructions:</strong></p>
+              <ul>
+                <li>Add images to <code>assets/commissions/darla/</code></li>
+                <li>Update gallery data in commission-data.js</li>
+                <li>Refresh page to see new content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Caelielle Commission Ideas -->
+    <section class="character-commission-section" data-character="caelielle">
+      <h2 class="commission-header">Caelielle Commission Ideas</h2>
+      <div class="commission-gallery" id="caelielle-commissions">
+        <div class="commission-placeholder">
+          <div class="placeholder-content">
+            <h3>Commission Ideas Gallery</h3>
+            <p>Upload commission concept art, reference sheets, and inspiration images here.</p>
+            <div class="upload-instructions">
+              <p><strong>Instructions:</strong></p>
+              <ul>
+                <li>Add images to <code>assets/commissions/caelielle/</code></li>
+                <li>Update gallery data in commission-data.js</li>
+                <li>Refresh page to see new content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="system-footer">
+    <p>© 2025 Ariella Fawnbrook // USS Axiom Classified Terminal</p>
+    <p>BNL / AXIOM SECURITY INTERFACE — VERSION 7.4 — CLASSIFIED</p>
+  </section>
+
+  <div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+      🔒 CLASSIFIED SESSION ACTIVE — Commission development terminal secured — SECURITY LEVEL: MAXIMUM — NETWORK SYNC: ENCRYPTED
+    </marquee>
+  </div>
+
+</div>
+
+<script src="../js/shiptime.js"></script>
+<script src="../js/commission-data.js"></script>
+<script src="../js/commission-security.js"></script>
+<script src="../js/commission-gallery.js"></script>
+
+</body>
+</html>

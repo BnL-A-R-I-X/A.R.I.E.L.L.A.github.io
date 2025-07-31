@@ -1,6 +1,6 @@
 /* Theme System - CSS Custom Properties */
 :root {
-    /* Dark Theme (Default) */
+    /* Dark Theme (Default and Only) */
     --bg-primary: #0b0e12;
     --bg-secondary: #0f1a27;
     --bg-tertiary: #141c24;
@@ -30,7 +30,7 @@
     
     --gradient-header: linear-gradient(to right, #0f1a27, #142433);
     
-    /* Dark theme specific colors for comments/rankings */
+    /* Comments and rankings colors */
     --comment-bg: rgba(0, 20, 40, 0.95);
     --comment-form-bg: rgba(0, 30, 60, 0.7);
     --comment-card-bg: rgba(0, 15, 30, 0.8);
@@ -40,49 +40,6 @@
     --comment-own-hover-bg: rgba(30, 20, 0, 0.9);
     --ranking-card-bg: rgba(0, 20, 40, 0.95);
     --ranking-card-hover-bg: rgba(0, 30, 60, 1);
-}
-
-/* Light Theme */
-[data-theme="light"] {
-    --bg-primary: #f0f4f8;
-    --bg-secondary: #ffffff;
-    --bg-tertiary: #e8f0fe;
-    --bg-card: #ffffff;
-    --bg-button: rgba(0, 120, 215, 0.1);
-    --bg-button-hover: rgba(0, 120, 215, 0.2);
-    --bg-button-active: rgba(0, 120, 215, 0.3);
-    
-    --text-primary: #1a1a1a;
-    --text-secondary: #4a5568;
-    --text-accent: #0066cc;
-    --text-footer: #666666;
-    
-    --accent-primary: #0066cc;
-    --accent-secondary: #0052a3;
-    --accent-cyan: #0099ff;
-    --accent-orange: #cc6600;
-    --accent-blue: rgba(0, 120, 215, 0.2);
-    --accent-blue-hover: rgba(0, 120, 215, 0.3);
-    
-    --border-primary: rgba(0, 120, 215, 0.2);
-    --border-secondary: rgba(0, 120, 215, 0.3);
-    --border-accent: rgba(0, 120, 215, 0.5);
-    
-    --shadow-primary: rgba(0, 120, 215, 0.2);
-    --shadow-secondary: rgba(0, 120, 215, 0.4);
-    
-    --gradient-header: linear-gradient(to right, #ffffff, #f0f4f8);
-    
-    /* Light theme specific colors for comments/rankings */
-    --comment-bg: rgba(255, 255, 255, 0.9);
-    --comment-form-bg: rgba(240, 244, 248, 0.8);
-    --comment-card-bg: rgba(248, 250, 252, 0.9);
-    --comment-card-hover-bg: rgba(241, 245, 249, 1);
-    --comment-input-bg: rgba(255, 255, 255, 0.9);
-    --comment-own-bg: rgba(255, 248, 235, 0.9);
-    --comment-own-hover-bg: rgba(255, 245, 225, 1);
-    --ranking-card-bg: rgba(255, 255, 255, 0.95);
-    --ranking-card-hover-bg: rgba(248, 250, 252, 1);
 }
 
 body {
@@ -130,49 +87,6 @@ body {
     font-size: 1rem;
     color: var(--text-secondary);
     transition: color 0.3s ease;
-}
-
-/* Theme Toggle Button */
-.theme-toggle-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.theme-toggle-btn {
-    background: var(--bg-button);
-    color: var(--text-accent);
-    border: 2px solid var(--border-secondary);
-    border-radius: 8px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 8px var(--shadow-primary);
-}
-
-.theme-toggle-btn:hover {
-    background: var(--bg-button-hover);
-    color: var(--accent-primary);
-    border-color: var(--border-accent);
-    box-shadow: 0 4px 12px var(--shadow-primary);
-    transform: translateY(-1px);
-}
-
-.theme-toggle-btn .toggle-icon {
-    font-size: 1rem;
-}
-
-.theme-toggle-btn .toggle-text {
-    font-size: 0.7rem;
 }
 
 /* Navigation Bar */
@@ -2996,5 +2910,502 @@ main {
     
     .ranking-main {
         padding: 10px;
+    }
+}
+
+/* ============================================
+   COMMISSION ARCHIVE SECURITY & GALLERY STYLES
+   ============================================ */
+
+/* Security Overlay */
+.security-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0b0e12 0%, #0f1a27 50%, #141c24 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.security-panel {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 30px var(--shadow-primary);
+    animation: securityPulse 2s infinite ease-in-out;
+}
+
+@keyframes securityPulse {
+    0%, 100% { box-shadow: 0 0 30px var(--shadow-primary); }
+    50% { box-shadow: 0 0 50px var(--shadow-secondary); }
+}
+
+.security-header {
+    margin-bottom: 30px;
+}
+
+.security-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px var(--accent-cyan));
+}
+
+.security-header h1 {
+    font-family: 'Orbitron', monospace;
+    color: var(--accent-cyan);
+    margin: 10px 0;
+    font-size: 1.8em;
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.security-warning {
+    color: var(--accent-orange);
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 5px 0;
+    text-shadow: 0 0 5px var(--accent-orange);
+}
+
+.security-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.access-form {
+    margin: 30px 0;
+}
+
+.pin-label {
+    display: block;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    font-weight: bold;
+    font-family: 'Orbitron', monospace;
+}
+
+.pin-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 15px;
+    font-size: 1.5em;
+    text-align: center;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-primary);
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.pin-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px var(--shadow-primary);
+}
+
+.access-button, .cancel-button {
+    padding: 12px 30px;
+    margin: 10px;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.access-button {
+    background: var(--bg-button);
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+.access-button:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    box-shadow: 0 0 20px var(--shadow-primary);
+}
+
+.cancel-button {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--text-secondary);
+}
+
+.cancel-button:hover {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6666;
+    border-color: #ff6666;
+}
+
+.security-notice {
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid var(--accent-orange);
+    border-radius: 8px;
+    font-size: 0.85em;
+}
+
+.security-error {
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff6666;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    color: #ff6666;
+    font-weight: bold;
+    animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Security Elements in Main Content */
+.security-intro {
+    background: var(--bg-tertiary);
+    border-left: 4px solid var(--accent-orange);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.security-btn {
+    background: rgba(255, 100, 100, 0.2) !important;
+    color: #ff6666 !important;
+    border-color: #ff6666 !important;
+}
+
+.security-btn:hover {
+    background: rgba(255, 100, 100, 0.4) !important;
+    box-shadow: 0 0 15px rgba(255, 100, 100, 0.5) !important;
+}
+
+/* Commission Archive Main Content */
+.commission-archive {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.character-commission-section {
+    margin: 40px 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.commission-header {
+    font-family: 'Orbitron', monospace;
+    color: var(--accent-cyan);
+    font-size: 1.8em;
+    margin: 0 0 25px 0;
+    text-align: center;
+    text-shadow: 0 0 10px var(--accent-cyan);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-idea-btn {
+    background: var(--bg-button);
+    color: var(--accent-cyan);
+    border: 2px solid var(--accent-cyan);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-idea-btn:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    box-shadow: 0 0 15px var(--shadow-primary);
+}
+
+/* Commission Gallery Grid */
+.commission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.commission-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.commission-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 5px 25px var(--shadow-primary);
+    transform: translateY(-5px);
+}
+
+.commission-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.commission-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.commission-card:hover .commission-image img {
+    transform: scale(1.05);
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.commission-details {
+    padding: 20px;
+}
+
+.commission-title {
+    color: var(--accent-cyan);
+    font-family: 'Orbitron', monospace;
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+}
+
+.commission-description {
+    color: var(--text-primary);
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.commission-notes {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin: 15px 0;
+    padding: 10px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-orange);
+}
+
+.commission-meta {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.priority-tag, .status-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.priority-high {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6666;
+    border: 1px solid #ff6666;
+}
+
+.priority-medium {
+    background: rgba(255, 170, 0, 0.2);
+    color: var(--accent-orange);
+    border: 1px solid var(--accent-orange);
+}
+
+.priority-low {
+    background: rgba(100, 255, 100, 0.2);
+    color: #66ff66;
+    border: 1px solid #66ff66;
+}
+
+.status-concept {
+    background: rgba(100, 100, 255, 0.2);
+    color: #6666ff;
+    border: 1px solid #6666ff;
+}
+
+.status-planned {
+    background: rgba(255, 170, 0, 0.2);
+    color: var(--accent-orange);
+    border: 1px solid var(--accent-orange);
+}
+
+.status-commissioned {
+    background: rgba(0, 255, 255, 0.2);
+    color: var(--accent-cyan);
+    border: 1px solid var(--accent-cyan);
+}
+
+.status-completed {
+    background: rgba(100, 255, 100, 0.2);
+    color: #66ff66;
+    border: 1px solid #66ff66;
+}
+
+.commission-actions {
+    padding: 15px 20px;
+    background: var(--bg-primary);
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 8px 16px;
+    border: 1px solid;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 120px;
+}
+
+.edit-btn {
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+
+.edit-btn:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.delete-btn {
+    color: #ff6666;
+    border-color: #ff6666;
+}
+
+.delete-btn:hover {
+    background: #ff6666;
+    color: var(--bg-primary);
+}
+
+/* Commission Placeholder */
+.commission-placeholder {
+    text-align: center;
+    padding: 40px;
+    background: var(--bg-card);
+    border: 2px dashed var(--border-primary);
+    border-radius: 12px;
+    color: var(--text-secondary);
+}
+
+.placeholder-content h3 {
+    color: var(--accent-cyan);
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 15px;
+}
+
+.upload-instructions {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.upload-instructions code {
+    background: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent-cyan);
+    font-family: 'Orbitron', monospace;
+}
+
+/* Hidden class for security system */
+.hidden {
+    display: none !important;
+}
+
+/* Classified navigation link */
+.classified-link {
+    background: rgba(255, 100, 100, 0.1) !important;
+    border-color: #ff6666 !important;
+    color: #ff6666 !important;
+    font-size: 1.2em !important;
+    min-width: 50px !important;
+    animation: classifiedPulse 2s infinite ease-in-out;
+}
+
+.classified-link:hover {
+    background: rgba(255, 100, 100, 0.3) !important;
+    box-shadow: 0 0 15px rgba(255, 100, 100, 0.5) !important;
+}
+
+@keyframes classifiedPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .security-panel {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .commission-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .commission-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .commission-meta {
+        justify-content: center;
+    }
+    
+    .commission-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        max-width: none;
     }
 }
