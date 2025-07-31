@@ -16,6 +16,11 @@
             <h1>USS AXIOM // OC DATABASE</h1>
             <p class="subtext">BNL Passenger Character Records Terminal</p>
             <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="status-widgets">
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>BNL-7 / ALPHA</strong> |
+                UPLINK: <strong>STABLE</strong>
+            </div>
         </div>
     </div>
 </header>
@@ -99,6 +104,7 @@
 <script src="../js/gallery.js"></script>
 <script src="../js/nsfw-toggle.js"></script>
 <script src="../js/lightbox.js"></script>
+<script src="../js/shiptime.js"></script>
 <script src="gallery-data.js"></script>
 <script>
     if (typeof galleryData !== 'undefined') {
@@ -108,18 +114,5 @@
 
 </body>
 </html>
-<footer class="bnl-footer">
-    <p>© Buy n Large Corporation // Celestial Affairs Division // Guardian Asset Record</p>
-</footer>
 
-<!-- JS -->
-<script src="../js/gallery.js"></script>
-<script src="../js/nsfw-toggle.js"></script>
-<script src="../js/lightbox.js"></script>
-<script src="gallery-data.js"></script>
-<script>
-    if (typeof galleryData !== 'undefined') {
-        loadCharacterGalleries('/caelielle/images', galleryData);
-    }
-</script>
 
