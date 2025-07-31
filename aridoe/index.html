@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ari‑Doe // OC Gallery</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body class="oc-page">
+
+<header class="oc-header">
+    <h1>Ari‑Doe</h1>
+    <p>Transfemme White‑Tailed Deer ✧ Meadowverse Resident</p>
+</header>
+
+<main>
+    <!-- Character Bio -->
+    <section class="bio">
+        <img src="/aridoe/images/refs/ref1.jpg" alt="Ari‑Doe Reference" class="bio-image">
+        <div>
+            <h2>Overview</h2>
+            <p>
+                Ari‑Doe is a gentle, warm‑hearted cervine who calls the cozy town of Pinebarrow home.  
+                She blends soft elegance with playful energy, always eager to welcome a friend with a steaming mug of coffee  
+                and an ear for stories. She’s deeply connected to the forest and finds peace in its seasonal changes.
+            </p>
+            <ul>
+                <li><strong>Pronouns:</strong> she/her</li>
+                <li><strong>Species:</strong> White‑Tailed Deer</li>
+                <li><strong>Identity:</strong> Transfemme ✧ Demiromantic‑Aegofluff</li>
+                <li><strong>Home:</strong> Pinebarrow, Meadowverse</li>
+                <li><strong>Occupation:</strong> Barista at the Hollow Mug Café</li>
+            </ul>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- Personality -->
+    <section>
+        <h2>Personality</h2>
+        <p>
+            Ari‑Doe embodies the heart of a hearth — warm, inviting, and deeply rooted in empathy.  
+            She’s a dreamer who often slips into moments of quiet contemplation, drawing inspiration from  
+            the rustle of leaves or the dance of morning sunlight through her café’s windows.  
+            Friends know her as a calm presence in turbulent times,  
+            but she also has a playful streak that comes alive in close company.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- Reference Sheets -->
+    <section>
+        <h2>Reference Sheets</h2>
+        <div id="refs-gallery" class="gallery-grid"></div>
+    </section>
+
+    <!-- SFW Gallery -->
+    <section>
+        <h2>SFW Gallery</h2>
+        <div id="sfw-gallery" class="gallery-grid"></div>
+    </section>
+
+    <!-- NSFW Gallery -->
+    <section>
+        <h2>NSFW Gallery</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+        <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
+</main>
+
+<footer class="oc-footer">
+    <p>© 2025 Ariella Fawnbrook // Meadowverse OC Database</p>
+</footer>
+
+<!-- JS Scripts -->
+<script src="/js/gallery.js"></script>
+<script src="/js/nsfw-toggle.js"></script>
+<script src="/js/lightbox.js"></script>
+<script src="gallery-data.js"></script>
+<script>
+    loadCharacterGalleries('/aridoe/images', galleryData);
+</script>
+
+</body>
+</html>

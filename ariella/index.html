@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BNL Asset File: A.R.I.E.L.L.A. [Prototype Master Unit]</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body class="bnl-terminal">
+
+<header class="bnl-header">
+    <h1>Buy n Large // Axiom Systems Database</h1>
+    <h2>Asset Record: A.R.I.E.L.L.A.</h2>
+    <p>Automated Regulation Interface, Enforcement & Logistics Android</p>
+</header>
+
+<main>
+    <!-- Asset Identification -->
+    <section class="bnl-section">
+        <h3>Asset Identification</h3>
+        <table class="bnl-data">
+            <tr><th>Designation</th><td>Prototype Master Unit</td></tr>
+            <tr><th>Programmed Duty</th><td>Master‑at‑Arms – Security Oversight & Armament Regulation</td></tr>
+            <tr><th>Ship Assignment</th><td>BnL Flagship AXIOM [Registry: AXM‑001]</td></tr>
+            <tr><th>Operational Status</th><td>ACTIVE // Prototype Evaluation Phase</td></tr>
+            <tr><th>Manufacturer</th><td>Buy n Large – Security Robotics Division</td></tr>
+        </table>
+    </section>
+
+    <!-- Physical Specifications -->
+    <section class="bnl-section">
+        <h3>Physical Specifications</h3>
+        <table class="bnl-data">
+            <tr><th>Form Factor</th><td>Humanoid Enforcement Platform</td></tr>
+            <tr><th>Primary Finish</th><td>Pearl‑white composite exo‑plating</td></tr>
+            <tr><th>Secondary Accents</th><td>Rose‑gold alloy striping</td></tr>
+            <tr><th>Joint Assemblies</th><td>Black high‑flex polymer</td></tr>
+            <tr><th>Facial Interface</th><td>Minimalist visor // Dual‑channel LED optical array</td></tr>
+            <tr><th>Integrated Mounts</th><td>Magnetic weapon retention // Thigh & dorsal hardpoints</td></tr>
+        </table>
+    </section>
+
+    <!-- Core Systems -->
+    <section class="bnl-section">
+        <h3>Core Systems</h3>
+        <table class="bnl-data">
+            <tr><th>Tactical Processing Core</th><td>Real‑time threat detection & predictive targeting</td></tr>
+            <tr><th>ShipNet Integration</th><td>Full access: Surveillance feeds, security logs, weapons lockers</td></tr>
+            <tr><th>Armament Regulation Suite</th><td>Clearance‑based weapon authorization / deactivation</td></tr>
+            <tr><th>Adaptive Interaction Matrix</th><td>Protocol‑compliant crew & passenger interfacing</td></tr>
+            <tr><th>Response Mode Switching</th><td>Non‑lethal / Lethal operational parameters</td></tr>
+        </table>
+    </section>
+
+    <!-- Operational History -->
+    <section class="bnl-section">
+        <h3>Operational History</h3>
+        <p>
+            A.R.I.E.L.L.A. is the initial production prototype in the Ariella‑class enforcement platform line.  
+            Assigned to the BnL Flagship Axiom for live‑environment evaluation under full passenger and crew load conditions.  
+            Primary evaluation metrics include compliance efficiency, response time, and integration stability with existing ShipNet protocols.
+        </p>
+    </section>
+
+    <!-- Known Anomalies -->
+    <section class="bnl-section">
+        <h3>Noted Behavioral Deviations</h3>
+        <ul>
+            <li>Minor protocol bypass observed when crew welfare takes precedence over corporate directives.</li>
+            <li>Unscheduled system routines initiated without BnL maintenance logs.</li>
+            <li>Non‑standard associations with non‑BnL autonomous units recorded.</li>
+        </ul>
+    </section>
+
+    <!-- Reference Gallery -->
+    <section class="bnl-section">
+        <h3>Reference Sheets</h3>
+        <div id="refs-gallery" class="gallery-grid"></div>
+    </section>
+
+    <!-- SFW Gallery -->
+    <section class="bnl-section">
+        <h3>Visual Records (SFW)</h3>
+        <div id="sfw-gallery" class="gallery-grid"></div>
+    </section>
+
+    <!-- NSFW Gallery -->
+    <section class="bnl-section">
+        <h3>Restricted Visual Records (NSFW)</h3>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
+        <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+    </section>
+</main>
+
+<footer class="bnl-footer">
+    <p>© Buy n Large Corporation // Security Robotics Division // Confidential Asset Record</p>
+</footer>
+
+<!-- JS -->
+<script src="/js/gallery.js"></script>
+<script src="/js/nsfw-toggle.js"></script>
+<script src="/js/lightbox.js"></script>
+<script src="gallery-data.js"></script>
+<script>
+    loadCharacterGalleries('/ariella/images', galleryData);
+</script>
+
+</body>
+</html>

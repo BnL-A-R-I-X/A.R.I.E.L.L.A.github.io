@@ -1,0 +1,130 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #1c1c1c;
+}
+
+/* Header */
+.site-header {
+    background: linear-gradient(to right, #5ec9f8, #cceeff);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(94, 201, 248, 0.3);
+}
+.site-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+}
+.site-header p {
+    margin: 5px 0 0;
+    font-size: 1rem;
+}
+
+/* Character Grid */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.character-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(94, 201, 248, 0.2);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding-bottom: 10px;
+}
+
+.character-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.character-card h2 {
+    margin: 10px 0 0;
+    font-size: 1.3rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.character-card p {
+    font-size: 0.9rem;
+    padding: 0 10px;
+    color: #555;
+}
+
+.character-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(94, 201, 248, 0.4);
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    background: #eef5f9;
+    margin-top: 20px;
+    color: #666;
+}
+
+/* NSFW Blur Styling */
+.nsfw-blur img {
+    filter: blur(15px) brightness(0.5);
+    transition: filter 0.3s;
+    pointer-events: none;
+}
+.nsfw-blur.revealed img {
+    filter: none;
+    pointer-events: auto;
+}
+
+/* NSFW Toggle Button */
+#nsfw-toggle-btn {
+    background: #ff4b4b;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#nsfw-toggle-btn:hover {
+    background: #d93a3a;
+}
+
+/* Lightbox Overlay */
+#lightbox {
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 20, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+#lightbox.active {
+    visibility: visible;
+    opacity: 1;
+}
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(94, 201, 248, 0.6);
+    transition: transform 0.2s ease;
+}
+#lightbox img:hover {
+    transform: scale(1.02);
+}

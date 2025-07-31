@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Miscellaneous Characters // OC Gallery</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body class="oc-page">
+
+<header class="oc-header">
+    <h1>Miscellaneous Characters</h1>
+    <p>Supporting cast, alternate forms, and guest characters in Ariella’s multiverse.</p>
+</header>
+
+<main>
+    <h2>Reference Sheets</h2>
+    <div id="refs-gallery" class="gallery-grid"></div>
+
+    <h2>SFW Gallery</h2>
+    <div id="sfw-gallery" class="gallery-grid"></div>
+
+    <h2>NSFW Gallery</h2>
+    <button onclick="toggleNSFW('nsfw-gallery')">Reveal NSFW</button>
+    <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
+</main>
+
+<footer class="oc-footer">
+    <p>© 2025 Ariella Fawnbrook // OC Gallery Archive</p>
+</footer>
+
+<!-- Scripts -->
+<script src="/js/gallery.js"></script>
+<script src="/js/nsfw-toggle.js"></script>
+<script src="/js/lightbox.js"></script>
+<script src="gallery-data.js"></script>
+<script>
+    loadGallery('/misc/images/refs', galleryData, 'refs-gallery');
+    loadGallery('/misc/images/sfw', galleryData, 'sfw-gallery');
+    loadGallery('/misc/images/nsfw', galleryData, 'nsfw-gallery');
+</script>
+
+</body>
+</html>
