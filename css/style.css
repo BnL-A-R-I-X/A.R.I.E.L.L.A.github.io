@@ -619,7 +619,7 @@ main {
 }
 
 .likes-dislikes li:before {
-    content: "• ";
+    content: "* ";
     color: #66e0ff;
     font-weight: bold;
     margin-right: 8px;

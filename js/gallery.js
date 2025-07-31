@@ -140,7 +140,7 @@ function displayMostRecentArt(galleryData) {
             <div class="recent-art-display">
                 <img src="${fullPath}" alt="${recentArt.filename}" class="recent-art-image" onclick="openLightbox('${fullPath}', '${recentArt.filename}', true)">
                 <div class="recent-art-info">
-                    <span class="blinking-warning">&#9888;</span>
+                    <span class="blinking-warning">[WARNING]</span>
                     <span class="recent-art-date">Timestamp: ${dateString} ${timeString}</span>
                     <div class="recent-art-timestamp">File: ${recentArt.filename}</div>
                     <p class="recent-art-filename">Location: <span>${recentArt.path}</span></p>
