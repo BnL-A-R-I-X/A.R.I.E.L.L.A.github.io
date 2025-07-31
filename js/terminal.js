@@ -33,22 +33,44 @@ class BNLTerminal {
     }
 
     init() {
+        if (!this.input || !this.output) {
+            console.error('Terminal elements not found');
+            return;
+        }
+        
+        // Remove any existing event listeners
+        this.input.removeEventListener('keydown', this.handleKeydown);
+        this.input.removeEventListener('input', this.handleInput);
+        
+        // Add event listeners with proper binding
         this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
         this.input.addEventListener('input', (e) => this.handleInput(e));
+        
+        // Focus on the input field
+        this.input.focus();
         
         // Blinking cursor
         setInterval(() => {
             const cursor = document.querySelector('.cursor');
-            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            if (cursor) {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
         }, 500);
     }
 
     handleKeydown(e) {
+        console.log('Key pressed:', e.key); // Debug log
+        
         if (e.key === 'Enter') {
             e.preventDefault();
-            this.executeCommand(this.input.value.trim());
+            e.stopPropagation();
+            const command = this.input.value.trim();
+            console.log('Executing command:', command); // Debug log
+            this.executeCommand(command);
             this.input.value = '';
-            this.suggestions.innerHTML = '';
+            if (this.suggestions) {
+                this.suggestions.innerHTML = '';
+            }
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             this.navigateHistory(-1);
@@ -67,8 +89,8 @@ class BNLTerminal {
     }
 
     showSuggestions(input) {
-        if (!input) {
-            this.suggestions.innerHTML = '';
+        if (!this.suggestions || !input) {
+            if (this.suggestions) this.suggestions.innerHTML = '';
             return;
         }
 
@@ -86,14 +108,20 @@ class BNLTerminal {
     }
 
     selectSuggestion(cmd) {
-        this.input.value = cmd;
-        this.suggestions.innerHTML = '';
-        this.input.focus();
+        if (this.input) {
+            this.input.value = cmd;
+            this.input.focus();
+        }
+        if (this.suggestions) {
+            this.suggestions.innerHTML = '';
+        }
     }
 
     autocomplete() {
+        if (!this.input) return;
+        
         const value = this.input.value.toLowerCase();
-        const matches = Object.keys(this.commands).filter cmd => cmd.startsWith(value));
+        const matches = Object.keys(this.commands).filter(cmd => cmd.startsWith(value));
         
         if (matches.length === 1) {
             this.input.value = matches[0];
@@ -101,6 +129,8 @@ class BNLTerminal {
     }
 
     executeCommand(command) {
+        if (!this.output) return;
+        
         this.commandHistory.push(command);
         this.historyIndex = this.commandHistory.length;
         
@@ -792,5 +822,6 @@ PASSENGER NOTIFICATION: NOT AUTHORIZED
 // Initialize terminal when page loads
 let terminal;
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing terminal...'); // Debug log
     terminal = new BNLTerminal();
 });
