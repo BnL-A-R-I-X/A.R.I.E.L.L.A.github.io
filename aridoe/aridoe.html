@@ -41,21 +41,20 @@
 
 <main class="character-profile">
     <!-- Character Information -->
-    <section class="character-info">
-        <div class="character-bio">
-            <h2>Ari-Doe</h2>
-            <p><strong>Species:</strong> Cervid Anthropomorph (Deer)</p>
-            <p><strong>Role:</strong> Personal Avatar & Creative Expression</p>
-            <p><strong>Personality:</strong> Gentle, Approachable, Creative</p>
-            <p><strong>Interests:</strong> Art, Nature, Social Connection</p>
-            
-            <p>Ari-Doe represents the softer, more approachable side of personal identity. This gentle deer character embodies comfort, creativity, and warmth in social interactions. Known for being accessible and friendly, Ari-Doe serves as a bridge for comfortable self-expression and meaningful connections with others.</p>
-        </div>
+    <section class="bnl-section">
+        <h3>Avatar Identification</h3>
+        <table class="bnl-data">
+            <tr><th>Designation</th><td>Personal Avatar Construct</td></tr>
+            <tr><th>Species Classification</th><td>Cervid Anthropomorph (Deer)</td></tr>
+            <tr><th>Primary Function</th><td>Social Interface & Creative Expression</td></tr>
+            <tr><th>Personality Matrix</th><td>Gentle, Approachable, Creative</td></tr>
+            <tr><th>Operational Status</th><td>ACTIVE // Personal Use</td></tr>
+        </table>
     </section>
 
     <!-- Character Traits -->
-    <section class="character-traits">
-        <h2>&#127807; Character Traits</h2>
+    <section class="bnl-section">
+        <h3>Behavioral Parameters</h3>
         <ul>
             <li><strong>Gentle Nature:</strong> Naturally calm and soothing presence</li>
             <li><strong>Creative Spirit:</strong> Enjoys artistic expression and creative projects</li>
@@ -65,6 +64,14 @@
         </ul>
     </section>
 
+    <!-- Avatar Purpose -->
+    <section class="bnl-section">
+        <h3>Operational Purpose</h3>
+        <p>
+            Ari-Doe represents the softer, more approachable side of personal identity. This gentle deer character embodies comfort, creativity, and warmth in social interactions. Known for being accessible and friendly, Ari-Doe serves as a bridge for comfortable self-expression and meaningful connections with others.
+        </p>
+    </section>
+
     <!-- Gallery Sections -->
     <section class="character-gallery">
         <h2>Reference Sheets</h2>
@@ -72,13 +79,13 @@
     </section>
 
     <section class="character-gallery">
-        <h2>SFW Gallery</h2>
+        <h2>Visual Records (SFW)</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
     </section>
 
     <section class="character-gallery">
-        <h2>NSFW Gallery</h2>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+        <h2>Restricted Visual Records (NSFW)</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>

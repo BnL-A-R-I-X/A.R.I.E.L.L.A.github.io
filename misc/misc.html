@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miscellaneous Characters // OC Gallery</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
@@ -31,6 +32,13 @@
     <a href="../pages/bio.html" class="nav-btn">BIO</a>
 </nav>
 
+<section class="terminal-intro">
+    <p>
+        <strong>BNL MISCELLANEOUS RECORDS:</strong> The following contains archived data for various character constructs and entities. 
+        Classification pending further evaluation by A.R.I.E.L.L.A security protocols.
+    </p>
+</section>
+
 <main class="character-profile">
     <section class="character-gallery">
         <h2>Reference Sheets</h2>
@@ -38,20 +46,27 @@
     </section>
 
     <section class="character-gallery">
-        <h2>SFW Gallery</h2>
+        <h2>Visual Records (SFW)</h2>
         <div id="sfw-gallery" class="gallery-grid"></div>
     </section>
 
     <section class="character-gallery">
-        <h2>NSFW Gallery</h2>
-        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal NSFW</button>
+        <h2>Restricted Visual Records (NSFW)</h2>
+        <button id="nsfw-toggle-btn" onclick="toggleNSFW()">Reveal Restricted Records</button>
         <div id="nsfw-gallery" class="gallery-grid nsfw-blur"></div>
     </section>
 </main>
 
-<footer class="site-footer">
+<section class="system-footer">
     <p>© 2025 Ariella Fawnbrook // Character Archives</p>
-</footer>
+    <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
+</section>
+
+<div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+        SYSTEM MESSAGE: Miscellaneous character records archived and secured. — SECURITY LEVEL: GREEN — NETWORK SYNC: 100%
+    </marquee>
+</div>
 
 <!-- JS -->
 <script src="../js/gallery.js"></script>

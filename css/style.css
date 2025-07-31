@@ -199,31 +199,29 @@ body {
     margin: 20px 0;
 }
 
-.gallery-grid img {
+.gallery-grid img, .gallery-image {
     width: 100%;
     height: auto;
     border-radius: 8px;
     border: 1px solid rgba(0, 200, 255, 0.2);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    display: block;
+    object-fit: cover;
 }
 
-.gallery-grid img:hover {
+.gallery-grid img:hover, .gallery-image:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(0, 230, 255, 0.5);
 }
 
-.gallery-image {
-    width: 100%;
-    height: auto;
-    border: 1px solid #00ff00;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.gallery-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #00ff00;
+/* Empty gallery message */
+.empty-gallery {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #a0c8ff;
+    font-style: italic;
+    padding: 20px;
 }
 
 /* NSFW blur effect */
@@ -1000,5 +998,7 @@ main {
     #nsfw-toggle-btn {
         min-height: 44px;
         padding: 12px 20px;
+    }
+}
     }
 }
