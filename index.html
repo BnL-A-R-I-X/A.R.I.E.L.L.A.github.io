@@ -8,6 +8,7 @@
 
 <!-- Fonts & CSS -->
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/servebot-greeting.css">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -41,7 +42,8 @@
             <div class="nav-dropdown-header">BNL Archives</div>
             <a href="pages/ocs.html" class="nav-dropdown-item">OC Database</a>
             <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
-            <a href="pages/upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+            <a href="pages/upcoming-commissions-v2.html" class="nav-dropdown-item">Commission Queue</a>
+            <a href="pages/upcoming-commissions.html" class="nav-dropdown-item">Legacy Queue</a>
         </div>
     </div>
     
@@ -64,7 +66,14 @@
         </div>
     </div>
     
-    <a href="pages/admin.html" class="nav-btn secret-btn">ADMIN</a>
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle secret-btn">ADMIN</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🔧 Admin Panel</div>
+            <a href="pages/admin-v2.html" class="nav-dropdown-item">Commission Admin</a>
+            <a href="pages/admin.html" class="nav-dropdown-item">Legacy Admin</a>
+        </div>
+    </div>
 </nav>
 
 <!-- ===== Intro ===== -->
@@ -337,6 +346,7 @@
 <script src="js/pride-month-special.js"></script>
 <script src="js/trans-awareness-special.js"></script>
 <script src="js/holiday-season-special.js"></script>
+<script src="js/servebot-greeting.js"></script>
 
 </body>
 </html>

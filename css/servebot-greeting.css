@@ -1,0 +1,303 @@
+/* SERV-E Bot Welcome Popup Styles */
+
+.servebot-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s ease-out;
+    padding: 20px;
+}
+
+.servebot-popup.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.servebot-popup.dismiss {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.servebot-container {
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+    border: 2px solid #00bcd4;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 188, 212, 0.3);
+    overflow: hidden;
+    animation: serveBotBounce 0.6s ease-out;
+}
+
+@keyframes serveBotBounce {
+    0% { transform: translateY(-50px) scale(0.8); }
+    50% { transform: translateY(10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Header */
+.servebot-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 188, 212, 0.1);
+    border-bottom: 1px solid rgba(0, 188, 212, 0.3);
+    position: relative;
+}
+
+.servebot-avatar {
+    margin-right: 15px;
+    position: relative;
+}
+
+.servebot-body {
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(145deg, #e0e0e0, #bdbdbd);
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    animation: serveBotFloat 3s ease-in-out infinite;
+}
+
+@keyframes serveBotFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-2px); }
+}
+
+.servebot-eye {
+    width: 8px;
+    height: 8px;
+    background: #2196f3;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    animation: serveBotBlink 4s infinite;
+}
+
+.servebot-eye.left { left: 12px; }
+.servebot-eye.right { right: 12px; }
+
+@keyframes serveBotBlink {
+    0%, 95%, 100% { transform: scaleY(1); }
+    97% { transform: scaleY(0.1); }
+}
+
+.servebot-mouth {
+    width: 12px;
+    height: 6px;
+    border: 2px solid #666;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.servebot-wheels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+}
+
+.wheel {
+    width: 12px;
+    height: 12px;
+    background: #424242;
+    border-radius: 50%;
+    animation: serveBotWheelSpin 2s linear infinite;
+}
+
+@keyframes serveBotWheelSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.servebot-info {
+    flex: 1;
+}
+
+.servebot-info h3 {
+    color: #00bcd4;
+    margin: 0 0 5px 0;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1em;
+}
+
+.servebot-subtitle {
+    color: #b0bec5;
+    margin: 0;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.servebot-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid #f44336;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.servebot-close:hover {
+    background: rgba(244, 67, 54, 0.3);
+    transform: scale(1.1);
+}
+
+/* Content */
+.servebot-content {
+    padding: 20px;
+}
+
+.greeting-text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-greeting {
+    color: #e0e0e0;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    font-family: 'Orbitron', monospace;
+}
+
+.helpful-tip {
+    color: #b0bec5;
+    font-size: 0.9em;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.servebot-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9em;
+}
+
+.action-btn.primary {
+    background: linear-gradient(45deg, #00bcd4, #0097a7);
+    color: white;
+}
+
+.action-btn.primary:hover {
+    background: linear-gradient(45deg, #0097a7, #00838f);
+    transform: translateY(-1px);
+}
+
+.action-btn.secondary {
+    background: linear-gradient(45deg, #9c27b0, #7b1fa2);
+    color: white;
+}
+
+.action-btn.secondary:hover {
+    background: linear-gradient(45deg, #7b1fa2, #6a1b9a);
+    transform: translateY(-1px);
+}
+
+.action-btn.tertiary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.action-btn.tertiary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #00bcd4;
+}
+
+/* Footer */
+.servebot-footer {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+.servebot-footer p {
+    color: #00bcd4;
+    margin: 0;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .servebot-popup {
+        padding: 10px;
+    }
+    
+    .servebot-container {
+        max-width: 100%;
+    }
+    
+    .servebot-header {
+        padding: 15px;
+    }
+    
+    .servebot-content {
+        padding: 15px;
+    }
+    
+    .servebot-actions {
+        gap: 8px;
+    }
+    
+    .action-btn {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+    
+    .main-greeting {
+        font-size: 1.1em;
+    }
+    
+    .helpful-tip {
+        font-size: 0.85em;
+    }
+}
+
+/* Special hover effects */
+.servebot-container:hover .servebot-body {
+    animation-duration: 1s;
+}
+
+.servebot-container:hover .wheel {
+    animation-duration: 0.5s;
+}
+
+.servebot-container:hover .servebot-eye {
+    background: #4caf50;
+}
