@@ -190,26 +190,24 @@ class FirebaseRankingSystem {
             timestamp: Date.now()
         };
 
-        // Save locally first for immediate feedback
-        if (!this.firebaseReady) {
-            localStorage.setItem(this.storageKey, JSON.stringify(this.userVotes));
-            this.updateDisplay();
-            return;
-        }
+        // Always save locally for immediate feedback
+        localStorage.setItem(this.storageKey, JSON.stringify(this.userVotes));
+        this.updateDisplay();
 
-        try {
-            // Save user vote to Firebase
-            await this.saveUserVote();
-            
-            // Update global rankings
-            await this.updateGlobalRanking(characterId, oldRating, rating);
-            
-            this.updateDisplay();
-        } catch (error) {
-            console.error('Failed to save vote:', error);
-            // Still update locally on error
-            localStorage.setItem(this.storageKey, JSON.stringify(this.userVotes));
-            this.updateDisplay();
+        // Also save to Firebase if available
+        if (this.firebaseReady) {
+            try {
+                // Save user vote to Firebase
+                await this.saveUserVote();
+                
+                // Update global rankings
+                await this.updateGlobalRanking(characterId, oldRating, rating);
+                
+                console.log(`✅ Vote saved: ${characterId} = ${rating} stars`);
+            } catch (error) {
+                console.error('❌ Failed to save vote to Firebase:', error);
+                // Local storage already saved above, so user sees immediate feedback
+            }
         }
     }
 

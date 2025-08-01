@@ -119,12 +119,16 @@ class FirebaseCommissionSystem {
         }
 
         try {
-            // Add timestamps
+            // Add timestamps and normalize field names
             const timestamp = new Date().toISOString();
             const commission = {
-                ...commissionData,
-                dateCommissioned: commissionData.dateCommissioned || timestamp.split('T')[0],
-                lastUpdate: timestamp.split('T')[0],
+                artist: commissionData.artist || 'TBD',
+                date: commissionData.date || commissionData.dateOfCommission || timestamp.split('T')[0],
+                description: commissionData.description || commissionData.descriptionOfCommission || 'No description',
+                character: commissionData.character || (Array.isArray(commissionData.characters) ? commissionData.characters.join(', ') : 'Not specified'),
+                cost: commissionData.cost || 0,
+                type: commissionData.type || 'General',
+                status: commissionData.status || 'planning',
                 createdAt: timestamp,
                 updatedAt: timestamp
             };
@@ -138,7 +142,8 @@ class FirebaseCommissionSystem {
             return docRef.id;
             
         } catch (error) {
-            console.error('❌ Error adding commission:', error);
+            console.error('❌ Error adding commission to Firebase:', error);
+            console.log('💾 Falling back to local storage...');
             return this.addCommissionLocal(commissionData);
         }
     }
@@ -150,18 +155,40 @@ class FirebaseCommissionSystem {
 
         try {
             const commissionRef = this.firestore.doc(this.db, 'commissions', commissionId);
+            
+            // Normalize field names for updates
+            const normalizedUpdates = {};
+            
+            // Map old field names to new ones
+            if (updates.dateOfCommission) {
+                normalizedUpdates.date = updates.dateOfCommission;
+            }
+            if (updates.descriptionOfCommission) {
+                normalizedUpdates.description = updates.descriptionOfCommission;
+            }
+            if (updates.characters && Array.isArray(updates.characters)) {
+                normalizedUpdates.character = updates.characters.join(', ');
+            }
+            
+            // Copy over any existing normalized fields
+            Object.keys(updates).forEach(key => {
+                if (['artist', 'date', 'description', 'character', 'cost', 'type', 'status'].includes(key)) {
+                    normalizedUpdates[key] = updates[key];
+                }
+            });
+            
             const updateData = {
-                ...updates,
-                lastUpdate: new Date().toISOString().split('T')[0],
+                ...normalizedUpdates,
                 updatedAt: new Date().toISOString()
             };
 
             await this.firestore.updateDoc(commissionRef, updateData);
-            console.log('✅ Commission updated in Firebase:', commissionId);
+            console.log('✅ Commission updated in Firebase:', commissionId, updateData);
             return true;
             
         } catch (error) {
-            console.error('❌ Error updating commission:', error);
+            console.error('❌ Error updating commission in Firebase:', error);
+            console.log('💾 Falling back to local storage...');
             return this.updateCommissionLocal(commissionId, updates);
         }
     }

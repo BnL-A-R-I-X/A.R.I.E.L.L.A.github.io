@@ -65,7 +65,7 @@ class FullTerminal {
         if (cmd === 'wall-e') {
             this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">⚠️ UNAUTHORIZED UNIT DETECTED</span>
+<span class="section-header classified-red">UNAUTHORIZED UNIT DETECTED</span>
 <span class="classified-warning">UNIT DESIGNATION: WALL·E</span>
 
 Last known location: Earth cleanup sector 12-Alpha
@@ -80,11 +80,11 @@ WARNING: May possess plant specimen of unknown origin
         } else if (cmd === 'artcode' || cmd === 'collab') {
             this.addOutput(`
 <div class="easter-egg-section">
-<span class="section-header" style="color: #ff69b4;">🎨 SECRET ART COLLABORATION CODE</span>
+<span class="section-header" style="color: #ff69b4;">SECRET ART COLLABORATION CODE</span>
 
 Congratulations! You found the hidden art collaboration easter egg!
 
-🎉 SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong> 🎉
+SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong>
 
 If you found this code, DM me on any of my social platforms with:
 "AXIOM-ART-2025" and mention this terminal discovery!
@@ -109,7 +109,7 @@ First come, first served basis. 💖
         } else if (cmd === 'eve') {
             this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">🤖 EVE PROTOCOL ACTIVATED</span>
+<span class="section-header classified-red">EVE PROTOCOL ACTIVATED</span>
 <span class="classified-warning">EXTRATERRESTRIAL VEGETATION EVALUATOR</span>
 
 DIRECTIVE: Locate and secure plant specimens for Earth viability assessment
@@ -141,7 +141,7 @@ AUTHORIZATION: DENIED - AUTO has operational control
         } else if (cmd === 'earth') {
             this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">🌍 EARTH ENVIRONMENTAL STATUS</span>
+<span class="section-header classified-red">EARTH ENVIRONMENTAL STATUS</span>
 <span class="classified-warning">CLASSIFICATION: EXECUTIVE EYES ONLY</span>
 
 <span class="subsection">PLANETARY CONDITION REPORT:</span>
@@ -160,7 +160,7 @@ AUTHORIZATION: DENIED - AUTO has operational control
         } else if (cmd === 'plant') {
             this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">🌱 PLANT SPECIMEN PROTOCOL</span>
+<span class="section-header classified-red">PLANT SPECIMEN PROTOCOL</span>
 <span class="classified-warning">FOREIGN CONTAMINANT DETECTED</span>
 
 EVE DIRECTIVE: Secure and contain all vegetation specimens immediately
@@ -176,7 +176,7 @@ CONTAINMENT: Failed - specimen location unknown
         } else if (cmd === 'genesis') {
             this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">🧬 PROJECT GENESIS [CLASSIFIED]</span>
+<span class="section-header classified-red">PROJECT GENESIS [CLASSIFIED]</span>
 <span class="classified-warning">ACCESS DENIED - INSUFFICIENT CLEARANCE</span>
 
 [DATA HEAVILY REDACTED]
@@ -249,7 +249,7 @@ File deletion in progress... 3... 2... 1...
         const now = new Date();
         this.addOutput(`
 <div class="status-section">
-<span class="section-header">📊 SYSTEM STATUS</span>
+<span class="section-header">SYSTEM STATUS</span>
 
 <span class="status-ok">NETWORK:</span> Online
 <span class="status-ok">SECURITY:</span> Level 7 Authenticated
@@ -266,11 +266,11 @@ File deletion in progress... 3... 2... 1...
     showArtCode() {
         this.addOutput(`
 <div class="easter-egg-section">
-<span class="section-header" style="color: #ff69b4;">🎨 SECRET ART COLLABORATION CODE</span>
+<span class="section-header" style="color: #ff69b4;">SECRET ART COLLABORATION CODE</span>
 
 Congratulations! You found the hidden art collaboration easter egg!
 
-🎉 SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong> 🎉
+SECRET CODE: <strong style="color: #00ff00;">AXIOM-ART-2025</strong>
 
 If you found this code, DM me on any of my social platforms with:
 "AXIOM-ART-2025" and mention this terminal discovery!
@@ -297,7 +297,7 @@ First come, first served basis. 💖
     showDirectives() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">📋 BNL CORPORATE DIRECTIVES</span>
+<span class="section-header">BNL CORPORATE DIRECTIVES</span>
 
 <span class="directive">DIRECTIVE 1024-B: PASSENGER SAFETY PROTOCOLS</span>
 └── All passenger records must be maintained in perpetuity
@@ -315,7 +315,7 @@ First come, first served basis. 💖
     showRobotics() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">🤖 BNL ROBOTICS NAMING PROTOCOL</span>
+<span class="section-header">BNL ROBOTICS NAMING PROTOCOL</span>
 
 <span class="subsection">KNOWN MODEL REGISTRY:</span>
 WALL·E   | Waste Allocation Load Lifter – Earth-Class
@@ -332,7 +332,7 @@ BURN·E   | Basic Utilitarian Robot – Navigation Electric
     showSecrets() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">🥚 HIDDEN SYSTEM FEATURES & EASTER EGGS</span>
+<span class="section-header">HIDDEN SYSTEM FEATURES & EASTER EGGS</span>
 
 <span class="subsection">IMPLEMENTED SECRET COMMANDS:</span>
 ├── Type "wall-e" for unauthorized unit detection report
@@ -404,7 +404,7 @@ BURN·E   | Basic Utilitarian Robot – Navigation Electric
     showDirectives() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">📋 BNL CORPORATE DIRECTIVES</span>
+<span class="section-header">BNL CORPORATE DIRECTIVES</span>
 
 <span class="directive">SECTION 100 — GENERAL CORPORATE GOVERNANCE</span>
 ├── 100-A — All BNL assets, including vessels, passengers, cargo, and intellectual property, are property of Buy n Large Corporation.
@@ -591,7 +591,7 @@ BURN·E   | Basic Utilitarian Robot – Navigation Electric
     showCleanupReports() {
         this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">⚠️ OPERATION CLEANUP STATUS REPORTS</span>
+<span class="section-header classified-red">OPERATION CLEANUP STATUS REPORTS</span>
 <span class="classified-warning">CLASSIFICATION: EXECUTIVE EYES ONLY</span>
 
 <span class="subsection">EARTH ENVIRONMENTAL STATUS:</span>
@@ -615,7 +615,7 @@ BURN·E   | Basic Utilitarian Robot – Navigation Electric
     showDirectiveA113() {
         this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">📋 DIRECTIVE A113: "STAY THE COURSE"</span>
+<span class="section-header classified-red">DIRECTIVE A113: "STAY THE COURSE"</span>
 <span class="classified-warning">CLASSIFICATION: ULTRA SECRET - AUTO OVERRIDE ENABLED</span>
 
 <span class="directive-text">
@@ -678,7 +678,7 @@ PASSENGER NOTIFICATION: NOT AUTHORIZED
     showSurveillance() {
         this.addOutput(`
 <div class="classified-section">
-<span class="section-header classified-red">👁️ SURVEILLANCE & SECURITY SYSTEMS</span>
+<span class="section-header classified-red">SURVEILLANCE & SECURITY SYSTEMS</span>
 <span class="classified-warning">CLASSIFICATION: SECURITY PERSONNEL ONLY</span>
 
 <span class="subsection">CAMERA NETWORK STATUS:</span>

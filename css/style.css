@@ -5187,3 +5187,63 @@ input:checked + .toggle-slider:before {
         font-size: 1em;
     }
 }
+
+/* Easter Egg Hints Sections */
+.social-hints, .oc-hints {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px var(--shadow-primary);
+}
+
+.social-hints h2, .oc-hints h3 {
+    color: var(--accent-primary);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px var(--shadow-secondary);
+}
+
+.social-hints p, .oc-hints p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.social-hints ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.social-hints li {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin: 8px 0;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.social-hints li:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--shadow-primary);
+    transform: translateY(-1px);
+}
+
+.social-hints strong {
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+
+.social-hints em {
+    color: var(--accent-orange);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .social-hints, .oc-hints {
+        margin: 15px 10px;
+        padding: 15px;
+    }
+}

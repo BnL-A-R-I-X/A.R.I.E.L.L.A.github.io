@@ -68,17 +68,19 @@ class CommissionTracker {
     
     if (!tableBody || !this.firebaseSystem) return;
 
-    // Get commissions from Firebase
+    // Get commissions from Firebase, filtering out completed ones
     const allCommissions = this.firebaseSystem.getCommissions();
+    const activeCommissions = allCommissions.filter(comm => comm.status !== 'completed');
 
     // Apply filters
     const statusFilter = document.getElementById('status-filter')?.value || 'all';
     const characterFilter = document.getElementById('character-filter')?.value || 'all';
 
-    let filteredCommissions = allCommissions.filter(comm => {
+    let filteredCommissions = activeCommissions.filter(comm => {
       let matchesStatus = statusFilter === 'all' || comm.status === statusFilter;
       let matchesCharacter = characterFilter === 'all' || 
-        comm.characters.some(char => char.toLowerCase().includes(characterFilter.toLowerCase()));
+        (comm.character && comm.character.toLowerCase().includes(characterFilter.toLowerCase())) ||
+        (comm.characters && comm.characters.some(char => char.toLowerCase().includes(characterFilter.toLowerCase())));
       return matchesStatus && matchesCharacter;
     });
 
@@ -90,52 +92,32 @@ class CommissionTracker {
 
     if (emptyState) emptyState.classList.add('hidden');
 
+    // Simplified table structure: artist, date, description, character, cost, type, status
     tableBody.innerHTML = filteredCommissions.map(commission => {
-      const primaryChar = commission.character || (commission.characters && commission.characters[0]) || 'Unknown';
-      const additionalChars = commission.characters ? commission.characters.slice(1) : [];
-      
       return `
         <tr class="tracker-row status-${commission.status}" data-id="${commission.id}">
-          <td class="commission-id">${commission.id}</td>
           <td class="artist-cell editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'artist', this)">
             ${commission.artist || 'TBD'}
           </td>
-          <td class="commission-date editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'dateOfCommission', this)">
-            ${commission.dateOfCommission || 'Not Set'}
+          <td class="commission-date editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'date', this)">
+            ${commission.date || commission.dateOfCommission || 'Not Set'}
           </td>
-          <td class="commission-description editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'descriptionOfCommission', this)">
-            <div class="description-preview">${(commission.descriptionOfCommission || commission.description || 'No description').substring(0, 50)}${(commission.descriptionOfCommission || commission.description || '').length > 50 ? '...' : ''}</div>
+          <td class="commission-description editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'description', this)">
+            <div class="description-preview">${(commission.description || commission.descriptionOfCommission || 'No description').substring(0, 50)}${(commission.description || commission.descriptionOfCommission || '').length > 50 ? '...' : ''}</div>
+          </td>
+          <td class="commission-character editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'character', this)">
+            ${commission.character || (commission.characters && commission.characters.join(', ')) || 'Not specified'}
           </td>
           <td class="commission-cost editable-cell cost-display" onclick="commissionTracker.editCell('${commission.id}', 'cost', this)">
             ${this.formatCostDisplay(commission.cost)}
           </td>
-          <td class="commission-type">${commission.type || 'General'}</td>
+          <td class="commission-type editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'type', this)">
+            ${commission.type || 'General'}
+          </td>
           <td class="status-cell">
             <select class="status-select" onchange="commissionTracker.updateStatus('${commission.id}', this.value)">
               ${this.getStatusOptions(commission.status)}
             </select>
-          </td>
-          <td class="commission-characters">
-            <span class="character-primary">${primaryChar}</span>
-            ${additionalChars.length > 0 ? `<span class="character-additional">+${additionalChars.join(', ')}</span>` : ''}
-          </td>
-          <td class="progress-cell">
-            <div class="progress-container">
-              <input type="range" class="progress-slider" min="0" max="100" value="${commission.progress || 0}" 
-                     onchange="commissionTracker.updateProgress('${commission.id}', this.value)">
-              <span class="progress-value">${commission.progress || 0}%</span>
-            </div>
-          </td>
-          <td class="public-toggle">
-            <label class="toggle-switch">
-              <input type="checkbox" ${commission.isPublic ? 'checked' : ''} 
-                     onchange="commissionTracker.togglePublic('${commission.id}', this.checked)">
-              <span class="toggle-slider"></span>
-            </label>
-          </td>
-          <td class="actions-cell">
-            <button class="action-btn edit-btn" onclick="commissionTracker.editCommission('${commission.id}')">✏️</button>
-            <button class="action-btn delete-btn" onclick="commissionTracker.deleteCommission('${commission.id}')">🗑️</button>
           </td>
         </tr>
       `;
@@ -163,11 +145,25 @@ class CommissionTracker {
     if (!this.firebaseSystem) return;
 
     try {
-      await this.firebaseSystem.updateCommission(commissionId, { status: newStatus });
-      console.log(`📊 Updated ${commissionId} status to ${newStatus}`);
+      if (newStatus === 'completed') {
+        // Show confirmation before deleting completed commission
+        const confirmDelete = await customDialogs.confirm(
+          'Mark this commission as completed?\n\nCompleted commissions are automatically removed from the queue.',
+          'Commission Completion',
+          'Confirm Completion'
+        );
+        
+        if (confirmDelete) {
+          await this.firebaseSystem.deleteCommission(commissionId);
+          console.log(`✅ Commission ${commissionId} marked as completed and removed from queue`);
+        }
+      } else {
+        await this.firebaseSystem.updateCommission(commissionId, { status: newStatus });
+        console.log(`📊 Updated ${commissionId} status to ${newStatus}`);
+      }
     } catch (error) {
       console.error('❌ Error updating status:', error);
-      await customDialogs.commissionDialog('Failed to update status. Please try again.');
+      await customDialogs.alert('Failed to update status. Please try again.', 'Error');
     }
   }
 
