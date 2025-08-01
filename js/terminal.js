@@ -360,7 +360,12 @@ File deletion in progress... 3... 2... 1...
     showStatus() { this.addOutput('Status command placeholder'); }
     exitTerminal() { this.addOutput('Exiting...'); }
     catCommand() { this.addOutput('Cat command placeholder'); }
-    goHome() { window.location.href = '../index.html'; }
+    goHome() { 
+        // Detect if we're in a subdirectory and navigate accordingly
+        const path = window.location.pathname;
+        const isInSubdir = path.includes('/pages/') || path.includes('/ariella/') || path.includes('/darla/') || path.includes('/caelielle/') || path.includes('/aridoe/') || path.includes('/misc/');
+        window.location.href = isInSubdir ? '../index.html' : 'index.html'; 
+    }
     showCleanupReports() { this.addOutput('Cleanup reports placeholder'); }
     showDirectiveA113() { this.addOutput('A113 directive placeholder'); }
     showContingencyProtocols() { this.addOutput('Contingency protocols placeholder'); }
@@ -633,16 +638,22 @@ File deletion in progress... 3... 2... 1...
     }
 
     exitTerminal() {
+        // Detect if we're in a subdirectory and navigate accordingly
+        const path = window.location.pathname;
+        const isInSubdir = path.includes('/pages/') || path.includes('/ariella/') || path.includes('/darla/') || path.includes('/caelielle/') || path.includes('/aridoe/') || path.includes('/misc/');
         this.addOutput('Logging out...', 'warning');
         setTimeout(() => {
-            window.location.href = '../index.html';
+            window.location.href = isInSubdir ? '../index.html' : 'index.html';
         }, 1000);
     }
 
     goHome() {
+        // Detect if we're in a subdirectory and navigate accordingly
+        const path = window.location.pathname;
+        const isInSubdir = path.includes('/pages/') || path.includes('/ariella/') || path.includes('/darla/') || path.includes('/caelielle/') || path.includes('/aridoe/') || path.includes('/misc/');
         this.addOutput('Returning to main terminal...', 'success');
         setTimeout(() => {
-            window.location.href = '../index.html';
+            window.location.href = isInSubdir ? '../index.html' : 'index.html';
         }, 1000);
     }
 

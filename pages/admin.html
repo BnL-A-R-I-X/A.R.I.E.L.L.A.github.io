@@ -201,6 +201,21 @@
               <p><strong>Status:</strong> All easter eggs operational</p>
             </div>
           </div>
+          
+          <div class="tool-group">
+            <h3>Special Events</h3>
+            <button class="admin-btn" id="earth-day-toggle" onclick="toggleEarthDayMode()">
+              🌍 Toggle Earth Day Mode
+            </button>
+            <button class="admin-btn" onclick="testPlantGrowth()">
+              🌱 Test Plant Growth Animation
+            </button>
+            <div class="tool-info">
+              <p><strong>Purpose:</strong> Test Earth Day special features</p>
+              <p><strong>Auto-Active:</strong> April 22nd (Earth Day)</p>
+              <p><strong>Commands:</strong> PLANT, EVE, EARTH, GREEN</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -457,10 +472,46 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// Earth Day admin functions
+function toggleEarthDayMode() {
+  if (typeof EarthDaySpecial !== 'undefined') {
+    if (EarthDaySpecial.isTestModeActive()) {
+      EarthDaySpecial.disableTestMode();
+      window.customDialog.showAlert('🌍 Earth Day Mode Disabled\\n\\nPage will reload to apply changes.');
+    } else {
+      EarthDaySpecial.enableTestMode();
+      window.customDialog.showAlert('🌱 Earth Day Mode Enabled!\\n\\nPage will reload to show the green theme, EVE overlay, and special features.\\n\\nTry typing: PLANT, EVE, EARTH, or GREEN in any input field!');
+    }
+  } else {
+    window.customDialog.showAlert('⚠️ Earth Day system not loaded.\\n\\nPlease ensure earth-day-special.js is included on this page.');
+  }
+}
+
+function testPlantGrowth() {
+  if (window.earthDaySpecial) {
+    window.earthDaySpecial.triggerPlantGrowth();
+    window.customDialog.showAlert('🌱 Plant growth animation triggered!\\n\\nCheck the center of your screen for the growing plant.');
+  } else {
+    window.customDialog.showAlert('⚠️ Earth Day system not active.\\n\\nEnable Earth Day mode first, or wait until April 22nd.');
+  }
+}
+
+// Update button text based on current state
+document.addEventListener('DOMContentLoaded', () => {
+  const earthDayToggle = document.getElementById('earth-day-toggle');
+  if (earthDayToggle && typeof EarthDaySpecial !== 'undefined') {
+    if (EarthDaySpecial.isTestModeActive()) {
+      earthDayToggle.innerHTML = '🌍 Disable Earth Day Mode';
+      earthDayToggle.style.background = 'linear-gradient(45deg, #228b22, #32cd32)';
+    }
+  }
+});
 </script>
 
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
+<script src="../js/earth-day-special.js"></script>
 
 </body>
 </html>

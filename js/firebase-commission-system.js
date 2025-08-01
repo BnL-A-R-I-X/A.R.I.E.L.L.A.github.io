@@ -119,16 +119,22 @@ class FirebaseCommissionSystem {
         }
 
         try {
-            // Add timestamps and normalize field names
+            // Add timestamps and preserve original field names for compatibility
             const timestamp = new Date().toISOString();
             const commission = {
                 artist: commissionData.artist || 'TBD',
+                // Preserve both old and new field names for compatibility
                 date: commissionData.date || commissionData.dateOfCommission || timestamp.split('T')[0],
+                dateOfCommission: commissionData.dateOfCommission || commissionData.date || timestamp.split('T')[0],
                 description: commissionData.description || commissionData.descriptionOfCommission || 'No description',
+                descriptionOfCommission: commissionData.descriptionOfCommission || commissionData.description || 'No description',
                 character: commissionData.character || (Array.isArray(commissionData.characters) ? commissionData.characters.join(', ') : 'Not specified'),
+                characters: commissionData.characters || (commissionData.character ? [commissionData.character] : ['Not specified']),
                 cost: commissionData.cost || 0,
                 type: commissionData.type || 'General',
                 status: commissionData.status || 'planning',
+                progress: commissionData.progress || 0,
+                isPublic: commissionData.isPublic !== false,
                 createdAt: timestamp,
                 updatedAt: timestamp
             };
@@ -156,26 +162,34 @@ class FirebaseCommissionSystem {
         try {
             const commissionRef = this.firestore.doc(this.db, 'commissions', commissionId);
             
-            // Normalize field names for updates
-            const normalizedUpdates = {};
+            // Preserve both field name formats for compatibility
+            const normalizedUpdates = { ...updates };
             
-            // Map old field names to new ones
+            // Ensure both field name formats exist
             if (updates.dateOfCommission) {
                 normalizedUpdates.date = updates.dateOfCommission;
+                normalizedUpdates.dateOfCommission = updates.dateOfCommission;
+            }
+            if (updates.date) {
+                normalizedUpdates.dateOfCommission = updates.date;
+                normalizedUpdates.date = updates.date;
             }
             if (updates.descriptionOfCommission) {
                 normalizedUpdates.description = updates.descriptionOfCommission;
+                normalizedUpdates.descriptionOfCommission = updates.descriptionOfCommission;
+            }
+            if (updates.description) {
+                normalizedUpdates.descriptionOfCommission = updates.description;
+                normalizedUpdates.description = updates.description;
             }
             if (updates.characters && Array.isArray(updates.characters)) {
                 normalizedUpdates.character = updates.characters.join(', ');
+                normalizedUpdates.characters = updates.characters;
             }
-            
-            // Copy over any existing normalized fields
-            Object.keys(updates).forEach(key => {
-                if (['artist', 'date', 'description', 'character', 'cost', 'type', 'status'].includes(key)) {
-                    normalizedUpdates[key] = updates[key];
-                }
-            });
+            if (updates.character && typeof updates.character === 'string') {
+                normalizedUpdates.characters = [updates.character];
+                normalizedUpdates.character = updates.character;
+            }
             
             const updateData = {
                 ...normalizedUpdates,
@@ -224,10 +238,18 @@ class FirebaseCommissionSystem {
     }
 
     addCommissionLocal(commissionData) {
+        const timestamp = new Date().toISOString().split('T')[0];
         const commission = {
             id: 'COMM-' + Date.now(),
             ...commissionData,
-            dateCommissioned: commissionData.dateCommissioned || new Date().toISOString().split('T')[0],
+            // Ensure both field name formats are preserved
+            dateCommissioned: commissionData.dateCommissioned || commissionData.dateOfCommission || timestamp,
+            dateOfCommission: commissionData.dateOfCommission || commissionData.dateCommissioned || timestamp,
+            description: commissionData.description || commissionData.descriptionOfCommission || 'No description',
+            descriptionOfCommission: commissionData.descriptionOfCommission || commissionData.description || 'No description',
+            characters: commissionData.characters || (commissionData.character ? [commissionData.character] : ['Not specified']),
+            progress: commissionData.progress || 0,
+            isPublic: commissionData.isPublic !== false,
             lastUpdate: new Date().toISOString().split('T')[0]
         };
         

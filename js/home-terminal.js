@@ -563,9 +563,12 @@ File deletion in progress... 3... 2... 1...
 
     // Additional methods to match main terminal functionality
     goHome() {
+        // Detect if we're in a subdirectory and navigate accordingly
+        const path = window.location.pathname;
+        const isInSubdir = path.includes('/pages/') || path.includes('/ariella/') || path.includes('/darla/') || path.includes('/caelielle/') || path.includes('/aridoe/') || path.includes('/misc/');
         this.addOutput('Returning to main terminal...', 'success');
         setTimeout(() => {
-            window.location.href = '../index.html';
+            window.location.href = isInSubdir ? '../index.html' : 'index.html';
         }, 1000);
     }
 

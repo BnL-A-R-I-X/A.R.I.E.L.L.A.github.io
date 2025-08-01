@@ -101,6 +101,21 @@ class FirebaseRankingSystem {
     fallbackToLocalStorage() {
         // Fallback to original localStorage system if Firebase fails
         this.userVotes = this.loadLocalUserVotes();
+        
+        // Try to load any cached global rankings from previous Firebase sessions
+        const cachedGlobal = localStorage.getItem('axiom-global-rankings-cache');
+        if (cachedGlobal) {
+            try {
+                this.globalRankings = JSON.parse(cachedGlobal);
+                console.log('📦 Using cached global rankings');
+            } catch (e) {
+                console.warn('Failed to parse cached global rankings:', e);
+                this.globalRankings = {};
+            }
+        } else {
+            this.globalRankings = {};
+        }
+        
         this.init();
     }
 
@@ -126,6 +141,9 @@ class FirebaseRankingSystem {
     }
 
     async loadUserVotes() {
+        // Always load localStorage first for immediate display
+        this.userVotes = this.loadLocalUserVotes();
+        
         if (!this.firebaseReady) return;
 
         try {
@@ -133,10 +151,14 @@ class FirebaseRankingSystem {
             const userDoc = await getDoc(doc(this.db, 'user_votes', this.userId));
             
             if (userDoc.exists()) {
-                this.userVotes = userDoc.data().votes || {};
+                const firebaseVotes = userDoc.data().votes || {};
+                // Merge Firebase votes with localStorage (Firebase takes precedence for conflicts)
+                this.userVotes = { ...this.userVotes, ...firebaseVotes };
+                // Update localStorage with merged data
+                localStorage.setItem(this.storageKey, JSON.stringify(this.userVotes));
             }
         } catch (error) {
-            console.warn('Failed to load user votes:', error);
+            console.warn('Failed to load user votes from Firebase:', error);
         }
     }
 
@@ -151,8 +173,12 @@ class FirebaseRankingSystem {
             rankingsSnapshot.forEach(doc => {
                 this.globalRankings[doc.id] = doc.data();
             });
+            
+            // Cache global rankings for offline use
+            localStorage.setItem('axiom-global-rankings-cache', JSON.stringify(this.globalRankings));
+            console.log('📊 Global rankings loaded and cached');
         } catch (error) {
-            console.warn('Failed to load global rankings:', error);
+            console.warn('Failed to load global rankings from Firebase:', error);
         }
     }
 
