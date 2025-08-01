@@ -159,6 +159,11 @@ class FirebaseRankingSystem {
     setupRealtimeListeners() {
         if (!this.firebaseReady) return;
 
+        // Disable real-time updates to prevent constant refreshing
+        // Global rankings will only update when user manually refreshes page
+        // This prevents the ranking system from updating every time someone votes
+        
+        /* DISABLED - Uncomment to re-enable real-time updates
         // Listen for global ranking changes
         import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js').then(({ onSnapshot, collection }) => {
             onSnapshot(collection(this.db, 'global_rankings'), (snapshot) => {
@@ -169,6 +174,7 @@ class FirebaseRankingSystem {
                 this.updateDisplay();
             });
         });
+        */
     }
 
     async vote(characterId, rating) {
