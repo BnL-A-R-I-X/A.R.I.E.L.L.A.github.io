@@ -195,9 +195,37 @@ class CommissionAdminV2 {
 
     renderCommissions() {
         const container = document.getElementById('commissions-list');
-        if (!container) return;
+        if (!container) {
+            console.warn('⚠️ Commissions list container not found');
+            return;
+        }
+
+        console.log('🔄 Rendering commissions...');
+        
+        if (!window.commissionSystemV2) {
+            console.warn('⚠️ Commission system not available');
+            container.innerHTML = `
+                <div class="commission-item error">
+                    <h3>⚠️ System Not Ready</h3>
+                    <p>Commission system is initializing. Please wait a moment and try refreshing.</p>
+                </div>
+            `;
+            return;
+        }
 
         let commissions = window.commissionSystemV2.getAllCommissions();
+        console.log(`📋 Found ${commissions.length} commissions to render`);
+
+        if (!commissions || commissions.length === 0) {
+            container.innerHTML = `
+                <div class="commission-item empty">
+                    <h3>📝 No Commissions Found</h3>
+                    <p>No commissions have been added yet. Use the form above to add your first commission!</p>
+                    <p><small>If you expect to see commissions here, try clicking "Force Load Database" in the Data Management section.</small></p>
+                </div>
+            `;
+            return;
+        }
         
         // Apply search filter
         if (this.searchQuery) {
@@ -299,32 +327,59 @@ class CommissionAdminV2 {
 
     updateStats() {
         const statsContainer = document.getElementById('commission-stats');
-        if (!statsContainer) return;
-
-        const stats = window.commissionSystemV2.getStats();
+        if (!statsContainer) {
+            console.warn('⚠️ Stats container not found');
+            return;
+        }
         
-        statsContainer.innerHTML = `
-            <div class="stat-card">
-                <div class="stat-number">${stats.total}</div>
-                <div class="stat-label">Total</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">${stats.planning}</div>
-                <div class="stat-label">Planning</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">${stats.inProgress}</div>
-                <div class="stat-label">In Progress</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">${stats.completed}</div>
-                <div class="stat-label">Completed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">${stats.totalCost}</div>
-                <div class="stat-label">Total Value</div>
-            </div>
-        `;
+        console.log('📊 Updating stats...');
+
+        if (!window.commissionSystemV2) {
+            console.warn('⚠️ Commission system not available for stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card error">
+                    <div class="stat-number">❌</div>
+                    <div class="stat-label">System Loading</div>
+                </div>
+            `;
+            return;
+        }
+
+        try {
+            const stats = window.commissionSystemV2.getStats();
+            console.log('📊 Stats data:', stats);
+            
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.total || 0}</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.planning || 0}</div>
+                    <div class="stat-label">Planning</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.inProgress || 0}</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.completed || 0}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalCost || '$0.00'}</div>
+                    <div class="stat-label">Total Value</div>
+                </div>
+            `;
+        } catch (error) {
+            console.error('❌ Error updating stats:', error);
+            statsContainer.innerHTML = `
+                <div class="stat-card error">
+                    <div class="stat-number">❌</div>
+                    <div class="stat-label">Error Loading</div>
+                </div>
+            `;
+        }
     }
 
     // ===== COMMISSION ACTIONS =====

@@ -66,55 +66,96 @@ class FirebaseCommissionSystem {
     }
 
     async loadCommissions() {
-        if (!this.firebaseReady) return;
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready, retrying in 1 second...');
+            setTimeout(() => this.loadCommissions(), 1000);
+            return;
+        }
 
         try {
+            console.log('🔄 Loading commissions from Firebase...');
             const commissionsRef = this.firestore.collection(this.db, 'commissions');
-            const q = this.firestore.query(commissionsRef, this.firestore.orderBy('dateCommissioned', 'desc'));
-            const querySnapshot = await this.firestore.getDocs(q);
+            
+            // Try with and without orderBy to handle empty collections
+            let querySnapshot;
+            try {
+                const q = this.firestore.query(commissionsRef, this.firestore.orderBy('createdAt', 'desc'));
+                querySnapshot = await this.firestore.getDocs(q);
+            } catch (orderError) {
+                console.warn('📋 OrderBy failed, trying simple query:', orderError.message);
+                querySnapshot = await this.firestore.getDocs(commissionsRef);
+            }
             
             this.commissions = [];
             querySnapshot.forEach((doc) => {
+                const data = doc.data();
                 this.commissions.push({
                     id: doc.id,
-                    ...doc.data()
+                    ...data
                 });
+                console.log('📋 Loaded commission:', doc.id, data.title || data.artist || 'Untitled');
             });
 
-            console.log(`📋 Loaded ${this.commissions.length} commissions from Firebase`);
+            console.log(`📋 Successfully loaded ${this.commissions.length} commissions from Firebase`);
             this.notifyListeners('load');
             
         } catch (error) {
-            console.error('❌ Error loading commissions:', error);
+            console.error('❌ Error loading commissions from Firebase:', error);
+            console.log('💾 Falling back to local storage...');
             this.fallbackToLocalStorage();
         }
     }
 
     setupRealtimeListener() {
-        if (!this.firebaseReady) return;
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready for realtime listener, retrying in 2 seconds...');
+            setTimeout(() => this.setupRealtimeListener(), 2000);
+            return;
+        }
 
-        const commissionsRef = this.firestore.collection(this.db, 'commissions');
-        const q = this.firestore.query(commissionsRef, this.firestore.orderBy('dateCommissioned', 'desc'));
-        
-        const unsubscribe = this.firestore.onSnapshot(q, (snapshot) => {
-            this.commissions = [];
-            snapshot.forEach((doc) => {
-                this.commissions.push({
-                    id: doc.id,
-                    ...doc.data()
-                });
-            });
+        try {
+            console.log('👂 Setting up realtime listener...');
+            const commissionsRef = this.firestore.collection(this.db, 'commissions');
             
-            console.log('🔄 Real-time commission update received');
-            this.notifyListeners('update');
-        });
+            // Try with and without orderBy to handle empty collections
+            let query;
+            try {
+                query = this.firestore.query(commissionsRef, this.firestore.orderBy('createdAt', 'desc'));
+            } catch (orderError) {
+                console.warn('📋 OrderBy not available, using simple query for listener');
+                query = commissionsRef;
+            }
+            
+            const unsubscribe = this.firestore.onSnapshot(query, (snapshot) => {
+                console.log('🔄 Real-time commission update received, changes:', snapshot.docChanges().length);
+                
+                this.commissions = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    this.commissions.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+                
+                console.log(`� Real-time update: ${this.commissions.length} commissions`);
+                this.notifyListeners('update');
+            }, (error) => {
+                console.error('❌ Real-time listener error:', error);
+            });
 
-        // Store unsubscribe function for cleanup
-        this.unsubscribe = unsubscribe;
+            // Store unsubscribe function for cleanup
+            this.unsubscribe = unsubscribe;
+            console.log('✅ Real-time listener established successfully');
+            
+        } catch (error) {
+            console.error('❌ Failed to setup real-time listener:', error);
+        }
     }
 
     async addCommission(commissionData) {
         if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready, using local storage for commission');
             return this.addCommissionLocal(commissionData);
         }
 
@@ -122,29 +163,37 @@ class FirebaseCommissionSystem {
             // Add timestamps and preserve original field names for compatibility
             const timestamp = new Date().toISOString();
             const commission = {
+                title: commissionData.title || 'Untitled Commission',
                 artist: commissionData.artist || 'TBD',
                 // Preserve both old and new field names for compatibility
-                date: commissionData.date || commissionData.dateOfCommission || timestamp.split('T')[0],
-                dateOfCommission: commissionData.dateOfCommission || commissionData.date || timestamp.split('T')[0],
-                description: commissionData.description || commissionData.descriptionOfCommission || 'No description',
-                descriptionOfCommission: commissionData.descriptionOfCommission || commissionData.description || 'No description',
-                character: commissionData.character || (Array.isArray(commissionData.characters) ? commissionData.characters.join(', ') : 'Not specified'),
-                characters: commissionData.characters || (commissionData.character ? [commissionData.character] : ['Not specified']),
-                cost: commissionData.cost || 0,
+                dateCommissioned: commissionData.dateCommissioned || timestamp.split('T')[0],
+                description: commissionData.description || 'No description',
+                character: commissionData.character || 'Not specified',
+                additionalCharacters: commissionData.additionalCharacters || '',
+                cost: commissionData.cost || '$0.00',
                 type: commissionData.type || 'General',
                 status: commissionData.status || 'planning',
+                notes: commissionData.notes || '',
                 progress: commissionData.progress || 0,
                 isPublic: commissionData.isPublic !== false,
                 createdAt: timestamp,
-                updatedAt: timestamp
+                updatedAt: timestamp,
+                // Include image data if provided
+                attachedImage: commissionData.attachedImage || null,
+                attachedImageName: commissionData.attachedImageName || null
             };
 
+            console.log('💾 Adding commission to Firebase:', commission.title);
             const docRef = await this.firestore.addDoc(
                 this.firestore.collection(this.db, 'commissions'),
                 commission
             );
 
-            console.log('✅ Commission added to Firebase:', docRef.id);
+            console.log('✅ Commission added to Firebase with ID:', docRef.id);
+            
+            // Force reload to ensure UI is updated
+            await this.loadCommissions();
+            
             return docRef.id;
             
         } catch (error) {

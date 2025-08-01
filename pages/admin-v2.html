@@ -478,60 +478,58 @@ let commissionSystemV2;
 
 // Security PIN system
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔧 Admin page DOM loaded, initializing systems...');
+    
     // Initialize Firebase commission system as commissionSystemV2 for compatibility
-    if (window.FirebaseCommissionSystem) {
-        commissionSystemV2 = new window.FirebaseCommissionSystem();
-        window.commissionSystemV2 = commissionSystemV2;
-        console.log('🔥 Firebase commission system initialized for admin');
-        
-        // Wait for Firebase to load data, then initialize admin interface
-        const waitForData = setInterval(() => {
-            if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
-                clearInterval(waitForData);
-                window.commissionAdminV2 = new window.CommissionAdminV2();
-                console.log('🔧 Commission Admin V2 interface initialized');
-                console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
-                
-                // Force initial render after a short delay to ensure everything is loaded
-                setTimeout(() => {
-                    if (window.commissionAdminV2) {
-                        console.log('🔄 Forcing initial render...');
-                        window.commissionAdminV2.renderCommissions();
-                        window.commissionAdminV2.updateStats();
-                    }
-                }, 500);
-            }
-        }, 200);
-    } else {
-        // Wait for Firebase to load
-        const checkFirebase = setInterval(() => {
-            if (window.FirebaseCommissionSystem) {
-                clearInterval(checkFirebase);
-                commissionSystemV2 = new window.FirebaseCommissionSystem();
-                window.commissionSystemV2 = commissionSystemV2;
-                console.log('🔥 Firebase commission system initialized for admin (delayed)');
-                
-                // Wait for Firebase to load data, then initialize admin interface
-                const waitForData = setInterval(() => {
-                    if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
-                        clearInterval(waitForData);
-                        window.commissionAdminV2 = new window.CommissionAdminV2();
-                        console.log('🔧 Commission Admin V2 interface initialized (delayed)');
-                        console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
+    function initializeCommissionSystem() {
+        if (window.FirebaseCommissionSystem) {
+            console.log('🔥 FirebaseCommissionSystem found, initializing...');
+            commissionSystemV2 = new window.FirebaseCommissionSystem();
+            window.commissionSystemV2 = commissionSystemV2;
+            console.log('🔥 Firebase commission system initialized for admin');
+            
+            // Wait for Firebase to actually be ready and load data
+            const waitForFirebase = setInterval(() => {
+                if (commissionSystemV2.firebaseReady) {
+                    console.log('🔥 Firebase is ready, checking for data...');
+                    
+                    // Force load commissions
+                    commissionSystemV2.loadCommissions().then(() => {
+                        console.log('📊 Commission data loaded, count:', commissionSystemV2.getAllCommissions().length);
                         
-                        // Force initial render after a short delay to ensure everything is loaded
-                        setTimeout(() => {
-                            if (window.commissionAdminV2) {
-                                console.log('🔄 Forcing initial render (delayed)...');
-                                window.commissionAdminV2.renderCommissions();
-                                window.commissionAdminV2.updateStats();
-                            }
-                        }, 500);
-                    }
-                }, 200);
-            }
-        }, 100);
+                        // Now initialize admin interface
+                        if (window.CommissionAdminV2) {
+                            clearInterval(waitForFirebase);
+                            window.commissionAdminV2 = new window.CommissionAdminV2();
+                            console.log('🔧 Commission Admin V2 interface initialized');
+                            
+                            // Force initial render after a short delay to ensure everything is loaded
+                            setTimeout(() => {
+                                if (window.commissionAdminV2) {
+                                    console.log('� Forcing initial render...');
+                                    window.commissionAdminV2.renderCommissions();
+                                    window.commissionAdminV2.updateStats();
+                                }
+                            }, 500);
+                        } else {
+                            console.warn('⚠️ CommissionAdminV2 class not found');
+                        }
+                    }).catch(error => {
+                        console.error('❌ Error loading commission data:', error);
+                    });
+                } else {
+                    console.log('⏳ Waiting for Firebase to be ready...');
+                }
+            }, 500);
+        } else {
+            console.warn('⚠️ FirebaseCommissionSystem not found, retrying...');
+            // Wait for Firebase to load
+            setTimeout(initializeCommissionSystem, 500);
+        }
     }
+    
+    // Start initialization
+    initializeCommissionSystem();
     
     const pinInput = document.getElementById('pincode');
     const accessBtn = document.getElementById('access-btn');
@@ -657,8 +655,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('📊 Commission data loaded:', {
                         total: commissions.length,
                         public: publicCommissions.length,
+                        firebaseReady: window.commissionSystemV2.firebaseReady,
                         commissions: commissions.map(c => ({
+                            id: c.id,
                             title: c.title,
+                            artist: c.artist,
                             isPublic: c.isPublic,
                             status: c.status
                         }))
@@ -668,7 +669,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.innerHTML = originalText;
                     button.disabled = false;
                     
-                    alert(`✅ Data loaded! Found ${commissions.length} total commissions (${publicCommissions.length} public)`);
+                    // Show detailed results
+                    const message = `✅ Data loaded!\n\n` +
+                                  `Total Commissions: ${commissions.length}\n` +
+                                  `Public Commissions: ${publicCommissions.length}\n` +
+                                  `Firebase Status: ${window.commissionSystemV2.firebaseReady ? 'Connected' : 'Disconnected'}\n\n` +
+                                  `Recent Commissions:\n` +
+                                  commissions.slice(0, 5).map(c => `• ${c.title || c.artist || 'Untitled'}`).join('\n');
+                    
+                    alert(message);
                 }).catch((error) => {
                     console.error('❌ Error loading commission data:', error);
                     

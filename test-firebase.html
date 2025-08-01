@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test</title>
+</head>
+<body>
+    <h1>Firebase Connection Test</h1>
+    <div id="status">Testing...</div>
+    <div id="results"></div>
+    
+    <button onclick="testConnection()">Test Connection</button>
+    <button onclick="testAddCommission()">Test Add Commission</button>
+    <button onclick="testLoadCommissions()">Test Load Commissions</button>
+
+    <script>
+        let testSystem;
+        
+        async function initTest() {
+            console.log('🔧 Initializing test...');
+            
+            // Import Firebase
+            const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+            const { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, orderBy, addDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+            
+            const firebaseConfig = {
+                apiKey: "AIzaSyB-dsFpr790H-m020Ojubbr5I_qAMEIwiY",
+                authDomain: "axiomocdatabase.firebaseapp.com",
+                projectId: "axiomocdatabase",
+                storageBucket: "axiomocdatabase.appspot.com",
+                messagingSenderId: "849872728406",
+                appId: "1:849872728406:web:cac277d51263cce20126f7",
+                measurementId: "G-H2DQJGWTKQ"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            
+            testSystem = {
+                db,
+                firestore: { collection, doc, setDoc, getDoc, getDocs, query, orderBy, addDoc }
+            };
+            
+            document.getElementById('status').innerHTML = '✅ Firebase initialized successfully!';
+            console.log('✅ Test system ready');
+        }
+        
+        async function testConnection() {
+            try {
+                document.getElementById('results').innerHTML = 'Testing connection...';
+                
+                // Try to read from the commissions collection
+                const commissionsRef = testSystem.firestore.collection(testSystem.db, 'commissions');
+                const snapshot = await testSystem.firestore.getDocs(commissionsRef);
+                
+                let count = 0;
+                const commissions = [];
+                snapshot.forEach((doc) => {
+                    count++;
+                    commissions.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>✅ Connection Successful!</h3>
+                    <p>Found ${count} commissions in database:</p>
+                    <ul>
+                        ${commissions.map(c => `<li><strong>${c.title || c.artist || c.id}</strong> - ${c.status}</li>`).join('')}
+                    </ul>
+                `;
+                
+                console.log('📊 Commissions found:', commissions);
+                
+            } catch (error) {
+                console.error('❌ Connection test failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Connection Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testAddCommission() {
+            try {
+                document.getElementById('results').innerHTML = 'Adding test commission...';
+                
+                const testCommission = {
+                    title: 'Test Commission ' + Date.now(),
+                    artist: 'Test Artist',
+                    description: 'This is a test commission to verify Firebase functionality',
+                    dateCommissioned: new Date().toISOString().split('T')[0],
+                    cost: '$100.00',
+                    type: 'Portrait',
+                    status: 'planning',
+                    character: 'Test Character',
+                    isPublic: true,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                const commissionsRef = testSystem.firestore.collection(testSystem.db, 'commissions');
+                const docRef = await testSystem.firestore.addDoc(commissionsRef, testCommission);
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>✅ Commission Added Successfully!</h3>
+                    <p>Document ID: ${docRef.id}</p>
+                    <p>Title: ${testCommission.title}</p>
+                `;
+                
+                console.log('✅ Test commission added:', docRef.id);
+                
+            } catch (error) {
+                console.error('❌ Add test failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Add Commission Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testLoadCommissions() {
+            try {
+                document.getElementById('results').innerHTML = 'Loading commissions...';
+                
+                const commissionsRef = testSystem.firestore.collection(testSystem.db, 'commissions');
+                
+                // Try with orderBy first, fall back to simple query
+                let snapshot;
+                try {
+                    const q = testSystem.firestore.query(commissionsRef, testSystem.firestore.orderBy('createdAt', 'desc'));
+                    snapshot = await testSystem.firestore.getDocs(q);
+                } catch (orderError) {
+                    console.warn('OrderBy failed, using simple query:', orderError.message);
+                    snapshot = await testSystem.firestore.getDocs(commissionsRef);
+                }
+                
+                const commissions = [];
+                snapshot.forEach((doc) => {
+                    commissions.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>✅ Commissions Loaded Successfully!</h3>
+                    <p>Found ${commissions.length} commissions:</p>
+                    <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                        ${commissions.map(c => `
+                            <div style="border-bottom: 1px solid #eee; padding: 5px 0;">
+                                <strong>${c.title || 'Untitled'}</strong><br>
+                                Artist: ${c.artist || 'Unknown'}<br>
+                                Status: ${c.status || 'Unknown'}<br>
+                                Created: ${c.createdAt || 'Unknown'}<br>
+                                ID: ${c.id}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                console.log('📊 All commissions loaded:', commissions);
+                
+            } catch (error) {
+                console.error('❌ Load test failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Load Commissions Failed</h3>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', initTest);
+    </script>
+</body>
+</html>
