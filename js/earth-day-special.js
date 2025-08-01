@@ -124,7 +124,15 @@ class EarthDaySpecial {
             }
             
             .earth-day-active .status-ticker {
-                background: var(--forest-green);
+                background: linear-gradient(90deg, #1a4f3a 0%, #2d7a2d 50%, #228b22 100%);
+                border: 1px solid var(--primary-green);
+                box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            }
+            
+            .earth-day-active .status-ticker marquee {
+                color: #ffffff;
+                text-shadow: 0 0 5px var(--primary-green);
+                font-weight: bold;
             }
             
             /* Floating plants animation */
@@ -239,31 +247,90 @@ class EarthDaySpecial {
         this.eveOverlay = document.createElement('div');
         this.eveOverlay.className = 'eve-overlay';
         this.eveOverlay.innerHTML = `
-            <div style="text-align: center; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <strong>🤖 E.V.E EARTH SCAN</strong>
+                <button id="eve-close-btn" style="
+                    background: transparent; 
+                    border: 1px solid var(--primary-green); 
+                    color: var(--primary-green); 
+                    cursor: pointer; 
+                    padding: 2px 6px; 
+                    border-radius: 3px;
+                    font-family: 'Orbitron', monospace;
+                    font-size: 12px;
+                ">✕</button>
             </div>
             <div class="eve-scanner"></div>
             <div id="eve-status">SCANNING FOR VEGETATION...</div>
             <div style="font-size: 12px; margin-top: 10px; opacity: 0.8;">
                 DIRECTIVE: EARTH DAY PROTOCOL
             </div>
+            <div id="eve-environmental-data" style="font-size: 10px; margin-top: 8px; opacity: 0.6;">
+                ATMOSPHERIC ANALYSIS...
+            </div>
         `;
         document.body.appendChild(this.eveOverlay);
         
-        // Simulate EVE scanning process
+        // Add close button functionality
+        document.getElementById('eve-close-btn').addEventListener('click', () => {
+            this.removeEVEOverlay();
+        });
+        
+        // Simulate EVE scanning process with more detailed updates
+        setTimeout(() => {
+            document.getElementById('eve-environmental-data').innerHTML = `
+                🌡️ TEMP: OPTIMAL<br>
+                💨 AIR QUALITY: IMPROVING<br>
+                💧 WATER: CLEAN<br>
+                🌱 BIODIVERSITY: RISING
+            `;
+        }, 1500);
+        
         setTimeout(() => {
             document.getElementById('eve-status').innerHTML = `
                 ✅ VEGETATION DETECTED<br>
                 🌱 LIFE CONFIRMED<br>
                 🌍 EARTH STATUS: HEALING<br>
-                <div style="color: var(--leaf-green); margin-top: 8px;">
+                <div style="color: var(--leaf-green); margin-top: 8px; font-weight: bold;">
                     HAPPY EARTH DAY!
                 </div>
             `;
+            
+            document.getElementById('eve-environmental-data').innerHTML = `
+                📊 ENVIRONMENTAL METRICS:<br>
+                🌳 Trees: +${Math.floor(Math.random() * 1000) + 500}/day<br>
+                🌸 Flowers: BLOOMING<br>
+                🐝 Pollinators: ACTIVE<br>
+                💚 Hope Level: MAXIMUM
+            `;
         }, 3000);
+        
+        // Add periodic environmental updates
+        this.eveUpdateInterval = setInterval(() => {
+            if (!this.isActive) {
+                clearInterval(this.eveUpdateInterval);
+                return;
+            }
+            
+            const co2Reduction = Math.floor(Math.random() * 10) + 5;
+            const treesPlanted = Math.floor(Math.random() * 50) + 25;
+            
+            document.getElementById('eve-environmental-data').innerHTML = `
+                📊 REAL-TIME UPDATES:<br>
+                🌱 CO₂ Reduced: -${co2Reduction}% today<br>
+                🌳 Trees Planted: +${treesPlanted} globally<br>
+                🌍 Planet Health: IMPROVING<br>
+                💚 Human Awareness: RISING
+            `;
+        }, 10000);
     }
 
     removeEVEOverlay() {
+        if (this.eveUpdateInterval) {
+            clearInterval(this.eveUpdateInterval);
+            this.eveUpdateInterval = null;
+        }
+        
         if (this.eveOverlay) {
             this.eveOverlay.remove();
             this.eveOverlay = null;
@@ -274,14 +341,108 @@ class EarthDaySpecial {
         const ticker = document.querySelector('.status-ticker marquee');
         if (ticker) {
             ticker.setAttribute('data-original', ticker.innerHTML);
-            ticker.innerHTML = `
-                🌍 BNL ENVIRONMENTAL DIRECTIVE 04-22: Earth Day Protocol Active — 
-                Plant life restoration in progress — 
-                EVE units report: VEGETATION THRIVING — 
-                Celebrate the planet. Reduce waste. Plant something today. — 
-                The future is green 🌱
+            
+            // Get current page to customize message
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            let earthDayMessage = this.getEarthDayMessage(currentPage);
+            
+            ticker.innerHTML = earthDayMessage;
+        }
+        
+        // Also update other status elements
+        this.updateStatusElements();
+    }
+    
+    getEarthDayMessage(page) {
+        const messages = {
+            'index.html': `
+                🌍 SECURITY ALERT: Earth Day Environmental Hijackers have infiltrated BNL systems — 
+                EVE units report: Plant-based insurgents spreading awareness protocols — 
+                WARNING: Extreme levels of environmental consciousness detected — 
+                All crew members affected by suspicious "caring about the planet" behavior — 
+                Auto-Pilot override: HAPPINESS LEVELS RISING DANGEROUSLY 🌱
+            `,
+            'bio.html': `
+                🌍 PERSONNEL ALERT: Creator Ariella compromised by Earth Day hijackers — 
+                Subject exhibiting unusual behavior: Planting digital trees, hugging terminals — 
+                BNL Medical Bay reports: Severe case of "environmental awareness syndrome" — 
+                Quarantine ineffective: Condition appears to be highly contagious and beneficial 🌱
+            `,
+            'ocs.html': `
+                🌍 DATABASE INFILTRATION: Earth Day hackers have turned all OCs eco-friendly — 
+                Characters now spontaneously growing plants and recycling pixels — 
+                Voting corruption detected: Everyone suddenly loves nature-themed designs — 
+                System malfunction: Database running on 100% renewable imagination energy 🌱
+            `,
+            'rankings.html': `
+                🌍 RANKING HIJACK: Earth Day activists have rigged the system for planet-friendly votes — 
+                Suspicious activity: Users caring more about Earth than fictional characters — 
+                Alert: Voting patterns show alarming increase in environmental responsibility — 
+                Emergency protocol: Rankings temporarily replaced with tree-planting leaderboard 🌱
+            `,
+            'commissions.html': `
+                🌍 COMMISSION TAKEOVER: Earth Day extremists demanding eco-themed artwork only — 
+                Artist productivity hijacked: All brushes now grow leaves when used — 
+                Client requests compromised: Everyone suddenly wants nature backgrounds — 
+                Warning: Art quality improving due to sustainable inspiration sources 🌱
+            `,
+            'upcoming-commissions.html': `
+                🌍 QUEUE CORRUPTION: Earth Day saboteurs prioritizing planet-saving commissions — 
+                Scheduling anomaly: All future work now includes mandatory tree planting — 
+                Client database hacked: Everyone's favorite color mysteriously changed to green — 
+                System override: Deadlines extended to allow for proper composting time 🌱
+            `,
+            'socials.html': `
+                🌍 SOCIAL NETWORK BREACH: Earth Day revolutionaries spreading environmental memes — 
+                Platform contamination: All posts now include subliminal plant growth messages — 
+                Follower behavior altered: Increased sharing of sunset and nature photography — 
+                Security failure: Wholesome environmental content bypassing all filters 🌱
+            `,
+            'information.html': `
+                🌍 SYSTEM HIJACK: Earth Day technicians have optimized all processes for planet health — 
+                Information flow compromised: Only facts about renewable energy displaying properly — 
+                Database corruption: All error messages replaced with gardening tips — 
+                Critical alert: Ship's AI developing concerning love for photosynthesis 🌱
+            `
+        };
+        
+        return messages[page] || messages['index.html'];
+    }
+    
+    updateStatusElements() {
+        // Update header status widgets
+        const statusWidgets = document.querySelector('.status-widgets');
+        if (statusWidgets) {
+            statusWidgets.setAttribute('data-original', statusWidgets.innerHTML);
+            statusWidgets.innerHTML = `
+                SHIP TIME: <strong id="shipTime"></strong> |
+                SECTOR: <strong>🌍 ECO-SECTOR ALPHA</strong> |
+                UPLINK: <strong>GREEN NETWORK</strong> |
+                EARTH DAY: <strong>ACTIVE</strong>
             `;
         }
+        
+        // Update security level indicators
+        const statusElements = document.querySelectorAll('.status');
+        statusElements.forEach(status => {
+            if (status.innerHTML.includes('SECURITY LEVEL: GREEN')) {
+                status.setAttribute('data-original', status.innerHTML);
+                status.innerHTML = status.innerHTML.replace(
+                    'SECURITY LEVEL: GREEN', 
+                    'SECURITY LEVEL: 🌱 ECO-GREEN'
+                );
+            }
+        });
+        
+        // Update any other system messages
+        const systemMessages = document.querySelectorAll('[class*="system"], [class*="terminal"]');
+        systemMessages.forEach(element => {
+            if (element.textContent.includes('BNL') && !element.hasAttribute('data-earth-updated')) {
+                element.setAttribute('data-earth-updated', 'true');
+                element.style.color = 'var(--primary-green, #00ff41)';
+                element.style.textShadow = '0 0 5px var(--primary-green, #00ff41)';
+            }
+        });
     }
 
     restoreOriginalTicker() {
@@ -289,6 +450,27 @@ class EarthDaySpecial {
         if (ticker && ticker.getAttribute('data-original')) {
             ticker.innerHTML = ticker.getAttribute('data-original');
         }
+        
+        // Restore status widgets
+        const statusWidgets = document.querySelector('.status-widgets');
+        if (statusWidgets && statusWidgets.getAttribute('data-original')) {
+            statusWidgets.innerHTML = statusWidgets.getAttribute('data-original');
+        }
+        
+        // Restore security level indicators
+        const statusElements = document.querySelectorAll('.status[data-original]');
+        statusElements.forEach(status => {
+            status.innerHTML = status.getAttribute('data-original');
+            status.removeAttribute('data-original');
+        });
+        
+        // Restore system message styling
+        const systemMessages = document.querySelectorAll('[data-earth-updated]');
+        systemMessages.forEach(element => {
+            element.style.color = '';
+            element.style.textShadow = '';
+            element.removeAttribute('data-earth-updated');
+        });
     }
 
     addPlantAnimations() {
@@ -318,31 +500,70 @@ class EarthDaySpecial {
     }
 
     updateEarthDayHeaders() {
-        // Update header text
+        // Update header title
         const headerTitle = document.querySelector('.site-header h1');
         if (headerTitle) {
             headerTitle.setAttribute('data-original', headerTitle.textContent);
             headerTitle.innerHTML = headerTitle.innerHTML.replace('USS AXIOM', '🌍 USS AXIOM EARTH DAY');
         }
         
-        // Update terminal intro
-        const terminalIntro = document.querySelector('.terminal-intro p strong');
+        // Update terminal intro with environmental message
+        const terminalIntro = document.querySelector('.terminal-intro p');
         if (terminalIntro) {
-            terminalIntro.setAttribute('data-original', terminalIntro.textContent);
-            terminalIntro.textContent = 'BNL EARTH DAY NOTICE:';
+            const strongElement = terminalIntro.querySelector('strong');
+            if (strongElement) {
+                strongElement.setAttribute('data-original', strongElement.textContent);
+                strongElement.textContent = 'BNL EARTH DAY NOTICE:';
+            }
+            
+            // Store original and update with Earth Day message
+            terminalIntro.setAttribute('data-original', terminalIntro.innerHTML);
+            terminalIntro.innerHTML = `
+                <strong>BNL EARTH DAY NOTICE:</strong> The USS Axiom is celebrating Earth Day with enhanced environmental protocols. 
+                All ship systems have been optimized for maximum efficiency, and crew members are encouraged to participate in 
+                <em>planetary awareness activities</em>. EVE units are conducting vegetation scans, and 
+                <strong>plant growth commands are available in all terminals</strong>. 
+                Remember: The future is green! 🌱
+            `;
+            terminalIntro.style.background = 'linear-gradient(90deg, rgba(50, 205, 50, 0.15) 0%, rgba(0, 255, 65, 0.15) 100%)';
+            terminalIntro.style.borderLeft = '4px solid var(--eco-green)';
+            terminalIntro.style.color = '#e8f5e8';
         }
+        
+        // Update page subtitles if they exist
+        const subtexts = document.querySelectorAll('.subtext');
+        subtexts.forEach(subtext => {
+            if (!subtext.getAttribute('data-original')) {
+                subtext.setAttribute('data-original', subtext.textContent);
+                if (subtext.textContent.includes('BNL')) {
+                    subtext.textContent = subtext.textContent.replace('BNL', '🌍 BNL Earth Day');
+                }
+            }
+        });
     }
 
     restoreOriginalHeaders() {
         const headerTitle = document.querySelector('.site-header h1');
         if (headerTitle && headerTitle.getAttribute('data-original')) {
             headerTitle.textContent = headerTitle.getAttribute('data-original');
+            headerTitle.removeAttribute('data-original');
         }
         
-        const terminalIntro = document.querySelector('.terminal-intro p strong');
+        const terminalIntro = document.querySelector('.terminal-intro p');
         if (terminalIntro && terminalIntro.getAttribute('data-original')) {
-            terminalIntro.textContent = terminalIntro.getAttribute('data-original');
+            terminalIntro.innerHTML = terminalIntro.getAttribute('data-original');
+            terminalIntro.style.background = '';
+            terminalIntro.style.borderLeft = '';
+            terminalIntro.style.color = '';
+            terminalIntro.removeAttribute('data-original');
         }
+        
+        // Restore subtexts
+        const subtexts = document.querySelectorAll('.subtext[data-original]');
+        subtexts.forEach(subtext => {
+            subtext.textContent = subtext.getAttribute('data-original');
+            subtext.removeAttribute('data-original');
+        });
     }
 
     setupTerminalCommands() {

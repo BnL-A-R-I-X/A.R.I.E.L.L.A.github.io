@@ -59,7 +59,7 @@
         <div class="nav-dropdown-menu">
             <div class="nav-dropdown-header">📁 BNL Archives</div>
             <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
-            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
             <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
         </div>
     </div>
@@ -214,6 +214,56 @@
               <p><strong>Purpose:</strong> Test Earth Day special features</p>
               <p><strong>Auto-Active:</strong> April 22nd (Earth Day)</p>
               <p><strong>Commands:</strong> PLANT, EVE, EARTH, GREEN</p>
+            </div>
+          </div>
+          
+          <div class="tool-group">
+            <h3>Pride Month Celebration</h3>
+            <button class="admin-btn" id="pride-month-toggle" onclick="togglePrideMonthMode()">
+              🏳️‍🌈 Toggle Pride Month Mode
+            </button>
+            <button class="admin-btn" onclick="testRobotGreeting()">
+              🤖 Test Robot Pride Greeting
+            </button>
+            <div class="tool-info">
+              <p><strong>Purpose:</strong> Test Pride Month special features</p>
+              <p><strong>Auto-Active:</strong> June (Pride Month)</p>
+              <p><strong>Features:</strong> Rainbow theme, robot greetings, floating hearts</p>
+            </div>
+          </div>
+          
+          <div class="tool-group">
+            <h3>Transgender Awareness Month</h3>
+            <button class="admin-btn" id="trans-awareness-toggle" onclick="toggleTransAwarenessMode()">
+              🏳️‍⚧️ Toggle Trans Awareness Mode
+            </button>
+            <button class="admin-btn" onclick="testAffirmationGenerator()">
+              💙 Test Affirmation Generator
+            </button>
+            <div class="tool-info">
+              <p><strong>Purpose:</strong> Test Trans Awareness Month features</p>
+              <p><strong>Auto-Active:</strong> November (Trans Awareness Month)</p>
+              <p><strong>Features:</strong> Trans pride colors, nebula background, affirmations</p>
+              <p><strong>Commands:</strong> AFFIRM, TRANS, SUPPORT, IDENTITY</p>
+            </div>
+          </div>
+          
+          <div class="tool-group">
+            <h3>Holiday Season Festivities</h3>
+            <button class="admin-btn" id="holiday-season-toggle" onclick="toggleHolidaySeasonMode()">
+              🎄 Toggle Holiday Season Mode
+            </button>
+            <button class="admin-btn" onclick="testHolidayGreeting()">
+              ⭐ Test Holiday Greeting
+            </button>
+            <button class="admin-btn" onclick="testCocoaDispenser()">
+              ☕ Test Cocoa Dispenser
+            </button>
+            <div class="tool-info">
+              <p><strong>Purpose:</strong> Test BNL Interstellar Festivities features</p>
+              <p><strong>Auto-Active:</strong> December 1st - January 5th</p>
+              <p><strong>Features:</strong> Navy/gold theme, snowfall effects, holiday greetings, cocoa dispenser</p>
+              <p><strong>Commands:</strong> HOLIDAY, SNOW, COCOA, CELEBRATE</p>
             </div>
           </div>
         </div>
@@ -497,6 +547,87 @@ function testPlantGrowth() {
   }
 }
 
+// Pride Month admin functions
+function togglePrideMonthMode() {
+  if (typeof PrideMonthSpecial !== 'undefined') {
+    if (PrideMonthSpecial.isTestModeActive()) {
+      PrideMonthSpecial.disableTestMode();
+      window.customDialog.showAlert('🏳️‍🌈 Pride Month Mode Disabled\\n\\nPage will reload to apply changes.');
+    } else {
+      PrideMonthSpecial.enableTestMode();
+      window.customDialog.showAlert('🌈 Pride Month Mode Enabled!\\n\\nPage will reload to show the rainbow theme, robot greetings, and floating hearts!\\n\\nCelebrating love and identity across the cosmos! 💖');
+    }
+  } else {
+    window.customDialog.showAlert('⚠️ Pride Month system not loaded.\\n\\nPlease ensure pride-month-special.js is included on this page.');
+  }
+}
+
+function testRobotGreeting() {
+  if (window.prideMonthSpecial) {
+    window.prideMonthSpecial.triggerRobotGreeting();
+    window.customDialog.showAlert('🤖 Robot Pride greeting triggered!\\n\\nCheck the center of your screen for the robot message.');
+  } else {
+    window.customDialog.showAlert('⚠️ Pride Month system not active.\\n\\nEnable Pride Month mode first, or wait until June.');
+  }
+}
+
+// Trans Awareness Month admin functions
+function toggleTransAwarenessMode() {
+  if (typeof TransAwarenessSpecial !== 'undefined') {
+    if (TransAwarenessSpecial.isTestModeActive()) {
+      TransAwarenessSpecial.disableTestMode();
+      window.customDialog.showAlert('🏳️‍⚧️ Trans Awareness Mode Disabled\\n\\nPage will reload to apply changes.');
+    } else {
+      TransAwarenessSpecial.enableTestMode();
+      window.customDialog.showAlert('🏳️‍⚧️ Trans Awareness Mode Enabled!\\n\\nPage will reload to show trans pride colors, nebula background, and affirmation generator!\\n\\nTry typing: AFFIRM, TRANS, SUPPORT, or IDENTITY in any input field! 💙💖🤍');
+    }
+  } else {
+    window.customDialog.showAlert('⚠️ Trans Awareness system not loaded.\\n\\nPlease ensure trans-awareness-special.js is included on this page.');
+  }
+}
+
+function testAffirmationGenerator() {
+  if (window.transAwarenessSpecial) {
+    window.transAwarenessSpecial.generateAffirmation();
+    window.customDialog.showAlert('💙 Affirmation generated!\\n\\nCheck the affirmation generator overlay for your supportive message from BNL.');
+  } else {
+    window.customDialog.showAlert('⚠️ Trans Awareness system not active.\\n\\nEnable Trans Awareness mode first, or wait until November.');
+  }
+}
+
+// Holiday Season admin functions
+function toggleHolidaySeasonMode() {
+  if (typeof HolidaySeasonSpecial !== 'undefined') {
+    if (HolidaySeasonSpecial.isTestModeActive()) {
+      HolidaySeasonSpecial.disableTestMode();
+      window.customDialog.showAlert('🎄 Holiday Season Mode Disabled\\n\\nPage will reload to apply changes.');
+    } else {
+      HolidaySeasonSpecial.enableTestMode();
+      window.customDialog.showAlert('🎄 Holiday Season Mode Enabled!\\n\\nPage will reload to show holiday navy/gold theme, snowfall effects, and BNL Interstellar Festivities!\\n\\nTry typing: HOLIDAY, SNOW, COCOA, or CELEBRATE in any input field! ⭐❄️');
+    }
+  } else {
+    window.customDialog.showAlert('⚠️ Holiday Season system not loaded.\\n\\nPlease ensure holiday-season-special.js is included on this page.');
+  }
+}
+
+function testHolidayGreeting() {
+  if (window.holidaySeasonSpecial) {
+    window.holidaySeasonSpecial.generateHolidayGreeting();
+    window.customDialog.showAlert('🎄 Holiday greeting generated!\\n\\nCheck the holiday overlay for your festive message from BNL Interstellar Festivities.');
+  } else {
+    window.customDialog.showAlert('⚠️ Holiday Season system not active.\\n\\nEnable Holiday Season mode first, or wait until December-January.');
+  }
+}
+
+function testCocoaDispenser() {
+  if (window.holidaySeasonSpecial) {
+    window.holidaySeasonSpecial.dispenseCocoa();
+    window.customDialog.showAlert('☕ Digital cocoa dispensed!\\n\\nCheck the cocoa dispenser overlay for your warm Axiom cocoa fact.');
+  } else {
+    window.customDialog.showAlert('⚠️ Holiday Season system not active.\\n\\nEnable Holiday Season mode first, or wait until December-January.');
+  }
+}
+
 // Update button text based on current state
 document.addEventListener('DOMContentLoaded', () => {
   const earthDayToggle = document.getElementById('earth-day-toggle');
@@ -506,12 +637,39 @@ document.addEventListener('DOMContentLoaded', () => {
       earthDayToggle.style.background = 'linear-gradient(45deg, #228b22, #32cd32)';
     }
   }
+  
+  const prideToggle = document.getElementById('pride-month-toggle');
+  if (prideToggle && typeof PrideMonthSpecial !== 'undefined') {
+    if (PrideMonthSpecial.isTestModeActive()) {
+      prideToggle.innerHTML = '🏳️‍🌈 Disable Pride Month Mode';
+      prideToggle.style.background = 'linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982)';
+    }
+  }
+  
+  const transToggle = document.getElementById('trans-awareness-toggle');
+  if (transToggle && typeof TransAwarenessSpecial !== 'undefined') {
+    if (TransAwarenessSpecial.isTestModeActive()) {
+      transToggle.innerHTML = '🏳️‍⚧️ Disable Trans Awareness Mode';
+      transToggle.style.background = 'linear-gradient(45deg, #5bcefa, #f5a9b8, #ffffff)';
+    }
+  }
+  
+  const holidayToggle = document.getElementById('holiday-season-toggle');
+  if (holidayToggle && typeof HolidaySeasonSpecial !== 'undefined') {
+    if (HolidaySeasonSpecial.isTestModeActive()) {
+      holidayToggle.innerHTML = '🎄 Disable Holiday Season Mode';
+      holidayToggle.style.background = 'linear-gradient(45deg, #1a237e, #ffd700)';
+    }
+  }
 });
 </script>
 
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
 <script src="../js/earth-day-special.js"></script>
+<script src="../js/pride-month-special.js"></script>
+<script src="../js/trans-awareness-special.js"></script>
+<script src="../js/holiday-season-special.js"></script>
 
 </body>
 </html>

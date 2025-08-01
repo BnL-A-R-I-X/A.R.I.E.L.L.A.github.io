@@ -59,7 +59,7 @@
         <div class="nav-dropdown-menu">
             <div class="nav-dropdown-header">BNL Archives</div>
             <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
-            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
             <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
         </div>
     </div>
@@ -240,19 +240,23 @@
           <form id="commission-data-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="comm-artist">Artist:</label>
-                <input type="text" id="comm-artist" placeholder="Artist Name" required>
+                <label for="comm-title">Commission Title:</label>
+                <input type="text" id="comm-title" placeholder="Brief title for this commission" required>
               </div>
               <div class="form-group">
-                <label for="comm-date">Date Of Commission:</label>
-                <input type="date" id="comm-date" required>
+                <label for="comm-artist">Artist:</label>
+                <input type="text" id="comm-artist" placeholder="Artist Name" required>
               </div>
             </div>
             
             <div class="form-row">
               <div class="form-group">
-                <label for="comm-description">Description Of Commission:</label>
-                <textarea id="comm-description" placeholder="Detailed description of the commission" required></textarea>
+                <label for="comm-date">Date Of Commission:</label>
+                <input type="date" id="comm-date" required>
+              </div>
+              <div class="form-group">
+                <label for="comm-due-date">Estimated Completion:</label>
+                <input type="date" id="comm-due-date">
               </div>
             </div>
             
@@ -265,7 +269,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="comm-character">Character:</label>
+                <label for="comm-character">Primary Character:</label>
                 <select id="comm-character" required>
                   <option value="">Select Character</option>
                   <option value="Darla">Darla</option>
@@ -275,6 +279,13 @@
                   <option value="Multi-Character">Multi-Character</option>
                   <option value="Other">Other</option>
                 </select>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="comm-characters">Additional Characters (optional, comma separated):</label>
+                <input type="text" id="comm-characters" placeholder="Additional characters if multi-character commission">
               </div>
               <div class="form-group">
                 <label for="comm-type">Type:</label>
@@ -293,10 +304,6 @@
             
             <div class="form-row">
               <div class="form-group">
-                <label for="comm-characters">Additional Characters (optional, comma separated):</label>
-                <input type="text" id="comm-characters" placeholder="Additional characters if multi-character commission">
-              </div>
-              <div class="form-group">
                 <label for="comm-status">Status:</label>
                 <select id="comm-status" required>
                   <option value="planning">Planning</option>
@@ -314,13 +321,6 @@
                 <label for="comm-progress">Progress (%):</label>
                 <input type="number" id="comm-progress" min="0" max="100" value="0">
               </div>
-            </div>
-            
-            <div class="form-row">
-              <div class="form-group">
-                <label for="comm-due-date">Estimated Completion:</label>
-                <input type="date" id="comm-due-date">
-              </div>
               <div class="form-group">
                 <label for="comm-priority">Priority:</label>
                 <select id="comm-priority">
@@ -334,12 +334,12 @@
             
             <div class="form-group">
               <label for="comm-description">Description:</label>
-              <textarea id="comm-description" rows="3"></textarea>
+              <textarea id="comm-description" rows="3" placeholder="Detailed description of the commission"></textarea>
             </div>
             
             <div class="form-group">
               <label for="comm-notes">Notes (Private):</label>
-              <textarea id="comm-notes" rows="2"></textarea>
+              <textarea id="comm-notes" rows="2" placeholder="Private notes for this commission"></textarea>
             </div>
             
             <div class="form-row">
@@ -472,6 +472,9 @@ async function importFromCSV() {
 <script src="../js/commission-tracker.js"></script>
 <script src="../js/commission-data-migration.js"></script>
 <script src="../js/earth-day-special.js"></script>
+<script src="../js/pride-month-special.js"></script>
+<script src="../js/trans-awareness-special.js"></script>
+<script src="../js/holiday-season-special.js"></script>
 
 </body>
 </html>
