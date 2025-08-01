@@ -471,7 +471,5 @@ class CommissionAdminV2 {
     }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    window.commissionAdminV2 = new CommissionAdminV2();
-});
+// Export class for global access
+window.CommissionAdminV2 = CommissionAdminV2;

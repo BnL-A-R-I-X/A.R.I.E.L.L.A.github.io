@@ -376,13 +376,21 @@ class FirebaseCommissionSystem {
     // Get stats in format expected by admin interface
     getStats() {
         const counts = this.getStatusCounts();
+        
+        // Calculate total cost
+        const totalCost = this.commissions.reduce((sum, commission) => {
+            const cost = typeof commission.cost === 'number' ? commission.cost : parseFloat(commission.cost) || 0;
+            return sum + cost;
+        }, 0);
+        
         return {
             total: counts.total,
             planning: counts.planning,
             inProgress: counts['in-progress'] + counts.review + counts.revisions,
             completed: counts.completed + counts.delivered,
             onHold: counts['on-hold'],
-            cancelled: counts.cancelled
+            cancelled: counts.cancelled,
+            totalCost: this.formatCost(totalCost)
         };
     }
 
@@ -401,6 +409,38 @@ class FirebaseCommissionSystem {
                 (commission.type && commission.type.toLowerCase().includes(lowerQuery))
             );
         });
+    }
+
+    // Formatting methods needed by admin interface
+    formatCost(cost) {
+        const num = typeof cost === 'number' ? cost : parseFloat(cost) || 0;
+        return '$' + num.toFixed(2);
+    }
+
+    formatDate(dateString) {
+        if (!dateString) return 'Not set';
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        } catch {
+            return 'Invalid date';
+        }
+    }
+
+    formatStatus(status) {
+        const statusMap = {
+            'planning': 'Planning',
+            'in-progress': 'In Progress',
+            'review': 'Review',
+            'completed': 'Completed',
+            'on-hold': 'On Hold',
+            'cancelled': 'Cancelled'
+        };
+        return statusMap[status] || status;
     }
 
     // Image processing placeholder (Firebase doesn't store files the same way)

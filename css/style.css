@@ -730,12 +730,13 @@ main {
 /* Social Media Grid */
 .social-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
     align-items: start; /* Prevent stretching */
+    box-sizing: border-box;
 }
 
 .social-card {
@@ -750,6 +751,10 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent content overflow */
 }
 
 .social-card:hover {
@@ -800,6 +805,7 @@ main {
     justify-content: center;
     align-items: flex-start;
     flex: 1; /* Allow to grow but not push other content */
+    box-sizing: border-box;
 }
 
 .social-embed iframe {
@@ -807,8 +813,9 @@ main {
     width: 100%;
     border-radius: 12px;
     border: none;
-    min-height: 300px;
-    max-height: 500px; /* Prevent extremely tall embeds */
+    min-height: 280px;
+    max-height: 400px; /* Prevent extremely tall embeds */
+    box-sizing: border-box;
 }
 
 .social-embed bsky-embed {
@@ -816,8 +823,9 @@ main {
     width: 100%;
     border-radius: 12px;
     display: block;
-    max-height: 600px; /* Limit height */
+    max-height: 450px; /* Limit height */
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .social-preview {
@@ -1543,24 +1551,29 @@ main {
     /* Social grid adjustments */
     .social-grid {
         grid-template-columns: 1fr;
-        padding: 10px;
+        padding: 15px;
         gap: 20px;
         max-width: 100%;
+        margin: 0;
     }
     
     .social-card {
         padding: 15px;
         min-height: auto;
         margin-bottom: 20px;
+        max-width: 100%;
+        width: 100%;
     }
     
     .social-embed iframe {
-        min-height: 250px;
-        max-height: 400px;
+        min-height: 220px;
+        max-height: 350px;
+        width: 100%;
     }
     
     .social-embed bsky-embed {
-        max-height: 500px;
+        max-height: 400px;
+        width: 100%;
     }
     
     /* Character profile adjustments */
@@ -2557,40 +2570,7 @@ main {
 }
 
 /* Social Grid Enhancements */
-.social-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-items: center;
-}
-
-.social-card {
-    background: rgba(20, 30, 45, 0.8);
-    border: 2px solid rgba(0, 180, 255, 0.5);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-}
-
-.social-card h2 {
-    color: #66e0ff;
-    font-family: 'Orbitron', sans-serif;
-    margin: 0 0 15px 0;
-    text-align: center;
-    text-shadow: 0 0 6px rgba(102, 224, 255, 0.5);
-}
-
-.social-card p {
-    text-align: center;
-    margin-bottom: 15px;
-}
+/* Duplicate social grid styles removed - using main definition above */
 
 /* Social Preview for non-embeddable platforms */
 .social-preview {
