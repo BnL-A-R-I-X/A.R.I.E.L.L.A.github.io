@@ -211,8 +211,11 @@ function refreshQueue() {
         button.innerHTML = '⏳ Refreshing...';
         button.disabled = true;
         
-        // Force reload data from Firebase
-        window.commissionSystemV2.loadCommissions().then(() => {
+        // Force reload both commissions and future artists from Firebase
+        Promise.all([
+            window.commissionSystemV2.loadCommissions(),
+            window.commissionSystemV2.loadFutureArtists()
+        ]).then(() => {
             console.log('✅ Queue data loaded successfully');
             
             // Update queue interface if available
@@ -225,7 +228,13 @@ function refreshQueue() {
             button.disabled = false;
             
             const commissions = window.commissionSystemV2.getPublicCommissions();
-            alert(`✅ Queue refreshed successfully!\nFound ${commissions.length} public commissions.`);
+            const futureArtists = window.commissionSystemV2.getPublicFutureArtists();
+            
+            const message = `✅ Queue refreshed successfully!\n\n` +
+                          `Public Commissions: ${commissions.length}\n` +
+                          `Public Future Artists: ${futureArtists.length}`;
+            
+            alert(message);
         }).catch((error) => {
             console.error('❌ Error refreshing queue data:', error);
             button.innerHTML = originalText;

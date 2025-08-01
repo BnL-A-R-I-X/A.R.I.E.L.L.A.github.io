@@ -8,6 +8,7 @@ class FirebaseCommissionSystem {
     constructor() {
         this.firebaseReady = false;
         this.commissions = [];
+        this.futureArtists = [];
         this.listeners = [];
         
         this.initFirebase();
@@ -52,8 +53,9 @@ class FirebaseCommissionSystem {
 
             console.log('🔥 Firebase Commission System connected successfully!');
             
-            // Load existing commissions
+            // Load existing commissions and future artists
             await this.loadCommissions();
+            await this.loadFutureArtists();
             
             // Set up real-time listener
             this.setupRealtimeListener();
@@ -559,6 +561,160 @@ class FirebaseCommissionSystem {
             this.unsubscribe();
         }
         this.listeners = [];
+    }
+
+    // ===== FUTURE ARTISTS FUNCTIONALITY =====
+    
+    async loadFutureArtists() {
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready for future artists, retrying in 1 second...');
+            setTimeout(() => this.loadFutureArtists(), 1000);
+            return;
+        }
+
+        try {
+            console.log('🔄 Loading future artists from Firebase...');
+            const artistsRef = this.firestore.collection(this.db, 'futureArtists');
+            
+            // Try with and without orderBy to handle empty collections
+            let querySnapshot;
+            try {
+                const q = this.firestore.query(artistsRef, this.firestore.orderBy('dateAdded', 'desc'));
+                querySnapshot = await this.firestore.getDocs(q);
+            } catch (orderError) {
+                console.warn('🎨 OrderBy failed for artists, trying simple query:', orderError.message);
+                querySnapshot = await this.firestore.getDocs(artistsRef);
+            }
+            
+            this.futureArtists = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                this.futureArtists.push({
+                    id: doc.id,
+                    ...data
+                });
+                console.log('🎨 Loaded future artist:', doc.id, data.artistName || 'Unnamed Artist');
+            });
+
+            console.log(`🎨 Successfully loaded ${this.futureArtists.length} future artists from Firebase`);
+            this.notifyListeners('load-artists');
+            
+        } catch (error) {
+            console.error('❌ Error loading future artists from Firebase:', error);
+            // Initialize empty array on error
+            this.futureArtists = [];
+        }
+    }
+
+    async addFutureArtist(artistData) {
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready, cannot add future artist');
+            return false;
+        }
+
+        try {
+            const timestamp = new Date().toISOString();
+            const artist = {
+                artistName: artistData.artistName || 'Unknown Artist',
+                platform: artistData.platform || 'Unknown',
+                handle: artistData.handle || '',
+                website: artistData.website || '',
+                style: artistData.style || '',
+                commissionType: artistData.commissionType || 'Any',
+                estimatedCost: artistData.estimatedCost || '',
+                priority: artistData.priority || 'medium',
+                notes: artistData.notes || '',
+                status: artistData.status || 'planning',
+                isPublic: artistData.isPublic !== false,
+                dateAdded: timestamp,
+                updatedAt: timestamp
+            };
+
+            console.log('💾 Adding future artist to Firebase:', artist.artistName);
+            const docRef = await this.firestore.addDoc(
+                this.firestore.collection(this.db, 'futureArtists'),
+                artist
+            );
+
+            console.log('✅ Future artist added to Firebase with ID:', docRef.id);
+            
+            // Force reload to ensure UI is updated
+            await this.loadFutureArtists();
+            
+            return docRef.id;
+            
+        } catch (error) {
+            console.error('❌ Error adding future artist to Firebase:', error);
+            return false;
+        }
+    }
+
+    async updateFutureArtist(artistId, updates) {
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready, cannot update future artist');
+            return false;
+        }
+
+        try {
+            const artistRef = this.firestore.doc(this.db, 'futureArtists', artistId);
+            
+            const updateData = {
+                ...updates,
+                updatedAt: new Date().toISOString()
+            };
+
+            await this.firestore.updateDoc(artistRef, updateData);
+            console.log('✅ Future artist updated in Firebase:', artistId, updateData);
+            
+            // Force reload to ensure UI is updated
+            await this.loadFutureArtists();
+            
+            return true;
+            
+        } catch (error) {
+            console.error('❌ Error updating future artist in Firebase:', error);
+            return false;
+        }
+    }
+
+    async deleteFutureArtist(artistId) {
+        if (!this.firebaseReady) {
+            console.warn('🔄 Firebase not ready, cannot delete future artist');
+            return false;
+        }
+
+        try {
+            await this.firestore.deleteDoc(this.firestore.doc(this.db, 'futureArtists', artistId));
+            console.log('🗑️ Future artist deleted from Firebase:', artistId);
+            
+            // Force reload to ensure UI is updated
+            await this.loadFutureArtists();
+            
+            return true;
+            
+        } catch (error) {
+            console.error('❌ Error deleting future artist:', error);
+            return false;
+        }
+    }
+
+    // Utility methods for future artists
+    getFutureArtists() {
+        return this.futureArtists;
+    }
+
+    getPublicFutureArtists() {
+        return this.futureArtists.filter(artist => artist.isPublic !== false);
+    }
+
+    getFutureArtistById(id) {
+        return this.futureArtists.find(artist => artist.id === id);
+    }
+
+    generateArtistId() {
+        const timestamp = Date.now();
+        const random = Math.floor(Math.random() * 1000);
+        return `ARTIST-${timestamp}-${random}`;
     }
 }
 

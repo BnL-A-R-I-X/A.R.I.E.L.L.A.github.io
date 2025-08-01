@@ -732,24 +732,29 @@ document.addEventListener('DOMContentLoaded', function() {
             button.innerHTML = '⏳ Refreshing...';
             button.disabled = true;
             
-            // Force reinitialize the Firebase connection
-            window.commissionSystemV2.loadCommissions().then(() => {
+            // Force reinitialize both commissions and future artists
+            Promise.all([
+                window.commissionSystemV2.loadCommissions(),
+                window.commissionSystemV2.loadFutureArtists()
+            ]).then(() => {
                 // Update UI
                 if (window.commissionAdminV2) {
                     window.commissionAdminV2.renderCommissions();
                     window.commissionAdminV2.updateStats();
                 }
                 
-                // Also reload future artists if available
-                if (window.commissionSystemV2.loadFutureArtists) {
-                    return window.commissionSystemV2.loadFutureArtists();
-                }
-            }).then(() => {
                 button.innerHTML = originalText;
                 button.disabled = false;
                 
                 const commissions = window.commissionSystemV2.getAllCommissions();
-                alert(`✅ Data refreshed successfully!\nFound ${commissions.length} commissions.`);
+                const futureArtists = window.commissionSystemV2.getFutureArtists();
+                
+                const message = `✅ All data refreshed successfully!\n\n` +
+                              `Commissions: ${commissions.length}\n` +
+                              `Future Artists: ${futureArtists.length}\n` +
+                              `Firebase Status: ${window.commissionSystemV2.firebaseReady ? 'Connected' : 'Disconnected'}`;
+                
+                alert(message);
             }).catch((error) => {
                 console.error('❌ Error refreshing data:', error);
                 button.innerHTML = originalText;
@@ -773,7 +778,9 @@ document.addEventListener('DOMContentLoaded', function() {
             commissionAdminV2Available: !!window.commissionAdminV2,
             firebaseReady: window.commissionSystemV2 ? window.commissionSystemV2.firebaseReady : 'N/A',
             commissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getAllCommissions().length : 'N/A',
-            publicCommissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getPublicCommissions().length : 'N/A'
+            publicCommissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getPublicCommissions().length : 'N/A',
+            futureArtistsCount: window.commissionSystemV2 ? window.commissionSystemV2.getFutureArtists().length : 'N/A',
+            publicFutureArtistsCount: window.commissionSystemV2 ? window.commissionSystemV2.getPublicFutureArtists().length : 'N/A'
         };
         
         console.table(debugInfo);
@@ -788,6 +795,14 @@ document.addEventListener('DOMContentLoaded', function() {
             message += `\n📋 Sample Commissions:\n`;
             commissions.slice(0, 3).forEach(c => {
                 message += `• ${c.title || c.artist || 'Untitled'} (${c.status || 'unknown'})\n`;
+            });
+        }
+        
+        if (window.commissionSystemV2 && window.commissionSystemV2.getFutureArtists().length > 0) {
+            const artists = window.commissionSystemV2.getFutureArtists();
+            message += `\n🎨 Sample Future Artists:\n`;
+            artists.slice(0, 3).forEach(a => {
+                message += `• ${a.artistName || 'Unnamed'} (${a.status || 'unknown'})\n`;
             });
         }
         
@@ -817,15 +832,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.exportFutureArtists = async function() {
-        if (!window.commissionSystemV2 || !window.commissionSystemV2.futureArtists) {
+        if (!window.commissionSystemV2 || !window.commissionSystemV2.getFutureArtists) {
             alert('❌ No future artists data available');
             return;
         }
         
+        const artists = window.commissionSystemV2.getFutureArtists();
         const data = {
             exportDate: new Date().toISOString(),
-            totalArtists: window.commissionSystemV2.futureArtists.length,
-            artists: window.commissionSystemV2.futureArtists
+            totalArtists: artists.length,
+            artists: artists
         };
         
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -849,7 +865,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        const artist = window.commissionSystemV2.futureArtists.find(a => a.id === artistId);
+        const artist = window.commissionSystemV2.getFutureArtistById(artistId);
         if (!artist) {
             alert('❌ Artist not found');
             return;
@@ -857,15 +873,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (confirm(`Are you sure you want to delete "${artist.artistName}" from your future artists list?`)) {
             try {
-                // Delete from Firebase
-                const docRef = window.commissionSystemV2.firestore.doc(window.commissionSystemV2.db, 'futureArtists', artistId);
-                await window.commissionSystemV2.firestore.deleteDoc(docRef);
+                const success = await window.commissionSystemV2.deleteFutureArtist(artistId);
                 
-                // Reload the list
-                await window.commissionSystemV2.loadFutureArtists();
-                loadFutureArtistsList();
-                
-                alert('✅ Artist deleted successfully!');
+                if (success) {
+                    loadFutureArtistsList();
+                    alert('✅ Artist deleted successfully!');
+                } else {
+                    alert('❌ Failed to delete artist');
+                }
             } catch (error) {
                 console.error('❌ Error deleting artist:', error);
                 alert('❌ Error deleting artist: ' + error.message);
@@ -965,6 +980,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (success) {
             alert('✅ Future artist added successfully!');
             hideFutureArtistForm();
+            // Refresh the list if it's currently open
+            if (document.getElementById('future-artists-list-modal').style.display === 'flex') {
+                loadFutureArtistsList();
+            }
         } else {
             alert('❌ Failed to add future artist. Please try again.');
         }
@@ -972,15 +991,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function loadFutureArtistsList() {
         const container = document.getElementById('future-artists-container');
-        if (!container || !window.commissionSystemV2) return;
+        if (!container || !window.commissionSystemV2) {
+            console.warn('⚠️ Future artists container or system not available');
+            return;
+        }
         
-        const artists = window.commissionSystemV2.futureArtists || [];
+        const artists = window.commissionSystemV2.getFutureArtists() || [];
+        console.log(`🎨 Loading ${artists.length} future artists`);
         
         if (artists.length === 0) {
             container.innerHTML = `
                 <div class="no-future-artists">
                     <h3>🎨 No Future Artists</h3>
                     <p>No artists have been added to your future commission list yet.</p>
+                    <p><small>Use "Refresh Data" above to reload from the database.</small></p>
                 </div>
             `;
             return;
@@ -1128,14 +1152,6 @@ document.addEventListener('DOMContentLoaded', function() {
         div.textContent = text;
         return div.innerHTML;
     }
-
-    // Initialize future artists system when commission system is ready
-    const checkForCommissionSystemArtists = setInterval(() => {
-        if (window.commissionSystemV2 && window.commissionSystemV2.firebaseReady) {
-            clearInterval(checkForCommissionSystemArtists);
-            initFutureArtistsSystem();
-        }
-    }, 500);
 
     // Add form submit listener for future artists
     document.addEventListener('DOMContentLoaded', function() {

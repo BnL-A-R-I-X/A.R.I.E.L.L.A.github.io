@@ -13,6 +13,11 @@
     <button onclick="testConnection()">Test Connection</button>
     <button onclick="testAddCommission()">Test Add Commission</button>
     <button onclick="testLoadCommissions()">Test Load Commissions</button>
+    <button onclick="testAddFutureArtist()">Test Add Future Artist</button>
+    <button onclick="testLoadFutureArtists()">Test Load Future Artists</button>
+    <button onclick="checkFirestoreRules()">Check Firestore Rules</button>
+    <button onclick="testAddFutureArtist()">Test Add Future Artist</button>
+    <button onclick="testLoadFutureArtists()">Test Load Future Artists</button>
 
     <script>
         let testSystem;
@@ -79,6 +84,18 @@
                 document.getElementById('results').innerHTML = `
                     <h3>❌ Connection Failed</h3>
                     <p>Error: ${error.message}</p>
+                    <p>Error Code: ${error.code || 'N/A'}</p>
+                    <details>
+                        <summary>Full Error Details</summary>
+                        <pre>${JSON.stringify(error, null, 2)}</pre>
+                    </details>
+                    ${error.code === 'permission-denied' ? `
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                            <strong>🔒 Permission Denied!</strong><br>
+                            You need to update your Firestore Security Rules.<br>
+                            Click "Check Firestore Rules" button above for instructions.
+                        </div>
+                    ` : ''}
                 `;
             }
         }
@@ -117,6 +134,14 @@
                 document.getElementById('results').innerHTML = `
                     <h3>❌ Add Commission Failed</h3>
                     <p>Error: ${error.message}</p>
+                    <p>Error Code: ${error.code || 'N/A'}</p>
+                    ${error.code === 'permission-denied' ? `
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                            <strong>🔒 Permission Denied!</strong><br>
+                            You need to update your Firestore Security Rules to allow writes.<br>
+                            Click "Check Firestore Rules" button above for instructions.
+                        </div>
+                    ` : ''}
                 `;
             }
         }
@@ -168,6 +193,195 @@
                 document.getElementById('results').innerHTML = `
                     <h3>❌ Load Commissions Failed</h3>
                     <p>Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testAddFutureArtist() {
+            try {
+                document.getElementById('results').innerHTML = 'Adding test future artist...';
+                
+                const testArtist = {
+                    artistName: 'Test Artist ' + Date.now(),
+                    platform: 'Twitter',
+                    handle: '@testartist',
+                    website: 'https://testartist.com',
+                    style: 'Anime',
+                    commissionType: 'Character Portrait',
+                    estimatedCost: '$75-$150',
+                    priority: 'medium',
+                    notes: 'This is a test future artist to verify Firebase functionality',
+                    status: 'planning',
+                    isPublic: true,
+                    dateAdded: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                const artistsRef = testSystem.firestore.collection(testSystem.db, 'futureArtists');
+                const docRef = await testSystem.firestore.addDoc(artistsRef, testArtist);
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>✅ Future Artist Added Successfully!</h3>
+                    <p>Document ID: ${docRef.id}</p>
+                    <p>Artist Name: ${testArtist.artistName}</p>
+                `;
+                
+                console.log('✅ Test future artist added:', docRef.id);
+                
+            } catch (error) {
+                console.error('❌ Add future artist test failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Add Future Artist Failed</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Error Code: ${error.code || 'N/A'}</p>
+                    ${error.code === 'permission-denied' ? `
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                            <strong>🔒 Permission Denied!</strong><br>
+                            You need to update your Firestore Security Rules to allow writes.<br>
+                            Click "Check Firestore Rules" button above for instructions.
+                        </div>
+                    ` : ''}
+                `;
+            }
+        }
+        
+        async function testLoadFutureArtists() {
+            try {
+                document.getElementById('results').innerHTML = 'Loading future artists...';
+                
+                const artistsRef = testSystem.firestore.collection(testSystem.db, 'futureArtists');
+                
+                // Try with orderBy first, fall back to simple query
+                let snapshot;
+                try {
+                    const q = testSystem.firestore.query(artistsRef, testSystem.firestore.orderBy('dateAdded', 'desc'));
+                    snapshot = await testSystem.firestore.getDocs(q);
+                } catch (orderError) {
+                    console.warn('OrderBy failed, using simple query:', orderError.message);
+                    snapshot = await testSystem.firestore.getDocs(artistsRef);
+                }
+                
+                const artists = [];
+                snapshot.forEach((doc) => {
+                    artists.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>✅ Future Artists Loaded Successfully!</h3>
+                    <p>Found ${artists.length} future artists:</p>
+                    <div style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                        ${artists.map(a => `
+                            <div style="border-bottom: 1px solid #eee; padding: 5px 0;">
+                                <strong>${a.artistName || 'Unnamed'}</strong><br>
+                                Platform: ${a.platform || 'Unknown'}<br>
+                                Status: ${a.status || 'Unknown'}<br>
+                                Priority: ${a.priority || 'Unknown'}<br>
+                                Added: ${a.dateAdded || 'Unknown'}<br>
+                                ID: ${a.id}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                console.log('📊 All future artists loaded:', artists);
+                
+            } catch (error) {
+                console.error('❌ Load future artists test failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Load Future Artists Failed</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Error Code: ${error.code || 'N/A'}</p>
+                    <p>Full Error: ${JSON.stringify(error, null, 2)}</p>
+                `;
+            }
+        }
+        
+        async function checkFirestoreRules() {
+            try {
+                document.getElementById('results').innerHTML = 'Checking Firestore permissions...';
+                
+                // Try to read a simple document to test permissions
+                const testRef = testSystem.firestore.collection(testSystem.db, 'test');
+                
+                try {
+                    const snapshot = await testSystem.firestore.getDocs(testRef);
+                    document.getElementById('results').innerHTML = `
+                        <h3>✅ Firestore Rules Check</h3>
+                        <p>Read permission: ✅ Working</p>
+                        <p>Found ${snapshot.size} documents in test collection</p>
+                        <h4>Common Issues & Solutions:</h4>
+                        <ul>
+                            <li><strong>If you get "permission-denied":</strong> Update Firestore Security Rules</li>
+                            <li><strong>Recommended Rules for Development:</strong></li>
+                        </ul>
+                        <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px;">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to all documents for now
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+                        </pre>
+                        <p><strong>Steps to fix:</strong></p>
+                        <ol>
+                            <li>Go to <a href="https://console.firebase.google.com" target="_blank">Firebase Console</a></li>
+                            <li>Select your project: axiomocdatabase</li>
+                            <li>Go to Firestore Database → Rules</li>
+                            <li>Replace the rules with the code above</li>
+                            <li>Click "Publish"</li>
+                        </ol>
+                    `;
+                } catch (permError) {
+                    document.getElementById('results').innerHTML = `
+                        <h3>❌ Firestore Permission Error</h3>
+                        <p>Error: ${permError.message}</p>
+                        <p>Error Code: ${permError.code}</p>
+                        
+                        <h4>🔧 How to Fix Firestore Permissions:</h4>
+                        <ol>
+                            <li>Go to <a href="https://console.firebase.google.com/project/axiomocdatabase/firestore/rules" target="_blank">Firebase Console - Firestore Rules</a></li>
+                            <li>Replace the current rules with:</li>
+                        </ol>
+                        
+                        <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px; margin: 10px 0;">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to all documents
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+                        </pre>
+                        
+                        <p><strong>⚠️ Note:</strong> These rules allow full access. For production, you should implement proper authentication and more restrictive rules.</p>
+                        
+                        <h4>Alternative: Test Mode Rules (30 days)</h4>
+                        <pre style="background: #f5f5f5; padding: 10px; border-radius: 4px;">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.time < timestamp.date(2025, 9, 1);
+    }
+  }
+}
+                        </pre>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('❌ Rules check failed:', error);
+                document.getElementById('results').innerHTML = `
+                    <h3>❌ Connection Failed</h3>
+                    <p>Cannot check Firestore rules: ${error.message}</p>
                 `;
             }
         }

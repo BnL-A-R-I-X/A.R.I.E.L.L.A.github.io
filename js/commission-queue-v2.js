@@ -264,28 +264,40 @@ class CommissionQueueV2 {
 
     renderFutureArtists() {
         const container = document.getElementById('future-artists-table');
-        if (!container || !window.commissionSystemV2) return;
+        if (!container) {
+            console.warn('⚠️ Future artists container not found');
+            return;
+        }
 
-        // Check if system has future artists loaded
-        if (!window.commissionSystemV2.futureArtists) {
+        if (!window.commissionSystemV2) {
             container.innerHTML = `
                 <div class="loading-message">
-                    <h3>⏳ Future artists system loading...</h3>
+                    <h3>⏳ Commission system loading...</h3>
                     <p>Please wait while the system initializes.</p>
                 </div>
             `;
             return;
         }
 
-        const publicArtists = window.commissionSystemV2.getPublicFutureArtists ? 
-            window.commissionSystemV2.getPublicFutureArtists() : 
-            window.commissionSystemV2.futureArtists.filter(artist => artist.isPublic !== false);
+        if (!window.commissionSystemV2.firebaseReady) {
+            container.innerHTML = `
+                <div class="loading-message">
+                    <h3>🔄 Connecting to Database</h3>
+                    <p>Establishing connection to load future artists...</p>
+                </div>
+            `;
+            return;
+        }
+
+        const publicArtists = window.commissionSystemV2.getPublicFutureArtists();
+        console.log(`🎨 Found ${publicArtists.length} public future artists to display`);
         
         if (publicArtists.length === 0) {
             container.innerHTML = `
                 <div class="empty-future-artists">
                     <h3>🎨 No Future Artists</h3>
                     <p>No artists are currently listed in the public future commission wishlist.</p>
+                    <p><small>If you expect to see artists here, try refreshing the queue above.</small></p>
                 </div>
             `;
             return;
