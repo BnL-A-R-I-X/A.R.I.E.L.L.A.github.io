@@ -276,24 +276,17 @@
             </div>
             
             <div class="tool-group">
-                <h3>Commission Data</h3>
-                <button id="export-commissions" class="admin-btn">
-                    🎨 Export Commission Data
-                </button>
-                <button id="import-commissions" class="admin-btn">
-                    📥 Import Commission Data
-                </button>
-                <input type="file" id="import-file" accept=".json" style="display: none;">
-            </div>
-            
-            <div class="tool-group">
                 <h3>System Logs</h3>
-                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! System log export will be available in future updates.')">
+                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! System log export will be available in future updates.')">
                     📋 Export System Logs
                 </button>
-                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Terminal history export will be available in future updates.')">
-                    💻 Export Terminal History
+                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Terminal history export will be available in future updates.')">
+                    � Export Terminal History
                 </button>
+                <div class="tool-info">
+                    <p><strong>Format:</strong> Structured log files with timestamps</p>
+                    <p><strong>Access:</strong> Administrative clearance required</p>
+                </div>
             </div>
         </div>
     </section>
@@ -304,12 +297,16 @@
         <div class="admin-tools">
             <div class="tool-group">
                 <h3>Terminal Access</h3>
-                <a href="information.html" class="admin-btn">
+                <a href="information.html" class="admin-btn link-btn">
                     💻 Open Information Terminal
                 </a>
-                <button class="admin-btn" onclick="customDialogs.alert('All terminal systems operational. Last diagnostic: ' + new Date().toLocaleString())">
+                <button class="admin-btn" onclick="customDialogs.alert('All terminal systems operational.\\nLast diagnostic: ' + new Date().toLocaleString())">
                     🔧 Run System Diagnostics
                 </button>
+                <div class="tool-info">
+                    <p><strong>Access Level:</strong> Executive clearance required</p>
+                    <p><strong>Status:</strong> All systems operational</p>
+                </div>
             </div>
             
             <div class="tool-group">
@@ -320,30 +317,42 @@
                 <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
                     📊 Access Logs
                 </button>
+                <div class="tool-info">
+                    <p><strong>Protocol:</strong> BNL Security Standard 3272-X</p>
+                    <p><strong>Monitoring:</strong> Real-time threat detection active</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Password & PIN Reference -->
-    <section class="password-section">
-        <h2>🔐 System Passwords & PINs</h2>
+    <!-- Security & Access Reference -->
+    <section class="admin-section password-section">
+        <h2>🔐 Security Access Reference</h2>
         <div class="password-grid">
-            <div class="password-card">
-                <h3>Commission Ideas Access</h3>
+            <div class="password-card commission-access">
+                <div class="password-header">
+                    <h3>🎨 Commission Ideas Access</h3>
+                    <span class="access-level">PUBLIC TIER</span>
+                </div>
                 <div class="password-display">
                     <span class="password-label">Password:</span>
                     <span class="password-value">Ari'sCocoaCock</span>
+                    <button class="copy-btn" data-copy="Ari'sCocoaCock">📋</button>
                 </div>
-                <p class="password-description">Used to access the protected Commission Ideas section on the public queue page.</p>
+                <p class="password-description">Grants access to the protected Commission Ideas section on the public queue page.</p>
             </div>
             
-            <div class="password-card">
-                <h3>Admin Access</h3>
-                <div class="password-display">
-                    <span class="password-label">Administrative Control:</span>
-                    <span class="password-value">3272</span>
+            <div class="password-card admin-access">
+                <div class="password-header">
+                    <h3>🔒 Administrative Control</h3>
+                    <span class="access-level">ADMIN TIER</span>
                 </div>
-                <p class="password-description">Main administrative interface for managing commissions and system data.</p>
+                <div class="password-display">
+                    <span class="password-label">Security PIN:</span>
+                    <span class="password-value">3272</span>
+                    <button class="copy-btn" data-copy="3272">📋</button>
+                </div>
+                <p class="password-description">Main administrative interface PIN for managing commissions and system data.</p>
             </div>
         </div>
     </section>
@@ -719,6 +728,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         pinInput.focus();
     }, 100);
+    
+    // Copy button functionality
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const textToCopy = this.getAttribute('data-copy');
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                customDialogs.alert('Copied to clipboard: ' + textToCopy);
+            }).catch(() => {
+                customDialogs.alert('Failed to copy to clipboard');
+            });
+        });
+    });
 });
 </script>
 

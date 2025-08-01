@@ -3850,6 +3850,398 @@ main {
     font-style: italic;
 }
 
+/* ===== Enhanced Admin Page Styles ===== */
+
+/* Admin Button Improvements */
+.admin-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 12px 20px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95em;
+    font-weight: 500;
+    text-decoration: none;
+    margin: 8px 0;
+    min-width: 200px;
+    justify-content: flex-start;
+}
+
+.admin-btn:hover {
+    background: var(--bg-button-hover);
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow-primary);
+}
+
+.admin-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px var(--shadow-primary);
+}
+
+.admin-btn.danger {
+    border-color: #ff4444;
+    color: #ff6666;
+}
+
+.admin-btn.danger:hover {
+    background: rgba(255, 68, 68, 0.1);
+    border-color: #ff6666;
+    color: #ff8888;
+}
+
+.admin-btn.link-btn {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+}
+
+.admin-btn.link-btn:hover {
+    background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+    color: var(--bg-primary);
+    text-decoration: none;
+}
+
+/* Admin Section Layout */
+.admin-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    opacity: 0.8;
+}
+
+.admin-section h2 {
+    color: var(--accent-primary);
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px var(--shadow-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-tools {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.tool-group {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.tool-group:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 5px 15px var(--shadow-primary);
+}
+
+.tool-group h3 {
+    color: var(--accent-cyan);
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tool-info {
+    background: rgba(102, 224, 255, 0.05);
+    border: 1px solid var(--border-primary);
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 15px;
+}
+
+.tool-info p {
+    color: var(--text-secondary);
+    margin: 4px 0;
+    font-size: 0.9em;
+}
+
+.tool-info strong {
+    color: var(--accent-cyan);
+}
+
+/* Enhanced Password Section */
+.password-section {
+    background: var(--bg-secondary);
+    border: 2px solid var(--accent-orange);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.password-section::before {
+    content: '🔐 SECURITY CLASSIFIED';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--bg-secondary);
+    color: var(--accent-orange);
+    padding: 0 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.password-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.password-card {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.password-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.password-card.commission-access::before {
+    background: linear-gradient(45deg, #66e0ff, #00e6ff);
+}
+
+.password-card.admin-access::before {
+    background: linear-gradient(45deg, #ff6b9d, #ff4081);
+}
+
+.password-card:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 8px 20px var(--shadow-primary);
+    transform: translateY(-2px);
+}
+
+.password-card:hover::before {
+    opacity: 1;
+}
+
+.password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.password-header h3 {
+    color: var(--accent-primary);
+    font-family: 'Orbitron', monospace;
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.access-level {
+    background: var(--accent-orange);
+    color: var(--bg-primary);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.password-display {
+    background: var(--bg-card);
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.password-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.password-value {
+    color: var(--accent-primary);
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    font-size: 1.1em;
+    flex: 1;
+    background: rgba(102, 224, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-primary);
+}
+
+.copy-btn {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.copy-btn:hover {
+    background: var(--accent-secondary);
+    transform: scale(1.1);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+.password-description {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Commission Form Controls Enhanced */
+.commission-controls {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.search-filter-row {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr auto auto;
+    align-items: end;
+}
+
+.search-group,
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.search-group label,
+.filter-group label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.search-group input,
+.filter-group select {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 0.95em;
+}
+
+.search-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--shadow-primary);
+}
+
+.action-group {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.action-btn:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow-primary);
+}
+
+/* Responsive Design for Admin Page */
+@media (max-width: 768px) {
+    .admin-tools {
+        grid-template-columns: 1fr;
+    }
+    
+    .password-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-filter-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .action-group {
+        justify-content: center;
+    }
+    
+    .password-header {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .password-display {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .admin-section,
+    .password-section {
+        padding: 20px;
+    }
+}
+
 /* Queue Info Panel */
 .queue-info-panel {
     margin-bottom: 30px;
