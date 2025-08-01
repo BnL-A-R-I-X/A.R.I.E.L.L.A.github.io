@@ -66,21 +66,30 @@ class CommissionQueue {
     if (emptyState) emptyState.classList.add('hidden');
 
     tableBody.innerHTML = publicCommissions.map(commission => {
+      const primaryChar = commission.character || (commission.characters && commission.characters[0]) || 'Unknown';
+      const additionalChars = commission.characters ? commission.characters.slice(1) : [];
+      
       return `
         <tr class="commission-row status-${commission.status}" data-id="${commission.id}">
-          <td class="queue-id">${commission.id}</td>
-          <td class="commission-title">
-            <div class="title-main">${commission.title}</div>
-            ${commission.description ? `<div class="title-desc">${commission.description}</div>` : ''}
+          <td class="artist-name">${commission.artist || 'TBD'}</td>
+          <td class="commission-date">
+            ${commission.dateOfCommission ? this.formatDate(commission.dateOfCommission) : 'TBD'}
           </td>
-          <td class="characters">
-            ${commission.characters.map(char => `<span class="character-tag">${char}</span>`).join('')}
+          <td class="commission-description">
+            <div class="description-main">${commission.descriptionOfCommission || commission.description || 'No description'}</div>
           </td>
-          <td class="commission-type">${commission.type}</td>
+          <td class="commission-cost cost-display">
+            ${this.formatCostDisplay(commission.cost)}
+          </td>
+          <td class="commission-type">${commission.type || 'General'}</td>
           <td class="status-cell">
             <span class="status-badge status-${commission.status}">
               ${this.formatStatus(commission.status)}
             </span>
+          </td>
+          <td class="characters">
+            <span class="character-primary">${primaryChar}</span>
+            ${additionalChars.length > 0 ? `<span class="character-additional"> +${additionalChars.join(', ')}</span>` : ''}
           </td>
           <td class="progress-cell">
             <div class="progress-bar">
@@ -88,10 +97,6 @@ class CommissionQueue {
               <span class="progress-text">${commission.progress || 0}%</span>
             </div>
           </td>
-          <td class="completion-date">
-            ${commission.estimatedCompletion ? this.formatDate(commission.estimatedCompletion) : 'TBD'}
-          </td>
-          <td class="artist-name">${commission.artist || 'Pending'}</td>
         </tr>
       `;
     }).join('');
@@ -119,6 +124,15 @@ class CommissionQueue {
       day: 'numeric',
       year: 'numeric'
     });
+  }
+
+  formatCostDisplay(cost) {
+    if (!cost && cost !== 0) return '$0.00';
+    
+    const numCost = typeof cost === 'string' ? parseFloat(cost.replace(/[$,]/g, '')) : cost;
+    if (isNaN(numCost)) return '$0.00';
+    
+    return '$' + numCost.toFixed(2);
   }
 
   updateStats() {
@@ -149,7 +163,7 @@ class CommissionQueue {
       .slice(0, 5)
       .map(comm => ({
         date: comm.lastUpdate,
-        message: `${comm.title} - ${this.formatStatus(comm.status)} (${comm.progress || 0}% complete)`
+        message: `${comm.descriptionOfCommission || comm.description || 'Commission'} - ${this.formatStatus(comm.status)} (${comm.progress || 0}% complete)`
       }));
 
     if (recentUpdates.length === 0) {

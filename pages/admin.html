@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BNL CLASSIFIED // Administrative Terminal</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Security Access Screen -->
+<div id="security-screen" class="security-overlay">
+  <div class="security-panel">
+    <div class="security-header">
+      <img src="../assets/logos/axiom.png" alt="BNL Logo" class="security-logo">
+      <h1>🔒 BNL SECURITY CHECKPOINT</h1>
+      <p class="security-warning">ADMINISTRATIVE TERMINAL ACCESS</p>
+      <p class="security-subtitle">Level 7 Clearance Required</p>
+    </div>
+    
+    <div class="access-form">
+      <label for="pincode" class="pin-label">Enter Security Code:</label>
+      <input type="password" id="pincode" class="pin-input" maxlength="4" placeholder="••••">
+      <button id="access-btn" class="access-button">GRANT ACCESS</button>
+      <button id="cancel-btn" class="cancel-button">CANCEL</button>
+    </div>
+    
+    <div class="security-notice">
+      <p>⚠️ UNAUTHORIZED ACCESS ATTEMPT WILL BE LOGGED</p>
+      <p>BNL Security Protocol 8847-X Active</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content (Hidden by default) -->
+<div id="main-content" class="hidden">
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered">
+      <div>
+        <h1>🔒 USS AXIOM // ADMINISTRATIVE TERMINAL</h1>
+        <p class="subtext">Systems Management & Operations Control</p>
+        <p class="status">STATUS: SECURED — CLEARANCE: <strong>LEVEL 7 (ADMIN)</strong> — USER: <strong>A.R.I.E.L.L.A</strong></p>
+        <div class="status-widgets">
+          SHIP TIME: <strong id="shipTime"></strong> |
+          SECTOR: <strong>BNL-7 / ALPHA</strong> |
+          UPLINK: <strong>ENCRYPTED</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar nav-right">
+    <a href="../index.html" class="nav-btn">HOME</a>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">📁 BNL Archives</div>
+            <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">👤 User Profile</div>
+            <a href="bio.html" class="nav-dropdown-item">Biography</a>
+            <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🎨 Community Hub</div>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+        </div>
+    </div>
+    
+    <a href="admin.html" class="nav-btn secret-btn current">🔒 ADMIN</a>
+  </nav>
+
+  <section class="terminal-intro">
+    <p>
+      Welcome to the <strong>BNL Administrative Terminal</strong>—a secure system management interface operated by A.R.I.E.L.L.A.  
+      This terminal provides access to ship operations, data management, and private commission systems.
+      All actions are logged and monitored per BNL Security Protocol 8847-X.
+      <em>Unauthorized access attempts will result in immediate lockdown and security team notification.</em>
+    </p>
+  </section>
+
+  <main class="admin-main">
+    <div class="admin-sections">
+      
+      <!-- Data Management Section -->
+      <section class="admin-section">
+        <h2>📊 Data Management</h2>
+        <div class="admin-tools">
+          <div class="tool-group">
+            <h3>Character Rankings System</h3>
+            <button id="export-rankings" class="admin-btn">
+              📊 Download Rankings Data
+            </button>
+            <button id="clear-rankings" class="admin-btn danger">
+              🗑️ Clear All Rankings
+            </button>
+            <div class="tool-info">
+              <p><strong>Storage:</strong> Local browser data management</p>
+              <p><strong>Format:</strong> JSON export with timestamp</p>
+            </div>
+          </div>
+          
+          <div class="tool-group">
+            <h3>System Logs</h3>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! System log export will be available in future updates.')">
+              📋 Export System Logs
+            </button>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Terminal history export will be available in future updates.')">
+              💻 Export Terminal History
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commission Management Section -->
+      <section class="admin-section">
+        <h2>🎨 Commission Management</h2>
+        <div class="admin-tools">
+          <div class="tool-group">
+            <h3>Private Commission Archive</h3>
+            <a href="commissions.html" class="admin-btn commission-access">
+              🖼️ Access Commission Archive
+            </a>
+            <div class="tool-info">
+              <p><strong>Status:</strong> Private creative development archive</p>
+              <p><strong>Access Level:</strong> Level 6 clearance required</p>
+            </div>
+          </div>
+          
+          <div class="tool-group">
+            <h3>Queue Management</h3>
+            <a href="upcoming-commissions.html" class="admin-btn">
+              📋 Manage Commission Queue
+            </a>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Commission analytics dashboard will be available in future updates.')">
+              📈 View Analytics
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- System Operations Section -->
+      <section class="admin-section">
+        <h2>⚙️ System Operations</h2>
+        <div class="admin-tools">
+          <div class="tool-group">
+            <h3>Terminal Access</h3>
+            <a href="information.html" class="admin-btn">
+              💻 Open Information Terminal
+            </a>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('All terminal systems operational. Last diagnostic: ' + new Date().toLocaleString())">
+              🔧 Run System Diagnostics
+            </button>
+          </div>
+          
+          <div class="tool-group">
+            <h3>Security Monitoring</h3>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
+              🛡️ Security Status
+            </button>
+            <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
+              📊 Access Logs
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Easter Egg Testing Section -->
+      <section class="admin-section">
+        <h2>🥚 System Testing</h2>
+        <div class="admin-tools">
+          <div class="tool-group">
+            <h3>Easter Egg Validation</h3>
+            <button class="admin-btn" onclick="testEasterEgg('wall-e')">
+              🤖 Test WALL-E Command
+            </button>
+            <button class="admin-btn" onclick="testEasterEgg('artcode')">
+              🎨 Test Art Collaboration
+            </button>
+            <button class="admin-btn" onclick="testEasterEgg('eve')">
+              📡 Test EVE Protocol
+            </button>
+            <div class="tool-info">
+              <p><strong>Purpose:</strong> Validate hidden terminal commands</p>
+              <p><strong>Status:</strong> All easter eggs operational</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <section class="system-footer">
+    <p>© 2025 Ariella Fawnbrook // USS Axiom Administrative Terminal</p>
+    <p>BNL / AXIOM ADMIN INTERFACE — VERSION 2.1</p>
+  </section>
+
+  <div class="status-ticker">
+    <marquee behavior="scroll" direction="left">
+      ADMIN MODE: Active — Security monitoring engaged — All systems nominal — Terminal diagnostics: PASSED
+    </marquee>
+  </div>
+</div>
+
+<script src="../js/shiptime.js"></script>
+
+<script>
+// Security system with admin-specific pin
+const ADMIN_PIN = '8847';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const securityScreen = document.getElementById('security-screen');
+  const mainContent = document.getElementById('main-content');
+  const pinInput = document.getElementById('pincode');
+  const accessBtn = document.getElementById('access-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+
+  // Handle pin input
+  pinInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      attemptAccess();
+    }
+  });
+
+  accessBtn.addEventListener('click', attemptAccess);
+  cancelBtn.addEventListener('click', () => {
+    window.location.href = '../index.html';
+  });
+
+  function attemptAccess() {
+    const enteredPin = pinInput.value;
+    
+    if (enteredPin === ADMIN_PIN) {
+      securityScreen.style.display = 'none';
+      mainContent.classList.remove('hidden');
+      
+      // Initialize admin tools
+      initializeAdminTools();
+    } else {
+      pinInput.style.animation = 'shake 0.5s';
+      pinInput.value = '';
+      setTimeout(() => {
+        pinInput.style.animation = '';
+      }, 500);
+      
+      // Show error message using custom dialog
+      if (window.customDialog) {
+        window.customDialog.showAlert('ACCESS DENIED: Invalid security code. This incident has been logged.');
+      } else {
+        alert('ACCESS DENIED: Invalid security code. This incident has been logged.');
+      }
+    }
+  }
+
+  function initializeAdminTools() {
+    // Rankings management
+    const exportBtn = document.getElementById('export-rankings');
+    const clearBtn = document.getElementById('clear-rankings');
+    
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        if (window.characterRanking) {
+          window.characterRanking.exportRatings();
+        } else {
+          // Fallback export functionality
+          const rankings = localStorage.getItem('characterRankings');
+          if (rankings) {
+            const blob = new Blob([rankings], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `axiom-rankings-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            if (window.customDialog) {
+              window.customDialog.showAlert('Rankings data exported successfully!');
+            }
+          } else {
+            if (window.customDialog) {
+              window.customDialog.showAlert('No rankings data found to export.');
+            }
+          }
+        }
+      });
+    }
+    
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        const confirmAction = () => {
+          if (window.characterRanking) {
+            window.characterRanking.clearAllRatings();
+          } else {
+            localStorage.removeItem('characterRankings');
+            if (window.customDialog) {
+              window.customDialog.showAlert('All rankings data cleared successfully!');
+            }
+          }
+        };
+        
+        if (window.customDialog) {
+          window.customDialog.showConfirm(
+            'Are you sure you want to clear all character rankings? This action cannot be undone.',
+            confirmAction
+          );
+        } else {
+          if (confirm('Are you sure you want to clear all character rankings? This action cannot be undone.')) {
+            confirmAction();
+          }
+        }
+      });
+    }
+  }
+});
+
+// Easter egg testing function
+function testEasterEgg(command) {
+  const messages = {
+    'wall-e': 'WALL-E easter egg test: ✅ PASS\\nUnauthorized unit detection protocol active',
+    'artcode': 'Art collaboration easter egg test: ✅ PASS\\nSecret code AXIOM-ART-2025 ready for deployment',
+    'eve': 'EVE protocol easter egg test: ✅ PASS\\nExtraterrestrial vegetation evaluator systems nominal'
+  };
+  
+  const message = messages[command] || 'Unknown easter egg command';
+  
+  if (window.customDialog) {
+    window.customDialog.showAlert(message);
+  } else {
+    alert(message);
+  }
+}
+
+// Add CSS animation for shake effect
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  .admin-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .admin-sections {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .admin-section {
+    background: rgba(0, 20, 40, 0.7);
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  
+  .admin-section h2 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #00ff88;
+    padding-bottom: 0.5rem;
+  }
+  
+  .admin-tools {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .tool-group {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 4px;
+    border-left: 3px solid #00ff88;
+  }
+  
+  .tool-group h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .admin-btn {
+    background: linear-gradient(45deg, #001122, #003344);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 0.75rem 1.5rem;
+    margin: 0.25rem 0.5rem 0.25rem 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Orbitron', monospace;
+  }
+  
+  .admin-btn:hover {
+    background: linear-gradient(45deg, #003344, #005566);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  }
+  
+  .admin-btn.danger {
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+  
+  .admin-btn.danger:hover {
+    background: linear-gradient(45deg, #440000, #660000);
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+  }
+  
+  .admin-btn.commission-access {
+    background: linear-gradient(45deg, #2d1810, #4a2518);
+    border-color: #ff6b35;
+    color: #ff6b35;
+  }
+  
+  .admin-btn.commission-access:hover {
+    background: linear-gradient(45deg, #4a2518, #6b3420);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+  }
+  
+  .tool-info {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+  }
+  
+  .tool-info p {
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin: 0.25rem 0;
+  }
+  
+  .current {
+    background: linear-gradient(45deg, #003344, #005566) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  }
+`;
+document.head.appendChild(style);
+</script>
+
+<script src="../js/custom-dialogs.js"></script>
+<script src="../js/nav-dropdowns.js"></script>
+
+</body>
+</html>

@@ -285,7 +285,6 @@ class FirebaseRankingSystem {
 
     shouldShowRankings() {
         return window.location.pathname.includes('rankings.html') || 
-               window.location.pathname.includes('ocs.html') || 
                document.getElementById('character-rankings') !== null;
     }
 
@@ -458,18 +457,25 @@ class FirebaseRankingSystem {
         }
     }
 
-    clearAllRatings() {
-        if (confirm('Are you sure you want to clear all your character ratings? This action cannot be undone.')) {
-            this.userVotes = {};
+    async clearAllRatings() {
+        try {
+            const confirmClear = await customDialogs.rankingDialog('Are you sure you want to clear all your character ratings? This action cannot be undone.', 'confirm');
             
-            if (this.firebaseReady) {
-                // Note: Global data stays - only clearing personal votes
-                this.saveUserVote();
-            } else {
-                localStorage.removeItem(this.storageKey);
+            if (confirmClear) {
+                this.userVotes = {};
+                
+                if (this.firebaseReady) {
+                    // Note: Global data stays - only clearing personal votes
+                    this.saveUserVote();
+                } else {
+                    localStorage.removeItem(this.storageKey);
+                }
+                
+                this.updateDisplay();
             }
-            
-            this.updateDisplay();
+        } catch (error) {
+            // User cancelled
+            console.log('Clear ratings cancelled');
         }
     }
 

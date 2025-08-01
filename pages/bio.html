@@ -27,13 +27,38 @@
 </header>
 
 <nav class="nav-bar nav-right">
-  <a href="../index.html" class="nav-btn">HOME</a>
-  <a href="ocs.html" class="nav-btn">OC DATABASE</a>
-  <a href="rankings.html" class="nav-btn">RANKINGS</a>
-  <a href="upcoming-commissions.html" class="nav-btn">QUEUE</a>
-  <a href="socials.html" class="nav-btn">SOCIALS</a>
-  <a href="bio.html" class="nav-btn active">BIO</a>
-  <a href="commissions.html" class="nav-btn classified-link" title="Classified Access Required">🔒</a>
+    <a href="../index.html" class="nav-btn">HOME</a>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">📁 BNL Archives</div>
+            <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle current">PROFILE</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">👤 User Profile</div>
+            <a href="bio.html" class="nav-dropdown-item active">Biography</a>
+            <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🎨 Community Hub</div>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+        </div>
+    </div>
+    
+    <a href="admin.html" class="nav-btn secret-btn">🔒 ADMIN</a>
 </nav>
 
 <section class="terminal-intro">
@@ -105,6 +130,7 @@
 </div>
 
 <script src="../js/shiptime.js"></script>
+<script src="../js/nav-dropdowns.js"></script>
 
 </body>
 </html>

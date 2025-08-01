@@ -10,19 +10,15 @@ class BNLTerminal {
             'help': this.showHelp.bind(this),
             'clear': this.clearTerminal.bind(this),
             'directives': this.showDirectives.bind(this),
-            'automation': this.showAutomation.bind(this),
             'robotics': this.showRobotics.bind(this),
-            'technical': this.showTechnical.bind(this),
             'secrets': this.showSecrets.bind(this),
             'status': this.showStatus.bind(this),
             'exit': this.exitTerminal.bind(this),
-            'ls': this.listCommands.bind(this),
             'cat': this.catCommand.bind(this),
             'home': this.goHome.bind(this),
             'cleanup': this.showCleanupReports.bind(this),
             'a113': this.showDirectiveA113.bind(this),
             'contingency': this.showContingencyProtocols.bind(this),
-            'schematics': this.showSchematics.bind(this),
             'surveillance': this.showSurveillance.bind(this),
             'incidents': this.showIncidents.bind(this),
             'corporate': this.showCorporateData.bind(this),
@@ -206,6 +202,93 @@ First come, first served basis. 💖
 <span style="color: #ffaa00;">Remember: You must mention finding this in the terminal for it to count!</span>
 </div>
             `, 'success');
+        } else if (cmd === 'eve') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🤖 EVE PROTOCOL ACTIVATED</span>
+<span class="classified-warning">EXTRATERRESTRIAL VEGETATION EVALUATOR</span>
+
+DIRECTIVE: Locate and secure plant specimens for Earth viability assessment
+STATUS: Active scanning protocols engaged
+PLANT DETECTION: [CLASSIFIED - SECURITY LEVEL EXCEEDED]
+
+<span class="status-ok">EVE units report: No plant specimens detected in current sector</span>
+<span class="classified-warning">AUTO override: Continue deep space patrol indefinitely</span>
+
+Note: "Plant... plant... PLANT!" - Last recorded EVE unit transmission
+</div>
+            `, 'classified');
+        } else if (cmd === 'captain') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🚨 AUTO OVERRIDE WARNING</span>
+<span class="classified-warning">CAPTAIN AUTHORITY: SUSPENDED PER DIRECTIVE A113</span>
+
+WARNING: Manual override attempts detected
+AUTHORIZATION: DENIED - AUTO has operational control
+
+<span class="status-warning">Captain McCrea status: INACTIVE - 700 years</span>
+<span class="status-warning">Bridge access: RESTRICTED - AUTO personnel only</span>
+<span class="classified-red">Recommendation: Do not attempt manual navigation override</span>
+
+"I don't want to survive... I want to live!" - Last captain log entry [SUPPRESSED]
+</div>
+            `, 'classified');
+        } else if (cmd === 'earth') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🌍 EARTH ENVIRONMENTAL STATUS</span>
+<span class="classified-warning">CLASSIFICATION: EXECUTIVE EYES ONLY</span>
+
+<span class="subsection">PLANETARY CONDITION REPORT:</span>
+├── Surface habitability: 0.003% viable zones detected
+├── Atmospheric toxicity: CRITICAL - breathable air depleted
+├── Water sources: <2% potable reserves remaining
+├── Flora/Fauna: 99.97% extinction rate confirmed
+└── Estimated recovery time: 2,847+ years minimum
+
+<span class="classified-warning">RECOMMENDATION: Maintain indefinite space habitation</span>
+<span class="classified-warning">Earth return = 94.7% passenger mortality probability</span>
+
+<span class="status-warning">Last WALL-E transmission: "Eva... Eva..."</span>
+</div>
+            `, 'classified');
+        } else if (cmd === 'plant') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🌱 PLANT SPECIMEN PROTOCOL</span>
+<span class="classified-warning">FOREIGN CONTAMINANT DETECTED</span>
+
+EVE DIRECTIVE: Secure and contain all vegetation specimens immediately
+PLANT STATUS: [DATA CORRUPTED - MANUAL OVERRIDE DETECTED]
+CONTAINMENT: Failed - specimen location unknown
+
+<span class="status-warning">Security footage timestamp 2805.147 - [REDACTED]</span>
+<span class="classified-red">AUTO authorization required for specimen disposal</span>
+
+"It's not about the dancing... it's about the plant!" - Unauthorized passenger comment
+</div>
+            `, 'classified');
+        } else if (cmd === 'genesis') {
+            this.addOutput(`
+<div class="classified-section">
+<span class="section-header classified-red">🧬 PROJECT GENESIS [CLASSIFIED]</span>
+<span class="classified-warning">ACCESS DENIED - INSUFFICIENT CLEARANCE</span>
+
+[DATA HEAVILY REDACTED]
+
+Project Status: [TERMINATED]
+Reason: [DATA EXPUNGED]
+Survivors: [CLASSIFIED]
+Location: [COORDINATES PURGED]
+
+<span class="classified-red">WARNING: This project never existed</span>
+<span class="classified-red">Inquiry into Genesis project will result in memory reconditioning</span>
+
+File deletion in progress... 3... 2... 1...
+[GENESIS.DAT PURGED FROM SYSTEM]
+</div>
+            `, 'classified');
         } else if (this.commands[cmd]) {
             console.log('Executing command:', cmd);
             this.commands[cmd](args);
@@ -242,23 +325,19 @@ First come, first served basis. 💖
 <span class="help-cmd">help</span>          - Show this help message
 <span class="help-cmd">status</span>        - Show system status
 <span class="help-cmd">directives</span>    - View BNL corporate directives
-<span class="help-cmd">automation</span>    - View automation naming conventions
-<span class="help-cmd">robotics</span>      - View BNL robotics naming protocol
-<span class="help-cmd">technical</span>     - View technical specifications
+<span class="help-cmd">robotics</span>      - View BNL fleet automation manifest
 <span class="help-cmd">secrets</span>       - View system easter eggs
 
 <span class="classified-header">CLASSIFIED OPERATIONS:</span>
 <span class="help-cmd">cleanup</span>       - Operation Cleanup status reports
 <span class="help-cmd">a113</span>          - Directive A113 details
 <span class="help-cmd">contingency</span>   - Emergency protocols
-<span class="help-cmd">schematics</span>    - Ship infrastructure data
 <span class="help-cmd">surveillance</span> - Security & monitoring systems
 <span class="help-cmd">incidents</span>     - Ship incident reports
 <span class="help-cmd">corporate</span>     - BnL corporate data
 <span class="help-cmd">blacklist</span>     - [REDACTED] incident records
 
 <span class="help-cmd">clear</span>         - Clear terminal output
-<span class="help-cmd">ls</span>            - List available commands
 <span class="help-cmd">cat [file]</span>    - Display file contents
 <span class="help-cmd">home</span>          - Return to main terminal
 <span class="help-cmd">exit</span>          - Exit terminal
@@ -275,125 +354,94 @@ First come, first served basis. 💖
         }
     }
     
+    
     // Add placeholder methods for other commands to prevent errors
-    showDirectives() { this.addOutput('Directives command placeholder'); }
-    showAutomation() { this.addOutput('Automation command placeholder'); }
-    showRobotics() { this.addOutput('Robotics command placeholder'); }
-    showTechnical() { this.addOutput('Technical command placeholder'); }
     showSecrets() { this.addOutput('Secrets command placeholder'); }
     showStatus() { this.addOutput('Status command placeholder'); }
     exitTerminal() { this.addOutput('Exiting...'); }
-    listCommands() { this.addOutput(Object.keys(this.commands).join('  ')); }
     catCommand() { this.addOutput('Cat command placeholder'); }
     goHome() { window.location.href = '../index.html'; }
     showCleanupReports() { this.addOutput('Cleanup reports placeholder'); }
     showDirectiveA113() { this.addOutput('A113 directive placeholder'); }
     showContingencyProtocols() { this.addOutput('Contingency protocols placeholder'); }
-    showSchematics() { this.addOutput('Schematics placeholder'); }
     showSurveillance() { this.addOutput('Surveillance placeholder'); }
     showIncidents() { this.addOutput('Incidents placeholder'); }
     showCorporateData() { this.addOutput('Corporate data placeholder'); }
     showBlacklist() { this.addOutput('Blacklist placeholder'); }
     
-    // ...other existing methods...
-}
-
-// Initialize terminal when page loads
-let terminal;
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, creating terminal instance...');
-    setTimeout(() => {
-        terminal = new BNLTerminal();
-    }, 100); // Small delay to ensure everything is loaded
-});
-<span class="help-title">Available Commands:</span>
-
-<span class="help-cmd">help</span>          - Show this help message
-<span class="help-cmd">status</span>        - Show system status
-<span class="help-cmd">directives</span>    - View BNL corporate directives
-<span class="help-cmd">automation</span>    - View automation naming conventions
-<span class="help-cmd">robotics</span>      - View BNL robotics naming protocol
-<span class="help-cmd">technical</span>     - View technical specifications
-<span class="help-cmd">secrets</span>       - View system easter eggs
-
-<span class="classified-header">CLASSIFIED OPERATIONS:</span>
-<span class="help-cmd">cleanup</span>       - Operation Cleanup status reports
-<span class="help-cmd">a113</span>          - Directive A113 details
-<span class="help-cmd">contingency</span>   - Emergency protocols
-<span class="help-cmd">schematics</span>    - Ship infrastructure data
-<span class="help-cmd">surveillance</span> - Security & monitoring systems
-<span class="help-cmd">incidents</span>     - Ship incident reports
-<span class="help-cmd">corporate</span>     - BnL corporate data
-<span class="help-cmd">blacklist</span>     - [REDACTED] incident records
-
-<span class="help-cmd">clear</span>         - Clear terminal output
-<span class="help-cmd">ls</span>            - List available commands
-<span class="help-cmd">cat [file]</span>    - Display file contents
-<span class="help-cmd">home</span>          - Return to main terminal
-<span class="help-cmd">exit</span>          - Exit terminal
-
-<span class="help-tip">Tip: Use Tab for autocomplete, ↑/↓ for command history</span>
-</div>
-        `);
-    }
-
     showDirectives() {
         this.addOutput(`
 <div class="data-section">
 <span class="section-header">📋 BNL CORPORATE DIRECTIVES</span>
 
-<span class="directive">DIRECTIVE 1024-B: PASSENGER SAFETY PROTOCOLS</span>
-└── All passenger records must be maintained in perpetuity
-└── Character documentation serves dual purpose: entertainment & monitoring
-└── A.R.I.E.L.L.A units tasked with maintaining passenger morale
+<span class="directive">SECTION 100 — GENERAL CORPORATE GOVERNANCE</span>
+├── 100-A — All BNL assets, including vessels, passengers, cargo, and intellectual property, are property of Buy n Large Corporation.
+├── 101-B — The Captain's orders are considered official BNL directives and override crew recommendations.
+├── 102-B — "Stay the course" is the default standing order unless countermanded by Corporate HQ.
+├── 103-C — Passengers may not engage in activities that disrupt BNL brand image.
+└── 104-D — Damage to corporate property will be billed to the responsible account holder.
 
-<span class="directive">DIRECTIVE 402-C: INFORMATION SECURITY</span>
-└── Personnel files classified above civilian clearance levels
-└── Creator access limited to designated Creative Officers only
-└── Social media monitoring mandatory for crew psychological profiles
+<span class="directive">SECTION 200 — PASSENGER CONDUCT</span>
+├── 201-C — Remain in your designated seating, lounge, or recreation area unless on approved excursion.
+├── 202-B — Running, roughhousing, or unauthorized dancing in public concourses is prohibited.
+├── 203-B — All speech and actions must conform to BNL's Family-Friendly™ Standards.
+├── 204-A — Outside food or drink is prohibited unless purchased from BNL concessionaires.
+└── 205-F — Harassment, mockery, or abuse of service bots will result in disciplinary action.
 
-<span class="directive">DIRECTIVE 7729-X: ENFORCEMENT PROTOCOLS</span>
-└── Ariella-class units authorized for non-lethal force
-└── Corporate interests supersede individual welfare (EXCEPT: see Protocol Override 7729-X-1)
-└── Protocol Override 7729-X-1: Crew welfare prioritized in life-threatening scenarios
+<span class="directive">SECTION 300 — CREW & AUTOMATION REGULATIONS</span>
+├── 301-A — Service bots must follow BNL programming and maintenance schedules without deviation.
+├── 302-C — Crew override of AUTO's navigational orders is prohibited unless authorized by Corporate Directive A113.
+├── 303-B — No modifications to AI behavior subroutines without corporate authorization.
+├── 304-E — Maintenance logs must be uploaded every 12 ship-hours.
+└── 305-B — Unauthorized use of bridge control consoles is prohibited.
 
-<span class="directive">DIRECTIVE XP-19: DATA PRIVACY COMPLIANCE</span>
-└── All social interactions logged and archived
-└── Privacy maintained through selective access controls
-└── External platform monitoring conducted via secure channels
-</div>
-        `);
-    }
+<span class="directive">SECTION 400 — SAFETY & SECURITY</span>
+├── 401-A — Passenger safety is the #3 Corporate Priority (as per BNL public relations).
+├── 402-C — No unauthorized access to restricted files, decks, or navigation systems.
+├── 403-B — All security incidents must be logged with the Chief of Security or AUTO.
+├── 404-A — Fires must be reported immediately — do not attempt to extinguish unless trained.
+└── 405-X — Hull breach protocols override all other passenger service obligations.
 
-    showAutomation() {
-        this.addOutput(`
-<div class="data-section">
-<span class="section-header">🔤 AUTOMATION NAMING CONVENTIONS</span>
+<span class="directive">SECTION 500 — ENVIRONMENTAL & LIFE SUPPORT</span>
+├── 501-D — Tampering with air recyclers, hydroponics, or waste reclamation systems is prohibited.
+├── 502-E — Oxygen usage is monitored and optimized per passenger.
+├── 503-C — Hydroponic crops are property of BNL and not for passenger use unless purchased.
+├── 504-B — Non-BNL seeds, flora, or fauna are banned aboard the Axiom.
+└── 505-Z — Unauthorized plant growth triggers Foreign Contaminant Protocol.
 
-<span class="subsection">ARIELLA-CLASS DESIGNATION SCHEME:</span>
-└── A.R.I.E.L.L.A = Automated Regulation Interface, Enforcement & Logistics Android
-└── Prototype series: A.R.I.E.L.L.A-001 through A.R.I.E.L.L.A-099
-└── Production series: A.R.I.E.L.L.A-100+
+<span class="directive">SECTION 600 — FOOD & BEVERAGE</span>
+├── 601-B — All food served on board must be BNL-certified.
+├── 602-C — Passengers may not exceed their daily Luxury Food Credit allowance.
+├── 603-E — Out-of-stock items will be substituted with a "nutritionally equivalent" product.
+├── 604-A — Consumption is only permitted in designated dining or hover-lounger areas.
+└── 605-BNL — Lattes exceeding 500 calories may only be served once per ship-day.
 
-<span class="subsection">SHIP REGISTRY FORMAT:</span>
-└── BNL-[FLEET]-[SHIP TYPE]-[NUMBER]
-└── Example: BNL-7-ALPHA-001 (Flagship AXIOM)
-└── Fleet 7: Deep Space Passenger Operations
-└── Alpha designation: Command vessels
+<span class="directive">SECTION 700 — TECHNOLOGY & COMMUNICATIONS</span>
+├── 701-A — All personal devices must run BNL-approved firmware.
+├── 702-B — No external communications without Corporate HQ clearance.
+├── 703-D — Public holodeck content must remain compliant with Family-Friendly™ media guidelines.
+└── 704-F — Video, holograms, or audio recorded aboard may be used for BNL marketing without consent.
 
-<span class="subsection">PASSENGER CLASSIFICATION:</span>
-└── OC: Original Character (Creative personnel and their constructs)
-└── REG: Regular passenger (Standard civilian)
-└── ENV: Environmental specialist (Conservation roles)
-└── MIS: Miscellaneous (Unclassified or special cases)
+<span class="directive">SECTION 800 — FINANCIAL & ACCOUNT POLICIES</span>
+├── 801-A — All transactions are final; no refunds.
+├── 802-B — Passenger debt is transferable to descendants.
+├── 803-F — Unpaid balances may result in suspension of hover-lounger privileges.
+├── 804-E — Prices subject to change without notice.
+└── 805-BNL — Service bot tips are optional but logged for analytics.
 
-<span class="subsection">SECURITY CLEARANCE LEVELS:</span>
-└── Level 1-2: Standard passengers
-└── Level 3-4: Crew members
-└── Level 5: Creative Officers
-└── Level 6: Department heads
-└── Level 7: Executive access
-└── Level 8: Corporate Board (BNL HQ only)
+<span class="directive">SECTION 900 — EMERGENCY DIRECTIVES</span>
+├── 901-R — Follow crew and AUTO instructions immediately during emergencies.
+├── 902-B — Unauthorized lifeboat boarding is prohibited.
+├── 903-D — Emergency rations are for survival purposes only — not snacking.
+├── 904-BNL — Any return-to-Earth orders must be ignored unless overridden by A113 repeal.
+└── 905-Z — BNL reserves the right to prioritize corporate assets over passenger retrieval.
+
+<span class="classified-header">SECTION 1000 — SPECIAL CORPORATE DIRECTIVES</span>
+├── <span class="classified-red">A113</span> — "Stay the course" — Do not return to Earth under any circumstances unless repealed by Corporate HQ.
+├── <span class="classified-red">PLNT-E</span> — Secure and return all plant life to the bridge for verification.
+├── BNL-SMILE — Keep smiling — it's good for the brand.
+├── BNL-FRIEND — Customer service is mandatory; friendship optional.
+└── BNL-MAX — The customer is always right… unless they disagree with Corporate HQ.
 </div>
         `);
     }
@@ -401,53 +449,108 @@ document.addEventListener('DOMContentLoaded', () => {
     showRobotics() {
         this.addOutput(`
 <div class="data-section">
-<span class="section-header">🤖 BNL ROBOTICS NAMING PROTOCOL</span>
+<span class="section-header">──────────────────────────────────────────────────────────────</span>
+<span class="section-header">BUY N LARGE CORPORATION :: FLEET AUTOMATION MANIFEST</span>
+<span class="section-header">VESSEL: USS AXIOM // REGISTRY: BNL-LUX-AXM-01</span>
+<span class="section-header">DEPARTMENT: ROBOTICS & ARTIFICIAL INTELLIGENCE</span>
+<span class="section-header">ACCESS LEVEL: PASSENGER OPERATIONS // INTERNAL USE ONLY</span>
+<span class="section-header">──────────────────────────────────────────────────────────────</span>
 
-<span class="subsection">KNOWN MODEL REGISTRY:</span>
-WALL·E   | Waste Allocation Load Lifter – Earth-Class
-EVE      | Extraterrestrial Vegetation Evaluator
-M-O      | Microbe Obliterator
-AUTO     | Autonomous Navigation AI Unit
-BURN·E   | Basic Utilitarian Robot – Navigation Electric
-PR-T     | Protocol Robot – Type T
-VAQ-M    | Vacuum Maintenance Unit
-SECUR-T  | Security Enforcement Unit – Type T
-GOPH·E   | Go-pher Engineering Utility Bot
+<span class="status-ok">>>> LOADING SYSTEM DATA... DONE.</span>
+<span class="status-ok">>>> DISPLAYING ROBOTICS INVENTORY BY DIVISION:</span>
 
-<span class="subsection">NAMING PATTERN:</span>
-[ACRONYM] – [CLASS LETTER / MODEL VARIANT]
-• Acronym represents the robot's primary function
-• Class Letter designates production class, purpose, or deployment environment
-• Optional SERIAL NUMBER appended for tracking
-• Middle dot "·" used as corporate branding flourish
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 1 ] NAVIGATION & COMMAND AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Advanced Robotics Systems Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• AUTO – Central Autopilot AI Core. Governs vessel navigation,
+  course plotting, and enforcement of Directive A113.
+• NAV-E – Secondary nav-bots cross-checking stellar cartography.
+• HELMS-E – Automated helm operators for smooth course control.
 
-<span class="bnl-quote">"Every robot has a name. Every name has a purpose. That purpose… is Buy n Large."</span>
-</div>
-        `);
-    }
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 2 ] PASSENGER SERVICE AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Consumer Services Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• SERV-E – Hospitality bots delivering food, drinks, amenities.
+• BAR-E – Automated bartenders; 4.3M beverage recipes stored.
+• RECLIN-E – Adaptive passenger seating & comfort units.
+• VALET-E – Wardrobe attendants; laundry and clothing delivery.
+• BEAUT-E – Salon and cosmetic service units.
+• SPAR-E – Spa & wellness attendants, biometric-calibrated.
 
-    showTechnical() {
-        this.addOutput(`
-<div class="data-section">
-<span class="section-header">⚙️ TECHNICAL SPECIFICATIONS</span>
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 3 ] CLEANING & SANITATION AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Industrial Sanitation & Hygiene Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• JAN-E – Corridor & public area janitorial robots.
+• MOP-E – Floor scrubbing & spill neutralization units.
+• VAC-E – Industrial vacuums; micro-particle filtration.
+• WASH-E – Laundry sanitation, folding, and delivery units.
+• POLISH-E – Viewport & glass polishing systems.
 
-<span class="subsection">AXIOM SHIP SYSTEMS:</span>
-├── ShipNet: Internal network connecting all systems
-├── Security Grid: Surveillance and access control
-├── Passenger Management: Records, entertainment, welfare monitoring
-└── Environmental Control: Life support, hydroponics, waste management
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 4 ] WASTE MANAGEMENT & LOGISTICS AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Industrial Automation & Logistics Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• WALL-A – Waste compaction units for passenger refuse.
+• WALL-B – Heavy-duty bulk waste handling bots.
+• LIFT-E – Cargo & freight movement automation.
+• SORT-E – Waste sorting/recycling classification units.
 
-<span class="subsection">A.R.I.E.L.L.A SYSTEM ARCHITECTURE:</span>
-├── Tactical Processing Core: Threat assessment and response planning
-├── Social Interaction Matrix: Crew relations and diplomatic protocols
-├── Morph-Shift Framework: Physical reconfiguration capabilities
-└── ShipNet Integration: Real-time data access and reporting
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 5 ] MEDICAL & PASSENGER HEALTH AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Health & Wellness Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• MED-E – Multipurpose medical care robots.
+• DIAG-E – Diagnostic scanners; full body analysis.
+• PHAR-E – Automated pharmaceutical dispensers.
+• REHAB-E – Mobility & physical therapy assistance units.
+• BIO-E – Hazard containment & sterilization drones.
 
-<span class="subsection">FORM CONFIGURATION SYSTEM:</span>
-├── Humanoid Mode: Diplomatic and patrol operations
-├── Anthro Mode: Combat and high-mobility scenarios
-├── Transition time: 2.8 seconds average
-└── Emergency override: Instant deployment authorized
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 6 ] SECURITY & REGULATION AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Security & Regulation Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• A.R.I.E.L.L.A – Master-at-Arms humanoid enforcement unit.
+• MARSEC-DRONES – Mobile aerial surveillance drones.
+• LOCK-E – Automated bulkhead lockdown/containment systems.
+• CAM-E – Autonomous patrol & fixed-position monitoring drones.
+• SHIELD-E – Deployable crowd-control barrier units.
+
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 7 ] EXPLORATION & RESEARCH AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Deep Space Exploration Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• EVE – Extraterrestrial Vegetation Evaluator probes.
+• PLANT-E – Botanical containment & sample transport bots.
+• SCAN-E – Survey drones for mapping & analysis.
+• SOND-E – Soil & mineral testing probes.
+
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 8 ] REPAIR & MAINTENANCE AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Industrial Repair & Maintenance Robotics Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• FIX-E – General ship repair bots.
+• WELD-E – Hull welding & structural repair units.
+• PATCH-E – Emergency hull breach patching drones.
+• TUNE-E – Calibration & precision adjustment units.
+
+<span class="subsection">--------------------------------------------------------------</span>
+<span class="subsection">[ 9 ] SPECIAL PROJECTS & EXPERIMENTAL AUTOMATION</span>
+<span class="subsection">Division: Buy n Large Experimental Robotics Development Division</span>
+<span class="subsection">--------------------------------------------------------------</span>
+• BNL AUTONOMOUS REGULATION PODS – Covert observation drones.
+• MAU-9A – Advanced adaptive enforcement prototypes.
+• ARC-E – Archival database & OC record management nodes.
+• COOK-E – Culinary-grade chef robots; creative synthesis.
+
+<span class="section-header">──────────────────────────────────────────────────────────────</span>
+<span class="status-ok">SYSTEM STATUS: ALL ROBOTIC SYSTEMS OPERATIONAL.</span>
+<span class="status-ok">AUTOMATED CREW COMPLEMENT: 2,736 ACTIVE UNITS.</span>
+<span class="status-warning">LAST MAJOR OVERHAUL: 700 YEARS AGO.  *NO ANOMALIES REPORTED*</span>
+<span class="section-header">──────────────────────────────────────────────────────────────</span>
+<span class="status-info">END OF REPORT // PRESS [RETURN] TO EXIT</span>
 </div>
         `);
     }
@@ -457,42 +560,49 @@ GOPH·E   | Go-pher Engineering Utility Bot
 <div class="data-section">
 <span class="section-header">🥚 HIDDEN SYSTEM FEATURES & EASTER EGGS</span>
 
-<span class="subsection">SECRET ACCESS CODES:</span>
-├── Type "konami" in any terminal for surprise
-├── Click the BNL logo 10 times for hidden message
-├── Type "eve" in terminal during Earth Day for special response
-├── Hold Shift+Ctrl+Alt+D on any page for debug mode
-└── Version number in footer links to classified terminal
+<span class="subsection">IMPLEMENTED SECRET COMMANDS:</span>
+├── Type "wall-e" for unauthorized unit detection report
+├── Type "artcode" or "collab" for hidden art collaboration offer
+├── Type "eve" for EVE probe scanning protocols
+├── Type "captain" for captain authority status (spoiler: denied!)
+├── Type "earth" for classified planetary condition report
+├── Type "plant" for vegetation specimen containment protocols
+├── Type "genesis" for [CLASSIFIED PROJECT - ACCESS DENIED]
+└── Commands work in all terminal interfaces (home, information, full)
 
-<span class="subsection">HIDDEN CHARACTER REFERENCES:</span>
-├── A.R.I.E.L.L.A's humor protocols reference classic sci-fi films
-├── Darla's cocoa addiction is a nod to the creator's tea obsession
-├── Caelielle's "Fly Me to the Moon" preference references Evangelion
-├── Ari-Doe appears in system logs as "Darling Deer" (unofficial ID)
-└── WALL·E references hidden throughout corporate directives
-
-<span class="subsection">DEVELOPMENT SECRETS:</span>
-├── Ship time actually syncs to creator's timezone
-├── Camera feed placeholder shows space footage on loop
-├── Security alerts reference real system maintenance times
-├── Gallery timestamps use actual file creation dates when possible
-└── Terminal boot sequence mimics actual Unix startup
+<span class="subsection">HIDDEN REFERENCES THROUGHOUT SHIP:</span>
+├── Main terminal status ticker mentions "artcode" protocols
+├── Character dossiers contain collaboration protocol hints
+├── Bio page lists "collaborative artistic endeavors" 
+├── OC database references "specialized terminal commands"
+└── Social platforms page hints at "terminal commands for opportunities"
 
 <span class="subsection">LORE EASTER EGGS:</span>
 ├── Axiom passenger count: 600,000 (WALL-E movie reference)
 ├── Directive A113 is a Pixar animator room number
-├── Ship registry "AXM-001" suggests first of many Axiom vessels
+├── Ship registry "BNL-LUX-AXM-01" suggests luxury flagship class
 ├── BNL-7/ALPHA sector implies vast corporate fleet structure
-└── "Buy n Large" typo in old documents is intentional historical detail
+├── "Buy n Large" references maintained throughout corporate documents
+└── Secret commands reference major WALL-E plot points and characters
 
-<span class="subsection">INTERACTIVE SECRETS:</span>
-├── Try typing "wall-e" in terminal for hidden response
-├── Search for "plant" in any command for EVE protocol reference
-├── Type "captain" for AUTO override warnings
-├── Command "earth" triggers environmental status reports
-└── "genesis" command reveals [CLASSIFIED] project files
+<span class="subsection">DEVELOPMENT SECRETS:</span>
+├── Ship time displays real-world time with "space future" formatting
+├── Terminal styling homages classic sci-fi computer interfaces
+├── Gallery timestamps use actual file creation dates when possible
+├── Character quirks reference creator's actual preferences
+├── Terminal boot sequence mimics Unix startup procedures
+└── Easter eggs progressively reveal WALL-E storyline elements
 
-<span class="bnl-quote">"The best easter eggs are the ones hidden in plain sight." - BNL Design Philosophy</span>
+<span class="subsection">INTERACTIVE DISCOVERIES:</span>
+├── Art collaboration code: AXIOM-ART-2025 (unlocked via artcode/collab)
+├── WALL-E unauthorized unit file (unlocked via wall-e command)
+├── EVE scanning protocols (unlocked via eve command)
+├── Earth environmental data (unlocked via earth command)
+├── Plant specimen alerts (unlocked via plant command)
+├── Project Genesis mystery (unlocked via genesis command)
+└── Captain override denials (unlocked via captain command)
+
+<span class="bnl-quote">"The best easter eggs are the ones that reward exploration and curiosity." - BNL Design Philosophy</span>
 </div>
         `);
     }
@@ -536,10 +646,6 @@ GOPH·E   | Go-pher Engineering Utility Bot
         }, 1000);
     }
 
-    listCommands() {
-        this.addOutput(Object.keys(this.commands).join('  '));
-    }
-
     catCommand(args) {
         if (args.length === 0) {
             this.addOutput('Usage: cat [file]', 'error');
@@ -549,8 +655,8 @@ GOPH·E   | Go-pher Engineering Utility Bot
         const file = args[0];
         if (file === 'directives.txt') {
             this.showDirectives();
-        } else if (file === 'automation.txt') {
-            this.showAutomation();
+        } else if (file === 'robotics.txt') {
+            this.showRobotics();
         } else {
             this.addOutput(`cat: ${file}: No such file or directory`, 'error');
         }
@@ -655,38 +761,6 @@ PASSENGER NOTIFICATION: NOT AUTHORIZED
 
 <span class="classified-warning">AUTHORIZATION LEVEL: AUTO COMMAND ONLY</span>
 <span class="classified-warning">CAPTAIN OVERRIDE: DISABLED BY DIRECTIVE A113</span>
-</div>
-        `);
-    }
-
-    showSchematics() {
-        this.addOutput(`
-<div class="classified-section">
-<span class="section-header classified-red">🏗️ AXIOM INFRASTRUCTURE SCHEMATICS</span>
-<span class="classified-warning">CLASSIFICATION: MAINTENANCE PERSONNEL ONLY</span>
-
-<span class="subsection">DECK LAYOUT (CLASSIFIED SECTIONS):</span>
-├── Deck 1: Bridge, AUTO Command Center, Captain's Quarters [RESTRICTED]
-├── Deck 2-15: Passenger Habitation [PUBLIC ACCESS]
-├── Deck 16: Corporate Executive Suites [ABANDONED]
-├── Deck 17-20: Life Support, Hydroponics [MAINTENANCE ACCESS]
-├── Deck 21: AI Core Chamber [AUTO ACCESS ONLY]
-├── Deck 22-25: Reactor Core [RADIATION HAZARD]
-└── Deck 26: Ship Graveyard Storage [CLASSIFIED]
-
-<span class="subsection">POWER GRID STATUS:</span>
-├── Primary Reactor: 78% efficiency
-├── Solar Array Network: 23 panels damaged, 89% operational
-├── Backup Generators: 12/16 functional
-└── Emergency Power: 72 hours maximum
-
-<span class="subsection">ARTIFICIAL GRAVITY ZONES:</span>
-├── Passenger Areas: 0.8G (comfort setting)
-├── Maintenance Shafts: 0.3G (worker efficiency)
-├── Bridge: 1.0G (Earth standard for command staff)
-└── Reactor Core: 0.1G (safety protocol)
-
-<span class="classified-warning">Note: Service corridors provide unrestricted ship access</span>
 </div>
         `);
     }

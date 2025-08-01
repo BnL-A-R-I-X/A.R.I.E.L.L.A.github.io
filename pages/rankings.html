@@ -28,12 +28,37 @@
 
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
-    <a href="ocs.html" class="nav-btn">OC DATABASE</a>
-    <a href="rankings.html" class="nav-btn active">RANKINGS</a>
-    <a href="upcoming-commissions.html" class="nav-btn">QUEUE</a>
-    <a href="socials.html" class="nav-btn">SOCIALS</a>
-    <a href="bio.html" class="nav-btn">BIO</a>
-    <a href="commissions.html" class="nav-btn classified-link" title="Classified Access Required">🔒</a>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">📁 BNL Archives</div>
+            <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">👤 User Profile</div>
+            <a href="bio.html" class="nav-dropdown-item">Biography</a>
+            <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🎨 Community Hub</div>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+        </div>
+    </div>
+    
+    <a href="admin.html" class="nav-btn secret-btn">🔒 ADMIN</a>
 </nav>
 
 <section class="terminal-intro">
@@ -48,23 +73,6 @@
 <main class="ranking-main">
   <!-- The ranking system will be injected here -->
   <div id="character-rankings"></div>
-
-  <!-- Management Tools -->
-  <section class="ranking-management">
-    <h3>Rating Management</h3>
-    <div class="management-tools">
-      <button id="export-rankings" class="management-btn">
-        📊 Export Rankings
-      </button>
-      <button id="clear-rankings" class="management-btn danger">
-        🗑️ Clear All Ratings
-      </button>
-      <div class="management-info">
-        <p><strong>Data Storage:</strong> All ratings are stored locally in your browser.</p>
-        <p><strong>Privacy:</strong> No data is transmitted to external servers.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
 <section class="system-footer">
@@ -80,30 +88,8 @@
 
 <script src="../js/shiptime.js"></script>
 <script src="../js/firebase-ranking-system.js"></script>
-
-<script>
-// Add management button functionality
-document.addEventListener('DOMContentLoaded', () => {
-  const exportBtn = document.getElementById('export-rankings');
-  const clearBtn = document.getElementById('clear-rankings');
-  
-  if (exportBtn) {
-    exportBtn.addEventListener('click', () => {
-      if (window.characterRanking) {
-        window.characterRanking.exportRatings();
-      }
-    });
-  }
-  
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      if (window.characterRanking) {
-        window.characterRanking.clearAllRatings();
-      }
-    });
-  }
-});
-</script>
+<script src="../js/custom-dialogs.js"></script>
+<script src="../js/nav-dropdowns.js"></script>
 
 </body>
 </html>

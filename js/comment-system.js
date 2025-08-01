@@ -338,12 +338,18 @@ class CharacterCommentSystem {
         }
     }
 
-    promptChangeName() {
-        const newName = prompt('Enter your new display name:', this.userName);
-        if (newName && newName.trim() && newName.trim() !== this.userName) {
-            this.userName = newName.trim();
-            localStorage.setItem(this.userNameKey, this.userName);
-            this.injectCommentSystem(); // Refresh display
+    async promptChangeName() {
+        try {
+            const newName = await customDialogs.prompt('Enter your new display name:', this.userName, '📝 CHANGE DISPLAY NAME', 'User Profile Settings');
+            
+            if (newName && newName.trim() && newName.trim() !== this.userName) {
+                this.userName = newName.trim();
+                localStorage.setItem(this.userNameKey, this.userName);
+                this.injectCommentSystem(); // Refresh display
+            }
+        } catch (error) {
+            // User cancelled
+            console.log('Name change cancelled');
         }
     }
 

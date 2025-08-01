@@ -258,11 +258,18 @@ class CharacterRankingSystem {
     }
 
     // Public method to clear all ratings
-    clearAllRatings() {
-        if (confirm('Are you sure you want to clear all your character ratings? This action cannot be undone.')) {
-            localStorage.removeItem(this.storageKey);
-            this.userVotes = {};
-            this.updateDisplay();
+    async clearAllRatings() {
+        try {
+            const confirmClear = await customDialogs.rankingDialog('Are you sure you want to clear all your character ratings? This action cannot be undone.', 'confirm');
+            
+            if (confirmClear) {
+                localStorage.removeItem(this.storageKey);
+                this.userVotes = {};
+                this.updateDisplay();
+            }
+        } catch (error) {
+            // User cancelled
+            console.log('Clear ratings cancelled');
         }
     }
 

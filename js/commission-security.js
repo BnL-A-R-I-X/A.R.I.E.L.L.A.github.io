@@ -166,9 +166,9 @@ class CommissionSecurity {
     }
   }
 
-  securityLockout() {
+  async securityLockout() {
     // Show lockout warning
-    alert('🚨 SECURITY BREACH DETECTED\n\nToo many failed access attempts.\nRedirecting to home terminal for security review.');
+    await customDialogs.securityAlert('🚨 SECURITY BREACH DETECTED\n\nToo many failed access attempts.\nRedirecting to home terminal for security review.');
     
     // Log security incident
     console.warn('🚨 Commission archive: Too many failed access attempts');
@@ -177,24 +177,34 @@ class CommissionSecurity {
     window.location.href = '../index.html';
   }
 
-  cancelAccess() {
-    // Show cancellation message
-    const confirmCancel = confirm('Cancel access to commission archive?\n\nYou will be returned to the home terminal.');
-    
-    if (confirmCancel) {
-      window.location.href = '../index.html';
+  async cancelAccess() {
+    try {
+      // Show cancellation message
+      const confirmCancel = await customDialogs.confirm('Cancel access to commission archive?\n\nYou will be returned to the home terminal.', '🔒 BNL ACCESS CONTROL', 'Confirm Navigation');
+      
+      if (confirmCancel) {
+        window.location.href = '../index.html';
+      }
+    } catch (error) {
+      // User cancelled or closed dialog
+      console.log('Cancel access dialog dismissed');
     }
   }
 
-  logout() {
+  async logout() {
     // Clear session storage
     sessionStorage.removeItem('commission-access');
     
-    // Show logout confirmation
-    const confirmLogout = confirm('🔒 SECURITY LOGOUT\n\nEnd classified session and return to home terminal?');
-    
-    if (confirmLogout) {
-      window.location.href = '../index.html';
+    try {
+      // Show logout confirmation
+      const confirmLogout = await customDialogs.confirm('🔒 SECURITY LOGOUT\n\nEnd classified session and return to home terminal?', '🔒 BNL SECURITY LOGOUT', 'Session Management');
+      
+      if (confirmLogout) {
+        window.location.href = '../index.html';
+      }
+    } catch (error) {
+      // User cancelled logout
+      console.log('Logout cancelled');
     }
   }
 }

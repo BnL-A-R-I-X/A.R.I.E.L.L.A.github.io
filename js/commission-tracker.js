@@ -91,21 +91,33 @@ class CommissionTracker {
     if (emptyState) emptyState.classList.add('hidden');
 
     tableBody.innerHTML = filteredCommissions.map(commission => {
+      const primaryChar = commission.character || (commission.characters && commission.characters[0]) || 'Unknown';
+      const additionalChars = commission.characters ? commission.characters.slice(1) : [];
+      
       return `
         <tr class="tracker-row status-${commission.status}" data-id="${commission.id}">
           <td class="commission-id">${commission.id}</td>
-          <td class="commission-title">
-            <div class="title-main">${commission.title}</div>
-            ${commission.description ? `<div class="title-desc">${commission.description}</div>` : ''}
+          <td class="artist-cell editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'artist', this)">
+            ${commission.artist || 'TBD'}
           </td>
-          <td class="commission-characters">
-            ${commission.characters.map(char => `<span class="char-tag">${char}</span>`).join('')}
+          <td class="commission-date editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'dateOfCommission', this)">
+            ${commission.dateOfCommission || 'Not Set'}
           </td>
-          <td class="commission-type">${commission.type}</td>
+          <td class="commission-description editable-cell" onclick="commissionTracker.editCell('${commission.id}', 'descriptionOfCommission', this)">
+            <div class="description-preview">${(commission.descriptionOfCommission || commission.description || 'No description').substring(0, 50)}${(commission.descriptionOfCommission || commission.description || '').length > 50 ? '...' : ''}</div>
+          </td>
+          <td class="commission-cost editable-cell cost-display" onclick="commissionTracker.editCell('${commission.id}', 'cost', this)">
+            ${this.formatCostDisplay(commission.cost)}
+          </td>
+          <td class="commission-type">${commission.type || 'General'}</td>
           <td class="status-cell">
             <select class="status-select" onchange="commissionTracker.updateStatus('${commission.id}', this.value)">
               ${this.getStatusOptions(commission.status)}
             </select>
+          </td>
+          <td class="commission-characters">
+            <span class="character-primary">${primaryChar}</span>
+            ${additionalChars.length > 0 ? `<span class="character-additional">+${additionalChars.join(', ')}</span>` : ''}
           </td>
           <td class="progress-cell">
             <div class="progress-container">
@@ -114,8 +126,6 @@ class CommissionTracker {
               <span class="progress-value">${commission.progress || 0}%</span>
             </div>
           </td>
-          <td class="artist-cell">${commission.artist || 'TBD'}</td>
-          <td class="due-date">${commission.estimatedCompletion || 'TBD'}</td>
           <td class="public-toggle">
             <label class="toggle-switch">
               <input type="checkbox" ${commission.isPublic ? 'checked' : ''} 
@@ -157,7 +167,7 @@ class CommissionTracker {
       console.log(`📊 Updated ${commissionId} status to ${newStatus}`);
     } catch (error) {
       console.error('❌ Error updating status:', error);
-      alert('Failed to update status. Please try again.');
+      await customDialogs.commissionDialog('Failed to update status. Please try again.');
     }
   }
 
@@ -176,7 +186,7 @@ class CommissionTracker {
       console.log(`📈 Updated ${commissionId} progress to ${newProgress}%`);
     } catch (error) {
       console.error('❌ Error updating progress:', error);
-      alert('Failed to update progress. Please try again.');
+      await customDialogs.commissionDialog('Failed to update progress. Please try again.');
     }
   }
 
@@ -188,7 +198,7 @@ class CommissionTracker {
       console.log(`👁️ ${commissionId} public visibility: ${isPublic}`);
     } catch (error) {
       console.error('❌ Error updating public visibility:', error);
-      alert('Failed to update visibility. Please try again.');
+      await customDialogs.commissionDialog('Failed to update visibility. Please try again.');
     }
   }
 
@@ -214,16 +224,15 @@ class CommissionTracker {
   }
 
   populateForm(commission) {
-    document.getElementById('comm-title').value = commission.title || '';
-    document.getElementById('comm-type').value = commission.type || '';
-    document.getElementById('comm-characters').value = commission.characters.join(', ') || '';
     document.getElementById('comm-artist').value = commission.artist || '';
+    document.getElementById('comm-date').value = commission.dateOfCommission || '';
+    document.getElementById('comm-description').value = commission.descriptionOfCommission || commission.description || '';
+    document.getElementById('comm-cost').value = commission.cost ? commission.cost.toString().replace('$', '') : '0.00';
+    document.getElementById('comm-character').value = commission.character || (commission.characters && commission.characters[0]) || '';
+    document.getElementById('comm-characters').value = commission.characters ? commission.characters.slice(1).join(', ') : '';
+    document.getElementById('comm-type').value = commission.type || '';
     document.getElementById('comm-status').value = commission.status || 'planning';
     document.getElementById('comm-progress').value = commission.progress || 0;
-    document.getElementById('comm-due-date').value = commission.estimatedCompletion || '';
-    document.getElementById('comm-priority').value = commission.priority || 'normal';
-    document.getElementById('comm-description').value = commission.description || '';
-    document.getElementById('comm-notes').value = commission.notes || '';
     document.getElementById('comm-public').checked = commission.isPublic !== false;
   }
 
@@ -244,41 +253,77 @@ class CommissionTracker {
     e.preventDefault();
     
     if (!this.firebaseSystem) {
-      alert('Database not ready. Please try again in a moment.');
+      await customDialogs.commissionDialog('Database not ready. Please try again in a moment.');
       return;
     }
 
     const formData = {
-      title: document.getElementById('comm-title').value,
-      type: document.getElementById('comm-type').value,
-      characters: document.getElementById('comm-characters').value.split(',').map(s => s.trim()),
       artist: document.getElementById('comm-artist').value || 'TBD',
-      status: document.getElementById('comm-status').value,
+      dateOfCommission: document.getElementById('comm-date').value || null,
+      descriptionOfCommission: document.getElementById('comm-description').value || '',
+      cost: this.parseCostInput(document.getElementById('comm-cost').value),
+      character: document.getElementById('comm-character').value || 'Unknown',
+      type: document.getElementById('comm-type').value || 'General',
+      status: document.getElementById('comm-status').value || 'planning',
       progress: parseInt(document.getElementById('comm-progress').value) || 0,
-      estimatedCompletion: document.getElementById('comm-due-date').value || null,
-      priority: document.getElementById('comm-priority').value,
-      description: document.getElementById('comm-description').value,
-      notes: document.getElementById('comm-notes').value,
-      isPublic: document.getElementById('comm-public').checked
+      isPublic: document.getElementById('comm-public').checked,
+      // Build characters array from primary character + additional characters
+      characters: this.buildCharactersArray(),
+      // Keep some backward compatibility fields
+      title: document.getElementById('comm-description').value || 'Commission',
+      description: document.getElementById('comm-description').value || ''
     };
 
     try {
       if (this.editingId) {
         // Update existing commission
         await this.firebaseSystem.updateCommission(this.editingId, formData);
-        alert('✅ Commission updated successfully!');
+        await customDialogs.commissionDialog('✅ Commission updated successfully!');
       } else {
         // Add new commission
         await this.firebaseSystem.addCommission(formData);
-        alert('✅ Commission added successfully!');
+        await customDialogs.commissionDialog('✅ Commission added successfully!');
       }
 
       this.hideForm();
       
     } catch (error) {
       console.error('❌ Error saving commission:', error);
-      alert('Failed to save commission. Please try again.');
+      await customDialogs.commissionDialog('Failed to save commission. Please try again.');
     }
+  }
+
+  buildCharactersArray() {
+    const primaryChar = document.getElementById('comm-character').value;
+    const additionalChars = document.getElementById('comm-characters').value;
+    
+    const characters = [];
+    if (primaryChar) characters.push(primaryChar);
+    
+    if (additionalChars) {
+      const additional = additionalChars.split(',').map(s => s.trim()).filter(s => s);
+      characters.push(...additional);
+    }
+    
+    return characters.length > 0 ? characters : ['Unknown'];
+  }
+
+  parseCostInput(costStr) {
+    if (!costStr) return 0;
+    
+    // Remove any non-digit or decimal characters
+    const cleaned = costStr.replace(/[^\d.]/g, '');
+    const parsed = parseFloat(cleaned);
+    return isNaN(parsed) ? 0 : Math.round(parsed * 100) / 100; // Round to 2 decimal places
+  }
+
+  formatCostDisplay(cost) {
+    if (!cost && cost !== 0) return '$0.00';
+    
+    const numCost = typeof cost === 'string' ? parseFloat(cost.replace(/[$,]/g, '')) : cost;
+    if (isNaN(numCost)) return '$0.00';
+    
+    return '$' + numCost.toFixed(2);
   }
 
   async deleteCommission(commissionId) {
@@ -287,14 +332,49 @@ class CommissionTracker {
     const commission = this.firebaseSystem.getCommissionById(commissionId);
     if (!commission) return;
 
-    const confirmDelete = confirm(`Delete commission "${commission.title}" (${commissionId})?\n\nThis action cannot be undone.`);
-    if (confirmDelete) {
-      try {
+    try {
+      const confirmDelete = await customDialogs.confirm(`Delete commission "${commission.descriptionOfCommission || commission.description || commissionId}" (${commissionId})?\n\nThis action cannot be undone.`, '💼 DELETE COMMISSION', 'Confirm Deletion');
+      
+      if (confirmDelete) {
         await this.firebaseSystem.deleteCommission(commissionId);
         console.log(`🗑️ Deleted commission ${commissionId}`);
-      } catch (error) {
+      }
+    } catch (error) {
+      if (error !== false) { // Only show error if it's not user cancellation
         console.error('❌ Error deleting commission:', error);
-        alert('Failed to delete commission. Please try again.');
+        await customDialogs.commissionDialog('Failed to delete commission. Please try again.');
+      }
+    }
+  }
+
+  // Inline cell editing function
+  async editCell(commissionId, field, cellElement) {
+    if (!this.firebaseSystem) return;
+
+    const commission = this.firebaseSystem.getCommissionById(commissionId);
+    if (!commission) return;
+
+    const currentValue = commission[field] || '';
+    let newValue;
+
+    try {
+      if (field === 'dateOfCommission') {
+        newValue = await customDialogs.prompt(`Edit ${field}:`, currentValue, '💼 EDIT COMMISSION', 'Date Information');
+      } else if (field === 'cost') {
+        newValue = await customDialogs.prompt(`Edit cost (number only):`, currentValue.toString().replace('$', ''), '💼 EDIT COMMISSION', 'Cost Information');
+        newValue = parseFloat(newValue) || 0;
+      } else {
+        newValue = await customDialogs.prompt(`Edit ${field}:`, currentValue, '💼 EDIT COMMISSION', `${field} Information`);
+      }
+
+      if (newValue !== null && newValue !== currentValue) {
+        await this.firebaseSystem.updateCommission(commissionId, { [field]: newValue });
+        console.log(`✅ Updated ${field} for commission ${commissionId}`);
+      }
+    } catch (error) {
+      if (error !== false) { // Only show error if it's not user cancellation
+        console.error('❌ Error updating commission:', error);
+        await customDialogs.commissionDialog('Failed to update commission. Please try again.');
       }
     }
   }

@@ -15,7 +15,7 @@
     <div class="security-header">
       <img src="../assets/logos/axiom.png" alt="BNL Logo" class="security-logo">
       <h1>🔒 BNL SECURITY CHECKPOINT</h1>
-      <p class="security-warning">CLASSIFIED COMMISSION ARCHIVE</p>
+      <p class="security-warning">COMMISSION ARCHIVE ACCESS</p>
       <p class="security-subtitle">Level 6 Clearance Required</p>
     </div>
     
@@ -40,8 +40,8 @@
       <img src="../assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered">
       <div>
         <h1>🔒 USS AXIOM // COMMISSION ARCHIVE</h1>
-        <p class="subtext">Private Creative Development Terminal</p>
-        <p class="status">STATUS: SECURED — CLEARANCE: <strong>LEVEL 6 (CLASSIFIED)</strong> — USER: <strong>ARIELLA.FAWNBROOK</strong></p>
+        <p class="subtext">Private Creative Development Archive</p>
+        <p class="status">STATUS: SECURED — CLEARANCE: <strong>LEVEL 6 (COMMISSION ACCESS)</strong> — USER: <strong>ARIELLA.FAWNBROOK</strong></p>
         <div class="status-widgets">
           SHIP TIME: <strong id="shipTime"></strong> |
           SECTOR: <strong>BNL-7 / ALPHA</strong> |
@@ -53,18 +53,46 @@
 
   <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
-    <a href="ocs.html" class="nav-btn">OC DATABASE</a>
-    <a href="rankings.html" class="nav-btn">RANKINGS</a>
-    <a href="socials.html" class="nav-btn">SOCIALS</a>
-    <a href="bio.html" class="nav-btn">BIO</a>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">📁 BNL Archives</div>
+            <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+            <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+            <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">👤 User Profile</div>
+            <a href="bio.html" class="nav-dropdown-item">Biography</a>
+            <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🎨 Community Hub</div>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+        </div>
+    </div>
+    
+    <a href="admin.html" class="nav-btn secret-btn">🔒 ADMIN</a>
     <button id="logout-btn" class="nav-btn security-btn">🔒 LOGOUT</button>
   </nav>
 
   <section class="terminal-intro security-intro">
     <p>
-      <strong>🔒 BNL CLASSIFIED TERMINAL:</strong> Welcome to the secure commission development archive. 
+      <strong>🔒 BNL COMMISSION ARCHIVE:</strong> Welcome to the secure commission development archive. 
       This terminal contains private creative concepts, commission ideas, and work-in-progress materials for character development. 
       <em>All content within this system is confidential and protected under BNL Creative Development Protocol CDP-94.</em>
+      <br><strong>Access granted via Admin Terminal clearance.</strong>
     </p>
   </section>
 
@@ -159,6 +187,7 @@
       <h2 class="commission-header">
         🎯 Commission Tracker & Manager
         <button class="add-commission-btn" onclick="commissionTracker.showAddForm()">➕ Add Commission</button>
+        <button class="add-commission-btn" onclick="showCSVImport()" style="margin-left: 10px;">📥 Import CSV</button>
       </h2>
       
       <!-- Commission Management Table -->
@@ -193,13 +222,14 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Title</th>
-                <th>Characters</th>
+                <th>Artist</th>
+                <th>Date Of Commission</th>
+                <th>Description Of Commission</th>
+                <th>Cost</th>
                 <th>Type</th>
                 <th>Status</th>
+                <th>Character(s)</th>
                 <th>Progress</th>
-                <th>Artist</th>
-                <th>Due Date</th>
                 <th>Public</th>
                 <th>Actions</th>
               </tr>
@@ -216,18 +246,52 @@
           <form id="commission-data-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="comm-title">Title:</label>
-                <input type="text" id="comm-title" required>
+                <label for="comm-artist">Artist:</label>
+                <input type="text" id="comm-artist" placeholder="Artist Name" required>
+              </div>
+              <div class="form-group">
+                <label for="comm-date">Date Of Commission:</label>
+                <input type="date" id="comm-date" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="comm-description">Description Of Commission:</label>
+                <textarea id="comm-description" placeholder="Detailed description of the commission" required></textarea>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="comm-cost">Cost (USD):</label>
+                <div class="cost-input-wrapper">
+                  <span class="currency-symbol">$</span>
+                  <input type="text" id="comm-cost" placeholder="0.00" pattern="[0-9]+(\.[0-9]{1,2})?" oninput="formatCostInput(this)">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="comm-character">Character:</label>
+                <select id="comm-character" required>
+                  <option value="">Select Character</option>
+                  <option value="Darla">Darla</option>
+                  <option value="Ariella">A.R.I.E.L.L.A</option>
+                  <option value="Aridoe">Ari-Doe</option>
+                  <option value="Caelielle">Caelielle</option>
+                  <option value="Multi-Character">Multi-Character</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="comm-type">Type:</label>
                 <select id="comm-type" required>
                   <option value="">Select Type</option>
-                  <option value="Character Portrait">Character Portrait</option>
-                  <option value="Scene Art">Scene Art</option>
+                  <option value="Headshot">Headshot</option>
+                  <option value="Half-Body">Half-Body</option>
+                  <option value="Full-Body">Full-Body</option>
+                  <option value="Ankle Up">Ankle Up</option>
+                  <option value="Multi-Character">Multi-Character</option>
                   <option value="Reference Sheet">Reference Sheet</option>
-                  <option value="Icon/Avatar">Icon/Avatar</option>
-                  <option value="Concept Art">Concept Art</option>
                   <option value="Custom">Custom</option>
                 </select>
               </div>
@@ -235,16 +299,9 @@
             
             <div class="form-row">
               <div class="form-group">
-                <label for="comm-characters">Characters (comma separated):</label>
-                <input type="text" id="comm-characters" placeholder="Ariella, Darla">
+                <label for="comm-characters">Additional Characters (optional, comma separated):</label>
+                <input type="text" id="comm-characters" placeholder="Additional characters if multi-character commission">
               </div>
-              <div class="form-group">
-                <label for="comm-artist">Artist:</label>
-                <input type="text" id="comm-artist" placeholder="Artist Name or TBD">
-              </div>
-            </div>
-            
-            <div class="form-row">
               <div class="form-group">
                 <label for="comm-status">Status:</label>
                 <select id="comm-status" required>
@@ -330,12 +387,96 @@
 
 </div>
 
+<!-- CSV Import Modal -->
+<div id="csv-import-modal" class="commission-form hidden" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 80%; max-width: 600px;">
+  <h3>📥 Import Commission Data from CSV</h3>
+  <div class="form-group">
+    <label for="csv-input">Paste your CSV data here:</label>
+    <textarea id="csv-input" rows="15" placeholder="Artist,Date Of Commission,Description Of Commission,Cost,Type,Status
+Fidget,10/23/24,Darla Sweater,$15.00,Full-Body,In Progress
+..."></textarea>
+  </div>
+  <div class="form-row">
+    <button type="button" onclick="importFromCSV()" class="action-btn btn-primary">Import Data</button>
+    <button type="button" onclick="hideCSVImport()" class="action-btn">Cancel</button>
+  </div>
+  <div style="margin-top: 15px; font-size: 0.9em; color: var(--text-secondary);">
+    <p><strong>Format:</strong> First line should be headers. Supported columns:</p>
+    <p>Artist, Date Of Commission, Description Of Commission, Cost, Type, Status</p>
+    <p><strong>Note:</strong> This will add new commissions. Existing data won't be duplicated.</p>
+  </div>
+</div>
+
+<script>
+function showCSVImport() {
+  document.getElementById('csv-import-modal').classList.remove('hidden');
+}
+
+function hideCSVImport() {
+  document.getElementById('csv-import-modal').classList.add('hidden');
+  document.getElementById('csv-input').value = '';
+}
+
+function formatCostInput(input) {
+  // Remove any non-digit or decimal characters
+  let value = input.value.replace(/[^\d.]/g, '');
+  
+  // Ensure only one decimal point
+  const parts = value.split('.');
+  if (parts.length > 2) {
+    value = parts[0] + '.' + parts.slice(1).join('');
+  }
+  
+  // Limit to 2 decimal places
+  if (parts[1] && parts[1].length > 2) {
+    value = parts[0] + '.' + parts[1].substring(0, 2);
+  }
+  
+  input.value = value;
+}
+
+function formatCostDisplay(cost) {
+  if (!cost && cost !== 0) return '$0.00';
+  
+  const numCost = typeof cost === 'string' ? parseFloat(cost.replace(/[$,]/g, '')) : cost;
+  if (isNaN(numCost)) return '$0.00';
+  
+  return '$' + numCost.toFixed(2);
+}
+
+async function importFromCSV() {
+  const csvData = document.getElementById('csv-input').value.trim();
+  if (!csvData) {
+    await customDialogs.commissionDialog('Please paste CSV data first.');
+    return;
+  }
+
+  try {
+    const migration = new CommissionDataMigration();
+    await migration.init();
+    const count = await migration.importFromCSVData(csvData);
+    await customDialogs.commissionDialog(`✅ Successfully imported ${count} commissions!`);
+    hideCSVImport();
+    
+    // Refresh the tracker if it exists
+    if (window.commissionTracker) {
+      window.commissionTracker.render();
+    }
+  } catch (error) {
+    console.error('❌ CSV import failed:', error);
+    await customDialogs.commissionDialog('Failed to import CSV data. Please check the format and try again.');
+  }
+}
+</script>
+
+<script src="../js/custom-dialogs.js"></script>
 <script src="../js/shiptime.js"></script>
 <script src="../js/commission-data.js"></script>
 <script src="../js/firebase-commission-system.js"></script>
 <script src="../js/commission-security.js"></script>
 <script src="../js/commission-gallery.js"></script>
 <script src="../js/commission-tracker.js"></script>
+<script src="../js/commission-data-migration.js"></script>
 
 </body>
 </html>

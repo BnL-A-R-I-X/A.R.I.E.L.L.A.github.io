@@ -28,12 +28,37 @@
 
 <nav class="nav-bar nav-right">
   <a href="../index.html" class="nav-btn">HOME</a>
-  <a href="ocs.html" class="nav-btn">OC DATABASE</a>
-  <a href="rankings.html" class="nav-btn">RANKINGS</a>
-  <a href="socials.html" class="nav-btn">SOCIALS</a>
-  <a href="bio.html" class="nav-btn">BIO</a>
-  <a href="upcoming-commissions.html" class="nav-btn active">QUEUE</a>
-  <a href="commissions.html" class="nav-btn classified-link" title="Classified Access Required">🔒</a>
+  
+  <div class="nav-dropdown">
+      <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+      <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-header">📁 BNL Archives</div>
+          <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+          <a href="rankings.html" class="nav-dropdown-item">Character Rankings</a>
+          <a href="upcoming-commissions.html" class="nav-dropdown-item">Commission Queue</a>
+      </div>
+  </div>
+  
+  <div class="nav-dropdown">
+      <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+      <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-header">👤 User Profile</div>
+          <a href="bio.html" class="nav-dropdown-item">Biography</a>
+          <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+      </div>
+  </div>
+  
+  <div class="nav-dropdown">
+      <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+      <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-header">🎨 Community Hub</div>
+          <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+          <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+          <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+      </div>
+  </div>
+  
+  <a href="admin.html" class="nav-btn secret-btn">🔒 ADMIN</a>
 </nav>
 
 <section class="terminal-intro">
@@ -74,14 +99,14 @@
       <table class="commission-table" id="commission-table">
         <thead>
           <tr>
-            <th>Queue #</th>
-            <th>Commission Title</th>
-            <th>Character(s)</th>
+            <th>Artist</th>
+            <th>Date Of Commission</th>
+            <th>Description Of Commission</th>
+            <th>Cost</th>
             <th>Type</th>
             <th>Status</th>
+            <th>Character(s)</th>
             <th>Progress</th>
-            <th>Est. Completion</th>
-            <th>Artist</th>
           </tr>
         </thead>
         <tbody id="commission-table-body">
@@ -121,6 +146,7 @@
   </marquee>
 </div>
 
+<script src="../js/nav-dropdowns.js"></script>
 <script src="../js/shiptime.js"></script>
 <script src="../js/firebase-commission-system.js"></script>
 <script src="../js/commission-queue.js"></script>

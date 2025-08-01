@@ -98,80 +98,94 @@ class CommissionGallery {
     return card;
   }
 
-  editIdea(character, index) {
+  async editIdea(character, index) {
     const idea = this.commissionData[character].ideas[index];
     if (!idea) return;
 
-    // Simple prompt-based editing (can be enhanced with a modal later)
-    const newTitle = prompt('Edit Title:', idea.title);
-    if (newTitle !== null) idea.title = newTitle;
+    try {
+      // Simple prompt-based editing (can be enhanced with a modal later)
+      const newTitle = await customDialogs.prompt('Edit Title:', idea.title, '💼 EDIT COMMISSION IDEA', 'Title Information');
+      if (newTitle !== null) idea.title = newTitle;
 
-    const newDescription = prompt('Edit Description:', idea.description);
-    if (newDescription !== null) idea.description = newDescription;
+      const newDescription = await customDialogs.prompt('Edit Description:', idea.description, '💼 EDIT COMMISSION IDEA', 'Description Information');
+      if (newDescription !== null) idea.description = newDescription;
 
-    const newNotes = prompt('Edit Notes:', idea.notes || '');
-    if (newNotes !== null) idea.notes = newNotes;
+      const newNotes = await customDialogs.prompt('Edit Notes:', idea.notes || '', '💼 EDIT COMMISSION IDEA', 'Additional Notes');
+      if (newNotes !== null) idea.notes = newNotes;
 
-    const newPriority = prompt('Edit Priority (high/medium/low):', idea.priority || 'medium');
-    if (newPriority !== null && ['high', 'medium', 'low'].includes(newPriority.toLowerCase())) {
-      idea.priority = newPriority.toLowerCase();
+      const newPriority = await customDialogs.prompt('Edit Priority (high/medium/low):', idea.priority || 'medium', '💼 EDIT COMMISSION IDEA', 'Priority Level');
+      if (newPriority !== null && ['high', 'medium', 'low'].includes(newPriority.toLowerCase())) {
+        idea.priority = newPriority.toLowerCase();
+      }
+
+      const newStatus = await customDialogs.prompt('Edit Status (concept/planned/commissioned/completed):', idea.status || 'concept', '💼 EDIT COMMISSION IDEA', 'Status Information');
+      if (newStatus !== null && ['concept', 'planned', 'commissioned', 'completed'].includes(newStatus.toLowerCase())) {
+        idea.status = newStatus.toLowerCase();
+      }
+
+      // Re-render the gallery
+      this.setupGalleries();
+      console.log('✅ Commission idea updated (remember to save to commission-data.js)');
+    } catch (error) {
+      // User cancelled editing
+      console.log('Edit cancelled');
     }
-
-    const newStatus = prompt('Edit Status (concept/planned/commissioned/completed):', idea.status || 'concept');
-    if (newStatus !== null && ['concept', 'planned', 'commissioned', 'completed'].includes(newStatus.toLowerCase())) {
-      idea.status = newStatus.toLowerCase();
-    }
-
-    // Re-render the gallery
-    this.setupGalleries();
-    
-    // In a real implementation, you'd save to commission-data.js or a database
-    console.log('💾 Commission idea updated (remember to save to commission-data.js)');
   }
 
-  deleteIdea(character, index) {
+  async deleteIdea(character, index) {
     const idea = this.commissionData[character].ideas[index];
     if (!idea) return;
 
-    const confirmDelete = confirm(`Delete commission idea: "${idea.title}"?\n\nThis action cannot be undone.`);
-    if (confirmDelete) {
-      this.commissionData[character].ideas.splice(index, 1);
-      this.setupGalleries();
-      console.log('🗑️ Commission idea deleted (remember to update commission-data.js)');
+    try {
+      const confirmDelete = await customDialogs.confirm(`Delete commission idea: "${idea.title}"?\n\nThis action cannot be undone.`, '💼 DELETE COMMISSION IDEA', 'Confirm Deletion');
+      
+      if (confirmDelete) {
+        this.commissionData[character].ideas.splice(index, 1);
+        this.setupGalleries();
+        console.log('🗑️ Commission idea deleted (remember to update commission-data.js)');
+      }
+    } catch (error) {
+      // User cancelled deletion
+      console.log('Delete cancelled');
     }
   }
 
   // Method to add new commission idea
-  addNewIdea(character) {
-    const title = prompt('Commission Title:');
-    if (!title) return;
+  async addNewIdea(character) {
+    try {
+      const title = await customDialogs.prompt('Commission Title:', '', '💼 NEW COMMISSION IDEA', 'Title Information');
+      if (!title) return;
 
-    const description = prompt('Description:');
-    if (!description) return;
+      const description = await customDialogs.prompt('Description:', '', '💼 NEW COMMISSION IDEA', 'Description Information');
+      if (!description) return;
 
-    const imageUrl = prompt('Image URL (optional, or add to assets/commissions/[character]/ folder):') || '';
-    const notes = prompt('Additional Notes (optional):') || '';
-    
-    const priority = prompt('Priority (high/medium/low):', 'medium').toLowerCase();
-    const validPriority = ['high', 'medium', 'low'].includes(priority) ? priority : 'medium';
-    
-    const status = prompt('Status (concept/planned/commissioned/completed):', 'concept').toLowerCase();
-    const validStatus = ['concept', 'planned', 'commissioned', 'completed'].includes(status) ? status : 'concept';
+      const imageUrl = await customDialogs.prompt('Image URL (optional, or add to assets/commissions/[character]/ folder):', '', '💼 NEW COMMISSION IDEA', 'Image Information') || '';
+      const notes = await customDialogs.prompt('Additional Notes (optional):', '', '💼 NEW COMMISSION IDEA', 'Additional Notes') || '';
+      
+      const priority = await customDialogs.prompt('Priority (high/medium/low):', 'medium', '💼 NEW COMMISSION IDEA', 'Priority Level');
+      const validPriority = ['high', 'medium', 'low'].includes(priority.toLowerCase()) ? priority.toLowerCase() : 'medium';
+      
+      const status = await customDialogs.prompt('Status (concept/planned/commissioned/completed):', 'concept', '💼 NEW COMMISSION IDEA', 'Status Information');
+      const validStatus = ['concept', 'planned', 'commissioned', 'completed'].includes(status.toLowerCase()) ? status.toLowerCase() : 'concept';
 
-    const newIdea = {
-      title,
-      description,
-      image: imageUrl,
-      notes,
-      priority: validPriority,
-      status: validStatus
-    };
+      const newIdea = {
+        title,
+        description,
+        image: imageUrl,
+        notes,
+        priority: validPriority,
+        status: validStatus
+      };
 
-    this.commissionData[character].ideas.push(newIdea);
-    this.setupGalleries();
-    
-    console.log('➕ New commission idea added (remember to save to commission-data.js)');
-    alert('Commission idea added! Remember to:\n1. Add image to assets/commissions/[character]/ folder\n2. Update commission-data.js with the new idea');
+      this.commissionData[character].ideas.push(newIdea);
+      this.setupGalleries();
+      
+      console.log('➕ New commission idea added (remember to save to commission-data.js)');
+      await customDialogs.commissionDialog('Commission idea added! Remember to:\n1. Add image to assets/commissions/[character]/ folder\n2. Update commission-data.js with the new idea');
+    } catch (error) {
+      // User cancelled creation
+      console.log('Add new idea cancelled');
+    }
   }
 }
 
