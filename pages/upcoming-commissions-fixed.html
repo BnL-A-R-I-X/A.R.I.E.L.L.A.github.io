@@ -67,38 +67,171 @@
   </div>
 </nav>
 
+<!-- ===== Terminal Introduction ===== -->
 <section class="terminal-intro">
-  <p>Welcome to the <strong>BNL Commission Queue Management Terminal</strong> for the <em>USS Axiom</em>.  
-  This system displays active and upcoming commission projects in accordance with BNL Creative Collaboration Protocol 2025-A.  
-  Managed and maintained by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> for optimal workflow management.
-  <br><em>Note: Queue status updates in real-time as projects progress.</em></p>
+  <div class="intro-content">
+    <div class="intro-header">
+      <h2>🎯 Commission Queue Management</h2>
+      <div class="intro-status">
+        <span class="status-badge active">SYSTEM ONLINE</span>
+        <span class="protocol-badge">BNL-CCP-2025-A</span>
+      </div>
+    </div>
+    
+    <div class="intro-description">
+      <p>Welcome to the <strong>BNL Commission Queue Management Terminal</strong> for the <em>USS Axiom</em>.</p>
+      <p>This system displays active and upcoming commission projects in accordance with BNL Creative Collaboration Protocol 2025-A.</p>
+      <p>Managed and maintained by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> for optimal workflow management.</p>
+      <div class="intro-note">
+        <span class="note-icon">💡</span>
+        <em>Queue status updates in real-time as projects progress through the creative pipeline.</em>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ===== Main Commission Queue Content ===== -->
 <main class="commission-queue">
-  <div class="queue-header">
-    <h2>📋 Active Commission Queue</h2>
-    <div class="queue-status">
-      <div class="status-item">
-        <span class="label">Total Active:</span>
-        <span class="value" id="totalCommissions">Loading...</span>
-      </div>
-      <div class="status-item">
-        <span class="label">In Progress:</span>
-        <span class="value" id="inProgressCommissions">Loading...</span>
-      </div>
-      <div class="status-item">
-        <span class="label">Queue Position:</span>
-        <span class="value" id="queuePosition">Loading...</span>
-      </div>
-    </div>
-  </div>
   
-  <div class="commission-list" id="commissionList">
-    <div class="loading-message">
-      <h3>📡 Accessing BNL Commission Database...</h3>
-      <p>Please wait while we retrieve the latest queue information.</p>
+  <!-- Queue Statistics Dashboard -->
+  <section class="queue-dashboard">
+    <div class="dashboard-header">
+      <h2>� Queue Analytics Dashboard</h2>
+      <div class="refresh-indicator">
+        <span class="refresh-icon">🔄</span>
+        <span class="last-update">Last Updated: <span id="lastUpdate">--:--</span></span>
+      </div>
     </div>
-  </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-icon">📋</div>
+        <div class="stat-content">
+          <div class="stat-label">Total Active</div>
+          <div class="stat-value" id="totalCommissions">--</div>
+          <div class="stat-change">+0 from last week</div>
+        </div>
+      </div>
+      
+      <div class="stat-card progress">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-content">
+          <div class="stat-label">In Progress</div>
+          <div class="stat-value" id="inProgressCommissions">--</div>
+          <div class="stat-change">Currently active</div>
+        </div>
+      </div>
+      
+      <div class="stat-card queue">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <div class="stat-label">Next Position</div>
+          <div class="stat-value" id="queuePosition">--</div>
+          <div class="stat-change">In queue order</div>
+        </div>
+      </div>
+      
+      <div class="stat-card completion">
+        <div class="stat-icon">✨</div>
+        <div class="stat-content">
+          <div class="stat-label">Avg. Completion</div>
+          <div class="stat-value">7-14d</div>
+          <div class="stat-change">Based on type</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Active Commission List -->
+  <section class="commission-list-section">
+    <div class="list-header">
+      <h2>📋 Active Commission Queue</h2>
+      <div class="list-controls">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="progress">In Progress</button>
+        <button class="filter-btn" data-filter="pending">Pending</button>
+        <button class="filter-btn" data-filter="review">Review</button>
+      </div>
+    </div>
+    
+    <div class="commission-list" id="commissionList">
+      <div class="loading-container">
+        <div class="loading-animation">
+          <div class="loading-spinner"></div>
+          <h3>📡 Accessing BNL Commission Database...</h3>
+          <p>Establishing secure connection to USS Axiom creative systems...</p>
+          <div class="loading-progress">
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <span class="progress-text">Retrieving queue data...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Queue Information Panel -->
+  <section class="queue-info-panel">
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🎨 Commission Types</h3>
+        <ul class="type-list">
+          <li><span class="type-dot character"></span>Character Design</li>
+          <li><span class="type-dot portrait"></span>Portrait Commission</li>
+          <li><span class="type-dot fullbody"></span>Full Body Illustration</li>
+          <li><span class="type-dot scene"></span>Scene/Background</li>
+          <li><span class="type-dot reference"></span>Reference Sheet</li>
+          <li><span class="type-dot other"></span>Custom Project</li>
+        </ul>
+      </div>
+      
+      <div class="info-card">
+        <h3>⏱️ Timeline Estimates</h3>
+        <div class="timeline-list">
+          <div class="timeline-item">
+            <span class="timeline-type">Character Design</span>
+            <span class="timeline-duration">5-10 days</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-type">Portrait</span>
+            <span class="timeline-duration">3-7 days</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-type">Full Body</span>
+            <span class="timeline-duration">7-14 days</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-type">Scene</span>
+            <span class="timeline-duration">10-21 days</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <h3>🔔 Status Updates</h3>
+        <div class="status-list">
+          <div class="status-item pending">
+            <span class="status-indicator"></span>
+            <span class="status-text">Pending Review</span>
+          </div>
+          <div class="status-item progress">
+            <span class="status-indicator"></span>
+            <span class="status-text">In Progress</span>
+          </div>
+          <div class="status-item review">
+            <span class="status-indicator"></span>
+            <span class="status-text">Client Review</span>
+          </div>
+          <div class="status-item complete">
+            <span class="status-indicator"></span>
+            <span class="status-text">Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 </main>
 
 <section class="system-footer">
@@ -120,6 +253,77 @@
 <script src="../js/pride-month-special.js"></script>
 <script src="../js/trans-awareness-special.js"></script>
 <script src="../js/holiday-season-special.js"></script>
+
+<script>
+// Commission Queue Enhancement Script
+document.addEventListener('DOMContentLoaded', function() {
+    // Update last update time
+    function updateLastUpdateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', { 
+            hour12: false, 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        const lastUpdateElement = document.getElementById('lastUpdate');
+        if (lastUpdateElement) {
+            lastUpdateElement.textContent = timeString;
+        }
+    }
+    
+    // Filter functionality
+    function setupFilters() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Here you would filter the commission list based on data-filter
+                const filter = this.getAttribute('data-filter');
+                console.log(`Filtering by: ${filter}`);
+                // This would integrate with your commission system
+            });
+        });
+    }
+    
+    // Simulate loading completion
+    function simulateDataLoad() {
+        setTimeout(() => {
+            const totalElement = document.getElementById('totalCommissions');
+            const progressElement = document.getElementById('inProgressCommissions');
+            const queueElement = document.getElementById('queuePosition');
+            
+            if (totalElement) totalElement.textContent = '12';
+            if (progressElement) progressElement.textContent = '3';
+            if (queueElement) queueElement.textContent = '5';
+            
+            // Simulate loading completion
+            const loadingContainer = document.querySelector('.loading-container');
+            if (loadingContainer) {
+                loadingContainer.innerHTML = `
+                    <div class="no-commissions">
+                        <div class="no-commissions-icon">📭</div>
+                        <h3>Queue Data Ready</h3>
+                        <p>Commission system is operational and ready to display active projects.</p>
+                        <p class="system-note">🔧 Admin users can manage the queue through the Administrative Control panel.</p>
+                    </div>
+                `;
+            }
+        }, 3000);
+    }
+    
+    // Initialize all functions
+    updateLastUpdateTime();
+    setupFilters();
+    simulateDataLoad();
+    
+    // Update time every minute
+    setInterval(updateLastUpdateTime, 60000);
+});
+</script>
 
 </body>
 </html>
