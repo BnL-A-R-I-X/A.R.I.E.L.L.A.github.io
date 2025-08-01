@@ -14,12 +14,14 @@ class CommissionQueueV2 {
         // Wait for commission system to be ready
         if (window.commissionSystemV2) {
             this.renderQueue();
+            this.renderFutureArtists();
         } else {
             // Wait for system to load
             const checkSystem = setInterval(() => {
                 if (window.commissionSystemV2) {
                     clearInterval(checkSystem);
                     this.renderQueue();
+                    this.renderFutureArtists();
                 }
             }, 100);
         }
@@ -32,6 +34,7 @@ class CommissionQueueV2 {
         if (window.commissionSystemV2) {
             window.commissionSystemV2.addListener(() => {
                 this.renderQueue();
+                this.renderFutureArtists();
             });
         }
 
@@ -219,6 +222,142 @@ class CommissionQueueV2 {
     // Public method to refresh the queue
     refresh() {
         this.renderQueue();
+        this.renderFutureArtists();
+    }
+
+    renderFutureArtists() {
+        const container = document.getElementById('future-artists-table');
+        if (!container || !window.commissionSystemV2) return;
+
+        // Check if system has future artists loaded
+        if (!window.commissionSystemV2.futureArtists) {
+            container.innerHTML = `
+                <div class="loading-message">
+                    <h3>⏳ Future artists system loading...</h3>
+                    <p>Please wait while the system initializes.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const publicArtists = window.commissionSystemV2.getPublicFutureArtists ? 
+            window.commissionSystemV2.getPublicFutureArtists() : 
+            window.commissionSystemV2.futureArtists.filter(artist => artist.isPublic !== false);
+        
+        if (publicArtists.length === 0) {
+            container.innerHTML = `
+                <div class="empty-future-artists">
+                    <h3>🎨 No Future Artists</h3>
+                    <p>No artists are currently listed in the public future commission wishlist.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const artistsHTML = publicArtists.map(artist => this.renderFutureArtistCard(artist)).join('');
+        
+        container.innerHTML = `
+            <div class="future-artists-grid">
+                ${artistsHTML}
+            </div>
+        `;
+    }
+
+    renderFutureArtistCard(artist) {
+        return `
+            <div class="future-artist-card">
+                <div class="artist-header">
+                    <h3 class="artist-name">${this.escapeHtml(artist.artistName)}</h3>
+                    <div class="artist-priority priority-${artist.priority}">
+                        ${this.formatPriority(artist.priority)}
+                    </div>
+                </div>
+                
+                <div class="artist-info">
+                    ${artist.platform ? `
+                    <div class="artist-info-item">
+                        <span class="label">Platform</span>
+                        <span class="value">${this.escapeHtml(artist.platform)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.handle ? `
+                    <div class="artist-info-item">
+                        <span class="label">Handle</span>
+                        <span class="value">${this.escapeHtml(artist.handle)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.style ? `
+                    <div class="artist-info-item">
+                        <span class="label">Style</span>
+                        <span class="value">${this.escapeHtml(artist.style)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.commissionType ? `
+                    <div class="artist-info-item">
+                        <span class="label">Commission Type</span>
+                        <span class="value">${this.escapeHtml(artist.commissionType)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.estimatedCost ? `
+                    <div class="artist-info-item">
+                        <span class="label">Estimated Cost</span>
+                        <span class="value">${this.escapeHtml(artist.estimatedCost)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="artist-info-item">
+                        <span class="label">Status</span>
+                        <span class="value">
+                            <span class="artist-status status-${artist.status}">
+                                ${this.formatArtistStatus(artist.status)}
+                            </span>
+                        </span>
+                    </div>
+                    
+                    ${artist.website ? `
+                    <div class="artist-info-item">
+                        <span class="label">Portfolio</span>
+                        <span class="value">
+                            <a href="${this.escapeHtml(artist.website)}" target="_blank" rel="noopener noreferrer">
+                                View Portfolio 🔗
+                            </a>
+                        </span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                ${artist.notes ? `
+                <div class="artist-notes">
+                    <p>${this.escapeHtml(artist.notes)}</p>
+                </div>
+                ` : ''}
+            </div>
+        `;
+    }
+
+    formatPriority(priority) {
+        const priorityMap = {
+            'high': '🔥 High',
+            'medium': '⭐ Medium',
+            'low': '📋 Low',
+            'someday': '💤 Someday'
+        };
+        return priorityMap[priority] || priority;
+    }
+
+    formatArtistStatus(status) {
+        const statusMap = {
+            'researching': '🔍 Researching',
+            'planning': '📋 Planning',
+            'ready': '✅ Ready',
+            'contacted': '📧 Contacted',
+            'commissioned': '🎨 Commissioned'
+        };
+        return statusMap[status] || status;
     }
 }
 

@@ -314,6 +314,24 @@
                     <p><strong>Load Data:</strong> Forces refresh of commission data from Firebase</p>
                 </div>
             </div>
+
+            <div class="tool-group">
+                <h3>🎨 Future Artists</h3>
+                <button onclick="showFutureArtistForm()" class="admin-btn">
+                    ➕ Add Future Artist
+                </button>
+                <button onclick="viewFutureArtists()" class="admin-btn">
+                    👁️ View Artists List
+                </button>
+                <button onclick="exportFutureArtists()" class="admin-btn">
+                    📁 Export Artists
+                </button>
+                <div class="tool-info">
+                    <p><strong>Future Artists:</strong> Manage list of artists you want to commission</p>
+                    <p><strong>Display:</strong> Shows as table on commission queue page</p>
+                    <p><strong>Storage:</strong> Firebase 'futureArtists' collection</p>
+                </div>
+            </div>
             
             <div class="tool-group">
                 <h3>Character Rankings System</h3>
@@ -378,6 +396,127 @@
 
 </div>
 
+<!-- Future Artist Form Modal -->
+<div id="future-artist-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>🎨 Add Future Artist</h2>
+            <button onclick="hideFutureArtistForm()" class="modal-close">✕</button>
+        </div>
+        
+        <form id="future-artist-form" class="commission-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="artist-name">Artist Name *</label>
+                    <input type="text" id="artist-name" name="artistName" required placeholder="Artist's name or handle">
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-platform">Platform</label>
+                    <select id="artist-platform" name="platform">
+                        <option value="Twitter">Twitter</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="DeviantArt">DeviantArt</option>
+                        <option value="ArtStation">ArtStation</option>
+                        <option value="Discord">Discord</option>
+                        <option value="Telegram">Telegram</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-handle">Handle/Username</label>
+                    <input type="text" id="artist-handle" name="handle" placeholder="@username or handle">
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-website">Website/Portfolio</label>
+                    <input type="url" id="artist-website" name="website" placeholder="https://artist-portfolio.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-style">Art Style</label>
+                    <input type="text" id="artist-style" name="style" placeholder="e.g., Anime, Realistic, Cartoon">
+                </div>
+                
+                <div class="form-group">
+                    <label for="commission-type-interest">Commission Type Interest</label>
+                    <select id="commission-type-interest" name="commissionType">
+                        <option value="Character Portrait">Character Portrait</option>
+                        <option value="Full Body">Full Body</option>
+                        <option value="Reference Sheet">Reference Sheet</option>
+                        <option value="Scene Art">Scene Art</option>
+                        <option value="Multiple Characters">Multiple Characters</option>
+                        <option value="NSFW">NSFW</option>
+                        <option value="SFW Only">SFW Only</option>
+                        <option value="Any">Any Type</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="estimated-cost">Estimated Cost Range</label>
+                    <input type="text" id="estimated-cost" name="estimatedCost" placeholder="e.g., $50-$150">
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-priority">Priority Level</label>
+                    <select id="artist-priority" name="priority">
+                        <option value="high">🔥 High Priority</option>
+                        <option value="medium" selected>⭐ Medium Priority</option>
+                        <option value="low">📋 Low Priority</option>
+                        <option value="someday">💤 Someday</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="artist-notes">Notes</label>
+                    <textarea id="artist-notes" name="notes" rows="3" placeholder="Additional notes about this artist or commission ideas..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="commission-status">Status</label>
+                    <select id="commission-status" name="status">
+                        <option value="researching">🔍 Researching</option>
+                        <option value="planning" selected>📋 Planning</option>
+                        <option value="ready">✅ Ready to Commission</option>
+                        <option value="contacted">📧 Contacted</option>
+                        <option value="commissioned">🎨 Commissioned</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="artist-public" name="isPublic" checked>
+                        <span class="checkmark"></span>
+                        Show on public queue page
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">💾 Add Artist</button>
+                <button type="button" onclick="hideFutureArtistForm()" class="clear-btn">❌ Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Future Artists List Modal -->
+<div id="future-artists-list-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content large-modal">
+        <div class="modal-header">
+            <h2>🎨 Future Artists List</h2>
+            <button onclick="hideFutureArtistsList()" class="modal-close">✕</button>
+        </div>
+        
+        <div class="modal-body">
+            <div id="future-artists-container">
+                <!-- Artists list will be populated here -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 // Initialize Firebase Commission System
 let commissionSystemV2;
@@ -437,6 +576,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 200);
             }
         }, 100);
+    }
+    
+    // ULTIMATE PROTECTION: Monitor for theme button removal and force visibility
+    const themeTestSection = document.querySelector('.theme-test-section');
+    if (themeTestSection) {
+        console.log('🛡️ Initializing ultimate theme button protection...');
+        
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.removedNodes.forEach((node) => {
+                        if (node.classList && node.classList.contains('theme-test-btn')) {
+                            console.warn('🚨 Theme button was removed! Restoring...', node);
+                            // Re-add the button
+                            mutation.target.appendChild(node);
+                        }
+                    });
+                }
+            });
+        });
+        
+        observer.observe(themeTestSection, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class', 'hidden']
+        });
+        
+        // Force visibility check every 100ms
+        setInterval(() => {
+            const buttons = themeTestSection.querySelectorAll('.theme-test-btn');
+            buttons.forEach(btn => {
+                const computed = getComputedStyle(btn);
+                if (computed.display === 'none' || 
+                    computed.visibility === 'hidden' ||
+                    computed.opacity === '0') {
+                    btn.style.cssText += `
+                        display: inline-block !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        z-index: 999999 !important;
+                        position: relative !important;
+                    `;
+                    console.warn('🔧 Theme button visibility restored:', btn);
+                }
+            });
+        }, 100);
+        
+        console.log('✅ Theme button protection system activated');
     }
     
     const pinInput = document.getElementById('pincode');
@@ -606,14 +794,28 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.commissionAdminV2.updateStats();
                     }
                     
+                    // Debug info for troubleshooting
+                    const commissions = window.commissionSystemV2.getAllCommissions();
+                    const publicCommissions = window.commissionSystemV2.getPublicCommissions();
+                    
+                    console.log('📊 Commission data loaded:', {
+                        total: commissions.length,
+                        public: publicCommissions.length,
+                        commissions: commissions.map(c => ({
+                            title: c.title,
+                            isPublic: c.isPublic,
+                            status: c.status
+                        }))
+                    });
+                    
                     // Restore button
                     button.innerHTML = originalText;
                     button.disabled = false;
                     
-                    // Update database status
-                    updateThemeStatus(null, null, 'Data Loaded');
+                    // Update database status with counts
+                    updateThemeStatus(null, null, `${commissions.length} total, ${publicCommissions.length} public`);
                     
-                    alert('✅ Commission data loaded successfully from Firebase!');
+                    alert(`✅ Data loaded! Found ${commissions.length} total commissions (${publicCommissions.length} public)`);
                 }).catch((error) => {
                     console.error('❌ Error loading commission data:', error);
                     
@@ -636,6 +838,299 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
         }
     }
+    
+    // Future Artists Management System
+    let futureArtistsSystem;
+
+    function showFutureArtistForm() {
+        document.getElementById('future-artist-modal').style.display = 'flex';
+    }
+
+    function hideFutureArtistForm() {
+        document.getElementById('future-artist-modal').style.display = 'none';
+        document.getElementById('future-artist-form').reset();
+    }
+
+    function viewFutureArtists() {
+        document.getElementById('future-artists-list-modal').style.display = 'flex';
+        loadFutureArtistsList();
+    }
+
+    function hideFutureArtistsList() {
+        document.getElementById('future-artists-list-modal').style.display = 'none';
+    }
+
+    async function initFutureArtistsSystem() {
+        if (!window.commissionSystemV2) return;
+        
+        // Add future artists functionality to the commission system
+        window.commissionSystemV2.futureArtists = [];
+        
+        // Future Artists Firebase functions
+        window.commissionSystemV2.addFutureArtist = async function(artistData) {
+            if (!this.firebaseReady) return false;
+            
+            try {
+                const artistId = this.generateArtistId();
+                const docRef = this.firestore.doc(this.db, 'futureArtists', artistId);
+                await this.firestore.setDoc(docRef, {
+                    ...artistData,
+                    id: artistId,
+                    dateAdded: new Date().toISOString()
+                });
+                
+                console.log('🎨 Future artist added:', artistData.artistName);
+                await this.loadFutureArtists();
+                return true;
+            } catch (error) {
+                console.error('❌ Error adding future artist:', error);
+                return false;
+            }
+        };
+        
+        window.commissionSystemV2.loadFutureArtists = async function() {
+            if (!this.firebaseReady) return;
+            
+            try {
+                const artistsRef = this.firestore.collection(this.db, 'futureArtists');
+                const q = this.firestore.query(artistsRef, this.firestore.orderBy('dateAdded', 'desc'));
+                const querySnapshot = await this.firestore.getDocs(q);
+                
+                this.futureArtists = [];
+                querySnapshot.forEach((doc) => {
+                    this.futureArtists.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                console.log(`🎨 Loaded ${this.futureArtists.length} future artists`);
+            } catch (error) {
+                console.error('❌ Error loading future artists:', error);
+            }
+        };
+        
+        window.commissionSystemV2.getPublicFutureArtists = function() {
+            return this.futureArtists.filter(artist => artist.isPublic !== false);
+        };
+        
+        window.commissionSystemV2.generateArtistId = function() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000);
+            return `ARTIST-${timestamp}-${random}`;
+        };
+        
+        // Load existing artists
+        await window.commissionSystemV2.loadFutureArtists();
+    }
+
+    async function handleFutureArtistSubmit(e) {
+        e.preventDefault();
+        
+        if (!window.commissionSystemV2) {
+            alert('❌ System not ready. Please try again.');
+            return;
+        }
+        
+        const formData = new FormData(e.target);
+        const artistData = {
+            artistName: formData.get('artistName'),
+            platform: formData.get('platform'),
+            handle: formData.get('handle'),
+            website: formData.get('website'),
+            style: formData.get('style'),
+            commissionType: formData.get('commissionType'),
+            estimatedCost: formData.get('estimatedCost'),
+            priority: formData.get('priority'),
+            notes: formData.get('notes'),
+            status: formData.get('status'),
+            isPublic: formData.has('isPublic')
+        };
+        
+        const success = await window.commissionSystemV2.addFutureArtist(artistData);
+        
+        if (success) {
+            alert('✅ Future artist added successfully!');
+            hideFutureArtistForm();
+        } else {
+            alert('❌ Failed to add future artist. Please try again.');
+        }
+    }
+
+    function loadFutureArtistsList() {
+        const container = document.getElementById('future-artists-container');
+        if (!container || !window.commissionSystemV2) return;
+        
+        const artists = window.commissionSystemV2.futureArtists || [];
+        
+        if (artists.length === 0) {
+            container.innerHTML = `
+                <div class="no-future-artists">
+                    <h3>🎨 No Future Artists</h3>
+                    <p>No artists have been added to your future commission list yet.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        const artistsHTML = artists.map(artist => `
+            <div class="future-artist-card">
+                <div class="artist-header">
+                    <h3 class="artist-name">${escapeHtml(artist.artistName)}</h3>
+                    <div class="artist-priority priority-${artist.priority}">
+                        ${formatPriority(artist.priority)}
+                    </div>
+                </div>
+                
+                <div class="artist-details">
+                    ${artist.platform ? `
+                    <div class="artist-detail">
+                        <span class="label">Platform:</span>
+                        <span class="value">${escapeHtml(artist.platform)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.handle ? `
+                    <div class="artist-detail">
+                        <span class="label">Handle:</span>
+                        <span class="value">${escapeHtml(artist.handle)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.website ? `
+                    <div class="artist-detail">
+                        <span class="label">Portfolio:</span>
+                        <span class="value"><a href="${escapeHtml(artist.website)}" target="_blank">View Portfolio</a></span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.style ? `
+                    <div class="artist-detail">
+                        <span class="label">Style:</span>
+                        <span class="value">${escapeHtml(artist.style)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.commissionType ? `
+                    <div class="artist-detail">
+                        <span class="label">Commission Type:</span>
+                        <span class="value">${escapeHtml(artist.commissionType)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    ${artist.estimatedCost ? `
+                    <div class="artist-detail">
+                        <span class="label">Estimated Cost:</span>
+                        <span class="value">${escapeHtml(artist.estimatedCost)}</span>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="artist-detail">
+                        <span class="label">Status:</span>
+                        <span class="value">
+                            <span class="artist-status status-${artist.status}">
+                                ${formatArtistStatus(artist.status)}
+                            </span>
+                        </span>
+                    </div>
+                    
+                    <div class="artist-detail">
+                        <span class="label">Visibility:</span>
+                        <span class="value">${artist.isPublic ? '👁️ Public' : '🔒 Private'}</span>
+                    </div>
+                </div>
+                
+                ${artist.notes ? `
+                <div class="artist-notes">
+                    <p>${escapeHtml(artist.notes)}</p>
+                </div>
+                ` : ''}
+                
+                <div class="artist-actions">
+                    <button onclick="editFutureArtist('${artist.id}')" class="btn-edit">
+                        ✏️ Edit
+                    </button>
+                    <button onclick="deleteFutureArtist('${artist.id}')" class="btn-delete">
+                        🗑️ Delete
+                    </button>
+                    ${artist.website ? `
+                    <button onclick="window.open('${escapeHtml(artist.website)}', '_blank')" class="btn-secondary">
+                        🌐 Portfolio
+                    </button>
+                    ` : ''}
+                </div>
+            </div>
+        `).join('');
+        
+        container.innerHTML = artistsHTML;
+    }
+
+    function formatPriority(priority) {
+        const priorityMap = {
+            'high': '🔥 High Priority',
+            'medium': '⭐ Medium Priority',
+            'low': '📋 Low Priority',
+            'someday': '💤 Someday'
+        };
+        return priorityMap[priority] || priority;
+    }
+
+    function formatArtistStatus(status) {
+        const statusMap = {
+            'researching': '🔍 Researching',
+            'planning': '📋 Planning',
+            'ready': '✅ Ready to Commission',
+            'contacted': '📧 Contacted',
+            'commissioned': '🎨 Commissioned'
+        };
+        return statusMap[status] || status;
+    }
+
+    async function exportFutureArtists() {
+        if (!window.commissionSystemV2 || !window.commissionSystemV2.futureArtists) {
+            alert('❌ No future artists data available');
+            return;
+        }
+        
+        const data = {
+            exportDate: new Date().toISOString(),
+            totalArtists: window.commissionSystemV2.futureArtists.length,
+            artists: window.commissionSystemV2.futureArtists
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `future-artists-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        alert('✅ Future artists data exported successfully!');
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Initialize future artists system when commission system is ready
+    const checkForCommissionSystemArtists = setInterval(() => {
+        if (window.commissionSystemV2 && window.commissionSystemV2.firebaseReady) {
+            clearInterval(checkForCommissionSystemArtists);
+            initFutureArtistsSystem();
+        }
+    }, 500);
+
+    // Add form submit listener for future artists
+    document.addEventListener('DOMContentLoaded', function() {
+        const futureArtistForm = document.getElementById('future-artist-form');
+        if (futureArtistForm) {
+            futureArtistForm.addEventListener('submit', handleFutureArtistSubmit);
+        }
+    });
     
     function testPrideTheme() {
         // Load and activate pride theme
@@ -660,11 +1155,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const existingStyle = document.getElementById('test-pride-theme');
         if (existingStyle) existingStyle.remove();
         
-        // Fallback: apply basic pride styling
+        // Fallback: apply basic pride styling - EXCLUDING theme test section
         const style = document.createElement('style');
         style.id = 'test-pride-theme';
         style.textContent = `
-            body {
+            body:not(.theme-test-section):not(.theme-test-section *) {
                 background: linear-gradient(45deg, #e40303 0%, #ff8c00 16%, #ffed00 32%, #008018 48%, #004cff 64%, #732982 80%) !important;
                 animation: prideShimmer 3s ease-in-out infinite alternate;
             }
@@ -672,29 +1167,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 0% { filter: brightness(1); }
                 100% { filter: brightness(1.2); }
             }
-            .site-header { 
+            .site-header:not(.theme-test-section):not(.theme-test-section *) { 
                 background: rgba(0,0,0,0.8) !important; 
                 border-bottom: 2px solid #ff69b4;
             }
-            h1:not(.theme-test-section h1):not(.theme-test-section h2):not(.theme-test-section h3):not(.theme-test-section h4), 
-            h2:not(.theme-test-section h2), 
-            h3:not(.theme-test-section h3) { 
-                background: linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-size: 200% 200%;
-                animation: rainbowText 2s ease-in-out infinite alternate;
+            .admin-container > *:not(.theme-test-section) h1,
+            .admin-container > *:not(.theme-test-section) h2, 
+            .admin-container > *:not(.theme-test-section) h3 { 
+                background: linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982) !important;
+                background-clip: text !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-size: 200% 200% !important;
+                animation: rainbowText 2s ease-in-out infinite alternate !important;
             }
             @keyframes rainbowText {
                 0% { background-position: 0% 50%; }
                 100% { background-position: 100% 50%; }
             }
-            /* Protect theme test section */
-            .theme-test-section, .theme-test-section * {
+            /* ABSOLUTE PROTECTION for theme test section */
+            .theme-test-section,
+            .theme-test-section *,
+            .theme-test-section .theme-test-btn {
                 background: initial !important;
                 color: initial !important;
                 animation: none !important;
+                background-clip: initial !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                filter: none !important;
+                transform: none !important;
+                display: initial !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                z-index: 999999 !important;
             }
         `;
         document.head.appendChild(style);
@@ -724,7 +1230,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const existingStyle = document.getElementById('test-trans-theme');
         if (existingStyle) existingStyle.remove();
         
-        // Fallback: apply basic trans styling
+        // Fallback: apply basic trans styling - EXCLUDING theme test section
         const style = document.createElement('style');
         style.id = 'test-trans-theme';
         style.textContent = `
@@ -741,10 +1247,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 background: rgba(85, 205, 252, 0.1) !important;
                 border-color: #55cdfc !important;
             }
-            /* Protect theme test section */
-            .theme-test-section, .theme-test-section * {
+            /* ABSOLUTE PROTECTION for theme test section */
+            .theme-test-section,
+            .theme-test-section *,
+            .theme-test-section .theme-test-btn {
                 background: initial !important;
                 border-color: initial !important;
+                color: initial !important;
+                animation: none !important;
+                filter: none !important;
+                transform: none !important;
+                display: initial !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                z-index: 999999 !important;
             }
         `;
         document.head.appendChild(style);
@@ -774,7 +1290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const existingStyle = document.getElementById('test-earth-theme');
         if (existingStyle) existingStyle.remove();
         
-        // Fallback: apply basic earth styling
+        // Fallback: apply basic earth styling - EXCLUDING theme test section
         const style = document.createElement('style');
         style.id = 'test-earth-theme';
         style.textContent = `
@@ -792,10 +1308,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             .password-card { border-color: #4caf50 !important; }
             .admin-section:not(.theme-test-section) { border-color: #4caf50 !important; }
-            /* Protect theme test section */
-            .theme-test-section, .theme-test-section * {
+            /* ABSOLUTE PROTECTION for theme test section */
+            .theme-test-section,
+            .theme-test-section *,
+            .theme-test-section .theme-test-btn {
                 background: initial !important;
                 border-color: initial !important;
+                color: initial !important;
+                animation: none !important;
+                filter: none !important;
+                transform: none !important;
+                display: initial !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                z-index: 999999 !important;
             }
         `;
         document.head.appendChild(style);
