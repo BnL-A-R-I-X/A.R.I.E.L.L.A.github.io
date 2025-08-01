@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="USS Axiom Administrative Control Panel">
+    <meta name="description" content="USS Axiom Administrative Control Pa                     <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! System log export will be available in future updates.')">
+                    📊 Export System Logs
+                </button>
+                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Terminal history export will be available in future updates.')">
+                    📋 Export Terminal History
+                </button>     <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! System log export will be available in future updates.')">
+                    📊 Export System Logs
+                </button>
+                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Terminal history export will be available in future updates.')">
+                    📋 Export Terminal History
+                </button>
     <title>USS Axiom // Administrative Control</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/commission-admin-v2.css">
@@ -120,15 +130,44 @@
         <!-- Add New Commission Form -->
         <div class="commission-form-container">
             <h3>Add New Commission</h3>
-            <form id="commission-form" class="commission-form">
+            <form id="commission-form-v2" class="commission-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="client-name">Client Name:</label>
-                        <input type="text" id="client-name" name="clientName" required>
+                        <label for="title">Commission Title:</label>
+                        <input type="text" id="title" name="title" required>
                     </div>
                     <div class="form-group">
-                        <label for="commission-type">Type:</label>
-                        <select id="commission-type" name="type" required>
+                        <label for="artist">Artist:</label>
+                        <input type="text" id="artist" name="artist" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateCommissioned">Date Commissioned:</label>
+                        <input type="date" id="dateCommissioned" name="dateCommissioned">
+                    </div>
+                    <div class="form-group">
+                        <label for="cost">Cost:</label>
+                        <input type="text" id="cost" name="cost" placeholder="$0.00">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="character">Primary Character:</label>
+                        <input type="text" id="character" name="character">
+                    </div>
+                    <div class="form-group">
+                        <label for="additionalCharacters">Additional Characters:</label>
+                        <input type="text" id="additionalCharacters" name="additionalCharacters" placeholder="Optional">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <select id="type" name="type" required>
                             <option value="">Select Type</option>
                             <option value="Character Design">Character Design</option>
                             <option value="Portrait">Portrait</option>
@@ -138,26 +177,14 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="priority">Priority:</label>
-                        <select id="priority" name="priority" required>
-                            <option value="Normal">Normal</option>
-                            <option value="High">High</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Low">Low</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select id="status" name="status" required>
-                            <option value="Planning">Planning</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Review">Review</option>
-                            <option value="Completed">Completed</option>
-                            <option value="On Hold">On Hold</option>
+                            <option value="planning">Planning</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="review">Review</option>
+                            <option value="completed">Completed</option>
+                            <option value="on-hold">On Hold</option>
                         </select>
                     </div>
                 </div>
@@ -168,12 +195,27 @@
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="image-upload">Reference Image (Optional):</label>
-                    <input type="file" id="image-upload" name="image" accept="image/*">
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes" rows="2" placeholder="Additional notes or special instructions..."></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="ideaImage">Reference Image (Optional):</label>
+                    <input type="file" id="ideaImage" name="ideaImage" accept="image/*">
                     <small>Max file size: 5MB. Supported formats: JPG, PNG, GIF, WebP</small>
                     <div id="image-preview" class="image-preview-container" style="display: none;">
                         <img id="preview-img" src="" alt="Preview">
                         <button type="button" id="remove-image" class="remove-image-btn">Remove Image</button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="isPublic" name="isPublic" checked>
+                            <span class="checkmark"></span>
+                            Public (visible on commission queue)
+                        </label>
                     </div>
                 </div>
 
@@ -182,6 +224,36 @@
                     <button type="button" id="clear-form" class="clear-btn">Clear Form</button>
                 </div>
             </form>
+        </div>
+
+        <!-- Commission List Controls -->
+        <div class="commission-controls">
+            <div class="search-filter-row">
+                <div class="search-group">
+                    <label for="search-commissions">Search:</label>
+                    <input type="text" id="search-commissions" placeholder="Search commissions...">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-status">Filter by Status:</label>
+                    <select id="filter-status">
+                        <option value="all">All Statuses</option>
+                        <option value="planning">Planning</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="review">Review</option>
+                        <option value="completed">Completed</option>
+                        <option value="on-hold">On Hold</option>
+                    </select>
+                </div>
+                <div class="action-group">
+                    <button id="export-commissions" class="action-btn">📁 Export</button>
+                    <button id="import-commissions" class="action-btn">📂 Import</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commission List -->
+        <div id="commission-list" class="commission-list">
+            <!-- Commissions will be rendered here -->
         </div>
     </section>
 
@@ -235,17 +307,17 @@
                 <a href="information.html" class="admin-btn">
                     💻 Open Information Terminal
                 </a>
-                <button class="admin-btn" onclick="window.customDialog.showAlert('All terminal systems operational. Last diagnostic: ' + new Date().toLocaleString())">
+                <button class="admin-btn" onclick="customDialogs.alert('All terminal systems operational. Last diagnostic: ' + new Date().toLocaleString())">
                     🔧 Run System Diagnostics
                 </button>
             </div>
             
             <div class="tool-group">
                 <h3>Security Monitoring</h3>
-                <button class="admin-btn" onclick="window.customDialog.showAlert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
+                <button class="admin-btn" onclick="customDialogs.alert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
                     🛡️ Security Status
                 </button>
-                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
+                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
                     📊 Access Logs
                 </button>
             </div>
@@ -395,25 +467,27 @@ function exportRankings() {
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
         
-        window.customDialog.showAlert('Rankings data exported successfully!');
+        customDialogs.alert('Rankings data exported successfully!');
     } else {
-        window.customDialog.showAlert('No rankings data found to export.');
+        customDialogs.alert('No rankings data found to export.');
     }
 }
 
 function clearRankings() {
-    window.customDialog.showConfirm(
+    customDialogs.confirm(
         'Are you sure you want to clear all character rankings data? This action cannot be undone.',
-        function() {
-            localStorage.removeItem('characterRankings');
-            window.customDialog.showAlert('All rankings data has been cleared.');
+        function(confirmed) {
+            if (confirmed) {
+                localStorage.removeItem('characterRankings');
+                customDialogs.alert('All rankings data has been cleared.');
+            }
         }
     );
 }
 
 // Easter Egg Testing Functions
 function testEasterEgg(command) {
-    window.customDialog.showAlert(`Testing easter egg command: "${command}"\n\nResult: Command recognized and functional!\nRedirect behavior: ${command === 'wall-e' ? 'Character page' : command === 'artcode' ? 'Collaboration info' : 'Terminal response'}`);
+    customDialogs.alert(`Testing easter egg command: "${command}"\n\nResult: Command recognized and functional!\nRedirect behavior: ${command === 'wall-e' ? 'Character page' : command === 'artcode' ? 'Collaboration info' : 'Terminal response'}`);
 }
 
 // Special Event Toggle Functions
@@ -512,6 +586,138 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePrideMonthButton();
         updateTransAwarenessButton();
         updateHolidaySeasonButton();
+    }, 100);
+});
+
+// ===== ADMIN FUNCTION DEFINITIONS =====
+
+// Easter Egg Testing Functions
+function testEasterEgg(command) {
+    switch (command) {
+        case 'wall-e':
+            customDialogs.alert('🤖 WALL-E easter egg test successful!\nCommand recognized in terminal system.');
+            break;
+        case 'artcode':
+            customDialogs.alert('🎨 Art collaboration command test successful!\nCreative mode protocols active.');
+            break;
+        case 'eve':
+            customDialogs.alert('🚀 EVE command test successful!\nProbe directive acknowledged.');
+            break;
+        default:
+            customDialogs.alert('❌ Unknown easter egg command: ' + command);
+    }
+}
+
+// Special Event Toggle Functions
+function toggleEarthDay() {
+    if (typeof EarthDaySpecial !== 'undefined') {
+        if (EarthDaySpecial.isTestModeActive()) {
+            EarthDaySpecial.disableTestMode();
+        } else {
+            EarthDaySpecial.enableTestMode();
+        }
+    } else {
+        alert('Earth Day special effects system not loaded.');
+    }
+}
+
+function togglePrideMonth() {
+    if (typeof PrideMonthSpecial !== 'undefined') {
+        if (PrideMonthSpecial.isTestModeActive()) {
+            PrideMonthSpecial.disableTestMode();
+        } else {
+            PrideMonthSpecial.enableTestMode();
+        }
+    } else {
+        alert('Pride Month special effects system not loaded.');
+    }
+}
+
+function toggleTransAwareness() {
+    if (typeof TransAwarenessSpecial !== 'undefined') {
+        if (TransAwarenessSpecial.isTestModeActive()) {
+            TransAwarenessSpecial.disableTestMode();
+        } else {
+            TransAwarenessSpecial.enableTestMode();
+        }
+    } else {
+        alert('Trans Awareness special effects system not loaded.');
+    }
+}
+
+function toggleHolidaySeason() {
+    if (typeof HolidaySeasonSpecial !== 'undefined') {
+        if (HolidaySeasonSpecial.isTestModeActive()) {
+            HolidaySeasonSpecial.disableTestMode();
+        } else {
+            HolidaySeasonSpecial.enableTestMode();
+        }
+    } else {
+        alert('Holiday Season special effects system not loaded.');
+    }
+}
+
+// Security System Implementation
+let attemptCount = 0;
+const maxAttempts = 3;
+const correctPin = '3272';
+
+document.addEventListener('DOMContentLoaded', function() {
+    const securityScreen = document.getElementById('security-screen');
+    const mainContent = document.getElementById('main-content');
+    const pinInput = document.getElementById('pincode');
+    const accessBtn = document.getElementById('access-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    
+    // Show security screen on load
+    securityScreen.style.display = 'flex';
+    mainContent.style.display = 'none';
+    
+    // Handle access button click
+    accessBtn.addEventListener('click', checkPin);
+    
+    // Handle enter key in pin input
+    pinInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkPin();
+        }
+    });
+    
+    // Handle cancel button
+    cancelBtn.addEventListener('click', function() {
+        window.location.href = '../index.html';
+    });
+    
+    function checkPin() {
+        const enteredPin = pinInput.value.trim();
+        
+        if (enteredPin === correctPin) {
+            // Correct PIN - grant access
+            securityScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            pinInput.value = '';
+            attemptCount = 0;
+        } else {
+            // Wrong PIN
+            attemptCount++;
+            pinInput.value = '';
+            
+            if (attemptCount >= maxAttempts) {
+                // Too many attempts - redirect to home
+                alert('ACCESS DENIED: Too many failed attempts. Redirecting to home terminal...');
+                window.location.href = '../index.html';
+            } else {
+                // Show error and remaining attempts
+                const remaining = maxAttempts - attemptCount;
+                alert(`ACCESS DENIED: Invalid security code. ${remaining} attempt(s) remaining.`);
+                pinInput.focus();
+            }
+        }
+    }
+    
+    // Focus pin input on load
+    setTimeout(() => {
+        pinInput.focus();
     }, 100);
 });
 </script>

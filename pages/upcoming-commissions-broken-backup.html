@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en">        <div class="nav-dropdown-me        <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-header">🔧 Admin Panel</div>
+          <a href="admin-v2.html" class="nav-dropdown-item">Administrative Control</a>
+        </div>
+          <div class="nav-dropdown-header">BNL Archives</div>
+          <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+          <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
+          <a href="upcoming-commissions-v2.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="BNL / USS Axiom Commission Queue — Upcoming Commissions">
@@ -51,7 +58,7 @@
   <div class="nav-dropdown">
       <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
       <div class="nav-dropdown-menu">
-          <div class="nav-dropdown-header">Community Hub</div>
+          <div class="nav-dropdown-header">🎨 Community Hub</div>
           <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
           <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
           <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
@@ -59,56 +66,96 @@
   </div>
   
   <div class="nav-dropdown">
-      <div class="nav-btn nav-dropdown-toggle secret-btn">ADMIN</div>
+      <div class="nav-btn nav-dropdown-toggle secret-btn">🔒 ADMIN</div>
       <div class="nav-dropdown-menu">
           <div class="nav-dropdown-header">🔧 Admin Panel</div>
-          <a href="admin-v2.html" class="nav-dropdown-item">Administrative Control</a>
+          <a href="admin-v2.html" class="nav-dropdown-item">Commission Admin</a>
+          <a href="admin.html" class="nav-dropdown-item">Site Admin</a>
       </div>
   </div>
 </nav>
 
 <section class="terminal-intro">
-  <p>Welcome to the <strong>BNL Commission Queue Management Terminal</strong> for the <em>USS Axiom</em>.  
-  This system displays active and upcoming commission projects in accordance with BNL Creative Collaboration Protocol 2025-A.  
-  Managed and maintained by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> for optimal workflow management.
-  <br><em>Note: Queue status updates in real-time as projects progress.</em></p>
+  <p>
+    <strong>BNL COMMISSION TRACKING:</strong> Real-time status updates for active and upcoming commission projects. 
+    This terminal displays publicly available information about commissioned artwork, including estimated completion dates and current progress. 
+    <em>Detailed project management is handled through classified systems.</em>
+  </p>
 </section>
 
 <main class="commission-queue">
-  <div class="queue-header">
-    <h2>📋 Active Commission Queue</h2>
-    <div class="queue-status">
-      <div class="status-item">
-        <span class="label">Total Active:</span>
-        <span class="value" id="totalCommissions">Loading...</span>
-      </div>
-      <div class="status-item">
-        <span class="label">In Progress:</span>
-        <span class="value" id="inProgressCommissions">Loading...</span>
-      </div>
-      <div class="status-item">
-        <span class="label">Queue Position:</span>
-        <span class="value" id="queuePosition">Loading...</span>
-      </div>
-    </div>
-  </div>
   
-  <div class="commission-list" id="commissionList">
-    <div class="loading-message">
-      <h3>📡 Accessing BNL Commission Database...</h3>
-      <p>Please wait while we retrieve the latest queue information.</p>
+  <!-- Queue Statistics -->
+  <section class="queue-stats">
+    <div class="stat-card">
+      <h3>📋 Total Queue</h3>
+      <span class="stat-number" id="total-queue">0</span>
     </div>
-  </div>
+    <div class="stat-card">
+      <h3>🎨 In Progress</h3>
+      <span class="stat-number" id="in-progress">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>⏳ Waiting</h3>
+      <span class="stat-number" id="waiting">0</span>
+    </div>
+    <div class="stat-card">
+      <h3>✅ Completed</h3>
+      <span class="stat-number" id="completed">0</span>
+    </div>
+  </section>
+
+  <!-- Commission Status Table -->
+  <section class="commission-table-section">
+    <h2 class="table-header">🎨 Active Commission Queue</h2>
+    
+    <div class="table-container">
+      <table class="commission-table" id="commission-table">
+        <thead>
+          <tr>
+            <th>Artist</th>
+            <th>Date Of Commission</th>
+            <th>Description Of Commission</th>
+            <th>Cost</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Character(s)</th>
+          </tr>
+        </thead>
+        <tbody id="commission-table-body">
+          <!-- Commissions will be loaded here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-queue" class="empty-state hidden">
+      <div class="empty-content">
+        <h3>📭 Queue Empty</h3>
+        <p>No active commissions in the queue at this time.</p>
+        <p class="empty-subtitle">Check back later for updates!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Updates -->
+  <section class="recent-updates">
+    <h3>📢 Recent Updates</h3>
+    <div class="updates-list" id="updates-list">
+      <!-- Updates will be loaded here -->
+    </div>
+  </section>
+
 </main>
 
 <section class="system-footer">
   <p>© 2025 Ariella Fawnbrook // USS Axiom Commission Terminal</p>
-  <p>BNL / AXIOM SYSTEM INTERFACE — VERSION <a href="information.html" class="hidden-link" title="Executive Access">7.4</a></p>
+  <p>BNL / AXIOM SYSTEM INTERFACE — VERSION 7.4</p>
 </section>
 
 <div class="status-ticker">
   <marquee behavior="scroll" direction="left">
-    SYSTEM MESSAGE: Commission queue accessed. Viewing public project status. — For private queue access use administrative terminal — SECURITY LEVEL: GREEN — COMMISSION SYNC: 100%
+    COMMISSION QUEUE ACTIVE — Real-time tracking enabled — NETWORK SYNC: 100% — Next update check in 30 seconds
   </marquee>
 </div>
 
