@@ -5,44 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="USS Axiom Administrative Control Panel - Unified management interface for commission systems, data operations, and ship maintenance.">
     <title>USS Axiom // Administrative Control</title>
-    <link rel="stylesheet" href="../css/style.css">// Security PIN system
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Firebase commission system as commissionSystemV2 for compatibility
-    if (window.FirebaseCommissionSystem) {
-        commissionSystemV2 = new window.FirebaseCommissionSystem();
-        window.commissionSystemV2 = commissionSystemV2;
-        console.log('🔥 Firebase commission system initialized for admin');
-        
-        // Wait for Firebase to load data, then initialize admin interface
-        const waitForData = setInterval(() => {
-            if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
-                clearInterval(waitForData);
-                window.commissionAdminV2 = new window.CommissionAdminV2();
-                console.log('🔧 Commission Admin V2 interface initialized');
-                console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
-            }
-        }, 200);
-    } else {
-        // Wait for Firebase to load
-        const checkFirebase = setInterval(() => {
-            if (window.FirebaseCommissionSystem) {
-                clearInterval(checkFirebase);
-                commissionSystemV2 = new window.FirebaseCommissionSystem();
-                window.commissionSystemV2 = commissionSystemV2;
-                console.log('🔥 Firebase commission system initialized for admin (delayed)');
-                
-                // Wait for Firebase to load data, then initialize admin interface
-                const waitForData = setInterval(() => {
-                    if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
-                        clearInterval(waitForData);
-                        window.commissionAdminV2 = new window.CommissionAdminV2();
-                        console.log('🔧 Commission Admin V2 interface initialized (delayed)');
-                        console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
-                    }
-                }, 200);
-            }
-        }, 100);
-    }tylesheet" href="../css/commission-admin-v2.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/commission-admin-v2.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -289,11 +253,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="admin-tools">
             <div class="tool-group">
                 <h3>Commission System</h3>
-                <button id="export-commissions" class="admin-btn">
-                    � Export Commission Data
+                <button id="export-commissions-2" class="admin-btn">
+                    📁 Export Commission Data
                 </button>
-                <button id="import-commissions" class="admin-btn">
-                    � Import Commission Data
+                <button id="import-commissions-2" class="admin-btn">
+                    📂 Import Commission Data
                 </button>
                 <div class="tool-info">
                     <p><strong>Storage:</strong> Firebase cloud database</p>
@@ -313,54 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="tool-info">
                     <p><strong>Storage:</strong> Local browser data management</p>
                     <p><strong>Format:</strong> JSON export with timestamp</p>
-                </div>
-            </div>
-            
-            <div class="tool-group">
-                <h3>System Logs</h3>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! System log export will be available in future updates.')">
-                    📋 Export System Logs
-                </button>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Terminal history export will be available in future updates.')">
-                    � Export Terminal History
-                </button>
-                <div class="tool-info">
-                    <p><strong>Format:</strong> Structured log files with timestamps</p>
-                    <p><strong>Access:</strong> Administrative clearance required</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- System Operations Section -->
-    <section class="admin-section">
-        <h2>⚙️ System Operations</h2>
-        <div class="admin-tools">
-            <div class="tool-group">
-                <h3>Terminal Access</h3>
-                <a href="information.html" class="admin-btn link-btn">
-                    💻 Open Information Terminal
-                </a>
-                <button class="admin-btn" onclick="customDialogs.alert('All terminal systems operational.\\nLast diagnostic: ' + new Date().toLocaleString())">
-                    🔧 Run System Diagnostics
-                </button>
-                <div class="tool-info">
-                    <p><strong>Access Level:</strong> Executive clearance required</p>
-                    <p><strong>Status:</strong> All systems operational</p>
-                </div>
-            </div>
-            
-            <div class="tool-group">
-                <h3>Security Monitoring</h3>
-                <button class="admin-btn" onclick="customDialogs.alert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
-                    🛡️ Security Status
-                </button>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
-                    📊 Access Logs
-                </button>
-                <div class="tool-info">
-                    <p><strong>Protocol:</strong> BNL Security Standard 3272-X</p>
-                    <p><strong>Monitoring:</strong> Real-time threat detection active</p>
                 </div>
             </div>
         </div>
@@ -398,49 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </section>
 
-    <!-- Easter Egg Testing Section -->
-    <section class="admin-section">
-        <h2>🥚 System Testing</h2>
-        <div class="admin-tools">
-            <div class="tool-group">
-                <h3>Easter Egg Validation</h3>
-                <button class="admin-btn" onclick="testEasterEgg('wall-e')">
-                    🤖 Test WALL-E Command
-                </button>
-                <button class="admin-btn" onclick="testEasterEgg('artcode')">
-                    🎨 Test Art Collaboration
-                </button>
-                <button class="admin-btn" onclick="testEasterEgg('eve')">
-                    📡 Test EVE Protocol
-                </button>
-                <div class="tool-info">
-                    <p><strong>Purpose:</strong> Validate hidden terminal commands</p>
-                    <p><strong>Status:</strong> All easter eggs operational</p>
-                </div>
-            </div>
-            
-            <div class="tool-group">
-                <h3>Special Events Testing</h3>
-                <button id="earth-day-toggle" class="admin-btn" onclick="toggleEarthDay()">
-                    🌍 Toggle Earth Day Mode
-                </button>
-                <button id="pride-month-toggle" class="admin-btn" onclick="togglePrideMonth()">
-                    🏳️‍🌈 Toggle Pride Month Mode
-                </button>
-                <button id="trans-awareness-toggle" class="admin-btn" onclick="toggleTransAwareness()">
-                    🏳️‍⚧️ Toggle Trans Awareness Mode
-                </button>
-                <button id="holiday-season-toggle" class="admin-btn" onclick="toggleHolidaySeason()">
-                    🎄 Toggle Holiday Season Mode
-                </button>
-                <div class="tool-info">
-                    <p><strong>Purpose:</strong> Test seasonal and special event themes</p>
-                    <p><strong>Note:</strong> Changes are temporary and reset on page reload</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
 </main>
 
 <section class="system-footer">
@@ -467,6 +340,16 @@ document.addEventListener('DOMContentLoaded', function() {
         commissionSystemV2 = new window.FirebaseCommissionSystem();
         window.commissionSystemV2 = commissionSystemV2;
         console.log('🔥 Firebase commission system initialized for admin');
+        
+        // Wait for Firebase to load data, then initialize admin interface
+        const waitForData = setInterval(() => {
+            if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
+                clearInterval(waitForData);
+                window.commissionAdminV2 = new window.CommissionAdminV2();
+                console.log('🔧 Commission Admin V2 interface initialized');
+                console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
+            }
+        }, 200);
     } else {
         // Wait for Firebase to load
         const checkFirebase = setInterval(() => {
@@ -474,7 +357,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearInterval(checkFirebase);
                 commissionSystemV2 = new window.FirebaseCommissionSystem();
                 window.commissionSystemV2 = commissionSystemV2;
-                console.log('� Firebase commission system initialized for admin (delayed)');
+                console.log('🔥 Firebase commission system initialized for admin (delayed)');
+                
+                // Wait for Firebase to load data, then initialize admin interface
+                const waitForData = setInterval(() => {
+                    if (window.CommissionAdminV2 && commissionSystemV2.firebaseReady) {
+                        clearInterval(waitForData);
+                        window.commissionAdminV2 = new window.CommissionAdminV2();
+                        console.log('🔧 Commission Admin V2 interface initialized (delayed)');
+                        console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
+                    }
+                }, 200);
             }
         }, 100);
     }
@@ -523,284 +416,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Auto-focus pin input
     pinInput.focus();
-});
-
-// Data Management Functions
-function exportRankings() {
-    const rankings = localStorage.getItem('characterRankings');
-    if (rankings) {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(rankings);
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "axiom_rankings_" + new Date().toISOString().split('T')[0] + ".json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-        
-        customDialogs.alert('Rankings data exported successfully!');
-    } else {
-        customDialogs.alert('No rankings data found to export.');
-    }
-}
-
-function clearRankings() {
-    customDialogs.confirm(
-        'Are you sure you want to clear all character rankings data? This action cannot be undone.',
-        function(confirmed) {
-            if (confirmed) {
-                localStorage.removeItem('characterRankings');
-                customDialogs.alert('All rankings data has been cleared.');
-            }
-        }
-    );
-}
-
-// Easter Egg Testing Functions
-function testEasterEgg(command) {
-    customDialogs.alert(`Testing easter egg command: "${command}"\n\nResult: Command recognized and functional!\nRedirect behavior: ${command === 'wall-e' ? 'Character page' : command === 'artcode' ? 'Collaboration info' : 'Terminal response'}`);
-}
-
-// Special Event Toggle Functions
-function toggleEarthDay() {
-    if (typeof EarthDaySpecial !== 'undefined') {
-        EarthDaySpecial.toggleTestMode();
-        updateEarthDayButton();
-    }
-}
-
-function togglePrideMonth() {
-    if (typeof PrideMonthSpecial !== 'undefined') {
-        PrideMonthSpecial.toggleTestMode();
-        updatePrideMonthButton();
-    }
-}
-
-function toggleTransAwareness() {
-    if (typeof TransAwarenessSpecial !== 'undefined') {
-        TransAwarenessSpecial.toggleTestMode();
-        updateTransAwarenessButton();
-    }
-}
-
-function toggleHolidaySeason() {
-    if (typeof HolidaySeasonSpecial !== 'undefined') {
-        HolidaySeasonSpecial.toggleTestMode();
-        updateHolidaySeasonButton();
-    }
-}
-
-// Update button states for special events
-function updateEarthDayButton() {
-    const earthToggle = document.getElementById('earth-day-toggle');
-    if (earthToggle && typeof EarthDaySpecial !== 'undefined') {
-        if (EarthDaySpecial.isTestModeActive()) {
-            earthToggle.innerHTML = '🌍 Disable Earth Day Mode';
-            earthToggle.style.background = 'linear-gradient(45deg, #4caf50, #2196f3)';
-        } else {
-            earthToggle.innerHTML = '🌍 Toggle Earth Day Mode';
-            earthToggle.style.background = '';
-        }
-    }
-}
-
-function updatePrideMonthButton() {
-    const prideToggle = document.getElementById('pride-month-toggle');
-    if (prideToggle && typeof PrideMonthSpecial !== 'undefined') {
-        if (PrideMonthSpecial.isTestModeActive()) {
-            prideToggle.innerHTML = '🏳️‍🌈 Disable Pride Month Mode';
-            prideToggle.style.background = 'linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982)';
-        } else {
-            prideToggle.innerHTML = '🏳️‍🌈 Toggle Pride Month Mode';
-            prideToggle.style.background = '';
-        }
-    }
-}
-
-function updateTransAwarenessButton() {
-    const transToggle = document.getElementById('trans-awareness-toggle');
-    if (transToggle && typeof TransAwarenessSpecial !== 'undefined') {
-        if (TransAwarenessSpecial.isTestModeActive()) {
-            transToggle.innerHTML = '🏳️‍⚧️ Disable Trans Awareness Mode';
-            transToggle.style.background = 'linear-gradient(45deg, #5bcefa, #f5a9b8, #ffffff)';
-        } else {
-            transToggle.innerHTML = '🏳️‍⚧️ Toggle Trans Awareness Mode';
-            transToggle.style.background = '';
-        }
-    }
-}
-
-function updateHolidaySeasonButton() {
-    const holidayToggle = document.getElementById('holiday-season-toggle');
-    if (holidayToggle && typeof HolidaySeasonSpecial !== 'undefined') {
-        if (HolidaySeasonSpecial.isTestModeActive()) {
-            holidayToggle.innerHTML = '🎄 Disable Holiday Season Mode';
-            holidayToggle.style.background = 'linear-gradient(45deg, #c41e3a, #228b22)';
-        } else {
-            holidayToggle.innerHTML = '🎄 Toggle Holiday Season Mode';
-            holidayToggle.style.background = '';
-        }
-    }
-}
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    const exportBtn = document.getElementById('export-rankings');
-    const clearBtn = document.getElementById('clear-rankings');
-    
-    if (exportBtn) exportBtn.addEventListener('click', exportRankings);
-    if (clearBtn) clearBtn.addEventListener('click', clearRankings);
-    
-    // Update special event button states
-    setTimeout(() => {
-        updateEarthDayButton();
-        updatePrideMonthButton();
-        updateTransAwarenessButton();
-        updateHolidaySeasonButton();
-    }, 100);
-});
-
-// ===== ADMIN FUNCTION DEFINITIONS =====
-
-// Easter Egg Testing Functions
-function testEasterEgg(command) {
-    switch (command) {
-        case 'wall-e':
-            customDialogs.alert('🤖 WALL-E easter egg test successful!\nCommand recognized in terminal system.');
-            break;
-        case 'artcode':
-            customDialogs.alert('🎨 Art collaboration command test successful!\nCreative mode protocols active.');
-            break;
-        case 'eve':
-            customDialogs.alert('🚀 EVE command test successful!\nProbe directive acknowledged.');
-            break;
-        default:
-            customDialogs.alert('❌ Unknown easter egg command: ' + command);
-    }
-}
-
-// Special Event Toggle Functions
-function toggleEarthDay() {
-    if (typeof EarthDaySpecial !== 'undefined') {
-        if (EarthDaySpecial.isTestModeActive()) {
-            EarthDaySpecial.disableTestMode();
-        } else {
-            EarthDaySpecial.enableTestMode();
-        }
-    } else {
-        alert('Earth Day special effects system not loaded.');
-    }
-}
-
-function togglePrideMonth() {
-    if (typeof PrideMonthSpecial !== 'undefined') {
-        if (PrideMonthSpecial.isTestModeActive()) {
-            PrideMonthSpecial.disableTestMode();
-        } else {
-            PrideMonthSpecial.enableTestMode();
-        }
-    } else {
-        alert('Pride Month special effects system not loaded.');
-    }
-}
-
-function toggleTransAwareness() {
-    if (typeof TransAwarenessSpecial !== 'undefined') {
-        if (TransAwarenessSpecial.isTestModeActive()) {
-            TransAwarenessSpecial.disableTestMode();
-        } else {
-            TransAwarenessSpecial.enableTestMode();
-        }
-    } else {
-        alert('Trans Awareness special effects system not loaded.');
-    }
-}
-
-function toggleHolidaySeason() {
-    if (typeof HolidaySeasonSpecial !== 'undefined') {
-        if (HolidaySeasonSpecial.isTestModeActive()) {
-            HolidaySeasonSpecial.disableTestMode();
-        } else {
-            HolidaySeasonSpecial.enableTestMode();
-        }
-    } else {
-        alert('Holiday Season special effects system not loaded.');
-    }
-}
-
-// Security System Implementation
-let attemptCount = 0;
-const maxAttempts = 3;
-const correctPin = '3272';
-
-document.addEventListener('DOMContentLoaded', function() {
-    const securityScreen = document.getElementById('security-screen');
-    const mainContent = document.getElementById('main-content');
-    const pinInput = document.getElementById('pincode');
-    const accessBtn = document.getElementById('access-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
-    
-    // Show security screen on load
-    securityScreen.style.display = 'flex';
-    mainContent.style.display = 'none';
-    
-    // Handle access button click
-    accessBtn.addEventListener('click', checkPin);
-    
-    // Handle enter key in pin input
-    pinInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            checkPin();
-        }
-    });
-    
-    // Handle cancel button
-    cancelBtn.addEventListener('click', function() {
-        window.location.href = '../index.html';
-    });
-    
-    function checkPin() {
-        const enteredPin = pinInput.value.trim();
-        
-        if (enteredPin === correctPin) {
-            // Correct PIN - grant access
-            securityScreen.style.display = 'none';
-            mainContent.style.display = 'block';
-            pinInput.value = '';
-            attemptCount = 0;
-        } else {
-            // Wrong PIN
-            attemptCount++;
-            pinInput.value = '';
-            
-            if (attemptCount >= maxAttempts) {
-                // Too many attempts - redirect to home
-                alert('ACCESS DENIED: Too many failed attempts. Redirecting to home terminal...');
-                window.location.href = '../index.html';
-            } else {
-                // Show error and remaining attempts
-                const remaining = maxAttempts - attemptCount;
-                alert(`ACCESS DENIED: Invalid security code. ${remaining} attempt(s) remaining.`);
-                pinInput.focus();
-            }
-        }
-    }
-    
-    // Focus pin input on load
-    setTimeout(() => {
-        pinInput.focus();
-    }, 100);
     
     // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const textToCopy = this.getAttribute('data-copy');
             navigator.clipboard.writeText(textToCopy).then(() => {
-                customDialogs.alert('Copied to clipboard: ' + textToCopy);
+                if (typeof customDialogs !== 'undefined') {
+                    customDialogs.alert('Copied to clipboard: ' + textToCopy);
+                } else {
+                    alert('Copied to clipboard: ' + textToCopy);
+                }
             }).catch(() => {
-                customDialogs.alert('Failed to copy to clipboard');
+                alert('Failed to copy to clipboard');
             });
         });
     });
+
+    // Data Management Functions
+    const exportBtn = document.getElementById('export-rankings');
+    const clearBtn = document.getElementById('clear-rankings');
+    
+    if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+            const rankings = localStorage.getItem('characterRankings');
+            if (rankings) {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(rankings);
+                const downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", "axiom_rankings_" + new Date().toISOString().split('T')[0] + ".json");
+                document.body.appendChild(downloadAnchorNode);
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+                
+                alert('Rankings data exported successfully!');
+            } else {
+                alert('No rankings data found to export.');
+            }
+        });
+    }
+    
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all character rankings data? This action cannot be undone.')) {
+                localStorage.removeItem('characterRankings');
+                alert('All rankings data has been cleared.');
+            }
+        });
+    }
 });
 </script>
 
@@ -809,10 +472,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
 <script src="../js/shiptime.js"></script>
-<script src="../js/earth-day-special.js"></script>
-<script src="../js/pride-month-special.js"></script>
-<script src="../js/trans-awareness-special.js"></script>
-<script src="../js/holiday-season-special.js"></script>
 
 </body>
 </html>
