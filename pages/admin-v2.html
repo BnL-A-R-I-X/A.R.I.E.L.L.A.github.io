@@ -261,9 +261,6 @@
             <button id="test-dark-theme" class="theme-test-btn dark-theme">
                 🌙 Test Dark Theme
             </button>
-            <button id="test-light-theme" class="theme-test-btn light-theme">
-                ☀️ Test Light Theme
-            </button>
             <button id="test-pride-theme" class="theme-test-btn pride-theme">
                 🏳️‍🌈 Test Pride Theme
             </button>
@@ -284,10 +281,13 @@
                 Current Theme: <span id="active-theme" class="theme-status-active">Dark (Default)</span>
             </div>
             <div class="theme-status-info">
-                Special Effects: <span id="special-effects-status">None Active</span>
+                Active Overlays: <span id="special-effects-status">None Active</span>
             </div>
             <div class="theme-status-info">
                 Last Changed: <span id="theme-change-time">Page Load</span>
+            </div>
+            <div class="theme-status-info">
+                Database Status: <span id="database-status">Ready</span>
             </div>
         </div>
     </section>
@@ -304,10 +304,14 @@
                 <button id="import-commissions-2" class="admin-btn">
                     📂 Import Commission Data
                 </button>
+                <button id="force-load-data" class="admin-btn load-data">
+                    🔄 Force Load Database
+                </button>
                 <div class="tool-info">
                     <p><strong>Storage:</strong> Firebase cloud database</p>
                     <p><strong>Collection:</strong> Firestore 'commissions'</p>
                     <p><strong>Format:</strong> JSON export with timestamp</p>
+                    <p><strong>Load Data:</strong> Forces refresh of commission data from Firebase</p>
                 </div>
             </div>
             
@@ -528,7 +532,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function initThemeTestSystem() {
         const themeButtons = {
             'test-dark-theme': () => testTheme('dark', 'Dark Theme'),
-            'test-light-theme': () => testTheme('light', 'Light Theme'),
             'test-pride-theme': () => testPrideTheme(),
             'test-trans-theme': () => testTransTheme(),
             'test-earth-theme': () => testEarthTheme(),
@@ -539,9 +542,27 @@ document.addEventListener('DOMContentLoaded', function() {
         Object.keys(themeButtons).forEach(id => {
             const button = document.getElementById(id);
             if (button) {
-                button.addEventListener('click', themeButtons[id]);
+                button.addEventListener('click', (e) => {
+                    try {
+                        console.log(`🎨 Testing theme: ${id}`);
+                        themeButtons[id]();
+                    } catch (error) {
+                        console.error(`Theme test error for ${id}:`, error);
+                        alert(`Error testing theme: ${error.message}`);
+                    }
+                });
+                console.log(`✅ Added listener for ${id}`);
+            } else {
+                console.warn(`❌ Button not found: ${id}`);
             }
         });
+        
+        // Add force load data button functionality
+        const loadDataBtn = document.getElementById('force-load-data');
+        if (loadDataBtn) {
+            loadDataBtn.addEventListener('click', forceLoadData);
+            console.log('✅ Added listener for force-load-data');
+        }
         
         // Update status on load
         updateThemeStatus();
@@ -557,113 +578,239 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateThemeStatus(themeName, 'None Active');
         
-        if (typeof customDialogs !== 'undefined') {
-            customDialogs.alert(`${themeName} activated! Check the site appearance.`);
+        // Use simple alert for better compatibility
+        alert(`${themeName} activated! Check the site appearance.`);
+    }
+    
+    function forceLoadData() {
+        if (window.commissionSystemV2) {
+            try {
+                console.log('🔄 Force loading commission data...');
+                
+                // Show loading indicator
+                const button = document.getElementById('force-load-data');
+                const originalText = button.innerHTML;
+                button.innerHTML = '⏳ Loading...';
+                button.disabled = true;
+                
+                // Update database status
+                updateThemeStatus(null, null, 'Loading...');
+                
+                // Force reload data from Firebase
+                window.commissionSystemV2.loadCommissions().then(() => {
+                    console.log('✅ Commission data loaded successfully');
+                    
+                    // Update admin interface if available
+                    if (window.commissionAdminV2) {
+                        window.commissionAdminV2.renderCommissions();
+                        window.commissionAdminV2.updateStats();
+                    }
+                    
+                    // Restore button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    
+                    // Update database status
+                    updateThemeStatus(null, null, 'Data Loaded');
+                    
+                    alert('✅ Commission data loaded successfully from Firebase!');
+                }).catch((error) => {
+                    console.error('❌ Error loading commission data:', error);
+                    
+                    // Restore button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    
+                    // Update database status
+                    updateThemeStatus(null, null, 'Load Error');
+                    
+                    alert('❌ Error loading commission data: ' + error.message);
+                });
+            } catch (error) {
+                console.error('❌ Error in force load:', error);
+                updateThemeStatus(null, null, 'Error');
+                alert('❌ Error: ' + error.message);
+            }
         } else {
-            alert(`${themeName} activated! Check the site appearance.`);
+            updateThemeStatus(null, null, 'System Not Ready');
+            alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
         }
     }
     
     function testPrideTheme() {
         // Load and activate pride theme
         if (window.PrideMonthSpecial) {
-            const prideSystem = new window.PrideMonthSpecial();
-            prideSystem.forceActivate();
-            updateThemeStatus('Pride Month Special', 'Rainbow animations, pride ticker');
+            try {
+                const prideSystem = new window.PrideMonthSpecial();
+                prideSystem.forceActivate();
+                updateThemeStatus('Pride Month Special', 'Rainbow animations, pride ticker');
+            } catch (error) {
+                console.error('Pride theme error:', error);
+                applyFallbackPrideTheme();
+            }
         } else {
-            // Fallback: apply basic pride styling
-            const style = document.createElement('style');
-            style.id = 'test-pride-theme';
-            style.textContent = `
-                :root {
-                    --primary-bg: linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982);
-                    --accent-color: #ff69b4;
-                    --text-color: #fff;
-                }
-                body { background: var(--primary-bg) !important; }
-                .site-header { background: rgba(0,0,0,0.8) !important; }
-            `;
-            document.head.appendChild(style);
-            updateThemeStatus('Pride Theme (Basic)', 'Pride colors active');
+            applyFallbackPrideTheme();
         }
         
         alert('🏳️‍🌈 Pride Theme activated! Rainbow power engaged!');
     }
     
+    function applyFallbackPrideTheme() {
+        // Don't remove existing themes, just add pride theme
+        const existingStyle = document.getElementById('test-pride-theme');
+        if (existingStyle) existingStyle.remove();
+        
+        // Fallback: apply basic pride styling
+        const style = document.createElement('style');
+        style.id = 'test-pride-theme';
+        style.textContent = `
+            body {
+                background: linear-gradient(45deg, #e40303 0%, #ff8c00 16%, #ffed00 32%, #008018 48%, #004cff 64%, #732982 80%) !important;
+                animation: prideShimmer 3s ease-in-out infinite alternate;
+            }
+            @keyframes prideShimmer {
+                0% { filter: brightness(1); }
+                100% { filter: brightness(1.2); }
+            }
+            .site-header { 
+                background: rgba(0,0,0,0.8) !important; 
+                border-bottom: 2px solid #ff69b4;
+            }
+            h1, h2, h3 { 
+                background: linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-size: 200% 200%;
+                animation: rainbowText 2s ease-in-out infinite alternate;
+            }
+            @keyframes rainbowText {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
+            }
+        `;
+        document.head.appendChild(style);
+        updateThemeStatus('Pride Theme (Basic)', 'Pride colors active');
+    }
+    
     function testTransTheme() {
         // Load and activate trans awareness theme
         if (window.TransAwarenessSpecial) {
-            const transSystem = new window.TransAwarenessSpecial();
-            transSystem.forceActivate();
-            updateThemeStatus('Trans Awareness Special', 'Trans pride colors, special ticker');
+            try {
+                const transSystem = new window.TransAwarenessSpecial();
+                transSystem.forceActivate();
+                updateThemeStatus('Trans Awareness Special', 'Trans pride colors, special ticker');
+            } catch (error) {
+                console.error('Trans theme error:', error);
+                applyFallbackTransTheme();
+            }
         } else {
-            // Fallback: apply basic trans styling
-            const style = document.createElement('style');
-            style.id = 'test-trans-theme';
-            style.textContent = `
-                :root {
-                    --primary-bg: linear-gradient(45deg, #55cdfc, #f7a8b8, #ffffff, #f7a8b8, #55cdfc);
-                    --accent-color: #55cdfc;
-                    --text-color: #333;
-                }
-                body { background: var(--primary-bg) !important; }
-                .site-header { background: rgba(255,255,255,0.9) !important; color: #333 !important; }
-            `;
-            document.head.appendChild(style);
-            updateThemeStatus('Trans Theme (Basic)', 'Trans pride colors active');
+            applyFallbackTransTheme();
         }
         
         alert('🏳️‍⚧️ Trans Theme activated! Trans pride colors engaged!');
     }
     
+    function applyFallbackTransTheme() {
+        // Don't remove existing themes, just add trans theme
+        const existingStyle = document.getElementById('test-trans-theme');
+        if (existingStyle) existingStyle.remove();
+        
+        // Fallback: apply basic trans styling
+        const style = document.createElement('style');
+        style.id = 'test-trans-theme';
+        style.textContent = `
+            .admin-container { 
+                background: linear-gradient(45deg, rgba(85, 205, 252, 0.3), rgba(247, 168, 184, 0.3), rgba(255, 255, 255, 0.3)) !important;
+                border: 2px solid #55cdfc;
+            }
+            .theme-test-section { 
+                background: linear-gradient(45deg, rgba(85, 205, 252, 0.2), rgba(247, 168, 184, 0.2), rgba(255, 255, 255, 0.2));
+                border: 1px solid #55cdfc;
+                border-radius: 10px;
+                padding: 20px;
+            }
+            .stats-section .stat-card { 
+                border-color: #55cdfc !important; 
+                background: linear-gradient(135deg, rgba(85, 205, 252, 0.2), rgba(247, 168, 184, 0.2)) !important;
+            }
+            .password-card { border-color: #55cdfc !important; }
+        `;
+        document.head.appendChild(style);
+        updateThemeStatus('Trans Theme (Basic)', 'Trans pride colors active');
+    }
+    
     function testEarthTheme() {
         // Load and activate earth day theme
         if (window.EarthDaySpecial) {
-            const earthSystem = new window.EarthDaySpecial();
-            earthSystem.forceActivate();
-            updateThemeStatus('Earth Day Special', 'Green theme, plant animations, EVE overlay');
+            try {
+                const earthSystem = new window.EarthDaySpecial();
+                earthSystem.forceActivate();
+                updateThemeStatus('Earth Day Special', 'Green theme, plant animations, EVE overlay');
+            } catch (error) {
+                console.error('Earth theme error:', error);
+                applyFallbackEarthTheme();
+            }
         } else {
-            // Fallback: apply basic earth styling
-            const style = document.createElement('style');
-            style.id = 'test-earth-theme';
-            style.textContent = `
-                :root {
-                    --primary-color: #4caf50;
-                    --accent-color: #8bc34a;
-                    --bg-color: #1b5e20;
-                    --text-color: #e8f5e8;
-                }
-                body { 
-                    background: linear-gradient(135deg, #1b5e20, #2e7d32, #388e3c) !important; 
-                    color: var(--text-color) !important;
-                }
-                .site-header { background: rgba(27, 94, 32, 0.9) !important; }
-                h1, h2, h3 { color: #8bc34a !important; }
-            `;
-            document.head.appendChild(style);
-            updateThemeStatus('Earth Day Theme (Basic)', 'Green theme active');
+            applyFallbackEarthTheme();
         }
         
         alert('🌍 Earth Day Theme activated! Going green!');
     }
     
-    function resetToDefault() {
-        // Remove all test themes
+    function applyFallbackEarthTheme() {
+        // Don't remove existing themes, just add earth theme
+        const existingStyle = document.getElementById('test-earth-theme');
+        if (existingStyle) existingStyle.remove();
+        
+        // Fallback: apply basic earth styling
+        const style = document.createElement('style');
+        style.id = 'test-earth-theme';
+        style.textContent = `
+            .admin-container { 
+                background: linear-gradient(135deg, rgba(27, 94, 32, 0.8), rgba(46, 125, 50, 0.8), rgba(56, 142, 60, 0.8)) !important;
+                border: 2px solid #4caf50;
+            }
+            .commission-form-container, .commission-controls, .commission-list { 
+                background: rgba(27, 94, 32, 0.6) !important;
+                border-color: #4caf50 !important;
+            }
+            .stats-section .stat-card { 
+                border-color: #4caf50 !important; 
+                background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(139, 195, 74, 0.3)) !important;
+            }
+            .password-card { border-color: #4caf50 !important; }
+            .theme-test-btn { border-color: #8bc34a !important; }
+        `;
+        document.head.appendChild(style);
+        updateThemeStatus('Earth Day Theme (Basic)', 'Green theme active');
+    }
+    
+    function removeTestThemes() {
         const testStyles = ['test-pride-theme', 'test-trans-theme', 'test-earth-theme'];
         testStyles.forEach(id => {
             const style = document.getElementById(id);
             if (style) style.remove();
         });
+    }
+    
+    function resetToDefault() {
+        // Remove all test themes
+        removeTestThemes();
         
-        // Deactivate special systems
-        if (window.prideMonthSpecial) {
-            window.prideMonthSpecial.deactivate();
-        }
-        if (window.transAwarenessSpecial) {
-            window.transAwarenessSpecial.deactivate();
-        }
-        if (window.earthDaySpecial) {
-            window.earthDaySpecial.deactivate();
+        // Deactivate special systems if they exist
+        try {
+            if (window.prideMonthSpecial) {
+                window.prideMonthSpecial.deactivate();
+            }
+            if (window.transAwarenessSpecial) {
+                window.transAwarenessSpecial.deactivate();
+            }
+            if (window.earthDaySpecial) {
+                window.earthDaySpecial.deactivate();
+            }
+        } catch (error) {
+            console.log('No special systems to deactivate:', error);
         }
         
         // Reset to default dark theme
@@ -678,10 +825,11 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('🔄 Theme reset to default dark mode!');
     }
     
-    function updateThemeStatus(themeName = null, effects = null) {
+    function updateThemeStatus(themeName = null, effects = null, dbStatus = null) {
         const activeThemeElement = document.getElementById('active-theme');
         const effectsElement = document.getElementById('special-effects-status');
         const timeElement = document.getElementById('theme-change-time');
+        const dbStatusElement = document.getElementById('database-status');
         
         if (activeThemeElement && themeName) {
             activeThemeElement.textContent = themeName;
@@ -694,10 +842,27 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timeElement) {
             timeElement.textContent = new Date().toLocaleTimeString();
         }
+        
+        if (dbStatusElement && dbStatus !== null) {
+            dbStatusElement.textContent = dbStatus;
+        }
     }
     
     // Initialize theme test system
-    initThemeTestSystem();
+    setTimeout(() => {
+        initThemeTestSystem();
+        
+        // Add debug logging for theme buttons
+        console.log('🎨 Theme test system initialized');
+        console.log('Theme buttons found:', {
+            'dark': !!document.getElementById('test-dark-theme'),
+            'pride': !!document.getElementById('test-pride-theme'),
+            'trans': !!document.getElementById('test-trans-theme'),
+            'earth': !!document.getElementById('test-earth-theme'),
+            'reset': !!document.getElementById('reset-theme'),
+            'load-data': !!document.getElementById('force-load-data')
+        });
+    }, 500);
     
     // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {
