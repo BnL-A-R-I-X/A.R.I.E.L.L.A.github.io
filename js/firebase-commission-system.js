@@ -361,6 +361,109 @@ class FirebaseCommissionSystem {
         };
     }
 
+    // === COMPATIBILITY METHODS FOR ADMIN INTERFACE ===
+    
+    // Alias for getCommissions to match localStorage system
+    getAllCommissions() {
+        return this.getCommissions();
+    }
+
+    // Alias for getCommissionById to match localStorage system  
+    getCommission(id) {
+        return this.getCommissionById(id);
+    }
+
+    // Get stats in format expected by admin interface
+    getStats() {
+        const counts = this.getStatusCounts();
+        return {
+            total: counts.total,
+            planning: counts.planning,
+            inProgress: counts['in-progress'] + counts.review + counts.revisions,
+            completed: counts.completed + counts.delivered,
+            onHold: counts['on-hold'],
+            cancelled: counts.cancelled
+        };
+    }
+
+    // Basic search functionality
+    searchCommissions(query) {
+        if (!query || query.trim() === '') {
+            return this.getAllCommissions();
+        }
+        
+        const lowerQuery = query.toLowerCase();
+        return this.commissions.filter(commission => {
+            return (
+                (commission.artist && commission.artist.toLowerCase().includes(lowerQuery)) ||
+                (commission.description && commission.description.toLowerCase().includes(lowerQuery)) ||
+                (commission.character && commission.character.toLowerCase().includes(lowerQuery)) ||
+                (commission.type && commission.type.toLowerCase().includes(lowerQuery))
+            );
+        });
+    }
+
+    // Image processing placeholder (Firebase doesn't store files the same way)
+    async processImageFile(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resolve({
+                    data: e.target.result,
+                    name: file.name,
+                    size: file.size
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Export data functionality
+    exportData() {
+        const data = {
+            commissions: this.getAllCommissions(),
+            exportDate: new Date().toISOString(),
+            source: 'firebase-commission-system',
+            version: '2.0'
+        };
+        return JSON.stringify(data, null, 2);
+    }
+
+    // Import data functionality
+    importData(jsonString) {
+        try {
+            const data = JSON.parse(jsonString);
+            let imported = 0;
+            
+            if (data.commissions && Array.isArray(data.commissions)) {
+                data.commissions.forEach(commission => {
+                    // Remove ID to allow Firebase to generate new ones
+                    const { id, ...commissionData } = commission;
+                    this.addCommission(commissionData);
+                    imported++;
+                });
+            }
+            
+            return imported;
+        } catch (error) {
+            console.error('Import error:', error);
+            return 0;
+        }
+    }
+
+    // Download commission image placeholder
+    downloadCommissionImage(id) {
+        const commission = this.getCommission(id);
+        if (commission && commission.attachedImage) {
+            const link = document.createElement('a');
+            link.href = commission.attachedImage;
+            link.download = commission.attachedImageName || `commission-${id}-image.jpg`;
+            link.click();
+            return true;
+        }
+        return false;
+    }
+
     // Cleanup
     destroy() {
         if (this.unsubscribe) {

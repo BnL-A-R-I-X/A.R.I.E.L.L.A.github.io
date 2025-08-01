@@ -784,6 +784,51 @@ main {
     transform: scale(1.05);
 }
 
+/* Social Embeds and Previews */
+.social-embed {
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-embed iframe {
+    max-width: 100%;
+    border-radius: 12px;
+    border: none;
+}
+
+.social-embed bsky-embed {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+.social-preview {
+    margin-top: 15px;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.social-preview p {
+    color: var(--text-secondary);
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+}
+
+.social-preview small {
+    color: var(--text-tertiary);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
 /* Header Frame Styling */
 .header-frame {
     border: 2px solid rgba(0, 255, 255, 0.5);

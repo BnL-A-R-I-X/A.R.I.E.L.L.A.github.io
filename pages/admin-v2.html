@@ -406,8 +406,18 @@
 </div>
 
 <script>
+// Initialize Firebase Commission System
+let commissionSystemV2;
+
 // Security PIN system
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Firebase commission system as commissionSystemV2 for compatibility
+    if (window.FirebaseCommissionSystem) {
+        commissionSystemV2 = new window.FirebaseCommissionSystem();
+        window.commissionSystemV2 = commissionSystemV2;
+        console.log('🔥 Firebase commission system initialized for admin');
+    }
+    
     const pinInput = document.getElementById('pincode');
     const accessBtn = document.getElementById('access-btn');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -733,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script src="../js/commission-system-v2.js"></script>
+<script src="../js/firebase-commission-system.js"></script>
 <script src="../js/commission-admin-v2.js"></script>
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>

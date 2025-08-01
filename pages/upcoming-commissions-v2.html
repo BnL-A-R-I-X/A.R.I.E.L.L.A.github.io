@@ -149,7 +149,16 @@
 <!-- Load Scripts -->
 <script src="../js/shiptime.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
-<script src="../js/commission-system-v2.js"></script>
+<script src="../js/firebase-commission-system.js"></script>
+<script>
+// Initialize Firebase Commission System for compatibility with existing queue viewer
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.FirebaseCommissionSystem) {
+        window.commissionSystemV2 = new window.FirebaseCommissionSystem();
+        console.log('🔥 Firebase commission system initialized for queue');
+    }
+});
+</script>
 <script src="../js/commission-queue-v2.js"></script>
 <script src="../js/commission-ideas-viewer.js"></script>
 
