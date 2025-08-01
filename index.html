@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="BNL Passenger Character Records Terminal — OC Database for the USS Axiom">
-<title>OC Database // USS Axiom Terminal</title>
+<meta name="description" content="Peppermint Doe Ari - Digital Artist Portfolio featuring anthro art, character designs, and commissions">
+<title>Peppermint Doe Ari // Digital Artist Portfolio</title>
 
 <!-- Fonts & CSS -->
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/servebot-greeting.css">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -17,15 +16,16 @@
 <header class="site-header">
     <div class="header-frame">
         <div class="header-inner">
-            <img src="assets/logos/axiom.png" alt="BNL Axiom Logo" class="bnl-logo small-centered">
-            <div>
-                <h1>USS AXIOM // OC DATABASE</h1>
-                <p class="subtext">BNL Passenger Character Records Terminal</p>
-                <p class="status">STATUS: ONLINE — AUTHORIZED USER: <strong>A.R.I.E.L.L.A // BNL-SYSTEM-BOT</strong></p>
+            <div class="logo-section">
+                <img src="aridoe/images/refs/SFW.jpg" alt="Peppermint Doe Ari" class="ari-logo">
+                <div class="peppermint-accent"></div>
+            </div>
+            <div class="title-section">
+                <h1>PEPPERMINT DOE ARI</h1>
+                <p class="subtext">Digital Artist & Character Designer</p>
+                <p class="status">✨ PORTFOLIO ONLINE ✨ COMMISSIONS: <strong>OPEN</strong></p>
                 <div class="status-widgets">
-                    SHIP TIME: <strong id="shipTime"></strong> |
-                    SECTOR: <strong>BNL-7 / ALPHA</strong> |
-                    UPLINK: <strong>STABLE</strong>
+                    🎨 SPECIALTIES: <strong>ANTHRO ART • CHARACTER DESIGN • DIGITAL ILLUSTRATION</strong>
                 </div>
             </div>
         </div>
@@ -37,31 +37,32 @@
     <a href="index.html" class="nav-btn active">HOME</a>
     
     <div class="nav-dropdown">
-        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-btn nav-dropdown-toggle">GALLERY</div>
         <div class="nav-dropdown-menu">
-            <div class="nav-dropdown-header">BNL Archives</div>
-            <a href="pages/ocs.html" class="nav-dropdown-item">OC Database</a>
-            <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
+            <div class="nav-dropdown-header">🎨 Art Gallery</div>
+            <a href="aridoe/aridoe.html" class="nav-dropdown-item">Ari's Gallery</a>
+            <a href="#portfolio" class="nav-dropdown-item">Featured Works</a>
+            <a href="#character-designs" class="nav-dropdown-item">Character Designs</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMISSIONS</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">� Commission Info</div>
             <a href="pages/upcoming-commissions-v2.html" class="nav-dropdown-item">Commission Queue</a>
+            <a href="#pricing" class="nav-dropdown-item">Pricing & Terms</a>
+            <a href="#commission-form" class="nav-dropdown-item">Request Commission</a>
         </div>
     </div>
     
     <div class="nav-dropdown">
-        <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+        <div class="nav-btn nav-dropdown-toggle">ABOUT</div>
         <div class="nav-dropdown-menu">
-            <div class="nav-dropdown-header">👤 User Profile</div>
-            <a href="pages/bio.html" class="nav-dropdown-item">Biography</a>
+            <div class="nav-dropdown-header">🌿 About Ari</div>
+            <a href="pages/bio.html" class="nav-dropdown-item">Artist Bio</a>
             <a href="pages/socials.html" class="nav-dropdown-item">Social Links</a>
-        </div>
-    </div>
-    
-    <div class="nav-dropdown">
-        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
-        <div class="nav-dropdown-menu">
-            <div class="nav-dropdown-header">Community Hub</div>
-            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
-            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
-            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+            <a href="#contact" class="nav-dropdown-item">Contact</a>
         </div>
     </div>
     
@@ -74,277 +75,187 @@
     </div>
 </nav>
 
-<!-- ===== Intro ===== -->
-<section class="terminal-intro">
-    <p>Welcome to the <strong>BNL USS Axiom Terminal Hub</strong>.  
-    Access passenger character records, crew social networks, personnel files, and ship systems through the navigation above.  
-    All operations managed by <abbr title="Automated Regulation Interface, Enforcement & Logistics Android">A.R.I.E.L.L.A</abbr> security protocols.</p>
+<!-- ===== Artist Intro ===== -->
+<section class="artist-intro">
+    <div class="intro-content">
+        <div class="intro-text">
+            <h2>Welcome to my Portfolio!</h2>
+            <p>Hi there! I'm <strong>Peppermint Doe Ari</strong>, a digital artist specializing in vibrant anthro characters and detailed character designs. 
+            I love bringing characters to life with fresh, minty aesthetics and playful personalities!</p>
+            
+            <div class="specialties">
+                <span class="specialty-tag">🎨 Anthro Art</span>
+                <span class="specialty-tag">🌿 Character Design</span>
+                <span class="specialty-tag">✨ Digital Illustration</span>
+                <span class="specialty-tag">🎭 OC Development</span>
+            </div>
+        </div>
+        
+        <div class="intro-image">
+            <img src="aridoe/images/refs/SFW.jpg" alt="Peppermint Doe Ari Reference" class="character-showcase">
+            <div class="image-caption">Meet Ari - Your friendly neighborhood peppermint doe! 🌿</div>
+        </div>
+    </div>
 </section>
 
-<!-- ===== Quick Access ===== -->
-<main class="character-sections">
-    <section class="character-section">
-        <h2 class="section-title">Quick Access Menu</h2>
-        <div class="character-grid centered">
-            <a href="pages/ocs.html" class="character-card">
-                <h2>OC Database</h2>
-                <p>Browse All Character Records</p>
+<!-- ===== Portfolio Showcase ===== -->
+<main class="portfolio-sections" id="portfolio">
+    <section class="portfolio-section">
+        <h2 class="section-title">Featured Artwork</h2>
+        <div class="portfolio-grid">
+            <a href="aridoe/aridoe.html" class="portfolio-card featured">
+                <div class="card-image">
+                    <img src="aridoe/images/sfw/150725_comm_lines1.png" alt="Commission Sample" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Commission Gallery</h3>
+                    <p>Browse through my completed commission works and artistic journey!</p>
+                    <span class="card-tag">Gallery</span>
+                </div>
             </a>
-            <div class="character-card disabled" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">
-                <h2>Character Rankings</h2>
-                <p>[SYSTEM MAINTENANCE]</p>
+            
+            <div class="portfolio-card">
+                <div class="card-image">
+                    <img src="aridoe/images/refs/SFW-Fem.jpg" alt="Character Design" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Character Designs</h3>
+                    <p>Original character concepts and design variations</p>
+                    <span class="card-tag">Design</span>
+                </div>
             </div>
-            <a href="pages/socials.html" class="character-card">
-                <h2>Social Networks</h2>
-                <p>Crew Communication Links</p>
-            </a>
-            <a href="pages/bio.html" class="character-card">
-                <h2>Personnel File</h2>
-                <p>Creator Information</p>
+            
+            <a href="pages/upcoming-commissions-v2.html" class="portfolio-card">
+                <div class="card-content commission-info">
+                    <h3>💼 Commission Status</h3>
+                    <p>Check current commission queue and availability</p>
+                    <div class="commission-status">
+                        <span class="status-badge open">OPEN</span>
+                    </div>
+                    <span class="card-tag">Commissions</span>
+                </div>
             </a>
         </div>
     </section>
 
-    <!-- ===== BNL Information Terminal ===== -->
-    <section class="character-section">
-        <h2 class="section-title">BNL Information Terminal</h2>
-        <div class="home-terminal-container">
-            <div class="home-terminal-header">
-                <div class="terminal-title">
-                    <span class="terminal-logo">████</span>
-                    BNL CLASSIFIED INFORMATION ACCESS
-                    <span class="terminal-status">LEVEL 7 READY</span>
-                </div>
-                <div class="terminal-controls">
-                    <span class="control-btn minimize">–</span>
-                    <span class="control-btn maximize">□</span>
-                    <span class="control-btn close" onclick="clearHomeTerminal()">×</span>
-                </div>
-            </div>
-
-            <div class="home-terminal-output" id="homeTerminalOutput">
-                <div class="boot-sequence">
-                    <div class="boot-line">BNL CORPORATE NETWORK v7.4.EXEC</div>
-                    <div class="boot-line">Initializing secure connection...</div>
-                    <div class="boot-line success">Connection established.</div>
-                    <div class="boot-line">Ready for input.</div>
-                    <div class="boot-line help">Type 'help' for available commands or click <a href="pages/information.html" class="terminal-link">here</a> for full terminal.</div>
+    <!-- ===== Character Showcase ===== -->
+    <section class="character-section" id="character-designs">
+        <h2 class="section-title">Character Showcase</h2>
+        <div class="character-showcase-grid">
+            <div class="character-highlight">
+                <img src="aridoe/images/refs/SFW.jpg" alt="Ari Main Reference" class="character-ref">
+                <div class="character-info">
+                    <h3>Peppermint Doe Ari</h3>
+                    <p>The star of the show! A cheerful anthro doe with a love for all things minty fresh and artistic.</p>
+                    <div class="character-traits">
+                        <span class="trait">🌿 Nature Lover</span>
+                        <span class="trait">🎨 Artist</span>
+                        <span class="trait">✨ Optimist</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="home-terminal-input-line">
-                <span class="terminal-prompt">BNL-EXEC:~$ </span>
-                <input type="text" id="homeTerminalInput" class="terminal-input" autocomplete="off" placeholder="Type 'help' or 'status'...">
-                <span class="cursor">█</span>
-            </div>
-
-            <div class="home-terminal-suggestions" id="homeSuggestions"></div>
         </div>
     </section>
 </main>
 
-<!-- ===== Ship Status Dashboard ===== -->
-<section class="ship-status">
-    <h3>&#128752; USS AXIOM Status Dashboard</h3>
-    <div class="status-grid">
-        <div class="status-panel">
-            <h4>Life Support</h4>
-            <div class="status-bar">
-                <div class="status-fill" style="width: 98%"></div>
+<!-- ===== Contact & Commission Info ===== -->
+<section class="contact-section" id="contact">
+    <div class="contact-content">
+        <h2 class="section-title">Let's Work Together!</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>💼 Commission Information</h3>
+                <div class="commission-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="status-badge open">OPEN</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Response Time:</span>
+                        <span>24-48 hours</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Specialties:</span>
+                        <span>Anthro Characters, Digital Art, Character Design</span>
+                    </div>
+                </div>
+                <a href="pages/upcoming-commissions-v2.html" class="cta-button">View Commission Queue</a>
             </div>
-            <span class="status-value">98% Operational</span>
-        </div>
-        <div class="status-panel">
-            <h4>Power Grid</h4>
-            <div class="status-bar">
-                <div class="status-fill warning" style="width: 76%"></div>
+            
+            <div class="contact-methods">
+                <h3>📬 Get In Touch</h3>
+                <p>Ready to bring your character to life? I'd love to hear about your project!</p>
+                <div class="contact-links">
+                    <a href="pages/socials.html" class="contact-link">
+                        <span class="contact-icon">🔗</span>
+                        Social Media
+                    </a>
+                    <a href="mailto:contact@peppermintdoe.art" class="contact-link">
+                        <span class="contact-icon">✉️</span>
+                        Email
+                    </a>
+                </div>
             </div>
-            <span class="status-value">76% Efficiency</span>
-        </div>
-        <div class="status-panel">
-            <h4>Passenger Morale</h4>
-            <div class="status-bar">
-                <div class="status-fill" style="width: 94%"></div>
-            </div>
-            <span class="status-value">94% Satisfied</span>
-        </div>
-        <div class="status-panel">
-            <h4>A.R.I.E.L.L.A Systems</h4>
-            <div class="status-bar">
-                <div class="status-fill" style="width: 100%"></div>
-            </div>
-            <span class="status-value">100% Online</span>
-        </div>
-        <div class="status-panel">
-            <h4>Creative Protocols</h4>
-            <div class="status-bar">
-                <div class="status-fill special" style="width: 85%"></div>
-            </div>
-            <span class="status-value">85% Ready - Try "artcode"</span>
         </div>
     </div>
 </section>
 
-<!-- ===== Two-Column Layout Section ===== -->
-<div class="two-column-layout">
-    <!-- ===== Active Passengers ===== -->
-    <section class="active-passengers half-width">
-        <h3>Recently Active Passengers</h3>
-        <div class="passenger-list">
-            <div class="passenger-entry">
-                <span class="passenger-icon">A</span>
-                <div class="passenger-info">
-                    <strong>A.R.I.E.L.L.A</strong>
-                    <small>Security Patrol - Deck 12</small>
-                </div>
-                <span class="status-indicator online"></span>
+<!-- ===== Portfolio Stats ===== -->
+<section class="portfolio-stats">
+    <div class="stats-content">
+        <h3>🎨 Portfolio Highlights</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Commissions Completed</div>
             </div>
-            <div class="passenger-entry">
-                <span class="passenger-icon">D</span>
-                <div class="passenger-info">
-                    <strong>Darla</strong>
-                    <small>Hydroponics Bay - Environmental Duty</small>
-                </div>
-                <span class="status-indicator online"></span>
+            <div class="stat-item">
+                <div class="stat-number">3+</div>
+                <div class="stat-label">Years Experience</div>
             </div>
-            <div class="passenger-entry">
-                <span class="passenger-icon">A</span>
-                <div class="passenger-info">
-                    <strong>Ariella Non-Mech Form</strong>
-                    <small>Recreation Lounge - Cocoa Break</small>
-                </div>
-                <span class="status-indicator idle"></span>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Client Satisfaction</div>
             </div>
-            <div class="passenger-entry">
-                <span class="passenger-icon">C</span>
-                <div class="passenger-info">
-                    <strong>Caelielle</strong>
-                    <small>Observation Deck - Meditation</small>
-                </div>
-                <span class="status-indicator away"></span>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Creative Ideas</div>
             </div>
-        </div>
-    </section>
-
-    <!-- ===== Weather Report ===== -->
-    <section class="weather-report half-width">
-        <h3>Current Conditions</h3>
-        <div class="weather-grid-compact">
-            <div class="weather-card">
-                <h4>Earth</h4>
-                <div class="weather-status danger">TOXIC STORM</div>
-                <div class="weather-details">
-                    <span>47°C / 116°F</span>
-                    <span>Visibility: 0.2km</span>
-                </div>
-            </div>
-            <div class="weather-card">
-                <h4>Space</h4>
-                <div class="weather-status safe">STABLE ORBIT</div>
-                <div class="weather-details">
-                    <span>-270°C / -454°F</span>
-                    <span>Solar Activity: Minimal</span>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Three-Column Layout Section ===== -->
-<div class="three-column-layout">
-    <!-- ===== System Logs ===== -->
-    <section class="system-logs third-width">
-        <h3>System Log</h3>
-        <ul>
-            <li>[00:14:02] Synchronizing passenger biometric database... [COMPLETE]</li>
-            <li>[00:14:03] Query: "Darling Deer" → No matching official passenger found. (Unofficial ID flagged)</li>
-            <li>[00:14:06] Updating gallery indexes... Complete.</li>
-            <li>[00:14:07] Encrypted message received from unknown source... Decryption failed. [LOCKED]</li>
-            <li>[00:14:08] Art collaboration protocols initialized... Try terminal command for details. [ART]</li>
-            <li>[00:14:10] Maintenance routine #042 engaged. All systems nominal.</li>
-        </ul>
-    </section>
-
-    <!-- ===== News Feed ===== -->
-    <section class="news-feed third-width">
-        <h3>BNL News Network</h3>
-        <div class="news-items">
-            <div class="news-item">
-                <span class="news-date">[2110.147.14:23]</span>
-                <strong>SYSTEM UPDATE:</strong> A.R.I.E.L.L.A firmware updated to v2.8.1 - Enhanced social interaction protocols
-            </div>
-            <div class="news-item">
-                <span class="news-date">[2110.146.09:45]</span>
-                <strong>ENTERTAINMENT:</strong> New art galleries added to passenger terminals - Browse character records for updates
-            </div>
-            <div class="news-item">
-                <span class="news-date">[2110.145.16:12]</span>
-                <strong>MAINTENANCE:</strong> Hydroponics Bay expansion completed - Darla reports 15% efficiency increase
-            </div>
-            <div class="news-item classified">
-                <span class="news-date">[2110.144.22:01]</span>
-                <strong>CLASSIFIED:</strong> [DATA REDACTED] - Access Level 7 required for details
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== Easter Eggs ===== -->
-    <section class="easter-eggs third-width">
-        <h3>Fun Facts / Easter Eggs</h3>
-        <ul>
-            <li title="BNL Fleet Directive 12: Keep your seat. Stay safe.">Ariella Non-Mech Form has ordered <strong>492 cups of cocoa</strong> since boarding.</li>
-            <li title="BNL Hydroponics Policy #3">Darla once tried to plant an entire forest in the hydroponics bay.</li>
-            <li title="A.R.I.E.L.L.A Humor Subroutine v2.3">Caelielle's favorite song is allegedly "Fly Me to the Moon" but records are classified.</li>
-            <li title="System error: Missing file 'MISC_FUNNYFACTS.DAT'">Misc file data constantly changes… no one knows why.</li>
-            <li title="Hidden creative protocols detected">Terminal diagnostics show unusual "artcode" signatures in recent logs...</li>
-            <li title="Unauthorized unit detection system active">Security reports mention a rogue "wall-e" unit in lower decks...</li>
-            <li title="EVE probe scanning protocols enabled">Vegetation scanner units respond to "eve" access codes...</li>
-            <li title="Captain override attempts logged">Bridge access shows failed "captain" authorization attempts...</li>
-            <li title="Planetary status classified">Earth environmental data available via "earth" command protocols...</li>
-            <li title="Specimen containment active">Botanical security mentions "plant" containment procedures...</li>
-            <li title="Project classification maximum">Mysterious "genesis" project files heavily redacted...</li>
-        </ul>
-    </section>
-</div>
-
-<!-- ===== Security Camera Feed ===== -->
-<section class="security-feed">
-    <h2 class="section-title">Live Ship Feed — Deck 07</h2>
-    <div class="camera-frame">
-        <video autoplay muted loop playsinline class="camera-video">
-            <source src="assets/video/deck07_feed.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="camera-overlay">
-            <span class="cam-status">LIVE — SECURE LINK</span>
-            <span class="cam-location">BNL AXIOM // OBSERVATION BAY</span>
         </div>
     </div>
 </section>
-
-<!-- ===== Fun Facts ===== -->
-<div class="status-ticker">
-    <marquee behavior="scroll" direction="left">
-        Ariella Non-Mech Form has ordered 492 cups of cocoa since boarding. — Darla once tried to plant a forest in the hydroponics bay. — Caelielle's favorite song is "Fly Me to the Moon" (classified). — Misc file data constantly changes… no one knows why.
-    </marquee>
-</div>
 
 <!-- ===== Footer ===== -->
-<section class="system-footer">
-    <p>© 2025 Ariella Fawnbrook // USS Axiom OC Terminal</p>
-    <p>BNL / AXIOM SYSTEM INTERFACE — VERSION <a href="pages/information.html" class="hidden-link" title="Executive Access">7.4</a></p>
-</section>
+<footer class="portfolio-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Peppermint Doe Ari</h4>
+            <p>Digital Artist & Character Designer</p>
+            <p>Bringing characters to life with minty fresh creativity! 🌿</p>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="aridoe/aridoe.html">Gallery</a>
+            <a href="pages/upcoming-commissions-v2.html">Commissions</a>
+            <a href="pages/socials.html">Social Media</a>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Ready to commission your character?</p>
+            <p>Let's create something amazing together!</p>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>© 2025 Peppermint Doe Ari // Digital Art Portfolio</p>
+        <p>✨ Made with creativity and lots of peppermint tea ✨</p>
+    </div>
+</footer>
 
-<!-- ===== Live Ship Time Script ===== -->
-<script src="js/custom-dialogs.js"></script>
+<!-- ===== Scripts ===== -->
 <script src="js/nav-dropdowns.js"></script>
-<script src="js/shiptime.js"></script>
-<script src="js/home-terminal.js"></script>
-<script src="js/earth-day-special.js"></script>
-<script src="js/pride-month-special.js"></script>
-<script src="js/trans-awareness-special.js"></script>
-<script src="js/holiday-season-special.js"></script>
-<script src="js/servebot-greeting.js"></script>
 
 </body>
 </html>
