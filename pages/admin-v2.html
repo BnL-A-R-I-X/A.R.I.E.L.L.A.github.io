@@ -242,7 +242,7 @@
         </div>
 
         <!-- Commission List -->
-        <div id="commission-list" class="commission-list">
+        <div id="commissions-list" class="commission-list">
             <!-- Commissions will be rendered here -->
         </div>
     </section>
@@ -432,6 +432,14 @@ document.addEventListener('DOMContentLoaded', function() {
         window.commissionSystemV2 = commissionSystemV2;
         console.log('🔥 Firebase commission system initialized for admin');
     }
+    
+    // Initialize Commission Admin V2 interface
+    setTimeout(() => {
+        if (window.CommissionAdminV2) {
+            window.commissionAdminV2 = new window.CommissionAdminV2();
+            console.log('🔧 Commission Admin V2 interface initialized');
+        }
+    }, 500); // Wait for Firebase system to be ready
     
     const pinInput = document.getElementById('pincode');
     const accessBtn = document.getElementById('access-btn');
