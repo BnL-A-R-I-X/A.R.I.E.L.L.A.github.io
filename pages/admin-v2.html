@@ -247,6 +247,51 @@
         </div>
     </section>
 
+    <!-- Theme Test Section -->
+    <section class="theme-test-section">
+        <h2>🎨 Theme Testing Laboratory</h2>
+        
+        <div class="theme-warning">
+            <h4>⚠️ TESTING NOTICE</h4>
+            <p>Theme tests will temporarily override the site appearance. Use "Reset to Default" to restore normal theme.</p>
+            <p>Some special themes (Pride, Trans, Earth Day) may include additional animations and effects.</p>
+        </div>
+        
+        <div class="theme-test-grid">
+            <button id="test-dark-theme" class="theme-test-btn dark-theme">
+                🌙 Test Dark Theme
+            </button>
+            <button id="test-light-theme" class="theme-test-btn light-theme">
+                ☀️ Test Light Theme
+            </button>
+            <button id="test-pride-theme" class="theme-test-btn pride-theme">
+                🏳️‍🌈 Test Pride Theme
+            </button>
+            <button id="test-trans-theme" class="theme-test-btn trans-theme">
+                🏳️‍⚧️ Test Trans Theme
+            </button>
+            <button id="test-earth-theme" class="theme-test-btn earth-theme">
+                🌍 Test Earth Day Theme
+            </button>
+            <button id="reset-theme" class="theme-test-btn reset-theme">
+                🔄 Reset to Default
+            </button>
+        </div>
+        
+        <div class="theme-status">
+            <h4>Theme Status</h4>
+            <div id="current-theme-status" class="theme-status-info">
+                Current Theme: <span id="active-theme" class="theme-status-active">Dark (Default)</span>
+            </div>
+            <div class="theme-status-info">
+                Special Effects: <span id="special-effects-status">None Active</span>
+            </div>
+            <div class="theme-status-info">
+                Last Changed: <span id="theme-change-time">Page Load</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Data Management Section -->
     <section class="admin-section">
         <h2>📊 Data Management</h2>
@@ -348,6 +393,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.commissionAdminV2 = new window.CommissionAdminV2();
                 console.log('🔧 Commission Admin V2 interface initialized');
                 console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
+                
+                // Force initial render after a short delay to ensure everything is loaded
+                setTimeout(() => {
+                    if (window.commissionAdminV2) {
+                        console.log('🔄 Forcing initial render...');
+                        window.commissionAdminV2.renderCommissions();
+                        window.commissionAdminV2.updateStats();
+                    }
+                }, 500);
             }
         }, 200);
     } else {
@@ -366,6 +420,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.commissionAdminV2 = new window.CommissionAdminV2();
                         console.log('🔧 Commission Admin V2 interface initialized (delayed)');
                         console.log('📊 Current commission count:', commissionSystemV2.getAllCommissions().length);
+                        
+                        // Force initial render after a short delay to ensure everything is loaded
+                        setTimeout(() => {
+                            if (window.commissionAdminV2) {
+                                console.log('🔄 Forcing initial render (delayed)...');
+                                window.commissionAdminV2.renderCommissions();
+                                window.commissionAdminV2.updateStats();
+                            }
+                        }, 500);
                     }
                 }, 200);
             }
@@ -416,6 +479,225 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Auto-focus pin input
     pinInput.focus();
+    
+    // Add confirmation dialog after admin system is loaded
+    function addConfirmationDialog() {
+        const commissionForm = document.getElementById('commission-form-v2');
+        if (commissionForm && window.commissionAdminV2) {
+            // Store the original handleFormSubmit method
+            const originalHandleFormSubmit = window.commissionAdminV2.handleFormSubmit.bind(window.commissionAdminV2);
+            
+            // Override the handleFormSubmit method to add confirmation
+            window.commissionAdminV2.handleFormSubmit = function(e) {
+                // Get form data for preview
+                const formData = new FormData(e.target);
+                const title = formData.get('title') || 'Untitled';
+                const artist = formData.get('artist') || 'Unknown Artist';
+                const cost = formData.get('cost') || '$0.00';
+                const status = formData.get('status') || 'planning';
+                
+                // Create confirmation message
+                const confirmMessage = `Are you sure you want to add this commission?\n\n` +
+                                     `Title: ${title}\n` +
+                                     `Artist: ${artist}\n` +
+                                     `Cost: ${cost}\n` +
+                                     `Status: ${status}\n\n` +
+                                     `This will be saved to the Firebase database.`;
+                
+                // Show confirmation dialog
+                if (!confirm(confirmMessage)) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // If confirmed, call the original handler
+                return originalHandleFormSubmit(e);
+            };
+            
+            console.log('✅ Confirmation dialog added to commission form');
+        } else {
+            // Retry after a short delay
+            setTimeout(addConfirmationDialog, 100);
+        }
+    }
+    
+    // Start trying to add confirmation dialog
+    addConfirmationDialog();
+    
+    // Theme Testing System
+    function initThemeTestSystem() {
+        const themeButtons = {
+            'test-dark-theme': () => testTheme('dark', 'Dark Theme'),
+            'test-light-theme': () => testTheme('light', 'Light Theme'),
+            'test-pride-theme': () => testPrideTheme(),
+            'test-trans-theme': () => testTransTheme(),
+            'test-earth-theme': () => testEarthTheme(),
+            'reset-theme': () => resetToDefault()
+        };
+        
+        // Add event listeners for theme test buttons
+        Object.keys(themeButtons).forEach(id => {
+            const button = document.getElementById(id);
+            if (button) {
+                button.addEventListener('click', themeButtons[id]);
+            }
+        });
+        
+        // Update status on load
+        updateThemeStatus();
+    }
+    
+    function testTheme(theme, themeName) {
+        // Apply theme using existing theme manager if available
+        if (window.themeManager) {
+            window.themeManager.applyTheme(theme);
+        } else {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        
+        updateThemeStatus(themeName, 'None Active');
+        
+        if (typeof customDialogs !== 'undefined') {
+            customDialogs.alert(`${themeName} activated! Check the site appearance.`);
+        } else {
+            alert(`${themeName} activated! Check the site appearance.`);
+        }
+    }
+    
+    function testPrideTheme() {
+        // Load and activate pride theme
+        if (window.PrideMonthSpecial) {
+            const prideSystem = new window.PrideMonthSpecial();
+            prideSystem.forceActivate();
+            updateThemeStatus('Pride Month Special', 'Rainbow animations, pride ticker');
+        } else {
+            // Fallback: apply basic pride styling
+            const style = document.createElement('style');
+            style.id = 'test-pride-theme';
+            style.textContent = `
+                :root {
+                    --primary-bg: linear-gradient(45deg, #e40303, #ff8c00, #ffed00, #008018, #004cff, #732982);
+                    --accent-color: #ff69b4;
+                    --text-color: #fff;
+                }
+                body { background: var(--primary-bg) !important; }
+                .site-header { background: rgba(0,0,0,0.8) !important; }
+            `;
+            document.head.appendChild(style);
+            updateThemeStatus('Pride Theme (Basic)', 'Pride colors active');
+        }
+        
+        alert('🏳️‍🌈 Pride Theme activated! Rainbow power engaged!');
+    }
+    
+    function testTransTheme() {
+        // Load and activate trans awareness theme
+        if (window.TransAwarenessSpecial) {
+            const transSystem = new window.TransAwarenessSpecial();
+            transSystem.forceActivate();
+            updateThemeStatus('Trans Awareness Special', 'Trans pride colors, special ticker');
+        } else {
+            // Fallback: apply basic trans styling
+            const style = document.createElement('style');
+            style.id = 'test-trans-theme';
+            style.textContent = `
+                :root {
+                    --primary-bg: linear-gradient(45deg, #55cdfc, #f7a8b8, #ffffff, #f7a8b8, #55cdfc);
+                    --accent-color: #55cdfc;
+                    --text-color: #333;
+                }
+                body { background: var(--primary-bg) !important; }
+                .site-header { background: rgba(255,255,255,0.9) !important; color: #333 !important; }
+            `;
+            document.head.appendChild(style);
+            updateThemeStatus('Trans Theme (Basic)', 'Trans pride colors active');
+        }
+        
+        alert('🏳️‍⚧️ Trans Theme activated! Trans pride colors engaged!');
+    }
+    
+    function testEarthTheme() {
+        // Load and activate earth day theme
+        if (window.EarthDaySpecial) {
+            const earthSystem = new window.EarthDaySpecial();
+            earthSystem.forceActivate();
+            updateThemeStatus('Earth Day Special', 'Green theme, plant animations, EVE overlay');
+        } else {
+            // Fallback: apply basic earth styling
+            const style = document.createElement('style');
+            style.id = 'test-earth-theme';
+            style.textContent = `
+                :root {
+                    --primary-color: #4caf50;
+                    --accent-color: #8bc34a;
+                    --bg-color: #1b5e20;
+                    --text-color: #e8f5e8;
+                }
+                body { 
+                    background: linear-gradient(135deg, #1b5e20, #2e7d32, #388e3c) !important; 
+                    color: var(--text-color) !important;
+                }
+                .site-header { background: rgba(27, 94, 32, 0.9) !important; }
+                h1, h2, h3 { color: #8bc34a !important; }
+            `;
+            document.head.appendChild(style);
+            updateThemeStatus('Earth Day Theme (Basic)', 'Green theme active');
+        }
+        
+        alert('🌍 Earth Day Theme activated! Going green!');
+    }
+    
+    function resetToDefault() {
+        // Remove all test themes
+        const testStyles = ['test-pride-theme', 'test-trans-theme', 'test-earth-theme'];
+        testStyles.forEach(id => {
+            const style = document.getElementById(id);
+            if (style) style.remove();
+        });
+        
+        // Deactivate special systems
+        if (window.prideMonthSpecial) {
+            window.prideMonthSpecial.deactivate();
+        }
+        if (window.transAwarenessSpecial) {
+            window.transAwarenessSpecial.deactivate();
+        }
+        if (window.earthDaySpecial) {
+            window.earthDaySpecial.deactivate();
+        }
+        
+        // Reset to default dark theme
+        if (window.themeManager) {
+            window.themeManager.applyTheme('dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        
+        updateThemeStatus('Dark (Default)', 'None Active');
+        
+        alert('🔄 Theme reset to default dark mode!');
+    }
+    
+    function updateThemeStatus(themeName = null, effects = null) {
+        const activeThemeElement = document.getElementById('active-theme');
+        const effectsElement = document.getElementById('special-effects-status');
+        const timeElement = document.getElementById('theme-change-time');
+        
+        if (activeThemeElement && themeName) {
+            activeThemeElement.textContent = themeName;
+        }
+        
+        if (effectsElement && effects !== null) {
+            effectsElement.textContent = effects;
+        }
+        
+        if (timeElement) {
+            timeElement.textContent = new Date().toLocaleTimeString();
+        }
+    }
+    
+    // Initialize theme test system
+    initThemeTestSystem();
     
     // Copy button functionality
     document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -472,6 +754,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
 <script src="../js/shiptime.js"></script>
+<script src="../js/theme-toggle.js"></script>
+<script src="../js/pride-month-special.js"></script>
+<script src="../js/trans-awareness-special.js"></script>
+<script src="../js/earth-day-special.js"></script>
 
 </body>
 </html>
