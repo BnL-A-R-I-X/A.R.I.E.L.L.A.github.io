@@ -247,51 +247,6 @@
         </div>
     </section>
 
-    <!-- Theme Test Section -->
-    <section class="theme-test-section">
-        <h2>🎨 Theme Testing Laboratory</h2>
-        
-        <div class="theme-warning">
-            <h4>⚠️ TESTING NOTICE</h4>
-            <p>Theme tests will temporarily override the site appearance. Use "Reset to Default" to restore normal theme.</p>
-            <p>Some special themes (Pride, Trans, Earth Day) may include additional animations and effects.</p>
-        </div>
-        
-        <div class="theme-test-grid">
-            <button id="test-dark-theme" class="theme-test-btn dark-theme">
-                🌙 Test Dark Theme
-            </button>
-            <button id="test-pride-theme" class="theme-test-btn pride-theme">
-                🏳️‍🌈 Test Pride Theme
-            </button>
-            <button id="test-trans-theme" class="theme-test-btn trans-theme">
-                🏳️‍⚧️ Test Trans Theme
-            </button>
-            <button id="test-earth-theme" class="theme-test-btn earth-theme">
-                🌍 Test Earth Day Theme
-            </button>
-            <button id="reset-theme" class="theme-test-btn reset-theme">
-                🔄 Reset to Default
-            </button>
-        </div>
-        
-        <div class="theme-status">
-            <h4>Theme Status</h4>
-            <div id="current-theme-status" class="theme-status-info">
-                Current Theme: <span id="active-theme" class="theme-status-active">Dark (Default)</span>
-            </div>
-            <div class="theme-status-info">
-                Active Overlays: <span id="special-effects-status">None Active</span>
-            </div>
-            <div class="theme-status-info">
-                Last Changed: <span id="theme-change-time">Page Load</span>
-            </div>
-            <div class="theme-status-info">
-                Database Status: <span id="database-status">Ready</span>
-            </div>
-        </div>
-    </section>
-
     <!-- Data Management Section -->
     <section class="admin-section">
         <h2>📊 Data Management</h2>
@@ -356,14 +311,14 @@
             <div class="password-card commission-access">
                 <div class="password-header">
                     <h3>🎨 Commission Ideas Access</h3>
-                    <span class="access-level">PUBLIC TIER</span>
+                    <span class="access-level">UNLOCKED</span>
                 </div>
                 <div class="password-display">
                     <span class="password-label">Password:</span>
-                    <span class="password-value">AxiomCreative2025</span>
-                    <button class="copy-btn" data-copy="AxiomCreative2025">📋</button>
+                    <span class="password-value">UNLOCKED</span>
+                    <button class="copy-btn" data-copy="UNLOCKED">📋</button>
                 </div>
-                <p class="password-description">Grants access to the protected Commission Ideas section on the public queue page.</p>
+                <p class="password-description">Commission Ideas section is now permanently unlocked and accessible to all users.</p>
             </div>
             
             <div class="password-card admin-access">
@@ -578,55 +533,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
-    // ULTIMATE PROTECTION: Monitor for theme button removal and force visibility
-    const themeTestSection = document.querySelector('.theme-test-section');
-    if (themeTestSection) {
-        console.log('🛡️ Initializing ultimate theme button protection...');
-        
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'childList') {
-                    mutation.removedNodes.forEach((node) => {
-                        if (node.classList && node.classList.contains('theme-test-btn')) {
-                            console.warn('🚨 Theme button was removed! Restoring...', node);
-                            // Re-add the button
-                            mutation.target.appendChild(node);
-                        }
-                    });
-                }
-            });
-        });
-        
-        observer.observe(themeTestSection, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style', 'class', 'hidden']
-        });
-        
-        // Force visibility check every 100ms
-        setInterval(() => {
-            const buttons = themeTestSection.querySelectorAll('.theme-test-btn');
-            buttons.forEach(btn => {
-                const computed = getComputedStyle(btn);
-                if (computed.display === 'none' || 
-                    computed.visibility === 'hidden' ||
-                    computed.opacity === '0') {
-                    btn.style.cssText += `
-                        display: inline-block !important;
-                        visibility: visible !important;
-                        opacity: 1 !important;
-                        z-index: 999999 !important;
-                        position: relative !important;
-                    `;
-                    console.warn('🔧 Theme button visibility restored:', btn);
-                }
-            });
-        }, 100);
-        
-        console.log('✅ Theme button protection system activated');
-    }
-    
     const pinInput = document.getElementById('pincode');
     const accessBtn = document.getElementById('access-btn');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -716,58 +622,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start trying to add confirmation dialog
     addConfirmationDialog();
     
-    // Theme Testing System
-    function initThemeTestSystem() {
-        const themeButtons = {
-            'test-dark-theme': () => testTheme('dark', 'Dark Theme'),
-            'test-pride-theme': () => testPrideTheme(),
-            'test-trans-theme': () => testTransTheme(),
-            'test-earth-theme': () => testEarthTheme(),
-            'reset-theme': () => resetToDefault()
-        };
-        
-        // Add event listeners for theme test buttons
-        Object.keys(themeButtons).forEach(id => {
-            const button = document.getElementById(id);
-            if (button) {
-                button.addEventListener('click', (e) => {
-                    try {
-                        console.log(`🎨 Testing theme: ${id}`);
-                        themeButtons[id]();
-                    } catch (error) {
-                        console.error(`Theme test error for ${id}:`, error);
-                        alert(`Error testing theme: ${error.message}`);
-                    }
-                });
-                console.log(`✅ Added listener for ${id}`);
-            } else {
-                console.warn(`❌ Button not found: ${id}`);
-            }
-        });
-        
-        // Add force load data button functionality
-        const loadDataBtn = document.getElementById('force-load-data');
-        if (loadDataBtn) {
-            loadDataBtn.addEventListener('click', forceLoadData);
-            console.log('✅ Added listener for force-load-data');
-        }
-        
-        // Update status on load
-        updateThemeStatus();
-    }
-    
-    function testTheme(theme, themeName) {
-        // Apply theme using existing theme manager if available
-        if (window.themeManager) {
-            window.themeManager.applyTheme(theme);
-        } else {
-            document.documentElement.setAttribute('data-theme', theme);
-        }
-        
-        updateThemeStatus(themeName, 'None Active');
-        
-        // Use simple alert for better compatibility
-        alert(`${themeName} activated! Check the site appearance.`);
+    // Add force load data button functionality
+    const loadDataBtn = document.getElementById('force-load-data');
+    if (loadDataBtn) {
+        loadDataBtn.addEventListener('click', forceLoadData);
+        console.log('✅ Added listener for force-load-data');
     }
     
     function forceLoadData() {
@@ -780,9 +639,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const originalText = button.innerHTML;
                 button.innerHTML = '⏳ Loading...';
                 button.disabled = true;
-                
-                // Update database status
-                updateThemeStatus(null, null, 'Loading...');
                 
                 // Force reload data from Firebase
                 window.commissionSystemV2.loadCommissions().then(() => {
@@ -812,9 +668,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.innerHTML = originalText;
                     button.disabled = false;
                     
-                    // Update database status with counts
-                    updateThemeStatus(null, null, `${commissions.length} total, ${publicCommissions.length} public`);
-                    
                     alert(`✅ Data loaded! Found ${commissions.length} total commissions (${publicCommissions.length} public)`);
                 }).catch((error) => {
                     console.error('❌ Error loading commission data:', error);
@@ -823,18 +676,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.innerHTML = originalText;
                     button.disabled = false;
                     
-                    // Update database status
-                    updateThemeStatus(null, null, 'Load Error');
-                    
                     alert('❌ Error loading commission data: ' + error.message);
                 });
             } catch (error) {
                 console.error('❌ Error in force load:', error);
-                updateThemeStatus(null, null, 'Error');
                 alert('❌ Error: ' + error.message);
             }
         } else {
-            updateThemeStatus(null, null, 'System Not Ready');
             alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
         }
     }
@@ -842,22 +690,80 @@ document.addEventListener('DOMContentLoaded', function() {
     // Future Artists Management System
     let futureArtistsSystem;
 
-    function showFutureArtistForm() {
+    // Make these functions global so onclick handlers can access them
+    window.showFutureArtistForm = function() {
         document.getElementById('future-artist-modal').style.display = 'flex';
     }
 
-    function hideFutureArtistForm() {
+    window.hideFutureArtistForm = function() {
         document.getElementById('future-artist-modal').style.display = 'none';
         document.getElementById('future-artist-form').reset();
     }
 
-    function viewFutureArtists() {
+    window.viewFutureArtists = function() {
         document.getElementById('future-artists-list-modal').style.display = 'flex';
         loadFutureArtistsList();
     }
 
-    function hideFutureArtistsList() {
+    window.hideFutureArtistsList = function() {
         document.getElementById('future-artists-list-modal').style.display = 'none';
+    }
+
+    window.exportFutureArtists = async function() {
+        if (!window.commissionSystemV2 || !window.commissionSystemV2.futureArtists) {
+            alert('❌ No future artists data available');
+            return;
+        }
+        
+        const data = {
+            exportDate: new Date().toISOString(),
+            totalArtists: window.commissionSystemV2.futureArtists.length,
+            artists: window.commissionSystemV2.futureArtists
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `future-artists-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        alert('✅ Future artists data exported successfully!');
+    }
+
+    window.editFutureArtist = function(artistId) {
+        alert('✏️ Edit functionality coming soon! For now, you can delete and re-add the artist.');
+    }
+
+    window.deleteFutureArtist = async function(artistId) {
+        if (!window.commissionSystemV2) {
+            alert('❌ System not ready');
+            return;
+        }
+        
+        const artist = window.commissionSystemV2.futureArtists.find(a => a.id === artistId);
+        if (!artist) {
+            alert('❌ Artist not found');
+            return;
+        }
+        
+        if (confirm(`Are you sure you want to delete "${artist.artistName}" from your future artists list?`)) {
+            try {
+                // Delete from Firebase
+                const docRef = window.commissionSystemV2.firestore.doc(window.commissionSystemV2.db, 'futureArtists', artistId);
+                await window.commissionSystemV2.firestore.deleteDoc(docRef);
+                
+                // Reload the list
+                await window.commissionSystemV2.loadFutureArtists();
+                loadFutureArtistsList();
+                
+                alert('✅ Artist deleted successfully!');
+            } catch (error) {
+                console.error('❌ Error deleting artist:', error);
+                alert('❌ Error deleting artist: ' + error.message);
+            }
+        }
     }
 
     async function initFutureArtistsSystem() {

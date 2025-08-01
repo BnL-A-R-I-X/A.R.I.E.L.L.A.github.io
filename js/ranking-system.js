@@ -16,7 +16,7 @@ class CharacterRankingSystem {
             },
             {
                 id: 'aridoe',
-                name: 'Ari-Doe',
+                name: 'Ariella Non-Mech Form',
                 description: 'Deersona',
                 category: 'Anthropomorphs',
                 url: '../aridoe/aridoe.html'

@@ -5,13 +5,14 @@
 
 class CommissionIdeasViewer {
     constructor() {
-        this.isAuthenticated = false;
-        this.correctPassword = "AxiomCreative2025";
+        this.isAuthenticated = true; // Automatically authenticated - section unlocked
+        this.correctPassword = "AxiomCreative2025"; // Legacy - kept for reference
         this.init();
     }
 
     init() {
-        this.createPasswordPrompt();
+        // Skip password prompt and show ideas directly
+        this.showIdeas();
         
         // Listen for commission system changes
         if (window.commissionSystemV2) {
@@ -81,6 +82,23 @@ class CommissionIdeasViewer {
     }
 
     showIdeas() {
+        const container = document.getElementById('ideas-section');
+        if (!container) return;
+
+        // Create the ideas section structure if it doesn't exist
+        if (!document.getElementById('ideas-content')) {
+            container.innerHTML = `
+                <div class="ideas-header">
+                    <h2>💡 Commission Ideas</h2>
+                    <p class="ideas-subtitle">Commission concepts and planning materials - Now Unlocked!</p>
+                </div>
+                
+                <div class="ideas-content" id="ideas-content">
+                    <!-- Ideas will be loaded here -->
+                </div>
+            `;
+        }
+
         const promptDiv = document.getElementById('password-prompt');
         const contentDiv = document.getElementById('ideas-content');
         
