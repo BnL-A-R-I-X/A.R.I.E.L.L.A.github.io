@@ -29,10 +29,44 @@
 
 <nav class="nav-bar nav-right">
     <a href="../index.html" class="nav-btn">HOME</a>
-    <a href="ocs.html" class="nav-btn">OC DATABASE</a>
-    <a href="upcoming-commissions-v2.html" class="nav-btn">PUBLIC QUEUE</a>
-    <a href="admin.html" class="nav-btn">OLD ADMIN</a>
-    <div class="nav-btn current">ADMIN</div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">ARCHIVES</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">BNL Archives</div>
+            <a href="ocs.html" class="nav-dropdown-item">OC Database</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Character Rankings [MAINTENANCE]</a>
+            <a href="upcoming-commissions-v2.html" class="nav-dropdown-item">Commission Queue</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">PROFILE</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">👤 User Profile</div>
+            <a href="bio.html" class="nav-dropdown-item">Biography</a>
+            <a href="socials.html" class="nav-dropdown-item">Social Links</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle">COMMUNITY</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">Community Hub</div>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Art Gallery</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">User Submissions</a>
+            <a href="#" class="nav-dropdown-item disabled coming-soon">Featured Works</a>
+        </div>
+    </div>
+    
+    <div class="nav-dropdown">
+        <div class="nav-btn nav-dropdown-toggle secret-btn current">ADMIN</div>
+        <div class="nav-dropdown-menu">
+            <div class="nav-dropdown-header">🔧 Admin Panel</div>
+            <a href="admin-v2.html" class="nav-dropdown-item active">Commission Admin</a>
+            <a href="admin.html" class="nav-dropdown-item">Site Admin</a>
+        </div>
+    </div>
 </nav>
 
 <section class="terminal-intro">
@@ -88,7 +122,7 @@
                     <span class="password-value">Direct Access</span>
                 </div>
                 <div class="password-display">
-                    <span class="password-label">Legacy Admin:</span>
+                    <span class="password-label">Site Admin:</span>
                     <span class="password-value">Direct Access</span>
                 </div>
                 <p class="password-description">Administrative interfaces for managing commissions and system data.</p>
