@@ -126,8 +126,7 @@ class CommissionTracker {
 
   getStatusOptions(currentStatus) {
     const statuses = [
-      'planning', 'queued', 'in-progress', 'review', 'revisions', 
-      'completed', 'delivered', 'on-hold', 'cancelled'
+      'planning', 'in-progress', 'completed'
     ];
     
     return statuses.map(status => 
@@ -228,15 +227,12 @@ class CommissionTracker {
     document.getElementById('comm-characters').value = commission.characters ? commission.characters.slice(1).join(', ') : '';
     document.getElementById('comm-type').value = commission.type || '';
     document.getElementById('comm-status').value = commission.status || 'planning';
-    document.getElementById('comm-progress').value = commission.progress || 0;
     document.getElementById('comm-public').checked = commission.isPublic !== false;
   }
 
   resetForm() {
     document.getElementById('commission-data-form').reset();
-    document.getElementById('comm-progress').value = 0;
     document.getElementById('comm-status').value = 'planning';
-    document.getElementById('comm-priority').value = 'normal';
     document.getElementById('comm-public').checked = true;
   }
 
@@ -261,7 +257,6 @@ class CommissionTracker {
       character: document.getElementById('comm-character').value || 'Unknown',
       type: document.getElementById('comm-type').value || 'General',
       status: document.getElementById('comm-status').value || 'planning',
-      progress: parseInt(document.getElementById('comm-progress').value) || 0,
       isPublic: document.getElementById('comm-public').checked,
       // Build characters array from primary character + additional characters
       characters: this.buildCharactersArray(),

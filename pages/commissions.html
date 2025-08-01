@@ -255,19 +255,14 @@
                 <input type="date" id="comm-date" required>
               </div>
               <div class="form-group">
-                <label for="comm-due-date">Estimated Completion:</label>
-                <input type="date" id="comm-due-date">
-              </div>
-            </div>
-            
-            <div class="form-row">
-              <div class="form-group">
                 <label for="comm-cost">Cost (USD):</label>
                 <div class="cost-input-wrapper">
                   <span class="currency-symbol">$</span>
                   <input type="text" id="comm-cost" placeholder="0.00" pattern="[0-9]+(\.[0-9]{1,2})?" oninput="formatCostInput(this)">
                 </div>
               </div>
+            
+            <div class="form-row">
               <div class="form-group">
                 <label for="comm-character">Primary Character:</label>
                 <select id="comm-character" required>
@@ -280,9 +275,7 @@
                   <option value="Other">Other</option>
                 </select>
               </div>
-            </div>
-            
-            <div class="form-row">
+            </div>            <div class="form-row">
               <div class="form-group">
                 <label for="comm-characters">Additional Characters (optional, comma separated):</label>
                 <input type="text" id="comm-characters" placeholder="Additional characters if multi-character commission">
@@ -307,27 +300,8 @@
                 <label for="comm-status">Status:</label>
                 <select id="comm-status" required>
                   <option value="planning">Planning</option>
-                  <option value="queued">Queued</option>
                   <option value="in-progress">In Progress</option>
-                  <option value="review">Review</option>
-                  <option value="revisions">Revisions</option>
                   <option value="completed">Completed</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="on-hold">On Hold</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="comm-progress">Progress (%):</label>
-                <input type="number" id="comm-progress" min="0" max="100" value="0">
-              </div>
-              <div class="form-group">
-                <label for="comm-priority">Priority:</label>
-                <select id="comm-priority">
-                  <option value="low">Low</option>
-                  <option value="normal" selected>Normal</option>
-                  <option value="high">High</option>
-                  <option value="urgent">Urgent</option>
                 </select>
               </div>
             </div>
@@ -387,7 +361,7 @@
   <div class="form-group">
     <label for="csv-input">Paste your CSV data here:</label>
     <textarea id="csv-input" rows="15" placeholder="Artist,Date Of Commission,Description Of Commission,Cost,Type,Status
-Fidget,10/23/24,Darla Sweater,$15.00,Full-Body,In Progress
+Fidget,10/23/24,Darla Sweater,$15.00,Full-Body,in-progress
 ..."></textarea>
   </div>
   <div class="form-row">

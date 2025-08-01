@@ -130,19 +130,19 @@ class PrideMonthSpecial {
                     var(--pride-purple) 83.33%, 
                     var(--pride-red) 100%);
                 --pride-gradient-subtle: linear-gradient(45deg, 
-                    rgba(228, 3, 3, 0.1) 0%, 
-                    rgba(255, 140, 0, 0.1) 16.66%, 
-                    rgba(255, 237, 0, 0.1) 33.33%, 
-                    rgba(0, 128, 24, 0.1) 50%, 
-                    rgba(0, 76, 255, 0.1) 66.66%, 
-                    rgba(115, 41, 130, 0.1) 83.33%, 
-                    rgba(228, 3, 3, 0.1) 100%);
+                    rgba(228, 3, 3, 0.15) 0%, 
+                    rgba(255, 140, 0, 0.15) 16.66%, 
+                    rgba(255, 237, 0, 0.15) 33.33%, 
+                    rgba(0, 128, 24, 0.15) 50%, 
+                    rgba(0, 76, 255, 0.15) 66.66%, 
+                    rgba(115, 41, 130, 0.15) 83.33%, 
+                    rgba(228, 3, 3, 0.15) 100%);
             }
             
             .pride-month-active {
                 background: var(--pride-gradient-subtle);
-                background-size: 200% 200%;
-                animation: prideGradientShift 15s ease infinite;
+                background-size: 400% 400%;
+                animation: prideGradientShift 20s ease infinite;
             }
             
             @keyframes prideGradientShift {
@@ -155,14 +155,16 @@ class PrideMonthSpecial {
             
             .pride-month-active .site-header {
                 background: linear-gradient(135deg, 
-                    rgba(228, 3, 3, 0.2) 0%, 
-                    rgba(255, 140, 0, 0.2) 20%, 
-                    rgba(255, 237, 0, 0.2) 40%, 
-                    rgba(0, 128, 24, 0.2) 60%, 
-                    rgba(0, 76, 255, 0.2) 80%, 
-                    rgba(115, 41, 130, 0.2) 100%);
+                    rgba(228, 3, 3, 0.4) 0%, 
+                    rgba(255, 140, 0, 0.4) 20%, 
+                    rgba(255, 237, 0, 0.4) 40%, 
+                    rgba(0, 128, 24, 0.4) 60%, 
+                    rgba(0, 76, 255, 0.4) 80%, 
+                    rgba(115, 41, 130, 0.4) 100%);
                 border-bottom: 3px solid transparent;
                 border-image: var(--pride-gradient) 1;
+                color: #ffffff;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
             }
             
             .pride-month-active .nav-bar {
@@ -173,11 +175,12 @@ class PrideMonthSpecial {
             }
             
             .pride-month-active .nav-btn {
-                background: var(--pride-gradient-subtle);
+                background: rgba(0, 0, 0, 0.4);
                 color: #ffffff;
                 border: 1px solid transparent;
                 border-image: var(--pride-gradient) 1;
                 transition: all 0.3s ease;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
             }
             
             .pride-month-active .nav-btn:hover {
@@ -206,19 +209,18 @@ class PrideMonthSpecial {
             /* Robot Greeting Overlay */
             .robot-greeting {
                 position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                bottom: 20px;
+                right: 20px;
                 background: rgba(0, 0, 0, 0.9);
                 border: 3px solid transparent;
                 border-image: var(--pride-gradient) 1;
                 border-radius: 15px;
-                padding: 30px;
+                padding: 20px;
                 text-align: center;
                 z-index: 10000;
                 font-family: 'Orbitron', monospace;
                 color: #ffffff;
-                max-width: 400px;
+                max-width: 350px;
                 animation: robotGreetingPulse 2s ease-in-out infinite alternate;
             }
             

@@ -262,7 +262,7 @@
             <div class="tool-info">
               <p><strong>Purpose:</strong> Test BNL Interstellar Festivities features</p>
               <p><strong>Auto-Active:</strong> December 1st - January 5th</p>
-              <p><strong>Features:</strong> Navy/gold theme, snowfall effects, holiday greetings, cocoa dispenser</p>
+              <p><strong>Features:</strong> Red/green theme, snowfall effects, holiday greetings, cocoa dispenser</p>
               <p><strong>Commands:</strong> HOLIDAY, SNOW, COCOA, CELEBRATE</p>
             </div>
           </div>
@@ -603,7 +603,7 @@ function toggleHolidaySeasonMode() {
       window.customDialog.showAlert('🎄 Holiday Season Mode Disabled\\n\\nPage will reload to apply changes.');
     } else {
       HolidaySeasonSpecial.enableTestMode();
-      window.customDialog.showAlert('🎄 Holiday Season Mode Enabled!\\n\\nPage will reload to show holiday navy/gold theme, snowfall effects, and BNL Interstellar Festivities!\\n\\nTry typing: HOLIDAY, SNOW, COCOA, or CELEBRATE in any input field! ⭐❄️');
+      window.customDialog.showAlert('🎄 Holiday Season Mode Enabled!\\n\\nPage will reload to show festive red/green theme, snowfall effects, and BNL Interstellar Festivities!\\n\\nTry typing: HOLIDAY, SNOW, COCOA, or CELEBRATE in any input field! ⭐❄️');
     }
   } else {
     window.customDialog.showAlert('⚠️ Holiday Season system not loaded.\\n\\nPlease ensure holiday-season-special.js is included on this page.');
@@ -658,7 +658,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (holidayToggle && typeof HolidaySeasonSpecial !== 'undefined') {
     if (HolidaySeasonSpecial.isTestModeActive()) {
       holidayToggle.innerHTML = '🎄 Disable Holiday Season Mode';
-      holidayToggle.style.background = 'linear-gradient(45deg, #1a237e, #ffd700)';
+      holidayToggle.style.background = 'linear-gradient(45deg, #c41e3a, #228b22)';
     }
   }
 });

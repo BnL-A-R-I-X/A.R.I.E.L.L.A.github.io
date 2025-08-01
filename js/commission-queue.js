@@ -91,12 +91,6 @@ class CommissionQueue {
             <span class="character-primary">${primaryChar}</span>
             ${additionalChars.length > 0 ? `<span class="character-additional"> +${additionalChars.join(', ')}</span>` : ''}
           </td>
-          <td class="progress-cell">
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${commission.progress || 0}%"></div>
-              <span class="progress-text">${commission.progress || 0}%</span>
-            </div>
-          </td>
         </tr>
       `;
     }).join('');
@@ -105,14 +99,8 @@ class CommissionQueue {
   formatStatus(status) {
     const statusMap = {
       'planning': '📋 Planning',
-      'queued': '⏳ Queued',
-      'in-progress': '🎨 In Progress',
-      'review': '👀 Review',
-      'revisions': '✏️ Revisions',
-      'completed': '✅ Completed',
-      'delivered': '📦 Delivered',
-      'on-hold': '⏸️ On Hold',
-      'cancelled': '❌ Cancelled'
+      'in-progress': '🎨 In Progress', 
+      'completed': '✅ Completed'
     };
     return statusMap[status] || status;
   }
@@ -163,7 +151,7 @@ class CommissionQueue {
       .slice(0, 5)
       .map(comm => ({
         date: comm.lastUpdate,
-        message: `${comm.descriptionOfCommission || comm.description || 'Commission'} - ${this.formatStatus(comm.status)} (${comm.progress || 0}% complete)`
+        message: `${comm.descriptionOfCommission || comm.description || 'Commission'} - ${this.formatStatus(comm.status)}`
       }));
 
     if (recentUpdates.length === 0) {

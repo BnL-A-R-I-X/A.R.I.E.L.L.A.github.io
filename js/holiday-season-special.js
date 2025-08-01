@@ -134,56 +134,56 @@ class HolidaySeasonSpecial {
         style.textContent = `
             /* Holiday Season Theme Override */
             :root {
-                --holiday-navy: #1a237e;
-                --holiday-gold: #ffd700;
-                --holiday-warm: #ff8f00;
-                --holiday-light: #fff3e0;
-                --holiday-gradient: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #ffd700 100%);
-                --holiday-accent: linear-gradient(45deg, #ffd700, #ff8f00);
+                --holiday-red: #c41e3a;
+                --holiday-green: #228b22;
+                --holiday-warm: #ff6b6b;
+                --holiday-light: #f0fff0;
+                --holiday-gradient: linear-gradient(135deg, #c41e3a 0%, #dc143c 50%, #228b22 100%);
+                --holiday-accent: linear-gradient(45deg, #228b22, #32cd32);
             }
             
             .holiday-season-active {
-                background: linear-gradient(135deg, rgba(26, 35, 126, 0.1) 0%, rgba(57, 73, 171, 0.1) 50%, rgba(255, 215, 0, 0.05) 100%);
+                background: linear-gradient(135deg, rgba(196, 30, 58, 0.1) 0%, rgba(220, 20, 60, 0.1) 50%, rgba(34, 139, 34, 0.05) 100%);
             }
             
             .holiday-season-active .site-header {
-                background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
-                border-bottom: 3px solid var(--holiday-gold);
-                box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+                background: linear-gradient(135deg, #c41e3a 0%, #dc143c 50%, #228b22 100%);
+                border-bottom: 3px solid var(--holiday-green);
+                box-shadow: 0 2px 10px rgba(34, 139, 34, 0.3);
             }
             
             .holiday-season-active .nav-bar {
-                background: rgba(26, 35, 126, 0.15);
+                background: rgba(196, 30, 58, 0.15);
                 backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+                border-bottom: 1px solid rgba(34, 139, 34, 0.2);
             }
             
             .holiday-season-active .nav-btn {
-                color: var(--holiday-gold);
-                border-color: var(--holiday-gold);
+                color: var(--holiday-green);
+                border-color: var(--holiday-green);
                 transition: all 0.3s ease;
             }
             
             .holiday-season-active .nav-btn:hover {
                 background: var(--holiday-gradient);
-                color: #000;
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+                color: #ffffff;
+                box-shadow: 0 0 15px rgba(34, 139, 34, 0.4);
             }
             
             .holiday-season-active .terminal-intro {
-                background: linear-gradient(90deg, rgba(26, 35, 126, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+                background: linear-gradient(90deg, rgba(196, 30, 58, 0.1) 0%, rgba(34, 139, 34, 0.1) 100%);
                 border-left: 4px solid var(--holiday-warm);
             }
             
             .holiday-season-active .status-ticker {
-                background: linear-gradient(90deg, #1a237e 0%, #283593 50%, #1a237e 100%);
-                border: 1px solid var(--holiday-gold);
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+                background: linear-gradient(90deg, #c41e3a 0%, #dc143c 50%, #c41e3a 100%);
+                border: 1px solid var(--holiday-green);
+                box-shadow: 0 0 15px rgba(34, 139, 34, 0.3);
             }
             
             .holiday-season-active .status-ticker marquee {
                 color: #ffffff;
-                text-shadow: 0 0 8px var(--holiday-gold);
+                text-shadow: 0 0 8px var(--holiday-green);
                 font-weight: bold;
             }
             
@@ -223,28 +223,28 @@ class HolidaySeasonSpecial {
                 bottom: 20px;
                 left: 20px;
                 background: rgba(0, 0, 0, 0.9);
-                border: 2px solid var(--holiday-gold);
+                border: 2px solid var(--holiday-green);
                 border-radius: 10px;
                 padding: 15px;
                 z-index: 9999;
                 font-family: 'Orbitron', monospace;
-                color: var(--holiday-gold);
+                color: var(--holiday-green);
                 max-width: 350px;
                 animation: holidayGlow 4s ease-in-out infinite alternate;
             }
             
             @keyframes holidayGlow {
                 0% { 
-                    box-shadow: 0 0 10px var(--holiday-gold); 
-                    border-color: var(--holiday-gold);
+                    box-shadow: 0 0 10px var(--holiday-green); 
+                    border-color: var(--holiday-green);
                 }
                 50% { 
                     box-shadow: 0 0 20px var(--holiday-warm), 0 0 30px var(--holiday-warm); 
                     border-color: var(--holiday-warm);
                 }
                 100% { 
-                    box-shadow: 0 0 10px var(--holiday-gold); 
-                    border-color: var(--holiday-gold);
+                    box-shadow: 0 0 10px var(--holiday-green); 
+                    border-color: var(--holiday-green);
                 }
             }
             
@@ -253,7 +253,7 @@ class HolidaySeasonSpecial {
                 border: none;
                 padding: 8px 16px;
                 border-radius: 5px;
-                color: #000;
+                color: #ffffff;
                 font-family: 'Orbitron', monospace;
                 font-weight: bold;
                 cursor: pointer;
@@ -264,42 +264,42 @@ class HolidaySeasonSpecial {
             
             .holiday-button:hover {
                 transform: scale(1.05);
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+                box-shadow: 0 0 15px rgba(34, 139, 34, 0.5);
             }
             
             .holiday-text {
                 font-style: italic;
                 margin: 10px 0;
                 padding: 10px;
-                background: rgba(26, 35, 126, 0.2);
+                background: rgba(196, 30, 58, 0.2);
                 border-radius: 5px;
                 min-height: 40px;
                 display: flex;
                 align-items: center;
-                border-left: 3px solid var(--holiday-gold);
+                border-left: 3px solid var(--holiday-green);
             }
             
             /* BNL Logo Holiday Variant */
             .holiday-season-active .bnl-logo {
-                filter: hue-rotate(200deg) saturate(1.3) brightness(1.2);
+                filter: hue-rotate(90deg) saturate(1.3) brightness(1.2);
                 animation: logoSparkle 3s ease-in-out infinite;
             }
             
             @keyframes logoSparkle {
-                0%, 100% { filter: hue-rotate(200deg) saturate(1.3) brightness(1.2); }
-                50% { filter: hue-rotate(200deg) saturate(1.3) brightness(1.5) drop-shadow(0 0 10px #ffd700); }
+                0%, 100% { filter: hue-rotate(90deg) saturate(1.3) brightness(1.2); }
+                50% { filter: hue-rotate(90deg) saturate(1.3) brightness(1.5) drop-shadow(0 0 10px #228b22); }
             }
             
             /* Holiday decorations for various elements */
             .holiday-season-active .character-card,
             .holiday-season-active .admin-btn,
             .holiday-season-active .nav-dropdown-item {
-                border-color: rgba(255, 215, 0, 0.3);
+                border-color: rgba(34, 139, 34, 0.3);
             }
             
             .holiday-season-active .character-card:hover,
             .holiday-season-active .admin-btn:hover {
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+                box-shadow: 0 0 15px rgba(34, 139, 34, 0.4);
             }
         `;
         document.head.appendChild(style);
@@ -523,8 +523,8 @@ class HolidaySeasonSpecial {
                 <strong>🎄 BNL FESTIVITIES</strong>
                 <button id="holiday-close-btn" style="
                     background: transparent; 
-                    border: 1px solid var(--holiday-gold); 
-                    color: var(--holiday-gold); 
+                    border: 1px solid var(--holiday-green); 
+                    color: var(--holiday-green); 
                     cursor: pointer; 
                     padding: 2px 6px; 
                     border-radius: 3px;
@@ -573,13 +573,13 @@ class HolidaySeasonSpecial {
         const display = document.getElementById('holiday-display');
         if (display) {
             display.innerHTML = `"${randomGreeting}"`;
-            display.style.background = 'rgba(255, 215, 0, 0.2)';
-            display.style.borderLeft = '3px solid var(--holiday-gold)';
+            display.style.background = 'rgba(34, 139, 34, 0.2)';
+            display.style.borderLeft = '3px solid var(--holiday-green)';
             
             // Reset background after a moment
             setTimeout(() => {
-                display.style.background = 'rgba(26, 35, 126, 0.2)';
-                display.style.borderLeft = '3px solid var(--holiday-gold)';
+                display.style.background = 'rgba(196, 30, 58, 0.2)';
+                display.style.borderLeft = '3px solid var(--holiday-green)';
             }, 3000);
         }
     }
@@ -589,13 +589,13 @@ class HolidaySeasonSpecial {
         const display = document.getElementById('holiday-display');
         if (display) {
             display.innerHTML = `☕ <strong>Cocoa Dispensed!</strong><br><em>"${randomFact}"</em>`;
-            display.style.background = 'rgba(255, 143, 0, 0.2)';
+            display.style.background = 'rgba(255, 107, 107, 0.2)';
             display.style.borderLeft = '3px solid var(--holiday-warm)';
             
             // Reset background after a moment
             setTimeout(() => {
-                display.style.background = 'rgba(26, 35, 126, 0.2)';
-                display.style.borderLeft = '3px solid var(--holiday-gold)';
+                display.style.background = 'rgba(196, 30, 58, 0.2)';
+                display.style.borderLeft = '3px solid var(--holiday-green)';
             }, 4000);
         }
     }

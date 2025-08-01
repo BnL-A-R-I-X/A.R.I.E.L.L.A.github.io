@@ -114,16 +114,32 @@ class TransAwarenessSpecial {
             }
             
             .trans-awareness-active {
-                background: linear-gradient(135deg, rgba(91, 206, 250, 0.1) 0%, rgba(245, 169, 184, 0.1) 50%, rgba(255, 255, 255, 0.1) 100%);
+                background: linear-gradient(135deg, 
+                    rgba(91, 206, 250, 0.2) 0%, 
+                    rgba(245, 169, 184, 0.2) 25%, 
+                    rgba(255, 255, 255, 0.15) 50%, 
+                    rgba(245, 169, 184, 0.2) 75%, 
+                    rgba(91, 206, 250, 0.2) 100%);
+                background-size: 400% 400%;
+                animation: transGradientShift 25s ease infinite;
+            }
+            
+            @keyframes transGradientShift {
+                0% { background-position: 0% 50%; }
+                25% { background-position: 100% 50%; }
+                50% { background-position: 100% 100%; }
+                75% { background-position: 0% 100%; }
+                100% { background-position: 0% 50%; }
             }
             
             .trans-awareness-active .site-header {
-                background: linear-gradient(135deg, #1a4d66 0%, #664460 50%, #666666 100%);
+                background: linear-gradient(135deg, #1a4d66 0%, #664460 50%, #444444 100%);
                 border-bottom: 3px solid var(--trans-blue);
+                color: #ffffff;
             }
             
             .trans-awareness-active .nav-bar {
-                background: rgba(91, 206, 250, 0.1);
+                background: rgba(0, 0, 0, 0.3);
                 backdrop-filter: blur(10px);
             }
             
@@ -131,6 +147,7 @@ class TransAwarenessSpecial {
                 color: var(--trans-blue);
                 border-color: var(--trans-blue);
                 transition: all 0.3s ease;
+                background: rgba(0, 0, 0, 0.2);
             }
             
             .trans-awareness-active .nav-btn:hover {
@@ -139,8 +156,9 @@ class TransAwarenessSpecial {
             }
             
             .trans-awareness-active .terminal-intro {
-                background: linear-gradient(90deg, rgba(91, 206, 250, 0.1) 0%, rgba(245, 169, 184, 0.1) 100%);
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(91, 206, 250, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
                 border-left: 4px solid var(--trans-pink);
+                color: #ffffff;
             }
             
             .trans-awareness-active .status-ticker {
