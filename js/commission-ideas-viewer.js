@@ -6,7 +6,7 @@
 class CommissionIdeasViewer {
     constructor() {
         this.isAuthenticated = false;
-        this.correctPassword = "Ari'sCocoaCock";
+        this.correctPassword = "AxiomCreative2025";
         this.init();
     }
 

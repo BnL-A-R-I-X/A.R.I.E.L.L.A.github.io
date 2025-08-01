@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="USS Axiom Administrative Control Panel - Unified management interface for commission systems, data operations, and ship maintenance.">
+    <meta name="description" content="USS Axiom Administrative Control Panel">
     <title>USS Axiom // Administrative Control</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/commission-admin-v2.css">
@@ -120,44 +120,15 @@
         <!-- Add New Commission Form -->
         <div class="commission-form-container">
             <h3>Add New Commission</h3>
-            <form id="commission-form-v2" class="commission-form">
+            <form id="commission-form" class="commission-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="title">Commission Title:</label>
-                        <input type="text" id="title" name="title" required>
+                        <label for="client-name">Client Name:</label>
+                        <input type="text" id="client-name" name="clientName" required>
                     </div>
                     <div class="form-group">
-                        <label for="artist">Artist:</label>
-                        <input type="text" id="artist" name="artist" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="dateCommissioned">Date Commissioned:</label>
-                        <input type="date" id="dateCommissioned" name="dateCommissioned">
-                    </div>
-                    <div class="form-group">
-                        <label for="cost">Cost:</label>
-                        <input type="text" id="cost" name="cost" placeholder="$0.00">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="character">Primary Character:</label>
-                        <input type="text" id="character" name="character">
-                    </div>
-                    <div class="form-group">
-                        <label for="additionalCharacters">Additional Characters:</label>
-                        <input type="text" id="additionalCharacters" name="additionalCharacters" placeholder="Optional">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="type">Type:</label>
-                        <select id="type" name="type" required>
+                        <label for="commission-type">Type:</label>
+                        <select id="commission-type" name="type" required>
                             <option value="">Select Type</option>
                             <option value="Character Design">Character Design</option>
                             <option value="Portrait">Portrait</option>
@@ -167,14 +138,26 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority" required>
+                            <option value="Normal">Normal</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="status">Status:</label>
                         <select id="status" name="status" required>
-                            <option value="planning">Planning</option>
-                            <option value="in-progress">In Progress</option>
-                            <option value="review">Review</option>
-                            <option value="completed">Completed</option>
-                            <option value="on-hold">On Hold</option>
+                            <option value="Planning">Planning</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Review">Review</option>
+                            <option value="Completed">Completed</option>
+                            <option value="On Hold">On Hold</option>
                         </select>
                     </div>
                 </div>
@@ -185,27 +168,12 @@
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="notes">Notes:</label>
-                    <textarea id="notes" name="notes" rows="2" placeholder="Additional notes or special instructions..."></textarea>
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="ideaImage">Reference Image (Optional):</label>
-                    <input type="file" id="ideaImage" name="ideaImage" accept="image/*">
+                    <label for="image-upload">Reference Image (Optional):</label>
+                    <input type="file" id="image-upload" name="image" accept="image/*">
                     <small>Max file size: 5MB. Supported formats: JPG, PNG, GIF, WebP</small>
                     <div id="image-preview" class="image-preview-container" style="display: none;">
                         <img id="preview-img" src="" alt="Preview">
                         <button type="button" id="remove-image" class="remove-image-btn">Remove Image</button>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="isPublic" name="isPublic" checked>
-                            <span class="checkmark"></span>
-                            Public (visible on commission queue)
-                        </label>
                     </div>
                 </div>
 
@@ -215,57 +183,12 @@
                 </div>
             </form>
         </div>
-
-        <!-- Commission List Controls -->
-        <div class="commission-controls">
-            <div class="search-filter-row">
-                <div class="search-group">
-                    <label for="search-commissions">Search:</label>
-                    <input type="text" id="search-commissions" placeholder="Search commissions...">
-                </div>
-                <div class="filter-group">
-                    <label for="filter-status">Filter by Status:</label>
-                    <select id="filter-status">
-                        <option value="all">All Statuses</option>
-                        <option value="planning">Planning</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="review">Review</option>
-                        <option value="completed">Completed</option>
-                        <option value="on-hold">On Hold</option>
-                    </select>
-                </div>
-                <div class="action-group">
-                    <button id="export-commissions" class="action-btn">📁 Export</button>
-                    <button id="import-commissions" class="action-btn">📂 Import</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Commission List -->
-        <div id="commission-list" class="commission-list">
-            <!-- Commissions will be rendered here -->
-        </div>
     </section>
 
     <!-- Data Management Section -->
     <section class="admin-section">
         <h2>📊 Data Management</h2>
         <div class="admin-tools">
-            <div class="tool-group">
-                <h3>Commission System</h3>
-                <button id="export-commissions" class="admin-btn">
-                    � Export Commission Data
-                </button>
-                <button id="import-commissions" class="admin-btn">
-                    � Import Commission Data
-                </button>
-                <div class="tool-info">
-                    <p><strong>Storage:</strong> Firebase cloud database</p>
-                    <p><strong>Collection:</strong> Firestore 'commissions'</p>
-                    <p><strong>Format:</strong> JSON export with timestamp</p>
-                </div>
-            </div>
-            
             <div class="tool-group">
                 <h3>Character Rankings System</h3>
                 <button id="export-rankings" class="admin-btn">
@@ -281,17 +204,24 @@
             </div>
             
             <div class="tool-group">
+                <h3>Commission Data</h3>
+                <button id="export-commissions" class="admin-btn">
+                    🎨 Export Commission Data
+                </button>
+                <button id="import-commissions" class="admin-btn">
+                    📥 Import Commission Data
+                </button>
+                <input type="file" id="import-file" accept=".json" style="display: none;">
+            </div>
+            
+            <div class="tool-group">
                 <h3>System Logs</h3>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! System log export will be available in future updates.')">
+                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! System log export will be available in future updates.')">
                     📋 Export System Logs
                 </button>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Terminal history export will be available in future updates.')">
-                    � Export Terminal History
+                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Terminal history export will be available in future updates.')">
+                    💻 Export Terminal History
                 </button>
-                <div class="tool-info">
-                    <p><strong>Format:</strong> Structured log files with timestamps</p>
-                    <p><strong>Access:</strong> Administrative clearance required</p>
-                </div>
             </div>
         </div>
     </section>
@@ -302,62 +232,46 @@
         <div class="admin-tools">
             <div class="tool-group">
                 <h3>Terminal Access</h3>
-                <a href="information.html" class="admin-btn link-btn">
+                <a href="information.html" class="admin-btn">
                     💻 Open Information Terminal
                 </a>
-                <button class="admin-btn" onclick="customDialogs.alert('All terminal systems operational.\\nLast diagnostic: ' + new Date().toLocaleString())">
+                <button class="admin-btn" onclick="window.customDialog.showAlert('All terminal systems operational. Last diagnostic: ' + new Date().toLocaleString())">
                     🔧 Run System Diagnostics
                 </button>
-                <div class="tool-info">
-                    <p><strong>Access Level:</strong> Executive clearance required</p>
-                    <p><strong>Status:</strong> All systems operational</p>
-                </div>
             </div>
             
             <div class="tool-group">
                 <h3>Security Monitoring</h3>
-                <button class="admin-btn" onclick="customDialogs.alert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
+                <button class="admin-btn" onclick="window.customDialog.showAlert('Current security status: GREEN\\nActive sessions: 1\\nLast threat scan: ' + new Date().toLocaleString())">
                     🛡️ Security Status
                 </button>
-                <button class="admin-btn" onclick="customDialogs.alert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
+                <button class="admin-btn" onclick="window.customDialog.showAlert('Feature coming soon! Advanced security monitoring will be available in future updates.')">
                     📊 Access Logs
                 </button>
-                <div class="tool-info">
-                    <p><strong>Protocol:</strong> BNL Security Standard 3272-X</p>
-                    <p><strong>Monitoring:</strong> Real-time threat detection active</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Security & Access Reference -->
-    <section class="admin-section password-section">
-        <h2>🔐 Security Access Reference</h2>
+    <!-- Password & PIN Reference -->
+    <section class="password-section">
+        <h2>🔐 System Passwords & PINs</h2>
         <div class="password-grid">
-            <div class="password-card commission-access">
-                <div class="password-header">
-                    <h3>🎨 Commission Ideas Access</h3>
-                    <span class="access-level">PUBLIC TIER</span>
-                </div>
+            <div class="password-card">
+                <h3>Commission Ideas Access</h3>
                 <div class="password-display">
                     <span class="password-label">Password:</span>
                     <span class="password-value">AxiomCreative2025</span>
-                    <button class="copy-btn" data-copy="AxiomCreative2025">📋</button>
                 </div>
-                <p class="password-description">Grants access to the protected Commission Ideas section on the public queue page.</p>
+                <p class="password-description">Used to access the protected Commission Ideas section on the public queue page.</p>
             </div>
             
-            <div class="password-card admin-access">
-                <div class="password-header">
-                    <h3>🔒 Administrative Control</h3>
-                    <span class="access-level">ADMIN TIER</span>
-                </div>
+            <div class="password-card">
+                <h3>Admin Access</h3>
                 <div class="password-display">
-                    <span class="password-label">Security PIN:</span>
+                    <span class="password-label">Administrative Control:</span>
                     <span class="password-value">3272</span>
-                    <button class="copy-btn" data-copy="3272">📋</button>
                 </div>
-                <p class="password-description">Main administrative interface PIN for managing commissions and system data.</p>
+                <p class="password-description">Main administrative interface for managing commissions and system data.</p>
             </div>
         </div>
     </section>
@@ -421,18 +335,8 @@
 </div>
 
 <script>
-// Initialize Firebase Commission System
-let commissionSystemV2;
-
 // Security PIN system
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Firebase commission system as commissionSystemV2 for compatibility
-    if (window.FirebaseCommissionSystem) {
-        commissionSystemV2 = new window.FirebaseCommissionSystem();
-        window.commissionSystemV2 = commissionSystemV2;
-        console.log('🔥 Firebase commission system initialized for admin');
-    }
-    
     const pinInput = document.getElementById('pincode');
     const accessBtn = document.getElementById('access-btn');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -491,27 +395,25 @@ function exportRankings() {
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
         
-        customDialogs.alert('Rankings data exported successfully!');
+        window.customDialog.showAlert('Rankings data exported successfully!');
     } else {
-        customDialogs.alert('No rankings data found to export.');
+        window.customDialog.showAlert('No rankings data found to export.');
     }
 }
 
 function clearRankings() {
-    customDialogs.confirm(
+    window.customDialog.showConfirm(
         'Are you sure you want to clear all character rankings data? This action cannot be undone.',
-        function(confirmed) {
-            if (confirmed) {
-                localStorage.removeItem('characterRankings');
-                customDialogs.alert('All rankings data has been cleared.');
-            }
+        function() {
+            localStorage.removeItem('characterRankings');
+            window.customDialog.showAlert('All rankings data has been cleared.');
         }
     );
 }
 
 // Easter Egg Testing Functions
 function testEasterEgg(command) {
-    customDialogs.alert(`Testing easter egg command: "${command}"\n\nResult: Command recognized and functional!\nRedirect behavior: ${command === 'wall-e' ? 'Character page' : command === 'artcode' ? 'Collaboration info' : 'Terminal response'}`);
+    window.customDialog.showAlert(`Testing easter egg command: "${command}"\n\nResult: Command recognized and functional!\nRedirect behavior: ${command === 'wall-e' ? 'Character page' : command === 'artcode' ? 'Collaboration info' : 'Terminal response'}`);
 }
 
 // Special Event Toggle Functions
@@ -612,153 +514,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateHolidaySeasonButton();
     }, 100);
 });
-
-// ===== ADMIN FUNCTION DEFINITIONS =====
-
-// Easter Egg Testing Functions
-function testEasterEgg(command) {
-    switch (command) {
-        case 'wall-e':
-            customDialogs.alert('🤖 WALL-E easter egg test successful!\nCommand recognized in terminal system.');
-            break;
-        case 'artcode':
-            customDialogs.alert('🎨 Art collaboration command test successful!\nCreative mode protocols active.');
-            break;
-        case 'eve':
-            customDialogs.alert('🚀 EVE command test successful!\nProbe directive acknowledged.');
-            break;
-        default:
-            customDialogs.alert('❌ Unknown easter egg command: ' + command);
-    }
-}
-
-// Special Event Toggle Functions
-function toggleEarthDay() {
-    if (typeof EarthDaySpecial !== 'undefined') {
-        if (EarthDaySpecial.isTestModeActive()) {
-            EarthDaySpecial.disableTestMode();
-        } else {
-            EarthDaySpecial.enableTestMode();
-        }
-    } else {
-        alert('Earth Day special effects system not loaded.');
-    }
-}
-
-function togglePrideMonth() {
-    if (typeof PrideMonthSpecial !== 'undefined') {
-        if (PrideMonthSpecial.isTestModeActive()) {
-            PrideMonthSpecial.disableTestMode();
-        } else {
-            PrideMonthSpecial.enableTestMode();
-        }
-    } else {
-        alert('Pride Month special effects system not loaded.');
-    }
-}
-
-function toggleTransAwareness() {
-    if (typeof TransAwarenessSpecial !== 'undefined') {
-        if (TransAwarenessSpecial.isTestModeActive()) {
-            TransAwarenessSpecial.disableTestMode();
-        } else {
-            TransAwarenessSpecial.enableTestMode();
-        }
-    } else {
-        alert('Trans Awareness special effects system not loaded.');
-    }
-}
-
-function toggleHolidaySeason() {
-    if (typeof HolidaySeasonSpecial !== 'undefined') {
-        if (HolidaySeasonSpecial.isTestModeActive()) {
-            HolidaySeasonSpecial.disableTestMode();
-        } else {
-            HolidaySeasonSpecial.enableTestMode();
-        }
-    } else {
-        alert('Holiday Season special effects system not loaded.');
-    }
-}
-
-// Security System Implementation
-let attemptCount = 0;
-const maxAttempts = 3;
-const correctPin = '3272';
-
-document.addEventListener('DOMContentLoaded', function() {
-    const securityScreen = document.getElementById('security-screen');
-    const mainContent = document.getElementById('main-content');
-    const pinInput = document.getElementById('pincode');
-    const accessBtn = document.getElementById('access-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
-    
-    // Show security screen on load
-    securityScreen.style.display = 'flex';
-    mainContent.style.display = 'none';
-    
-    // Handle access button click
-    accessBtn.addEventListener('click', checkPin);
-    
-    // Handle enter key in pin input
-    pinInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            checkPin();
-        }
-    });
-    
-    // Handle cancel button
-    cancelBtn.addEventListener('click', function() {
-        window.location.href = '../index.html';
-    });
-    
-    function checkPin() {
-        const enteredPin = pinInput.value.trim();
-        
-        if (enteredPin === correctPin) {
-            // Correct PIN - grant access
-            securityScreen.style.display = 'none';
-            mainContent.style.display = 'block';
-            pinInput.value = '';
-            attemptCount = 0;
-        } else {
-            // Wrong PIN
-            attemptCount++;
-            pinInput.value = '';
-            
-            if (attemptCount >= maxAttempts) {
-                // Too many attempts - redirect to home
-                alert('ACCESS DENIED: Too many failed attempts. Redirecting to home terminal...');
-                window.location.href = '../index.html';
-            } else {
-                // Show error and remaining attempts
-                const remaining = maxAttempts - attemptCount;
-                alert(`ACCESS DENIED: Invalid security code. ${remaining} attempt(s) remaining.`);
-                pinInput.focus();
-            }
-        }
-    }
-    
-    // Focus pin input on load
-    setTimeout(() => {
-        pinInput.focus();
-    }, 100);
-    
-    // Copy button functionality
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const textToCopy = this.getAttribute('data-copy');
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                customDialogs.alert('Copied to clipboard: ' + textToCopy);
-            }).catch(() => {
-                customDialogs.alert('Failed to copy to clipboard');
-            });
-        });
-    });
-});
 </script>
 
-<script src="../js/firebase-commission-system.js"></script>
+<script src="../js/commission-system-v2.js"></script>
 <script src="../js/commission-admin-v2.js"></script>
 <script src="../js/custom-dialogs.js"></script>
 <script src="../js/nav-dropdowns.js"></script>
