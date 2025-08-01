@@ -108,6 +108,14 @@
     <!-- Commission Statistics Dashboard -->
     <section class="stats-section">
         <h2>📊 Commission Statistics</h2>
+        <div class="stats-controls" style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+            <button id="refresh-data" class="admin-btn" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                🔄 Refresh Data
+            </button>
+            <button id="debug-system" class="admin-btn" style="background: #2196F3; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                🔍 Debug System
+            </button>
+        </div>
         <div id="commission-stats" class="stats-grid">
             <!-- Stats will be populated by JavaScript -->
         </div>
@@ -627,6 +635,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('✅ Added listener for force-load-data');
     }
     
+    // Add refresh data button functionality
+    const refreshDataBtn = document.getElementById('refresh-data');
+    if (refreshDataBtn) {
+        refreshDataBtn.addEventListener('click', refreshData);
+        console.log('✅ Added listener for refresh-data');
+    }
+    
+    // Add debug system button functionality
+    const debugSystemBtn = document.getElementById('debug-system');
+    if (debugSystemBtn) {
+        debugSystemBtn.addEventListener('click', debugSystem);
+        console.log('✅ Added listener for debug-system');
+    }
+    
     function forceLoadData() {
         if (window.commissionSystemV2) {
             try {
@@ -694,6 +716,82 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
         }
+    }
+    
+    function refreshData() {
+        if (!window.commissionSystemV2) {
+            alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
+            return;
+        }
+        
+        const button = document.getElementById('refresh-data');
+        const originalText = button.innerHTML;
+        
+        try {
+            console.log('🔄 Refreshing all data...');
+            button.innerHTML = '⏳ Refreshing...';
+            button.disabled = true;
+            
+            // Force reinitialize the Firebase connection
+            window.commissionSystemV2.loadCommissions().then(() => {
+                // Update UI
+                if (window.commissionAdminV2) {
+                    window.commissionAdminV2.renderCommissions();
+                    window.commissionAdminV2.updateStats();
+                }
+                
+                // Also reload future artists if available
+                if (window.commissionSystemV2.loadFutureArtists) {
+                    return window.commissionSystemV2.loadFutureArtists();
+                }
+            }).then(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                const commissions = window.commissionSystemV2.getAllCommissions();
+                alert(`✅ Data refreshed successfully!\nFound ${commissions.length} commissions.`);
+            }).catch((error) => {
+                console.error('❌ Error refreshing data:', error);
+                button.innerHTML = originalText;
+                button.disabled = false;
+                alert('❌ Error refreshing data: ' + error.message);
+            });
+        } catch (error) {
+            console.error('❌ Error in refresh:', error);
+            button.innerHTML = originalText;
+            button.disabled = false;
+            alert('❌ Error: ' + error.message);
+        }
+    }
+    
+    function debugSystem() {
+        console.log('🔍 System Debug Information:');
+        
+        const debugInfo = {
+            firebaseCommissionSystemAvailable: !!window.FirebaseCommissionSystem,
+            commissionSystemV2Available: !!window.commissionSystemV2,
+            commissionAdminV2Available: !!window.commissionAdminV2,
+            firebaseReady: window.commissionSystemV2 ? window.commissionSystemV2.firebaseReady : 'N/A',
+            commissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getAllCommissions().length : 'N/A',
+            publicCommissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getPublicCommissions().length : 'N/A'
+        };
+        
+        console.table(debugInfo);
+        
+        let message = '🔍 System Debug Information:\n\n';
+        Object.entries(debugInfo).forEach(([key, value]) => {
+            message += `${key}: ${value}\n`;
+        });
+        
+        if (window.commissionSystemV2 && window.commissionSystemV2.getAllCommissions().length > 0) {
+            const commissions = window.commissionSystemV2.getAllCommissions();
+            message += `\n📋 Sample Commissions:\n`;
+            commissions.slice(0, 3).forEach(c => {
+                message += `• ${c.title || c.artist || 'Untitled'} (${c.status || 'unknown'})\n`;
+            });
+        }
+        
+        alert(message);
     }
     
     // Future Artists Management System

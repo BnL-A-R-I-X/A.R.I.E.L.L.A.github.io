@@ -11,32 +11,39 @@ class CommissionQueueV2 {
     init() {
         this.setupEventListeners();
         
-        // Wait for commission system to be ready
-        if (window.commissionSystemV2) {
-            this.renderQueue();
-            this.renderFutureArtists();
-        } else {
-            // Wait for system to load
-            const checkSystem = setInterval(() => {
-                if (window.commissionSystemV2) {
-                    clearInterval(checkSystem);
-                    this.renderQueue();
-                    this.renderFutureArtists();
-                }
-            }, 100);
-        }
+        // Wait for commission system to be ready and loaded
+        const waitForSystemAndRender = () => {
+            if (window.commissionSystemV2 && window.commissionSystemV2.firebaseReady) {
+                console.log('📋 Commission system ready, rendering queue...');
+                this.renderQueue();
+                this.renderFutureArtists();
+            } else {
+                console.log('📋 Waiting for commission system to be ready...');
+                setTimeout(waitForSystemAndRender, 1000);
+            }
+        };
+        
+        waitForSystemAndRender();
         
         console.log('📋 Commission Queue V2 initialized');
     }
 
     setupEventListeners() {
-        // Listen for commission system changes
-        if (window.commissionSystemV2) {
-            window.commissionSystemV2.addListener(() => {
-                this.renderQueue();
-                this.renderFutureArtists();
-            });
-        }
+        // Wait for commission system to be ready before setting up listeners
+        const waitForSystemAndSetupListeners = () => {
+            if (window.commissionSystemV2 && window.commissionSystemV2.firebaseReady) {
+                console.log('📋 Setting up commission system listeners...');
+                window.commissionSystemV2.addListener((action) => {
+                    console.log('📋 Commission system event:', action);
+                    this.renderQueue();
+                    this.renderFutureArtists();
+                });
+            } else {
+                setTimeout(waitForSystemAndSetupListeners, 1000);
+            }
+        };
+        
+        waitForSystemAndSetupListeners();
 
         // Search functionality
         const searchInput = document.getElementById('queue-search');
@@ -53,15 +60,45 @@ class CommissionQueueV2 {
 
     renderQueue() {
         const container = document.getElementById('commission-queue');
-        if (!container || !window.commissionSystemV2) return;
+        if (!container) {
+            console.warn('⚠️ Commission queue container not found');
+            return;
+        }
+
+        console.log('🔄 Rendering commission queue...');
+
+        if (!window.commissionSystemV2) {
+            console.warn('⚠️ Commission system not available for queue');
+            container.innerHTML = `
+                <div class="system-not-ready">
+                    <h3>⚠️ System Initializing</h3>
+                    <p>Commission system is loading. Please wait a moment and try refreshing.</p>
+                    <button onclick="location.reload()" class="retry-btn">🔄 Refresh Page</button>
+                </div>
+            `;
+            return;
+        }
+
+        if (!window.commissionSystemV2.firebaseReady) {
+            container.innerHTML = `
+                <div class="system-not-ready">
+                    <h3>🔄 Connecting to Database</h3>
+                    <p>Establishing connection to the commission database...</p>
+                    <button onclick="refreshQueue()" class="retry-btn">🔄 Retry Connection</button>
+                </div>
+            `;
+            return;
+        }
 
         const commissions = window.commissionSystemV2.getPublicCommissions();
+        console.log(`📋 Found ${commissions.length} public commissions to display`);
         
         if (commissions.length === 0) {
             container.innerHTML = `
                 <div class="empty-queue">
                     <h3>🎨 No Public Commissions</h3>
                     <p>The commission queue is currently empty or all commissions are set to private.</p>
+                    <p><small>If you expect to see commissions here, try clicking "Refresh Queue" above.</small></p>
                 </div>
             `;
             return;

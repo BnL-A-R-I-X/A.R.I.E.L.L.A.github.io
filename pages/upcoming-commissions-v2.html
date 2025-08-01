@@ -100,6 +100,15 @@
                     <option value="completed">✅ Completed</option>
                 </select>
             </div>
+            
+            <div class="control-group">
+                <button id="refresh-queue" class="action-btn" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-right: 0.5rem;">
+                    🔄 Refresh Queue
+                </button>
+                <button id="debug-queue" class="action-btn" style="background: #2196F3; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                    🔍 Debug
+                </button>
+            </div>
         </div>
     </section>
 
@@ -172,7 +181,94 @@ document.addEventListener('DOMContentLoaded', function() {
         window.commissionSystemV2 = new window.FirebaseCommissionSystem();
         console.log('🔥 Firebase commission system initialized for queue');
     }
+    
+    // Add refresh queue button functionality
+    const refreshQueueBtn = document.getElementById('refresh-queue');
+    if (refreshQueueBtn) {
+        refreshQueueBtn.addEventListener('click', refreshQueue);
+        console.log('✅ Added listener for refresh-queue');
+    }
+    
+    // Add debug queue button functionality
+    const debugQueueBtn = document.getElementById('debug-queue');
+    if (debugQueueBtn) {
+        debugQueueBtn.addEventListener('click', debugQueue);
+        console.log('✅ Added listener for debug-queue');
+    }
 });
+
+function refreshQueue() {
+    if (!window.commissionSystemV2) {
+        alert('❌ Commission system not initialized yet. Please wait a moment and try again.');
+        return;
+    }
+    
+    const button = document.getElementById('refresh-queue');
+    const originalText = button.innerHTML;
+    
+    try {
+        console.log('🔄 Refreshing queue data...');
+        button.innerHTML = '⏳ Refreshing...';
+        button.disabled = true;
+        
+        // Force reload data from Firebase
+        window.commissionSystemV2.loadCommissions().then(() => {
+            console.log('✅ Queue data loaded successfully');
+            
+            // Update queue interface if available
+            if (window.commissionQueueV2) {
+                window.commissionQueueV2.renderQueue();
+                window.commissionQueueV2.renderFutureArtists();
+            }
+            
+            button.innerHTML = originalText;
+            button.disabled = false;
+            
+            const commissions = window.commissionSystemV2.getPublicCommissions();
+            alert(`✅ Queue refreshed successfully!\nFound ${commissions.length} public commissions.`);
+        }).catch((error) => {
+            console.error('❌ Error refreshing queue data:', error);
+            button.innerHTML = originalText;
+            button.disabled = false;
+            alert('❌ Error refreshing queue data: ' + error.message);
+        });
+    } catch (error) {
+        console.error('❌ Error in refresh:', error);
+        button.innerHTML = originalText;
+        button.disabled = false;
+        alert('❌ Error: ' + error.message);
+    }
+}
+
+function debugQueue() {
+    console.log('🔍 Queue Debug Information:');
+    
+    const debugInfo = {
+        firebaseCommissionSystemAvailable: !!window.FirebaseCommissionSystem,
+        commissionSystemV2Available: !!window.commissionSystemV2,
+        commissionQueueV2Available: !!window.commissionQueueV2,
+        firebaseReady: window.commissionSystemV2 ? window.commissionSystemV2.firebaseReady : 'N/A',
+        totalCommissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getAllCommissions().length : 'N/A',
+        publicCommissionsCount: window.commissionSystemV2 ? window.commissionSystemV2.getPublicCommissions().length : 'N/A'
+    };
+    
+    console.table(debugInfo);
+    
+    let message = '🔍 Queue Debug Information:\n\n';
+    Object.entries(debugInfo).forEach(([key, value]) => {
+        message += `${key}: ${value}\n`;
+    });
+    
+    if (window.commissionSystemV2 && window.commissionSystemV2.getPublicCommissions().length > 0) {
+        const commissions = window.commissionSystemV2.getPublicCommissions();
+        message += `\n📋 Public Commissions:\n`;
+        commissions.slice(0, 3).forEach(c => {
+            message += `• ${c.title || c.artist || 'Untitled'} (${c.status || 'unknown'})\n`;
+        });
+    }
+    
+    alert(message);
+}
 </script>
 <script src="../js/commission-queue-v2.js"></script>
 <script src="../js/commission-ideas-viewer.js"></script>
