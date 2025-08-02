@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other OCs - Gallery</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Axiom's Portfolio</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">OCs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="ariella.html" class="dropdown-link">Ariella</a></li>
+                        <li><a href="other-ocs.html" class="dropdown-link active">Other OCs</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="../commission-queue.html" class="nav-link">Commission Queue</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../admin.html" class="nav-link">Admin</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="character-hero">
+            <div class="container">
+                <div class="character-intro">
+                    <div class="character-info">
+                        <h1 class="character-name">Other Original Characters</h1>
+                        <div class="peppermint-divider"></div>
+                        <p class="character-description">
+                            Explore the diverse collection of original characters beyond Ariella. 
+                            Each character has their own unique story, personality, and artistic journey.
+                            From fantasy warriors to modern-day adventurers, this gallery showcases 
+                            the breadth of creative imagination.
+                        </p>
+                        <div class="oc-highlights">
+                            <div class="highlight-item">
+                                <span class="highlight-label">Featured Characters:</span>
+                                <span class="highlight-value">Multiple OCs</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-label">Art Styles:</span>
+                                <span class="highlight-value">Various</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-label">Themes:</span>
+                                <span class="highlight-value">Fantasy, Modern, Sci-Fi</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="character-portrait">
+                        <div class="portrait-frame">
+                            <div class="image-placeholder">
+                                <span>OC Collection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-art">
+            <div class="container">
+                <h2 class="section-title">Latest Addition</h2>
+                <div class="peppermint-divider"></div>
+                <div id="recent-other-ocs" class="recent-container">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="character-showcase">
+            <div class="container">
+                <h2 class="section-title">Character Showcase</h2>
+                <div class="peppermint-divider"></div>
+                <p class="showcase-description">
+                    Meet some of the other original characters in the collection. 
+                    Each has their own distinct personality and visual design.
+                </p>
+                
+                <div class="character-grid">
+                    <div class="character-card">
+                        <div class="character-card-image">
+                            <div class="image-placeholder">Character 1</div>
+                        </div>
+                        <div class="character-card-info">
+                            <h3>Luna</h3>
+                            <p>Mysterious moon priestess with ethereal powers</p>
+                            <span class="character-tag">Fantasy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card">
+                        <div class="character-card-image">
+                            <div class="image-placeholder">Character 2</div>
+                        </div>
+                        <div class="character-card-info">
+                            <h3>Zara</h3>
+                            <p>Cyberpunk hacker from the neon-lit future</p>
+                            <span class="character-tag">Sci-Fi</span>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card">
+                        <div class="character-card-image">
+                            <div class="image-placeholder">Character 3</div>
+                        </div>
+                        <div class="character-card-info">
+                            <h3>Phoenix</h3>
+                            <p>Fire elemental warrior with a noble heart</p>
+                            <span class="character-tag">Fantasy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card">
+                        <div class="character-card-image">
+                            <div class="image-placeholder">Character 4</div>
+                        </div>
+                        <div class="character-card-info">
+                            <h3>Echo</h3>
+                            <p>Modern artist who sees the world differently</p>
+                            <span class="character-tag">Modern</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-tabs">
+                    <button class="tab-button active" data-tab="sfw">SFW Gallery</button>
+                    <button class="tab-button" data-tab="nsfw">NSFW Gallery</button>
+                    <button class="tab-button" data-tab="reference">Reference Sheets</button>
+                </div>
+
+                <div class="gallery-content">
+                    <!-- SFW Gallery -->
+                    <div id="sfw-gallery" class="gallery-tab active" data-gallery="sfw">
+                        <h3 class="gallery-title">Safe for Work Art</h3>
+                        <div class="gallery-grid">
+                            <!-- Images will be loaded dynamically -->
+                            <div class="gallery-item">
+                                <div class="image-placeholder">OC Art 1</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="image-placeholder">OC Art 2</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="image-placeholder">OC Art 3</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="image-placeholder">OC Art 4</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NSFW Gallery -->
+                    <div id="nsfw-gallery" class="gallery-tab" data-gallery="nsfw">
+                        <h3 class="gallery-title">Not Safe for Work Art</h3>
+                        <div class="nsfw-warning-banner">
+                            <p><strong>⚠️ Adult Content Warning:</strong> This section contains mature artwork. Click on blurred images to view.</p>
+                        </div>
+                        <div class="gallery-grid">
+                            <!-- NSFW images will be loaded dynamically with blur -->
+                            <div class="gallery-item nsfw-item">
+                                <div class="image-placeholder nsfw-blur">NSFW Art 1</div>
+                                <div class="nsfw-warning">NSFW Content<br>Click to View</div>
+                            </div>
+                            <div class="gallery-item nsfw-item">
+                                <div class="image-placeholder nsfw-blur">NSFW Art 2</div>
+                                <div class="nsfw-warning">NSFW Content<br>Click to View</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reference Gallery -->
+                    <div id="reference-gallery" class="gallery-tab" data-gallery="reference">
+                        <h3 class="gallery-title">Character References</h3>
+                        <div class="gallery-grid">
+                            <!-- Reference sheets will be loaded dynamically -->
+                            <div class="gallery-item">
+                                <div class="image-placeholder">Reference Sheet 1</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="image-placeholder">Reference Sheet 2</div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="image-placeholder">Reference Sheet 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="comments-section">
+            <div class="container">
+                <h2 class="section-title">Comments & Discussion</h2>
+                <div class="peppermint-divider"></div>
+                
+                <div class="comment-form-container">
+                    <form class="comment-form">
+                        <div class="form-group">
+                            <label for="comment-name">Name:</label>
+                            <input type="text" id="comment-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-email">Email (optional):</label>
+                            <input type="email" id="comment-email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-message">Comment:</label>
+                            <textarea id="comment-message" name="message" rows="4" required placeholder="Share your thoughts about the other OCs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                </div>
+
+                <div class="comments-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Axiom's Portfolio. All rights reserved.</p>
+                <div class="candy-cane-border"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script type="module" src="../js/firebase-config.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script>
+        // Initialize gallery for other OCs
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharacterGallery('other-ocs');
+        });
+    </script>
+</body>
+</html>

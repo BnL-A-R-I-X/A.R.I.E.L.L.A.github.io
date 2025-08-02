@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission Queue - Axiom's Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/commission-queue.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Axiom's Portfolio</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">OCs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="ocs/ariella.html" class="dropdown-link">Ariella</a></li>
+                        <li><a href="ocs/other-ocs.html" class="dropdown-link">Other OCs</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="commission-queue.html" class="nav-link active">Commission Queue</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin.html" class="nav-link">Admin</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="candy-decoration left"></div>
+                <div class="hero-text">
+                    <h1 class="hero-title">Commission Queue</h1>
+                    <p class="hero-subtitle">Upcoming Artworks & Projects</p>
+                </div>
+                <div class="candy-decoration right"></div>
+            </div>
+        </section>
+
+        <section class="queue-section">
+            <div class="container">
+                <div class="queue-header">
+                    <h2 class="section-title">Current Projects</h2>
+                    <div class="peppermint-divider"></div>
+                    <p class="queue-description">
+                        Here you can see all my upcoming artworks and their current status. 
+                        Each project goes through different stages from planning to completion.
+                    </p>
+                </div>
+
+                <div class="status-legend">
+                    <div class="legend-item">
+                        <span class="status-dot planning"></span>
+                        <span>Planning</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="status-dot in-progress"></span>
+                        <span>In Progress</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="status-dot completed"></span>
+                        <span>Completed</span>
+                    </div>
+                </div>
+
+                <div class="queue-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="planning">Planning</button>
+                    <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+
+                <div id="commission-list" class="commission-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="suggestions-section">
+            <div class="container">
+                <h2 class="section-title">Art Suggestions</h2>
+                <div class="peppermint-divider"></div>
+                <p class="section-description">
+                    Have an idea for artwork you'd like to see? Share your suggestions below! 
+                    Your ideas might inspire future projects.
+                </p>
+
+                <div class="suggestion-form-container">
+                    <form id="suggestion-form" class="suggestion-form">
+                        <div class="form-group">
+                            <label for="suggestion-name">Your Name:</label>
+                            <input type="text" id="suggestion-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion-email">Email (optional):</label>
+                            <input type="email" id="suggestion-email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion-title">Suggestion Title:</label>
+                            <input type="text" id="suggestion-title" name="title" required placeholder="Brief title for your idea">
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion-description">Description:</label>
+                            <textarea id="suggestion-description" name="description" rows="4" required placeholder="Describe your art suggestion in detail..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion-character">Preferred Character (if any):</label>
+                            <select id="suggestion-character" name="character">
+                                <option value="">No preference</option>
+                                <option value="ariella">Ariella</option>
+                                <option value="other">Other OC</option>
+                                <option value="original">Original Character</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Suggestion</button>
+                    </form>
+                </div>
+
+                <div class="suggestions-list">
+                    <h3>Recent Suggestions</h3>
+                    <div id="suggestions-display" class="suggestions-display">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="comments-section">
+            <div class="container">
+                <h2 class="section-title">Comments & Discussion</h2>
+                <div class="peppermint-divider"></div>
+                
+                <div class="comment-form-container">
+                    <form class="comment-form">
+                        <div class="form-group">
+                            <label for="comment-name">Name:</label>
+                            <input type="text" id="comment-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-email">Email (optional):</label>
+                            <input type="email" id="comment-email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment-message">Comment:</label>
+                            <textarea id="comment-message" name="message" rows="4" required placeholder="Share your thoughts about the commission queue..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                </div>
+
+                <div class="comments-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Axiom's Portfolio. All rights reserved.</p>
+                <div class="candy-cane-border"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
+    <script src="js/commission-queue.js"></script>
+</body>
+</html>

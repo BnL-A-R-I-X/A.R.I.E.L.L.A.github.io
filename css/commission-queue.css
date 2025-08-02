@@ -1,0 +1,487 @@
+/* Commission Queue Styles */
+
+.queue-section {
+    padding: 4rem 0;
+    background: var(--primary-white);
+}
+
+.queue-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.queue-description {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Status Legend */
+.status-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.status-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.planning {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+}
+
+.status-dot.in-progress {
+    background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+}
+
+.status-dot.completed {
+    background: linear-gradient(45deg, var(--mint-green), #10b981);
+}
+
+/* Queue Filters */
+.queue-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-white);
+    color: var(--text-dark);
+    border: 2px solid var(--primary-red);
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Fredoka', cursive;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: var(--light-pink);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--primary-red);
+    color: var(--primary-white);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+/* Commission List */
+.commission-list {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.commission-item {
+    background: var(--primary-white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    border-left: 5px solid var(--primary-red);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.commission-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--primary-red) 0px,
+        var(--primary-red) 10px,
+        var(--primary-white) 10px,
+        var(--primary-white) 20px,
+        var(--mint-green) 20px,
+        var(--mint-green) 30px
+    );
+    animation: candyStripe 2s linear infinite;
+}
+
+.commission-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.commission-item.planning {
+    border-left-color: #f59e0b;
+}
+
+.commission-item.in-progress {
+    border-left-color: #3b82f6;
+}
+
+.commission-item.completed {
+    border-left-color: var(--mint-green);
+}
+
+.commission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.commission-title {
+    color: var(--primary-red);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.commission-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--primary-white);
+    white-space: nowrap;
+}
+
+.commission-status.planning {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+}
+
+.commission-status.in-progress {
+    background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+}
+
+.commission-status.completed {
+    background: linear-gradient(45deg, var(--mint-green), #10b981);
+}
+
+.commission-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.commission-artist {
+    font-weight: 600;
+    color: var(--primary-red);
+}
+
+.commission-description {
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.commission-date {
+    text-align: right;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light-pink);
+}
+
+/* Suggestions Section */
+.suggestions-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--light-mint) 0%, var(--primary-white) 100%);
+}
+
+.section-description {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.suggestion-form-container {
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    background: var(--primary-white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+}
+
+.suggestion-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.suggestion-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+.suggestion-form input,
+.suggestion-form textarea,
+.suggestion-form select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--light-pink);
+    border-radius: 10px;
+    font-family: 'Fredoka', cursive;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.suggestion-form input:focus,
+.suggestion-form textarea:focus,
+.suggestion-form select:focus {
+    outline: none;
+    border-color: var(--primary-red);
+}
+
+.suggestion-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Suggestions Display */
+.suggestions-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.suggestions-list h3 {
+    text-align: center;
+    color: var(--primary-red);
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.suggestions-display {
+    display: grid;
+    gap: 1rem;
+}
+
+.suggestion-item {
+    background: var(--primary-white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 15px var(--shadow-color);
+    border-left: 3px solid var(--accent-pink);
+}
+
+.suggestion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.suggestion-title {
+    color: var(--primary-red);
+    font-weight: 600;
+    margin: 0;
+}
+
+.suggestion-author {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.suggestion-description {
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.suggestion-character {
+    display: inline-block;
+    background: var(--light-pink);
+    color: var(--primary-red);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.suggestion-date {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    text-align: right;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--light-pink);
+}
+
+/* Empty States */
+.no-commissions {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 3rem;
+    background: var(--light-pink);
+    border-radius: 15px;
+}
+
+.no-suggestions {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* Loading States */
+.commission-item.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 2s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Progress Bar (for in-progress items) */
+.commission-progress {
+    margin-top: 1rem;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--light-pink);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary-red), var(--accent-pink));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Comments Section Styling */
+.comments-section {
+    padding: 4rem 0;
+    background: var(--primary-white);
+}
+
+.comment-form-container {
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    background: var(--primary-white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .status-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .queue-filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        width: 200px;
+    }
+    
+    .commission-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .commission-status {
+        align-self: flex-start;
+    }
+    
+    .commission-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .suggestion-form-container,
+    .comment-form-container {
+        margin: 0 1rem 3rem 1rem;
+        padding: 1.5rem;
+    }
+    
+    .suggestion-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .suggestion-author {
+        align-self: flex-start;
+    }
+}
+
+/* Animation for new items */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.commission-item.new,
+.suggestion-item.new {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* Filter transition */
+.commission-item.filtering {
+    transition: all 0.3s ease;
+}
+
+.commission-item.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    margin: 0;
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+}
